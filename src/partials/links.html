@@ -1,0 +1,59 @@
+<section class="panel" id="links" aria-labelledby="links-title">
+  <header class="panel__head">
+    <h2 class="panel__title" id="links-title" x-text="linksTitle"></h2>
+  </header>
+
+  <a
+    class="hub-card"
+    :href="hub.href"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <div class="hub-card__glow" aria-hidden="true"></div>
+    <div class="hub-card__body">
+      <p class="hub-card__eyebrow" x-text="t.hub.eyebrow"></p>
+      <div class="hub-card__title-row">
+        <h3 class="hub-card__title" x-text="t.hub.title"></h3>
+        <span class="hub-card__handle" x-text="hub.handle"></span>
+      </div>
+      <p class="hub-card__blurb" x-text="t.hub.blurb"></p>
+      <p class="hub-card__cta">
+        <span x-text="t.hub.cta"></span>
+        <span aria-hidden="true"> →</span>
+      </p>
+    </div>
+  </a>
+
+  <div class="hub-platforms">
+    <p class="hub-platforms__label" x-text="t.hub.platformsLabel"></p>
+    <ul class="hub-platforms__list">
+      <template x-for="platform in hubPlatforms" :key="platform.id">
+        <li>
+          <a
+            class="hub-pill"
+            :href="hub.href"
+            rel="noopener noreferrer"
+            target="_blank"
+            x-text="platform.label"
+          ></a>
+        </li>
+      </template>
+    </ul>
+  </div>
+
+  <ul class="link-grid">
+    <template x-for="link in links" :key="link.id">
+      <li>
+        <a
+          class="link-card"
+          :href="link.href"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span class="link-card__label" x-text="link.label"></span>
+          <span class="link-card__hint" x-text="link.hint"></span>
+        </a>
+      </li>
+    </template>
+  </ul>
+</section>

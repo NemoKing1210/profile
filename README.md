@@ -1,63 +1,58 @@
 # Profile Landing
 
-Static personal profile page for **GitHub Pages** — no backend, no build step.
+Personal profile site for **GitHub Pages**, built with **Vite** + **Alpine.js**.
 
-Steam Store–inspired dark UI powered by **[Alpine.js](https://alpinejs.dev/)** (CDN): about, stack, projects, interests, and links.
+Steam Store–inspired dark UI. Source stays modular; production ships a bundled `dist/`.
 
-Owner: [NemoKing1210](https://github.com/NemoKing1210) (Кирилл).
+Owner: [NemoKing1210](https://github.com/NemoKing1210) (Кирилл).  
+Live (after Pages setup): https://nemoking1210.github.io/profile/
 
 ## Quick start
 
-1. Edit content in [`data/profile.js`](data/profile.js).
-2. Replace placeholders in [`assets/images/`](assets/images/) (`avatar.svg`, `banner.svg`, `favicon.svg`).
-3. Open [`index.html`](index.html) locally, or serve the folder:
-
 ```bash
-# Python
-python -m http.server 8080
-
-# Node (if installed)
-npx serve .
+npm install
+npm run dev      # local: http://localhost:5173/profile/
+npm run build    # → dist/
+npm run preview  # preview production build
 ```
-
-4. Push to a GitHub repo and enable **Pages** (Settings → Pages → Deploy from branch → `/` root).
-
-For a user site (`username.github.io`), push this repo’s default branch and Pages will serve `index.html` at the root.
 
 ## Customize
 
 | What | Where |
 |------|--------|
-| Name, bio, projects, links | `data/profile.js` |
-| Visual system | `css/styles.css`, `DESIGN.md` |
-| Markup + Alpine bindings | `index.html` |
-| Alpine component / reveal | `js/main.js` |
-
-Content is injected from `PROFILE` at runtime. Keep secrets out of this repo.
+| Name, bio, projects, links | `src/data/profile.js` + `src/i18n/locales/*` |
+| Translations (ru/en/es/de/zh) | `src/i18n/locales/` |
+| Section HTML blocks | `src/partials/*.html` |
+| Page shell / order of blocks | `index.html` (`{{> name }}`) |
+| Alpine component | `src/alpine/profile-page.js` |
+| Styles (split by section) | `src/styles/*.css` |
+| Static images | `public/assets/images/` |
+| Vite / Pages / Handlebars | `vite.config.js` |
 
 ## Structure
 
 ```
-├── index.html
-├── css/styles.css
-├── js/main.js
-├── data/profile.js
-├── assets/images/
-├── README.md
-├── DESIGN.md
-├── AGENTS.md
-├── CLAUDE.md
-└── CONTRIBUTING.md
+├── index.html                 # shell + {{> partial }}
+├── vite.config.js             # Vite + vite-plugin-handlebars
+├── package.json
+├── public/assets/images/
+├── src/
+│   ├── main.js
+│   ├── data/profile.js
+│   ├── alpine/
+│   ├── partials/              # topbar, hero, about, …
+│   └── styles/
+├── dist/
+└── .github/workflows/deploy.yml
 ```
 
 ## Deploy (GitHub Pages)
 
-1. Create a public repository (e.g. `username.github.io` or any repo with Pages enabled).
-2. Push this project.
-3. **Settings → Pages → Source:** Deploy from a branch → `main` → `/ (root)`.
-4. Wait for the Pages build; open the published URL.
+1. Push to `main` (workflow builds and publishes `dist`).
+2. Repo **Settings → Pages → Source:** **GitHub Actions** (not “Deploy from a branch”).
+3. Open https://nemoking1210.github.io/profile/
 
-Optional: custom domain via repo Settings → Pages → Custom domain.
+If the repo name changes, update `base` in `vite.config.js` to match (`/new-name/`).
 
 ## License
 

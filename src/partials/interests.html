@@ -1,0 +1,45 @@
+<section class="panel" id="interests" aria-labelledby="interests-title">
+  <header class="panel__head">
+    <h2
+      class="panel__title"
+      id="interests-title"
+      x-text="interests.title"
+    ></h2>
+  </header>
+  <div class="interests-grid">
+    <div class="stack-group">
+      <h3 class="stack-group__label" x-text="t.ui.hobbies"></h3>
+      <ul class="tag-list">
+        <template x-for="hobby in interests.hobbies" :key="hobby">
+          <li x-text="hobby"></li>
+        </template>
+      </ul>
+    </div>
+    <div class="stack-group">
+      <h3 class="stack-group__label" x-text="t.ui.gameGenres"></h3>
+      <ul class="tag-list">
+        <template x-for="genre in interests.gameGenres" :key="genre">
+          <li x-text="genre"></li>
+        </template>
+      </ul>
+    </div>
+  </div>
+
+  <a
+    class="media-note"
+    :href="letterboxd.href"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <div class="media-note__top">
+      <h3 class="media-note__title" x-text="t.letterboxd.title"></h3>
+      <p class="media-note__stat" x-text="letterboxdStat"></p>
+    </div>
+    <p class="media-note__label" x-text="t.letterboxd.favoritesLabel"></p>
+    <ul class="media-note__list">
+      <template x-for="film in letterboxd.favorites" :key="film">
+        <li x-text="film"></li>
+      </template>
+    </ul>
+  </a>
+</section>

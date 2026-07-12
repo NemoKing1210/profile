@@ -1,0 +1,42 @@
+<section class="hero" id="top" aria-labelledby="hero-name">
+  <div
+    class="hero__banner"
+    role="img"
+    :aria-label="`${name} — ${t.ui.bannerAlt}`"
+    :style="`background-image: url('${banner}')`"
+  ></div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <div class="hero__identity">
+      <img
+        class="hero__avatar"
+        :src="avatar"
+        :alt="`${name} — ${t.ui.avatarAlt}`"
+        width="128"
+        height="128"
+      />
+      <div class="hero__copy">
+        <p class="hero__role" x-text="role"></p>
+        <h1 class="hero__name" id="hero-name" x-text="name"></h1>
+        <p class="hero__handle" x-text="handle"></p>
+        <p class="hero__tagline" x-text="tagline"></p>
+        <div class="hero__meta">
+          <template x-for="chip in metaChips" :key="chip">
+            <span class="meta-chip" x-text="chip"></span>
+          </template>
+        </div>
+        <div class="hero__actions">
+          <template x-for="(link, index) in primaryLinks" :key="link.href">
+            <a
+              class="btn"
+              :class="index === 0 ? 'btn--primary' : 'btn--ghost'"
+              :href="link.href"
+              rel="noopener noreferrer"
+              x-text="link.label"
+            ></a>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

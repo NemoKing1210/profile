@@ -1,0 +1,42 @@
+<section class="panel" id="projects" aria-labelledby="projects-title">
+  <header class="panel__head panel__head--row">
+    <h2
+      class="panel__title"
+      id="projects-title"
+      x-text="projectsTitle"
+    ></h2>
+    <p class="panel__sub" x-text="t.ui.projectsSubtitle"></p>
+  </header>
+  <div class="project-shelf">
+    <template x-for="project in projects" :key="project.id">
+      <a
+        class="capsule"
+        :href="project.url"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div class="capsule__art" aria-hidden="true">
+          <span
+            class="capsule__glyph"
+            x-text="projectGlyph(project.title)"
+          ></span>
+        </div>
+        <div class="capsule__body">
+          <div class="capsule__top">
+            <h3 class="capsule__title" x-text="project.title"></h3>
+            <span
+              class="capsule__status"
+              x-text="project.statusLabel"
+            ></span>
+          </div>
+          <p class="capsule__blurb" x-text="project.blurb"></p>
+          <ul class="capsule__tags">
+            <template x-for="tag in project.tags" :key="tag">
+              <li x-text="tag"></li>
+            </template>
+          </ul>
+        </div>
+      </a>
+    </template>
+  </div>
+</section>

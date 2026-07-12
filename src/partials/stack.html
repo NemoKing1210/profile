@@ -1,0 +1,17 @@
+<section class="panel" id="stack" aria-labelledby="stack-title">
+  <header class="panel__head">
+    <h2 class="panel__title" id="stack-title" x-text="stack.title"></h2>
+  </header>
+  <div class="stack-grid">
+    <template x-for="group in stack.groups" :key="group.id">
+      <div class="stack-group">
+        <h3 class="stack-group__label" x-text="group.label"></h3>
+        <ul class="tag-list">
+          <template x-for="tech in group.items" :key="tech">
+            <li x-text="tech"></li>
+          </template>
+        </ul>
+      </div>
+    </template>
+  </div>
+</section>

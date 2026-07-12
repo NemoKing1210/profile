@@ -1,0 +1,23 @@
+:root {
+  --bg-deep: #0e1419;
+  --bg-header: #171a21;
+  --bg-store: #1b2838;
+  --bg-panel: #16202d;
+  --bg-elevated: #1e2a3a;
+  --bg-capsule: #233447;
+  --border-subtle: rgba(103, 193, 245, 0.12);
+  --border-strong: rgba(103, 193, 245, 0.28);
+  --accent: #66c0f4;
+  --accent-hot: #1a9fff;
+  --accent-green: #a4d007;
+  --text: #c7d5e0;
+  --text-muted: #8f98a0;
+  --text-bright: #ffffff;
+  --shadow-panel: 0 0 0 1px rgba(0, 0, 0, 0.35), 0 12px 40px rgba(0, 0, 0, 0.35);
+  --font-display: "Exo 2", "Segoe UI", sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+  --radius: 3px;
+  --max: 1100px;
+  --topbar-h: 52px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

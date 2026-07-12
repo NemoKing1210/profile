@@ -4,15 +4,15 @@ Thanks for helping improve this profile site.
 
 ## Ground rules
 
-- Keep the site **static** and GitHub Pages–friendly.
+- Keep the site **static** (Vite build → `dist/`) and GitHub Pages–friendly.
 - Discuss large visual or structural shifts against [`DESIGN.md`](DESIGN.md).
-- Prefer content changes in `data/profile.js` over hardcoding strings in HTML.
+- Prefer content changes in `src/data/profile.js` over hardcoding strings in HTML.
 
 ## Workflow
 
 1. Fork / branch from `main`.
-2. Make a focused change.
-3. Preview locally with any static server.
+2. `npm install` && `npm run dev`.
+3. Make a focused change; run `npm run build` before opening a PR.
 4. Open a PR with a short summary of *why*.
 
 ## Pull requests

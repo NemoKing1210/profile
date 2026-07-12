@@ -1,0 +1,10 @@
+<section class="panel" id="about" aria-labelledby="about-title">
+  <header class="panel__head">
+    <h2 class="panel__title" id="about-title" x-text="about.title"></h2>
+  </header>
+  <div class="panel__body prose">
+    <template x-for="(paragraph, index) in about.paragraphs" :key="index">
+      <p x-text="paragraph"></p>
+    </template>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<section class="panel" id="focus" aria-labelledby="focus-title">
+  <header class="panel__head">
+    <h2 class="panel__title" id="focus-title" x-text="focus.title"></h2>
+  </header>
+  <ul class="focus-list">
+    <template x-for="item in focus.items" :key="item.id">
+      <li class="focus-item">
+        <h3 class="focus-item__label" x-text="item.label"></h3>
+        <p class="focus-item__detail" x-text="item.detail"></p>
+      </li>
+    </template>
+  </ul>
+</section>

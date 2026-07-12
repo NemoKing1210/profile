@@ -10,7 +10,7 @@ Desktop.ini
 *.swo
 *~
 
-# Dependencies / build (if added later)
+# Dependencies / build
 node_modules/
 dist/
 .cache/

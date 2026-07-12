@@ -1,0 +1,30 @@
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__text" x-text="name"></span>
+    </a>
+    <nav class="nav" :aria-label="t.ui.navLabel">
+      <template x-for="item in nav" :key="item.href">
+        <a class="nav__link" :href="item.href" x-text="item.label"></a>
+      </template>
+    </nav>
+    <label class="lang-switch">
+      <span class="visually-hidden" x-text="t.ui.langLabel"></span>
+      <select
+        class="lang-switch__select"
+        :aria-label="t.ui.langLabel"
+        :value="locale"
+        @change="setLocale($event.target.value)"
+      >
+        <template x-for="option in localeList" :key="option.code">
+          <option :value="option.code" x-text="option.nativeName"></option>
+        </template>
+      </select>
+    </label>
+    <div class="topbar__status" x-show="status" x-cloak>
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text" x-text="status"></span>
+    </div>
+  </div>
+</header>

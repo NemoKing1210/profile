@@ -1,0 +1,52 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0.4;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero__banner,
+  .hero__identity,
+  .reveal {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .btn--primary:hover,
+  .capsule:hover {
+    transform: none;
+  }
+}

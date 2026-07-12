@@ -49,8 +49,8 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 │ panel: Фокус (3 columns)            │
 │ panel: Стек (tech groups)           │
 │ panel: Проекты (capsule shelf)      │
-│ panel: Интересы                     │
-│ panel: Ссылки                       │
+│ panel: Интересы + Letterboxd note   │
+│ panel: Ссылки (Linktree hub + grid) │
 ├─────────────────────────────────────┤
 │ footer                              │
 └─────────────────────────────────────┘
