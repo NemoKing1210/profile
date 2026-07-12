@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Кирилл — frontend-разработчик. Vue, Nuxt, TypeScript. Профиль, стек, проекты."
+    />
+    <meta name="theme-color" content="#171a21" />
+    <title>Кирилл · Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body x-data="profilePage" x-cloak>
+    <a class="skip-link" href="#main">К содержимому</a>
+
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="#top">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__text" x-text="name"></span>
+        </a>
+        <nav class="nav" aria-label="Основная навигация">
+          <template x-for="item in nav" :key="item.href">
+            <a class="nav__link" :href="item.href" x-text="item.label"></a>
+          </template>
+        </nav>
+        <div class="topbar__status" x-show="status" x-cloak>
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="status-text" x-text="status"></span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-name">
+        <div
+          class="hero__banner"
+          role="img"
+          :aria-label="`${name} — баннер`"
+          :style="`background-image: url('${banner}')`"
+        ></div>
+        <div class="hero__veil" aria-hidden="true"></div>
+        <div class="hero__inner">
+          <div class="hero__identity">
+            <img
+              class="hero__avatar"
+              :src="avatar"
+              :alt="`${name} — аватар`"
+              width="128"
+              height="128"
+            />
+            <div class="hero__copy">
+              <p class="hero__role" x-text="role"></p>
+              <h1 class="hero__name" id="hero-name" x-text="name"></h1>
+              <p class="hero__handle" x-text="handle"></p>
+              <p class="hero__tagline" x-text="tagline"></p>
+              <div class="hero__meta">
+                <template x-for="chip in metaChips" :key="chip">
+                  <span class="meta-chip" x-text="chip"></span>
+                </template>
+              </div>
+              <div class="hero__actions">
+                <template x-for="(link, index) in primaryLinks" :key="link.href">
+                  <a
+                    class="btn"
+                    :class="index === 0 ? 'btn--primary' : 'btn--ghost'"
+                    :href="link.href"
+                    rel="noopener noreferrer"
+                    x-text="link.label"
+                  ></a>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="store-shell">
+        <section class="panel" id="about" aria-labelledby="about-title">
+          <header class="panel__head">
+            <h2 class="panel__title" id="about-title" x-text="about.title"></h2>
+          </header>
+          <div class="panel__body prose">
+            <template x-for="(paragraph, index) in about.paragraphs" :key="index">
+              <p x-text="paragraph"></p>
+            </template>
+          </div>
+        </section>
+
+        <section class="panel" id="focus" aria-labelledby="focus-title">
+          <header class="panel__head">
+            <h2 class="panel__title" id="focus-title" x-text="focus.title"></h2>
+          </header>
+          <ul class="focus-list">
+            <template x-for="item in focus.items" :key="item.label">
+              <li class="focus-item">
+                <h3 class="focus-item__label" x-text="item.label"></h3>
+                <p class="focus-item__detail" x-text="item.detail"></p>
+              </li>
+            </template>
+          </ul>
+        </section>
+
+        <section class="panel" id="stack" aria-labelledby="stack-title">
+          <header class="panel__head">
+            <h2 class="panel__title" id="stack-title" x-text="stack.title"></h2>
+          </header>
+          <div class="stack-grid">
+            <template x-for="group in stack.groups" :key="group.label">
+              <div class="stack-group">
+                <h3 class="stack-group__label" x-text="group.label"></h3>
+                <ul class="tag-list">
+                  <template x-for="tech in group.items" :key="tech">
+                    <li x-text="tech"></li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+          </div>
+        </section>
+
+        <section class="panel" id="projects" aria-labelledby="projects-title">
+          <header class="panel__head panel__head--row">
+            <h2 class="panel__title" id="projects-title">Проекты</h2>
+            <p class="panel__sub">Библиотека — избранные репозитории</p>
+          </header>
+          <div class="project-shelf">
+            <template x-for="project in projects" :key="project.url">
+              <a
+                class="capsule"
+                :href="project.url"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div class="capsule__art" aria-hidden="true">
+                  <span
+                    class="capsule__glyph"
+                    x-text="projectGlyph(project.title)"
+                  ></span>
+                </div>
+                <div class="capsule__body">
+                  <div class="capsule__top">
+                    <h3 class="capsule__title" x-text="project.title"></h3>
+                    <span
+                      class="capsule__status"
+                      x-text="project.status"
+                    ></span>
+                  </div>
+                  <p class="capsule__blurb" x-text="project.blurb"></p>
+                  <ul class="capsule__tags">
+                    <template x-for="tag in project.tags" :key="tag">
+                      <li x-text="tag"></li>
+                    </template>
+                  </ul>
+                </div>
+              </a>
+            </template>
+          </div>
+        </section>
+
+        <section class="panel" id="interests" aria-labelledby="interests-title">
+          <header class="panel__head">
+            <h2
+              class="panel__title"
+              id="interests-title"
+              x-text="interests.title"
+            ></h2>
+          </header>
+          <div class="interests-grid">
+            <div class="stack-group">
+              <h3 class="stack-group__label">Хобби</h3>
+              <ul class="tag-list">
+                <template x-for="hobby in interests.hobbies" :key="hobby">
+                  <li x-text="hobby"></li>
+                </template>
+              </ul>
+            </div>
+            <div class="stack-group">
+              <h3 class="stack-group__label">Любимые жанры игр</h3>
+              <ul class="tag-list">
+                <template x-for="genre in interests.gameGenres" :key="genre">
+                  <li x-text="genre"></li>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="links" aria-labelledby="links-title">
+          <header class="panel__head">
+            <h2 class="panel__title" id="links-title">Ссылки</h2>
+          </header>
+          <ul class="link-grid">
+            <template x-for="link in links" :key="link.href">
+              <li>
+                <a
+                  class="link-card"
+                  :href="link.href"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span class="link-card__label" x-text="link.label"></span>
+                  <span class="link-card__hint" x-text="link.hint"></span>
+                </a>
+              </li>
+            </template>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <p class="footer__copy">
+          <span x-text="name"></span>
+          <span aria-hidden="true"> · </span>
+          <span>Static profile · GitHub Pages</span>
+        </p>
+        <a class="footer__top" href="#top">Наверх</a>
+      </div>
+    </footer>
+
+    <script src="data/profile.js"></script>
+    <script defer src="js/main.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+---
+description: Core project conventions for the static Steam-dark profile landing
+alwaysApply: true
+---
+
+# Profile landing conventions
+
+- Static site only: HTML + CSS + Alpine.js (CDN). No backend. No required build step.
+- Content lives in `data/profile.js` (`window.PROFILE`). Prefer editing that file for copy and links.
+- UI logic: `Alpine.data('profilePage')` in `js/main.js`; bind with Alpine directives in `index.html`.
+- Follow `DESIGN.md`: Steam dark palette (`#171a21` / `#1b2838` / `#66c0f4`), Exo 2 + Source Sans 3.
+- Page copy is Russian (`lang="ru"`).
+- Do not introduce purple/cream “AI portfolio” aesthetics or replace Alpine unless the user asks.
+- Preserve accessibility (skip link, focus-visible, reduced motion, x-cloak).
+- Keep GitHub Pages root deploy working (`index.html` at repo root).
