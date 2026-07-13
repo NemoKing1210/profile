@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.38.0] — 2026-07-13
+
+### Added
+
+- Hero physics: scroll inertia — bodies wake and get a velocity kick when the page scrolls (same direction as scroll; fades with hero visibility; ignores teleport jumps)
+
 ## [1.37.0] — 2026-07-13
 
 ### Changed

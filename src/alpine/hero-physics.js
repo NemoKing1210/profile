@@ -2,8 +2,17 @@ import Matter from "matter-js";
 import { localeFlagDataUrl } from "../data/locale-flags.js";
 import { techBalls } from "../data/tech-balls.js";
 
-const { Engine, World, Bodies, Body, Mouse, MouseConstraint, Runner, Events } =
-  Matter;
+const {
+  Engine,
+  World,
+  Bodies,
+  Body,
+  Mouse,
+  MouseConstraint,
+  Runner,
+  Events,
+  Sleeping,
+} = Matter;
 
 const WALL = 80;
 const RESTITUTION = 0.78;
@@ -16,6 +25,12 @@ const MAX_FLAG_SQUARES = 12;
 const AVATAR_SIZE_GROWTH = 1.5;
 const AVATAR_BASE_DENSITY = AI_DENSITY * 2.5;
 const MAX_BALLS = 28;
+/** Scroll px → Matter velocity scale (down scroll pushes bodies down). */
+const SCROLL_IMPULSE = 0.055;
+const SCROLL_MAX_VY = 14;
+const SCROLL_JUMP_PX = 240;
+const SCROLL_MIN_DELTA = 0.8;
+const SCROLL_SPIN = 0.018;
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -480,6 +495,57 @@ export function initHeroPhysics(container, options = {}) {
   const resizeObserver = new ResizeObserver(() => onResize());
   resizeObserver.observe(container);
 
+  let lastScrollY = window.scrollY;
+  let scrollRaf = 0;
+
+  const applyScrollInertia = () => {
+    scrollRaf = 0;
+    const y = window.scrollY;
+    const delta = y - lastScrollY;
+    lastScrollY = y;
+
+    if (Math.abs(delta) < SCROLL_MIN_DELTA) return;
+    // Ignore teleport jumps (infinite-scroll loop, programmatic scroll).
+    if (Math.abs(delta) > SCROLL_JUMP_PX) return;
+
+    const rect = container.getBoundingClientRect();
+    const viewH = window.innerHeight || 1;
+    if (rect.bottom <= 0 || rect.top >= viewH) return;
+
+    const visible =
+      Math.min(rect.bottom, viewH) - Math.max(rect.top, 0);
+    const visibility = Math.max(0, Math.min(1, visible / Math.max(1, rect.height)));
+    if (visibility <= 0.05) return;
+
+    let vy = delta * SCROLL_IMPULSE * visibility;
+    if (vy > SCROLL_MAX_VY) vy = SCROLL_MAX_VY;
+    else if (vy < -SCROLL_MAX_VY) vy = -SCROLL_MAX_VY;
+
+    const spin = Math.abs(vy) * SCROLL_SPIN;
+
+    for (const actor of actors) {
+      const body = actor.body;
+      if (!body) continue;
+      Sleeping.set(body, false);
+      Body.setVelocity(body, {
+        x: body.velocity.x + (Math.random() - 0.5) * Math.abs(vy) * 0.22,
+        y: body.velocity.y + vy,
+      });
+      Body.setAngularVelocity(
+        body,
+        body.angularVelocity + (Math.random() - 0.5) * spin,
+      );
+    }
+  };
+
+  const onScroll = () => {
+    if (!scrollRaf) {
+      scrollRaf = requestAnimationFrame(applyScrollInertia);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
   return {
     spawnAiSquare,
     spawnTechBall,
@@ -488,6 +554,8 @@ export function initHeroPhysics(container, options = {}) {
     destroy() {
       spawnTimers.forEach((id) => clearTimeout(id));
       resizeObserver.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
       Events.off(engine, "afterUpdate", afterUpdate);
       Events.off(mouseConstraint, "startdrag", onStartDrag);
       Events.off(mouseConstraint, "enddrag", onEndDrag);
