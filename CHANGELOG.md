@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.37.0] — 2026-07-13
+
+### Changed
+
+- About highlight badges: approach-focused set (frontend first, details, idea→UI, backend when needed, AI in the loop, remote) instead of stack/AI buzzword chips
+
 ## [1.36.0] — 2026-07-13
 
 ### Added

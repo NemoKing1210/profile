@@ -62,12 +62,11 @@ const profile = {
 
   /** Highlight badges in About (labels live in locales). */
   aboutBadges: [
-    { id: "craft", tone: "accent" },
-    { id: "vue", tone: "accent" },
-    { id: "ts", tone: "accent" },
-    { id: "backend", tone: "accent" },
+    { id: "frontend", tone: "accent" },
+    { id: "details", tone: "accent" },
+    { id: "ship", tone: "accent" },
+    { id: "backend", tone: "muted" },
     { id: "ai", tone: "hot" },
-    { id: "agents", tone: "hot" },
     { id: "remote", tone: "green" },
   ],
 
