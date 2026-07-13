@@ -23,6 +23,10 @@ import { initHeroPhysics } from "./hero-physics.js";
 import { initInfiniteScroll } from "./infinite-scroll.js";
 import { initReveal } from "./reveal.js";
 import { celebrateConfetti } from "./confetti.js";
+import {
+  minecraftMineMethods,
+  minecraftMineState,
+} from "./minecraft-mine.js";
 
 export function createProfilePage() {
   // Spread must not evaluate activity getters (object rest/spread calls them).
@@ -33,6 +37,7 @@ export function createProfilePage() {
       ACTIVITY_DAYS,
       ACTIVITY_MAX,
       ...aboutActivityState(),
+      ...minecraftMineState(),
       locale: DEFAULT_LOCALE,
       localeList,
       name: profile.name,
@@ -900,9 +905,13 @@ export function createProfilePage() {
       this._infiniteScroll?.destroy?.();
       this._infiniteScroll = null;
       this.destroyAboutActivity();
+      this.destroyMinecraftMine();
     },
     },
-    Object.getOwnPropertyDescriptors(aboutActivityMethods())
+    {
+      ...Object.getOwnPropertyDescriptors(aboutActivityMethods()),
+      ...Object.getOwnPropertyDescriptors(minecraftMineMethods()),
+    }
   );
 }
 

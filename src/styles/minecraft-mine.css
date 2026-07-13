@@ -1,0 +1,225 @@
+/* Minecraft pickaxe easter egg */
+
+html.mc-mine-mode,
+html.mc-mine-mode * {
+  cursor: none !important;
+}
+
+.mc-pickaxe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  /* Hotspot at the pick tip (upper-right of the JE1 sprite). */
+  margin-left: -40px;
+  margin-top: -10px;
+  will-change: transform;
+  filter: drop-shadow(0 1px 0 #0008);
+}
+
+.mc-pickaxe__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  transform-origin: 22% 78%;
+  transition: transform 0.08s linear;
+}
+
+.mc-pickaxe.is-swinging .mc-pickaxe__img {
+  transform: rotate(-48deg);
+}
+
+.mc-mine-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 5100;
+  max-width: min(92vw, 28rem);
+  padding: 0.65rem 1rem;
+  border: 2px solid #1b1b1b;
+  border-radius: 2px;
+  background: #c6c6c6;
+  color: #1b1b1b;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  box-shadow:
+    inset -2px -2px 0 #555,
+    inset 2px 2px 0 #fff,
+    0 8px 24px #0008;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.mc-mine-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Crack overlay — Minecraft destroy_stage textures */
+.mc-cracking {
+  position: relative !important;
+  isolation: isolate;
+}
+
+.mc-crack {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  /* JE1 destroy_stage: bright texels mark cracks → darken block underneath */
+  background-color: rgba(0, 0, 0, 0.52);
+  -webkit-mask-image: var(--mc-crack-mask);
+  mask-image: var(--mc-crack-mask);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.mc-cracking.mc-hit {
+  animation: mc-block-hit 0.12s steps(2, end);
+}
+
+.mc-cracking.mc-hit > .mc-crack {
+  animation: mc-crack-flash 0.12s steps(2, end);
+}
+
+.mc-mined {
+  animation: mc-block-break 0.42s var(--ease, ease) forwards;
+  pointer-events: none !important;
+  user-select: none;
+}
+
+.mc-mined > .mc-crack {
+  background-color: rgba(0, 0, 0, 0.72);
+}
+
+.mc-sparks,
+.mc-debris {
+  position: fixed;
+  z-index: 5200;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.mc-sparks__bit,
+.mc-debris__bit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 0;
+  image-rendering: pixelated;
+  box-shadow: 1px 1px 0 #0006;
+}
+
+.mc-sparks__bit {
+  width: 4px;
+  height: 4px;
+  animation: mc-spark 0.34s steps(4, end) forwards;
+}
+
+.mc-debris__bit {
+  animation: mc-debris-fly 0.75s steps(8, end) forwards;
+}
+
+@keyframes mc-block-hit {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(1px, 0);
+  }
+}
+
+@keyframes mc-crack-flash {
+  0%,
+  100% {
+    background-color: rgba(0, 0, 0, 0.52);
+  }
+  50% {
+    background-color: rgba(0, 0, 0, 0.78);
+  }
+}
+
+@keyframes mc-block-break {
+  0% {
+    opacity: 1;
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  35% {
+    opacity: 1;
+    filter: brightness(1.2);
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(0.6);
+    transform: scale(0.2);
+  }
+}
+
+@keyframes mc-spark {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+
+@keyframes mc-debris-fly {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), calc(var(--dy) + 56px)) rotate(var(--rot));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-pickaxe.is-swinging .mc-pickaxe__img {
+    transform: none;
+  }
+
+  .mc-cracking.mc-hit,
+  .mc-cracking.mc-hit > .mc-crack,
+  .mc-mined,
+  .mc-sparks__bit,
+  .mc-debris__bit {
+    animation: none !important;
+  }
+
+  .mc-mined {
+    opacity: 0;
+  }
+
+  .mc-mine-toast {
+    transition: none;
+  }
+}

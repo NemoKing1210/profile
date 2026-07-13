@@ -35,6 +35,7 @@ export default {
       "Du warst schon hier",
       "Nicht zurückschauen",
     ],
+    mineToast: "Spitzhacke bereit · LMT halten zum Abbauen · Esc zum Weglegen",
   },
   spoken: {
     ru: "Russisch",

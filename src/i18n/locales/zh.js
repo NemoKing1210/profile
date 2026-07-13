@@ -35,6 +35,7 @@ export default {
       "你来过这里",
       "别回头",
     ],
+    mineToast: "镐已就绪 · 按住左键破坏界面 · Esc 收起",
   },
   spoken: {
     ru: "俄语",

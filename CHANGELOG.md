@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.35.0] — 2026-07-13
+
+### Added
+
+- Minecraft cover easter egg: click the poster for a pickaxe cursor (JE1 diamond pickaxe sprite) and hold LMB to mine UI with destroy-stage crack overlays (Esc to exit)
+
 ## [1.34.1] — 2026-07-13
 
 ### Fixed

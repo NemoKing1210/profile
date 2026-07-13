@@ -157,6 +157,8 @@
             target="_blank"
             :aria-label="game.year ? `${game.title} (${game.year})` : game.title"
             :aria-describedby="game.tip ? `game-tip-${game.id}` : null"
+            :data-mc-activate="game.id === 'minecraft' || null"
+            @click="game.id === 'minecraft' && onMinecraftCoverClick($event)"
           >
             <span class="media-cover__frame">
               <img

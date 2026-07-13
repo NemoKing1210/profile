@@ -35,6 +35,7 @@ export default {
       "You’ve been here before",
       "Don’t look back",
     ],
+    mineToast: "Pickaxe ready · Hold LMB to mine UI · Esc to put away",
   },
   spoken: {
     ru: "Russian",

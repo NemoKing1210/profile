@@ -35,6 +35,7 @@ export default {
       "Ya estuviste aquí",
       "No mires atrás",
     ],
+    mineToast: "Pico listo · Mantén clic izq. para minar UI · Esc para guardar",
   },
   spoken: {
     ru: "Ruso",

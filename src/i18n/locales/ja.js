@@ -35,6 +35,7 @@ export default {
       "ここに来たことがある",
       "振り返るな",
     ],
+    mineToast: "ツルハシ装備 · 左クリック長押しで UI 破壊 · Esc でしまう",
   },
   spoken: {
     ru: "ロシア語",
