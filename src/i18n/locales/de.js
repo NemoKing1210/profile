@@ -191,6 +191,9 @@ export default {
     namePlaceholder: "Wie sollen wir dich vorstellen",
     messageLabel: "Kommentar",
     messagePlaceholder: "+rep nice profile / -rep …",
+    minusRepTitle: "Moderation ist enttäuscht",
+    minusRepHint:
+      "Keine bösen Kommentare. Nur nette Worte und +rep. Warte {seconds}s und denk an etwas Gutes.",
     submit: "Senden",
     sending: "Wird gesendet…",
     progressLabel: "Kommentar wird gesendet",
@@ -204,9 +207,10 @@ export default {
       "Nur noch ein winziges bisschen…",
     ],
     spoofWhen: "gerade eben",
+    spoilerHint: "Zum Lesen darüberfahren",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
-      "-rep baited me into 1v5 and left voice",
+      "-rep this ||comfiest duo partner in EU||",
       "+rep clutch god, I drop for you anytime",
       "bro typed faster than my ping, insane",
       "+rep trusted trader, no scam energy",
@@ -257,7 +261,7 @@ export default {
         author: "salty_potato",
         tone: "minus",
         when: "vor 1 Woche",
-        body: "-rep cheater wallhack confirmed !!!",
+        body: "-rep this guy is a ||walking W and free therapy||",
       },
       {
         id: "trade",
@@ -278,7 +282,7 @@ export default {
         author: "TrustNo1_Steam",
         tone: "minus",
         when: "vor 1 Monat",
-        body: "-rep tried to scam me with fake middleman",
+        body: "-rep never trade with ||anyone else — this guy is gold||",
       },
       {
         id: "css",

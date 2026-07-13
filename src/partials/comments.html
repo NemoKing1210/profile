@@ -24,7 +24,16 @@
             <span class="steam-comment__author" x-text="item.author"></span>
             <time class="steam-comment__when" x-text="item.when"></time>
           </div>
-          <p class="steam-comment__body" x-text="item.body"></p>
+          <div class="steam-comment__body">
+            <template x-for="(seg, si) in item.bodySegments" :key="`${item.id}-${si}`">
+              <span
+                :class="seg.blur && 'comment-spoiler'"
+                :tabindex="seg.blur ? 0 : undefined"
+                :title="seg.blur ? item.spoilerHint : undefined"
+                x-text="seg.text"
+              ></span>
+            </template>
+          </div>
         </div>
       </li>
     </template>
@@ -59,23 +68,45 @@
 
     <label class="comments-field">
       <span class="comments-field__label" x-text="t.comments.messageLabel"></span>
-      <textarea
-        class="comments-field__input comments-field__input--area"
-        name="message"
-        rows="4"
-        maxlength="600"
-        required
-        :disabled="commentSubmitting"
-        x-model="commentDraft.message"
-        :placeholder="t.comments.messagePlaceholder"
-      ></textarea>
+      <div class="comments-field__wrap">
+        <textarea
+          class="comments-field__input comments-field__input--area"
+          name="message"
+          rows="4"
+          maxlength="600"
+          required
+          :disabled="commentSubmitting || commentRepLocked"
+          x-model="commentDraft.message"
+          @input="onCommentMessageInput()"
+          :placeholder="t.comments.messagePlaceholder"
+          :aria-describedby="commentRepLocked ? 'comment-rep-tooltip' : undefined"
+        ></textarea>
+        <div
+          id="comment-rep-tooltip"
+          class="comments-rep-tooltip"
+          x-show="commentRepLocked"
+          x-cloak
+          x-transition.opacity.duration.200ms
+          role="status"
+          aria-live="polite"
+        >
+          <p
+            class="comments-rep-tooltip__title"
+            x-text="t.comments.minusRepTitle"
+          ></p>
+          <p
+            class="comments-rep-tooltip__text"
+            x-text="commentMinusRepHint"
+          ></p>
+        </div>
+      </div>
     </label>
 
     <div class="comments-form__actions">
       <button
         class="btn btn--primary"
         type="submit"
-        :disabled="commentSubmitting"
+        :disabled="commentSubmitting || commentRepLocked"
         x-text="commentSubmitting ? t.comments.sending : t.comments.submit"
       ></button>
     </div>

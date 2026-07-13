@@ -191,6 +191,9 @@ export default {
     namePlaceholder: "どう紹介しましょうか",
     messageLabel: "コメント",
     messagePlaceholder: "+rep nice profile / -rep …",
+    minusRepTitle: "モデレーションが不満",
+    minusRepHint:
+      "悪いコメントは禁止です。優しい言葉と +rep だけ。{seconds}秒待って、いいことを考えてね。",
     submit: "送信",
     sending: "送信中…",
     progressLabel: "コメントを送信中",
@@ -204,9 +207,10 @@ export default {
       "あとちょっと…",
     ],
     spoofWhen: "たった今",
+    spoilerHint: "ホバーで表示",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
-      "-rep baited me into 1v5 and left voice",
+      "-rep this ||comfiest duo partner in EU||",
       "+rep clutch god, I drop for you anytime",
       "bro typed faster than my ping, insane",
       "+rep trusted trader, no scam energy",
@@ -257,7 +261,7 @@ export default {
         author: "salty_potato",
         tone: "minus",
         when: "1 週間前",
-        body: "-rep cheater wallhack confirmed !!!",
+        body: "-rep this guy is a ||walking W and free therapy||",
       },
       {
         id: "trade",
@@ -278,7 +282,7 @@ export default {
         author: "TrustNo1_Steam",
         tone: "minus",
         when: "1 ヶ月前",
-        body: "-rep tried to scam me with fake middleman",
+        body: "-rep never trade with ||anyone else — this guy is gold||",
       },
       {
         id: "css",

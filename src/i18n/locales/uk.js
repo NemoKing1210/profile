@@ -191,6 +191,9 @@ export default {
     namePlaceholder: "Як вас представити",
     messageLabel: "Коментар",
     messagePlaceholder: "+rep nice profile / -rep …",
+    minusRepTitle: "Модерація незадоволена",
+    minusRepHint:
+      "Погані коментарі залишати не можна. Лише добрі слова і +rep. Посиди {seconds} сек і подумай про хороше.",
     submit: "Надіслати",
     sending: "Надсилання…",
     progressLabel: "Надсилання коментаря",
@@ -204,9 +207,10 @@ export default {
       "Ще зовсім трохи…",
     ],
     spoofWhen: "щойно",
+    spoilerHint: "Наведи, щоб прочитати",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
-      "-rep baited me into 1v5 and left voice",
+      "-rep this ||comfiest duo partner in EU||",
       "+rep clutch god, I drop for you anytime",
       "bro typed faster than my ping, insane",
       "+rep trusted trader, no scam energy",
@@ -257,7 +261,7 @@ export default {
         author: "salty_potato",
         tone: "minus",
         when: "1 тиждень тому",
-        body: "-rep cheater wallhack confirmed !!!",
+        body: "-rep this guy is a ||walking W and free therapy||",
       },
       {
         id: "trade",
@@ -278,7 +282,7 @@ export default {
         author: "TrustNo1_Steam",
         tone: "minus",
         when: "1 місяць тому",
-        body: "-rep tried to scam me with fake middleman",
+        body: "-rep never trade with ||anyone else — this guy is gold||",
       },
       {
         id: "css",

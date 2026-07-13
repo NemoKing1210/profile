@@ -30,6 +30,9 @@ export function createProfilePage() {
     commentProgress: 0,
     commentWaitTaunt: "",
     commentFinale: false,
+    commentRepLocked: false,
+    commentRepLockLeft: 0,
+    commentRepStrikes: 0,
     liveComments: [],
     navOpen: false,
     themeJokeOpen: false,
@@ -72,18 +75,23 @@ export function createProfilePage() {
 
     get commentFeed() {
       const spoofWhen = this.t.comments?.spoofWhen || "";
+      const spoilerHint = this.t.comments?.spoilerHint || "";
       const live = (this.liveComments || []).map((item) => ({
         ...item,
         when: spoofWhen,
         tone: item.tone || "neutral",
         initials: commentInitials(item.author),
         avatarColor: commentAvatarColor(item.author),
+        bodySegments: parseCommentBody(item.body),
+        spoilerHint,
       }));
       const base = (this.t.comments?.feed || []).map((item) => ({
         ...item,
         tone: item.tone || "neutral",
         initials: commentInitials(item.author),
         avatarColor: commentAvatarColor(item.author),
+        bodySegments: parseCommentBody(item.body),
+        spoilerHint,
       }));
       return [...live, ...base];
     },
@@ -93,6 +101,11 @@ export function createProfilePage() {
       const template =
         this.t.comments?.countLabel || "{count}";
       return template.replace("{count}", String(count));
+    },
+
+    get commentMinusRepHint() {
+      const template = this.t.comments?.minusRepHint || "";
+      return template.replace("{seconds}", String(this.commentRepLockLeft));
     },
 
     get pageTitle() {
@@ -450,7 +463,7 @@ export function createProfilePage() {
     },
 
     submitComment() {
-      if (this.commentSubmitting) return;
+      if (this.commentSubmitting || this.commentRepLocked) return;
       this.commentFinale = false;
       this.commentWaitTaunt = "";
       this.commentSubmitting = true;
@@ -460,6 +473,44 @@ export function createProfilePage() {
       this._stopConfetti?.();
       this._stopConfetti = null;
       this._startCommentProgress();
+    },
+
+    onCommentMessageInput() {
+      if (this.commentRepLocked || this.commentSubmitting) return;
+
+      const message = this.commentDraft.message;
+      if (!/^\s*-rep\b/i.test(message)) return;
+
+      this.commentDraft.message = message.replace(/^\s*-rep\b\s*/i, "");
+      this._lockMinusRep();
+    },
+
+    _lockMinusRep() {
+      if (this._commentRepTick != null) {
+        window.clearInterval(this._commentRepTick);
+        this._commentRepTick = null;
+      }
+
+      const duration = 10 * 2 ** this.commentRepStrikes;
+      this.commentRepStrikes += 1;
+      this.commentRepLocked = true;
+      this.commentRepLockLeft = duration;
+
+      this._commentRepTick = window.setInterval(() => {
+        this.commentRepLockLeft = Math.max(0, this.commentRepLockLeft - 1);
+        if (this.commentRepLockLeft <= 0) {
+          this._clearMinusRepLock();
+        }
+      }, 1000);
+    },
+
+    _clearMinusRepLock() {
+      if (this._commentRepTick != null) {
+        window.clearInterval(this._commentRepTick);
+        this._commentRepTick = null;
+      }
+      this.commentRepLocked = false;
+      this.commentRepLockLeft = 0;
     },
 
     _startCommentProgress() {
@@ -611,6 +662,7 @@ export function createProfilePage() {
       this.themeJokeOpen = false;
       this.themeSith = false;
       this._stopCommentProgress();
+      this._clearMinusRepLock();
       this._stopConfetti?.();
       this._stopConfetti = null;
       this._heroPhysics?.destroy?.();
@@ -626,10 +678,36 @@ function prefersReducedMotion() {
 }
 
 function spoofToneFromBody(body) {
-  const text = String(body || "").trim().toLowerCase();
+  const text = String(body || "")
+    .replace(/\|\|.+?\|\|/g, " ")
+    .trim()
+    .toLowerCase();
   if (text.startsWith("+rep")) return "plus";
   if (text.startsWith("-rep")) return "minus";
   return "neutral";
+}
+
+/** Split `||spoiler||` markers into plain / blurred segments. */
+function parseCommentBody(body) {
+  const text = String(body || "");
+  const segments = [];
+  const re = /\|\|(.+?)\|\|/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = re.exec(text))) {
+    if (match.index > lastIndex) {
+      segments.push({ text: text.slice(lastIndex, match.index) });
+    }
+    segments.push({ text: match[1], blur: true });
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    segments.push({ text: text.slice(lastIndex) });
+  }
+
+  return segments.length ? segments : [{ text }];
 }
 
 function mangleNickname(name) {

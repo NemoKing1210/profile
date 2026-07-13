@@ -14,6 +14,24 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.27.1] — 2026-07-13
+
+### Changed
+
+- Repeated `-rep` attempts double the joke lock (10s → 20s → 40s …)
+
+## [1.27.0] — 2026-07-13
+
+### Added
+
+- Typing `-rep` in the comment form shows a joke moderation tooltip and locks the input for 10s
+
+## [1.26.0] — 2026-07-13
+
+### Added
+
+- Fake `-rep` comments blur bait words that look like insults until hover (actually praise)
+
 ## [1.25.3] — 2026-07-13
 
 ### Fixed
