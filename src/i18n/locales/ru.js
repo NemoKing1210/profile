@@ -15,6 +15,7 @@ export default {
     birthPrefix: "г.р.",
     bannerAlt: "баннер",
     avatarAlt: "аватар",
+    spawnAvatar: "Добавить аватар в hero",
     hobbies: "Хобби",
     gameGenres: "Любимые жанры игр",
     projectsSubtitle: "Библиотека — избранные репозитории",

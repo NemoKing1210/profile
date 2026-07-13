@@ -261,6 +261,13 @@ export function createProfilePage() {
       this.scrollToHero();
     },
 
+    spawnAvatarSquare() {
+      this._heroPhysics?.spawnAvatarSquare?.({
+        src: this.avatar,
+        label: this.name,
+      });
+    },
+
     spawnTechLabel(tech) {
       return (this.t.stack.spawnTech || this.t.about.spawnTool || "{name}").replace(
         "{name}",

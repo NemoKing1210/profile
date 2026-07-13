@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.11.1] — 2026-07-13
+
+### Changed
+
+- Avatar physics square is 5× heavier than before (~10× a normal AI square)
+
+## [1.11.0] — 2026-07-13
+
+### Added
+
+- Clicking the hero avatar spawns a 2× larger, 2× heavier physics square with the same photo
+
 ## [1.10.0] — 2026-07-13
 
 ### Added

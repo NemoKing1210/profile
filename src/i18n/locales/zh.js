@@ -15,6 +15,7 @@ export default {
     birthPrefix: "生于",
     bannerAlt: "横幅",
     avatarAlt: "头像",
+    spawnAvatar: "将头像添加到 Hero",
     hobbies: "爱好",
     gameGenres: "喜欢的游戏类型",
     projectsSubtitle: "资料库 — 精选仓库",

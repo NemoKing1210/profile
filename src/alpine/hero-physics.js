@@ -8,7 +8,9 @@ const WALL = 80;
 const RESTITUTION = 0.78;
 const FRICTION = 0.05;
 const FRICTION_AIR = 0.01;
+const AI_DENSITY = 0.0022;
 const MAX_AI_SQUARES = 16;
+const MAX_AVATAR_SQUARES = 4;
 const MAX_BALLS = 28;
 
 function prefersReducedMotion() {
@@ -64,6 +66,18 @@ function createAiSquareEl(tool, size) {
   return el;
 }
 
+function createAvatarSquareEl(src, size, label) {
+  const el = document.createElement("div");
+  el.className = "hero-ai hero-ai--avatar";
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
+  el.innerHTML = `<img class="hero-ai__img hero-ai__img--avatar" src="${src}" alt="" width="128" height="128" decoding="async" draggable="false" />`;
+  if (label) el.title = label;
+  el.setAttribute("aria-hidden", "true");
+  el.dataset.avatar = "1";
+  return el;
+}
+
 function syncActorEl(el, body, half) {
   const { x, y } = body.position;
   el.style.transform = `translate3d(${x - half}px, ${y - half}px, 0) rotate(${body.angle}rad)`;
@@ -96,11 +110,18 @@ function placeStatic(container, items, radius) {
 /**
  * Interactive physics layer in the hero.
  * @param {HTMLElement} container
- * @returns {{ spawnAiSquare: (tool: object) => void, destroy: () => void }}
+ * @returns {{
+ *   spawnAiSquare: (tool: object) => void,
+ *   spawnTechBall: (ball: object) => void,
+ *   spawnAvatarSquare: (opts: { src: string, label?: string }) => void,
+ *   destroy: () => void
+ * }}
  */
 export function initHeroPhysics(container) {
   const noop = {
     spawnAiSquare() {},
+    spawnTechBall() {},
+    spawnAvatarSquare() {},
     destroy() {},
   };
 
@@ -139,6 +160,18 @@ export function initHeroPhysics(container) {
     actors.push({ el, half, kind: "ai" });
   };
 
+  const placeStaticAvatar = ({ src, label }) => {
+    const size = aiSize * 2;
+    const el = createAvatarSquareEl(src, size, label);
+    el.classList.add("hero-ai--static");
+    const half = size / 2;
+    const x = width * 0.4 + Math.random() * Math.max(20, width * 0.4 - size);
+    const y = height - size - 16 - Math.random() * 24;
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    container.appendChild(el);
+    actors.push({ el, half, kind: "avatar" });
+  };
+
   if (prefersReducedMotion()) {
     placeStatic(container, items, radius);
     return {
@@ -156,6 +189,10 @@ export function initHeroPhysics(container) {
         el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         container.appendChild(el);
         actors.push({ el, half: radius, kind: "ball" });
+      },
+      spawnAvatarSquare(opts) {
+        if (!opts?.src) return;
+        placeStaticAvatar(opts);
       },
       destroy() {
         container.replaceChildren();
@@ -272,7 +309,7 @@ export function initHeroPhysics(container) {
       restitution: 0.55,
       friction: 0.12,
       frictionAir: FRICTION_AIR,
-      density: 0.0022,
+      density: AI_DENSITY,
       chamfer: { radius: 12 },
       label: `ai-${tool.id}`,
       sleepThreshold: 45,
@@ -284,6 +321,44 @@ export function initHeroPhysics(container) {
     });
     World.add(world, body);
     actors.push({ body, el, half, kind: "ai" });
+    syncActorEl(el, body, half);
+  };
+
+  /** 2× size of AI squares; mass ≈ 10× a normal AI square (2× then ×5). */
+  const spawnAvatarSquare = ({ src, label } = {}) => {
+    if (!src) return;
+
+    const existing = actors.filter((a) => a.kind === "avatar");
+    if (existing.length >= MAX_AVATAR_SQUARES) {
+      removeActor(existing[0]);
+    }
+
+    const size = aiSize * 2;
+    const half = size / 2;
+    const el = createAvatarSquareEl(src, size, label);
+    container.appendChild(el);
+
+    const leftPad = narrow ? half + 16 : width * 0.28;
+    const span = Math.max(40, width - leftPad - half - 24);
+    const x = leftPad + Math.random() * span;
+    const y = -half - 40 - Math.random() * 60;
+    const body = Bodies.rectangle(x, y, size, size, {
+      restitution: 0.42,
+      friction: 0.16,
+      frictionAir: FRICTION_AIR,
+      // mass ∝ density × area; area is 4× → density × 2.5 yields ~10× mass
+      density: AI_DENSITY * 2.5,
+      chamfer: { radius: 16 },
+      label: "avatar",
+      sleepThreshold: 50,
+    });
+    Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.1);
+    Body.setVelocity(body, {
+      x: (Math.random() - 0.5) * 2.2,
+      y: 1.5 + Math.random() * 1.5,
+    });
+    World.add(world, body);
+    actors.push({ body, el, half, kind: "avatar" });
     syncActorEl(el, body, half);
   };
 
@@ -314,6 +389,7 @@ export function initHeroPhysics(container) {
   return {
     spawnAiSquare,
     spawnTechBall,
+    spawnAvatarSquare,
     destroy() {
       spawnTimers.forEach((id) => clearTimeout(id));
       resizeObserver.disconnect();

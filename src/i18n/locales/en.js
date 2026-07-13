@@ -15,6 +15,7 @@ export default {
     birthPrefix: "b.",
     bannerAlt: "banner",
     avatarAlt: "avatar",
+    spawnAvatar: "Add avatar to hero",
     hobbies: "Hobbies",
     gameGenres: "Favorite game genres",
     projectsSubtitle: "Library — featured repositories",
