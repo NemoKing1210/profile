@@ -158,7 +158,7 @@ export default {
     submit: "Enviar",
     sending: "Enviando…",
     progressLabel: "Enviando comentario",
-    progressHint: "Un poquito más… casi… casi…",
+    finaleTitle: "Error del servidor",
     progressStatuses: [
       "Conectando al servidor…",
       "Revisando la ortografía…",
@@ -166,6 +166,40 @@ export default {
       "Esperando al backend…",
       "Casi listo…",
       "Solo un poquito más…",
+    ],
+    spoofWhen: "ahora mismo",
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep baited me into 1v5 and left voice",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "¿Sigues aquí…?" },
+      {
+        at: 45,
+        text: "No creo que tu comentario pase la moderación…",
+      },
+      { at: 60, text: "Parece que queda muy poquito…" },
+      { at: 75, text: "Eres paciente: sigue esperando, sigue esperando…" },
+      {
+        at: 90,
+        text: "Nuestro servidor es lento y hay mucha gente, perdona…",
+      },
+      {
+        at: 105,
+        text: "Ampliamos los servidores: tu petición casi está lista…",
+      },
+      {
+        at: 120,
+        text: "Espero que la radiación solar no afecte a tu comentario…",
+      },
+      { at: 135, text: "Ya estoy leyendo los bytes de tu comentario…" },
+      {
+        at: 150,
+        text: "Error en el servidor. Motivo: no tenemos servidor :( Pero qué crack por seguir aquí — toma confeti. Puedes intentarlo otra vez; quizás para entonces ya tenga un servidor, y de todas formas te llevas confeti :)",
+      },
     ],
     feed: [
       {

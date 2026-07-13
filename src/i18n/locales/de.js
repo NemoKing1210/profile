@@ -158,7 +158,7 @@ export default {
     submit: "Senden",
     sending: "Wird gesendet…",
     progressLabel: "Kommentar wird gesendet",
-    progressHint: "Noch ein bisschen… fast… fast…",
+    finaleTitle: "Serverfehler",
     progressStatuses: [
       "Verbinde mit dem Server…",
       "Prüfe die Rechtschreibung…",
@@ -166,6 +166,40 @@ export default {
       "Warte aufs Backend…",
       "Gleich fertig…",
       "Nur noch ein winziges bisschen…",
+    ],
+    spoofWhen: "gerade eben",
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep baited me into 1v5 and left voice",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "Immer noch da…?" },
+      {
+        at: 45,
+        text: "Ich glaube nicht, dass dein Kommentar durch die Moderation kommt…",
+      },
+      { at: 60, text: "Sieht aus, als wäre es gleich soweit…" },
+      { at: 75, text: "Du bist geduldig — warte weiter, warte weiter…" },
+      {
+        at: 90,
+        text: "Unser Server ist langsam und es gibt viele Besucher, Entschuldigung…",
+      },
+      {
+        at: 105,
+        text: "Wir haben die Server hochskaliert — deine Anfrage ist fast fertig…",
+      },
+      {
+        at: 120,
+        text: "Hoffentlich beeinflusst Sonnenstrahlung deinen Kommentar nicht…",
+      },
+      { at: 135, text: "Ich lese schon die Bytes deines Kommentars…" },
+      {
+        at: 150,
+        text: "Serverfehler. Grund: wir haben keinen Server :( Aber stark, dass du noch da bist — hier, Konfetti. Du kannst es noch einmal versuchen; vielleicht habe ich bis dahin einen Server — Konfetti gibt es trotzdem :)",
+      },
     ],
     feed: [
       {

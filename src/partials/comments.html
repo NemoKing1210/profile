@@ -6,7 +6,13 @@
 
   <ul class="comment-wall" :aria-label="t.comments.wallLabel">
     <template x-for="item in commentFeed" :key="item.id">
-      <li class="steam-comment" :class="`steam-comment--${item.tone}`">
+      <li
+        class="steam-comment"
+        :class="[
+          `steam-comment--${item.tone}`,
+          item.live && 'steam-comment--live',
+        ]"
+      >
         <div
           class="steam-comment__avatar"
           :style="`background: ${item.avatarColor}`"
@@ -76,7 +82,7 @@
 
     <div
       class="comments-progress"
-      x-show="commentSubmitting"
+      x-show="commentSubmitting && !commentFinale"
       x-cloak
       role="progressbar"
       :aria-valuenow="Math.floor(commentProgress)"
@@ -97,7 +103,16 @@
           :style="`width: ${commentProgress}%`"
         ></div>
       </div>
-      <p class="comments-progress__hint" x-text="t.comments.progressHint"></p>
+    </div>
+
+    <div
+      class="comments-finale"
+      x-show="commentFinale"
+      x-cloak
+      role="status"
+    >
+      <p class="comments-finale__title" x-text="t.comments.finaleTitle"></p>
+      <p class="comments-finale__body" x-text="commentWaitTaunt"></p>
     </div>
   </form>
 </section>

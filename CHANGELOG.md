@@ -14,6 +14,30 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.10.0] — 2026-07-13
+
+### Added
+
+- At ~75% fake send progress, inject a live Steam-style comment with a half-mangled nickname and a random spoof body
+
+## [1.9.2] — 2026-07-13
+
+### Changed
+
+- Proofread comment wait/finale copy across locales; fake wall comments stay in English on purpose
+
+## [1.9.1] — 2026-07-13
+
+### Changed
+
+- Comment wait taunts start at 30s with 15s gaps; updated finale copy; removed progress hint under the bar
+
+## [1.9.0] — 2026-07-13
+
+### Added
+
+- Timed joke taunts during fake comment send (60–300s), finale “no server” error, and 10s `canvas-confetti` celebration
+
 ## [1.8.0] — 2026-07-13
 
 ### Added

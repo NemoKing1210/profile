@@ -12,6 +12,7 @@ import {
 } from "../i18n/index.js";
 import { initHeroPhysics } from "./hero-physics.js";
 import { initReveal } from "./reveal.js";
+import { celebrateConfetti } from "./confetti.js";
 
 export function createProfilePage() {
   return {
@@ -26,13 +27,22 @@ export function createProfilePage() {
     commentDraft: { name: "", message: "" },
     commentSubmitting: false,
     commentProgress: 0,
+    commentWaitTaunt: "",
+    commentFinale: false,
+    liveComments: [],
+    _spoofInjected: false,
     _commentTimer: null,
+    _commentWaitTimer: null,
+    _commentStartedAt: 0,
+    _stopConfetti: null,
 
     get t() {
       return locales[this.locale] || locales[DEFAULT_LOCALE];
     },
 
     get commentProgressStatus() {
+      if (this.commentWaitTaunt) return this.commentWaitTaunt;
+
       const statuses = this.t.comments?.progressStatuses || [];
       if (!statuses.length) return "";
       const idx = Math.min(
@@ -43,12 +53,21 @@ export function createProfilePage() {
     },
 
     get commentFeed() {
-      return (this.t.comments?.feed || []).map((item) => ({
+      const spoofWhen = this.t.comments?.spoofWhen || "";
+      const live = (this.liveComments || []).map((item) => ({
+        ...item,
+        when: spoofWhen,
+        tone: item.tone || "neutral",
+        initials: commentInitials(item.author),
+        avatarColor: commentAvatarColor(item.author),
+      }));
+      const base = (this.t.comments?.feed || []).map((item) => ({
         ...item,
         tone: item.tone || "neutral",
         initials: commentInitials(item.author),
         avatarColor: commentAvatarColor(item.author),
       }));
+      return [...live, ...base];
     },
 
     get commentsCountLabel() {
@@ -265,8 +284,14 @@ export function createProfilePage() {
 
     submitComment() {
       if (this.commentSubmitting) return;
+      this.commentFinale = false;
+      this.commentWaitTaunt = "";
       this.commentSubmitting = true;
       this.commentProgress = 0;
+      this._spoofInjected = false;
+      this._commentStartedAt = Date.now();
+      this._stopConfetti?.();
+      this._stopConfetti = null;
       this._startCommentProgress();
     },
 
@@ -274,10 +299,16 @@ export function createProfilePage() {
       this._stopCommentProgress();
 
       const tick = () => {
+        if (this.commentFinale) return;
+
         const remaining = 99.7 - this.commentProgress;
         // Each step takes a shrinking share of what's left — never finishes.
         const step = Math.max(remaining * 0.065, 0.004);
         this.commentProgress = Math.min(this.commentProgress + step, 99.7);
+
+        if (this.commentProgress >= 75 && !this._spoofInjected) {
+          this._injectSpoofComment();
+        }
 
         // Delay grows sharply near the end (joke infinite load).
         const closeness = this.commentProgress / 100;
@@ -286,12 +317,87 @@ export function createProfilePage() {
       };
 
       this._commentTimer = window.setTimeout(tick, 180);
+      this._commentWaitTimer = window.setInterval(() => {
+        this._syncCommentWaitTaunt();
+      }, 250);
+    },
+
+    _injectSpoofComment() {
+      if (this._spoofInjected) return;
+      this._spoofInjected = true;
+
+      const bodies = this.t.comments?.spoofBodies || [];
+      const pick =
+        bodies[Math.floor(Math.random() * bodies.length)] ||
+        "+rep nice try";
+      const body = typeof pick === "string" ? pick : pick.body;
+      const tone =
+        (typeof pick === "object" && pick.tone) ||
+        spoofToneFromBody(body);
+
+      this.liveComments = [
+        {
+          id: `spoof-${Date.now()}`,
+          author: mangleNickname(this.commentDraft.name),
+          body,
+          tone,
+          live: true,
+        },
+        ...this.liveComments,
+      ];
+
+      this.$nextTick(() => {
+        document
+          .getElementById("comments")
+          ?.querySelector(".steam-comment--live")
+          ?.scrollIntoView({
+            behavior: prefersReducedMotion() ? "auto" : "smooth",
+            block: "nearest",
+          });
+      });
+    },
+
+    _syncCommentWaitTaunt() {
+      if (!this.commentSubmitting || this.commentFinale) return;
+
+      const elapsedSec = (Date.now() - this._commentStartedAt) / 1000;
+      const taunts = this.t.comments?.waitTaunts || [];
+      let active = null;
+
+      for (const taunt of taunts) {
+        if (elapsedSec >= taunt.at) active = taunt;
+      }
+
+      if (active) this.commentWaitTaunt = active.text;
+
+      const finaleAt = taunts[taunts.length - 1]?.at ?? 150;
+      if (elapsedSec >= finaleAt) {
+        this._finishCommentJoke();
+      }
+    },
+
+    _finishCommentJoke() {
+      if (this.commentFinale) return;
+
+      const taunts = this.t.comments?.waitTaunts || [];
+      const finale = taunts[taunts.length - 1];
+      this.commentWaitTaunt = finale?.text || "";
+      this.commentFinale = true;
+      this.commentProgress = 99.7;
+      this.commentSubmitting = false;
+      this._stopCommentProgress();
+      this._stopConfetti?.();
+      this._stopConfetti = celebrateConfetti(10_000);
     },
 
     _stopCommentProgress() {
       if (this._commentTimer != null) {
         window.clearTimeout(this._commentTimer);
         this._commentTimer = null;
+      }
+      if (this._commentWaitTimer != null) {
+        window.clearInterval(this._commentWaitTimer);
+        this._commentWaitTimer = null;
       }
     },
 
@@ -305,6 +411,8 @@ export function createProfilePage() {
 
     destroy() {
       this._stopCommentProgress();
+      this._stopConfetti?.();
+      this._stopConfetti = null;
       this._heroPhysics?.destroy?.();
       this._heroPhysics = null;
     },
@@ -313,6 +421,61 @@ export function createProfilePage() {
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function spoofToneFromBody(body) {
+  const text = String(body || "").trim().toLowerCase();
+  if (text.startsWith("+rep")) return "plus";
+  if (text.startsWith("-rep")) return "minus";
+  return "neutral";
+}
+
+function mangleNickname(name) {
+  const base = String(name || "").trim() || "anon";
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  const leet = {
+    a: "4",
+    e: "3",
+    i: "1",
+    o: "0",
+    s: "5",
+    t: "7",
+    b: "8",
+    g: "9",
+  };
+
+  let result = [...base]
+    .map((ch) => {
+      if (Math.random() >= 0.5) return ch;
+
+      const lower = ch.toLowerCase();
+      if (leet[lower] && Math.random() < 0.55) {
+        return leet[lower];
+      }
+      if (/[a-z]/i.test(ch)) {
+        const next = letters[Math.floor(Math.random() * letters.length)];
+        return ch === ch.toUpperCase() ? next.toUpperCase() : next;
+      }
+      if (/\d/.test(ch)) return String(Math.floor(Math.random() * 10));
+      if (ch === "_" || ch === "-" || ch === ".") {
+        return ["_", "-", ".", "x"][Math.floor(Math.random() * 4)];
+      }
+      return ch;
+    })
+    .join("");
+
+  if (result === base) {
+    const idx = Math.floor(Math.random() * result.length);
+    const swap = letters[Math.floor(Math.random() * letters.length)];
+    result =
+      result.slice(0, idx) +
+      (result[idx] === result[idx].toUpperCase()
+        ? swap.toUpperCase()
+        : swap) +
+      result.slice(idx + 1);
+  }
+
+  return result.slice(0, 80);
 }
 
 function commentInitials(author) {

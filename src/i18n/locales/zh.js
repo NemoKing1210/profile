@@ -147,7 +147,7 @@ export default {
     submit: "发送",
     sending: "发送中……",
     progressLabel: "正在发送评论",
-    progressHint: "再等一下……快了……快了……",
+    finaleTitle: "服务器错误",
     progressStatuses: [
       "正在连接服务器……",
       "正在检查拼写……",
@@ -155,6 +155,28 @@ export default {
       "等待后端响应……",
       "快好了……",
       "还差一点点……",
+    ],
+    spoofWhen: "刚刚",
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep baited me into 1v5 and left voice",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "你还在吗……" },
+      { at: 45, text: "我觉得你的评论过不了审核……" },
+      { at: 60, text: "看起来就差一点点了……" },
+      { at: 75, text: "你可真有耐心，继续等吧，继续等……" },
+      { at: 90, text: "服务器很慢，访客又多，抱歉……" },
+      { at: 105, text: "我们扩容了服务器，你的请求快处理好了……" },
+      { at: 120, text: "希望太阳辐射不会影响你的评论……" },
+      { at: 135, text: "我已经在读你评论的字节了……" },
+      {
+        at: 150,
+        text: "服务器出错了。原因：我们没有服务器 :( 但你还在，真棒——给你撒点彩纸。可以再试一次发送；也许到那时我已经有服务器了，反正你都能拿到彩纸 :)",
+      },
     ],
     feed: [
       {

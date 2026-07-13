@@ -158,7 +158,7 @@ export default {
     submit: "Send",
     sending: "Sending…",
     progressLabel: "Sending comment",
-    progressHint: "Just a bit more… almost… almost…",
+    finaleTitle: "Server error",
     progressStatuses: [
       "Connecting to the server…",
       "Checking spelling…",
@@ -166,6 +166,40 @@ export default {
       "Waiting for the backend…",
       "Almost there…",
       "Just a tiny bit more…",
+    ],
+    spoofWhen: "just now",
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep baited me into 1v5 and left voice",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "Still here…?" },
+      {
+        at: 45,
+        text: "I don’t think your comment will pass moderation…",
+      },
+      { at: 60, text: "Looks like just a tiny bit left…" },
+      { at: 75, text: "You’re a patient one — keep waiting, keep waiting…" },
+      {
+        at: 90,
+        text: "Our server is slow and there are lots of visitors, sorry…",
+      },
+      {
+        at: 105,
+        text: "We scaled the servers — your request is almost processed…",
+      },
+      {
+        at: 120,
+        text: "Hope solar radiation won’t affect your comment…",
+      },
+      { at: 135, text: "I’m already reading the bytes of your comment…" },
+      {
+        at: 150,
+        text: "Server error. Reason: we don’t have a server :( But hey, you’re still here — have some confetti. You can try sending again; maybe by then I’ll have a server — and you’ll get confetti either way :)",
+      },
     ],
     feed: [
       {
