@@ -86,7 +86,8 @@ Respect `prefers-reduced-motion: reduce` (already wired in CSS/JS).
 ## Content tone
 
 - Direct, first-person or plain third-person — no buzzword soup.
-- Project blurbs: what it is + why it exists, one or two sentences.
+- Project blurbs: what it is + why it exists, plus a few concrete highlights.
+- Capsules show platform mark, kind, status, tags, and a GitHub CTA.
 - Link labels: recognizable product names (GitHub, Telegram), not “Click here”.
 
 ## Accessibility

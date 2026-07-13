@@ -24,7 +24,7 @@ export default {
     spawnAvatar: "将头像添加到 Hero",
     hobbies: "爱好",
     gameGenres: "喜欢的游戏类型",
-    projectsSubtitle: "资料库 — 精选仓库",
+    projectsSubtitle: "资料库 — Userscript 与桌面应用",
     infiniteMarks: [
       "页脚？没听说过",
       "走廊在重复",
@@ -153,17 +153,46 @@ export default {
   },
   projects: {
     title: "项目",
+    openCta: "在 GitHub 打开",
+    notice: "先从小处开始——userscript 和 pet projects。更大的还在后面。",
     status: {
       public: "Public",
     },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
     blurbs: {
       "steam-gamestatus":
-        "Steam 商店 Userscript：通过 GameStatus.info API 显示 crack/Denuvo 状态徽章。",
-      "youtube-bot-comments-filter":
-        "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。",
-      ProxyChecker: "跨平台桌面应用，用于检测代理可用性与性能。",
+        "面向 Steam 商店与社区的 Userscript：在游戏卡片上直接显示保护、日期、评分与硬件徽章，无需离开页面。数据来自 GameStatus.info，带缓存与设置面板。",
       "steam-region-block-bypass":
-        "Steam Userscript：在出现地区不可用提示时恢复商品页面。",
+        "Steam 商店 Userscript：遇到「unavailable in your region」时恢复访客商品页，并可选访客搜索。Steam 风格设置面板，以及用于 IP 封锁的代理网关。",
+      ProxyChecker:
+        "基于 Electron + React 的桌面应用，用于检测 HTTP/SOCKS/MTProto 代理：批量、分组、地理信息、导出，以及通过 GitHub Gist / Google Drive 同步。",
+      "youtube-bot-comments-filter":
+        "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。hide/blur 切换就在评论区标题栏，无需单独设置页。",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "列表页与游戏页徽章",
+        "Steam 风格提示：评分与配置",
+        "缓存、懒加载与 10 种 UI 语言",
+      ],
+      "steam-region-block-bypass": [
+        "通过匿名访客请求恢复页面",
+        "访客搜索建议与可选 /search",
+        "Region Bypass 面板 + 本地代理网关",
+      ],
+      ProxyChecker: [
+        "支持 HTTP、SOCKS4/5 与 MTProto",
+        "分组、收藏、托盘与自动更新",
+        "加密同步与本地备份",
+      ],
+      "youtube-bot-comments-filter": [
+        "基于权重的昵称规则引擎",
+        "hide / blur 模式并记住选择",
+        "适配 YouTube 浅色/深色主题",
+      ],
     },
   },
   interests: {

@@ -24,7 +24,7 @@ export default {
     spawnAvatar: "Add avatar to hero",
     hobbies: "Hobbies",
     gameGenres: "Favorite game genres",
-    projectsSubtitle: "Library — featured repositories",
+    projectsSubtitle: "Library — userscripts & desktop",
     infiniteMarks: [
       "Footer? Never heard of it",
       "The hallway repeats",
@@ -160,18 +160,47 @@ export default {
   },
   projects: {
     title: "Projects",
+    openCta: "Open on GitHub",
+    notice:
+      "Starting small for now — userscripts and pet projects. Bigger things are ahead.",
     status: {
       public: "Public",
     },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
     blurbs: {
       "steam-gamestatus":
-        "Steam Store userscript: crack/Denuvo status badges powered by the GameStatus.info API.",
-      "youtube-bot-comments-filter":
-        "YouTube userscript: detects spam bots by nickname pattern and hides or blurs comments.",
-      ProxyChecker:
-        "Cross-platform desktop app for checking proxy availability and performance.",
+        "Userscript for Steam Store & Community: protection, dates, scores, and hardware badges on game cards — without leaving the page. Powered by GameStatus.info with caching and a settings panel.",
       "steam-region-block-bypass":
-        "Steam userscript: restores the product page when Steam shows a regional unavailability message.",
+        "Steam Store userscript: when you hit “unavailable in your region”, it restores a guest product page and optional guest search. Steam-styled settings plus a proxy gateway for IP locks.",
+      ProxyChecker:
+        "Electron + React desktop app for checking HTTP/SOCKS/MTProto proxies: batches, groups, geo hints, export, and sync via GitHub Gist / Google Drive.",
+      "youtube-bot-comments-filter":
+        "YouTube userscript: flags spam bots by nickname pattern and hides or blurs comments. Hide/blur toggle sits in the comments header — no separate settings page.",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "Badges on listings and game pages",
+        "Steam-like tooltips with scores & specs",
+        "Cache, lazy load, and 10 UI languages",
+      ],
+      "steam-region-block-bypass": [
+        "Restore pages via anonymous guest fetch",
+        "Guest search suggestions + optional /search",
+        "Region Bypass panel + local proxy gateway",
+      ],
+      ProxyChecker: [
+        "HTTP, SOCKS4/5, and MTProto protocols",
+        "Groups, favorites, tray, and auto-update",
+        "Encrypted sync and local backups",
+      ],
+      "youtube-bot-comments-filter": [
+        "Weighted nickname rule engine",
+        "Hide / blur modes with saved preference",
+        "Styled for YouTube light and dark",
+      ],
     },
   },
   interests: {

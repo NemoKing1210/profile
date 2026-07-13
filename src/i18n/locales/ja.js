@@ -24,7 +24,7 @@ export default {
     spawnAvatar: "ヒーローにアバターを追加",
     hobbies: "趣味",
     gameGenres: "好きなゲームジャンル",
-    projectsSubtitle: "ライブラリ — 注目のリポジトリ",
+    projectsSubtitle: "ライブラリ — userscript とデスクトップ",
     infiniteMarks: [
       "フッター？知らないね",
       "廊下が繰り返す",
@@ -160,18 +160,47 @@ export default {
   },
   projects: {
     title: "プロジェクト",
+    openCta: "GitHub で開く",
+    notice:
+      "まずは小さく——userscript と pet projects から。もっと大きなものはこれから。",
     status: {
       public: "Public",
     },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
     blurbs: {
       "steam-gamestatus":
-        "Steam Store 用 userscript：GameStatus.info API で crack/Denuvo ステータスバッジを表示。",
-      "youtube-bot-comments-filter":
-        "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。",
-      ProxyChecker:
-        "プロキシの可用性とパフォーマンスをチェックするクロスプラットフォームのデスクトップアプリ。",
+        "Steam Store / Community 用 userscript：保護・日付・スコア・スペックのバッジをゲームカードに表示。ページを離れずに GameStatus.info のデータを取得し、キャッシュと設定パネル付き。",
       "steam-region-block-bypass":
-        "Steam 用 userscript：地域制限メッセージ表示時に商品ページを復元。",
+        "Steam Store 用 userscript：「unavailable in your region」表示時にゲスト商品ページを復元し、任意でゲスト検索も。Steam 風設定パネルと IP 制限向けプロキシゲートウェイ付き。",
+      ProxyChecker:
+        "Electron + React のデスクトップアプリ。HTTP/SOCKS/MTProto プロキシの一括チェック、グループ、地理情報、エクスポート、GitHub Gist / Google Drive 同期に対応。",
+      "youtube-bot-comments-filter":
+        "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "一覧とゲームページにバッジ",
+        "Steam 風ツールチップ（スコア／スペック）",
+        "キャッシュ、遅延読み込み、UI 10言語",
+      ],
+      "steam-region-block-bypass": [
+        "匿名ゲスト取得でページを復元",
+        "ゲスト検索サジェストと任意の /search",
+        "Region Bypass パネル＋ローカル gateway",
+      ],
+      ProxyChecker: [
+        "HTTP・SOCKS4/5・MTProto 対応",
+        "グループ、お気に入り、トレイ、自動更新",
+        "暗号化同期とローカルバックアップ",
+      ],
+      "youtube-bot-comments-filter": [
+        "重み付きニックネーム規則エンジン",
+        "hide / blur モードと設定の保存",
+        "YouTube の light/dark に合わせた見た目",
+      ],
     },
   },
   interests: {

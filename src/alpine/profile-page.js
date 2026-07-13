@@ -2,6 +2,7 @@ import { aiKitMark, aiToolIcons } from "../data/ai-tool-icons.js";
 import { heroicons } from "../data/heroicons.js";
 import { faviconForHref } from "../data/link-icons.js";
 import profile from "../data/profile.js";
+import { projectMarks } from "../data/project-marks.js";
 import { techBallById } from "../data/tech-balls.js";
 import {
   DEFAULT_LOCALE,
@@ -208,11 +209,14 @@ export function createProfilePage() {
     },
 
     get projects() {
+      const copy = this.t.projects || {};
       return profile.projects.map((project) => ({
         ...project,
-        blurb: this.t.projects.blurbs[project.id] || "",
-        statusLabel:
-          this.t.projects.status[project.status] || project.status,
+        blurb: copy.blurbs?.[project.id] || "",
+        highlights: copy.highlights?.[project.id] || [],
+        kindLabel: copy.kinds?.[project.kind] || project.kind,
+        statusLabel: copy.status?.[project.status] || project.status,
+        mark: projectMarks[project.mark] || projectMarks.steam,
       }));
     },
 
@@ -303,10 +307,6 @@ export function createProfilePage() {
       }
 
       return chips;
-    },
-
-    projectGlyph(title) {
-      return (title || "?").trim().charAt(0).toUpperCase();
     },
 
     setLocale(code, { celebrate = false } = {}) {

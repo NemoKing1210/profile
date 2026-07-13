@@ -4,6 +4,7 @@
  *
  * Add icons: import from `heroicons/24/outline/<name>.svg?raw` (or `/solid/`).
  */
+import arrowTopRightOnSquare from "heroicons/24/outline/arrow-top-right-on-square.svg?raw";
 import arrowTrendingUp from "heroicons/24/outline/arrow-trending-up.svg?raw";
 import bars3 from "heroicons/24/outline/bars-3.svg?raw";
 import briefcase from "heroicons/24/outline/briefcase.svg?raw";
@@ -15,6 +16,7 @@ import sun from "heroicons/24/outline/sun.svg?raw";
 import xMark from "heroicons/24/outline/x-mark.svg?raw";
 
 export const heroicons = {
+  arrowTopRightOnSquare,
   arrowTrendingUp,
   bars3,
   briefcase,

@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.30.1] — 2026-07-13
+
+### Added
+
+- Projects footer notice: starting small for now, bigger work ahead
+
+## [1.30.0] — 2026-07-13
+
+### Changed
+
+- Projects shelf: richer Steam-library capsules with brand marks, kind labels, highlight bullets, longer blurbs, and GitHub CTA
+
 ## [1.29.1] — 2026-07-13
 
 ### Changed

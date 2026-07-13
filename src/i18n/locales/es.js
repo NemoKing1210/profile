@@ -24,7 +24,7 @@ export default {
     spawnAvatar: "Añadir avatar al hero",
     hobbies: "Aficiones",
     gameGenres: "Géneros de juegos favoritos",
-    projectsSubtitle: "Biblioteca — repositorios destacados",
+    projectsSubtitle: "Biblioteca — userscripts y escritorio",
     infiniteMarks: [
       "¿Footer? Nunca oí hablar",
       "El pasillo se repite",
@@ -160,18 +160,47 @@ export default {
   },
   projects: {
     title: "Proyectos",
+    openCta: "Abrir en GitHub",
+    notice:
+      "Por ahora empiezo con poco — userscripts y pet projects. Lo más grande viene después.",
     status: {
       public: "Public",
     },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
     blurbs: {
       "steam-gamestatus":
-        "Userscript de Steam Store: insignias de estado crack/Denuvo con la API de GameStatus.info.",
-      "youtube-bot-comments-filter":
-        "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios.",
-      ProxyChecker:
-        "Aplicación de escritorio multiplataforma para comprobar disponibilidad y rendimiento de proxies.",
+        "Userscript para Steam Store y Community: insignias de protección, fechas, puntuaciones y hardware en las fichas — sin salir de la página. Datos de GameStatus.info, con caché y panel de ajustes.",
       "steam-region-block-bypass":
-        "Userscript de Steam: restaura la ficha del producto cuando aparece el bloqueo regional.",
+        "Userscript de Steam Store: cuando aparece “unavailable in your region”, restaura la ficha de invitado y, opcionalmente, la búsqueda guest. Panel al estilo Steam y gateway proxy para bloqueos por IP.",
+      ProxyChecker:
+        "App de escritorio Electron + React para comprobar proxies HTTP/SOCKS/MTProto: lotes, grupos, geo, exportación y sync vía GitHub Gist / Google Drive.",
+      "youtube-bot-comments-filter":
+        "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios. Interruptor hide/blur en la cabecera de comentarios, sin página de ajustes aparte.",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "Insignias en listados y en la página del juego",
+        "Tooltips al estilo Steam con scores y specs",
+        "Caché, carga diferida y 10 idiomas de UI",
+      ],
+      "steam-region-block-bypass": [
+        "Restaurar fichas con fetch anónimo",
+        "Sugerencias guest y /search opcional",
+        "Panel Region Bypass + proxy gateway local",
+      ],
+      ProxyChecker: [
+        "Protocolos HTTP, SOCKS4/5 y MTProto",
+        "Grupos, favoritos, bandeja y auto-update",
+        "Sync cifrado y copias locales",
+      ],
+      "youtube-bot-comments-filter": [
+        "Motor de reglas ponderadas en el nick",
+        "Modos hide / blur con preferencia guardada",
+        "Estilo adaptado a YouTube light/dark",
+      ],
     },
   },
   interests: {

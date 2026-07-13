@@ -24,7 +24,7 @@ export default {
     spawnAvatar: "Добавить аватар в hero",
     hobbies: "Хобби",
     gameGenres: "Любимые жанры игр",
-    projectsSubtitle: "Библиотека — избранные репозитории",
+    projectsSubtitle: "Библиотека — userscripts и десктоп",
     infiniteMarks: [
       "Футер? Не слышал",
       "Коридор повторяется",
@@ -160,18 +160,47 @@ export default {
   },
   projects: {
     title: "Проекты",
+    openCta: "Открыть на GitHub",
+    notice:
+      "Пока начинаю с малого — userscripts и pet-проекты. Крупнее и сложнее — впереди.",
     status: {
       public: "Public",
     },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
     blurbs: {
       "steam-gamestatus":
-        "Userscript для Steam Store: бейджи crack/Denuvo-статуса через GameStatus.info API.",
-      "youtube-bot-comments-filter":
-        "Userscript для YouTube: ловит спам-ботов по паттерну ника, скрывает или блюрит комментарии.",
-      ProxyChecker:
-        "Кроссплатформенное десктоп-приложение для проверки доступности и скорости прокси.",
+        "Userscript для Steam Store и Community: бейджи защиты, дат, оценок и железа прямо на карточках игр — без ухода со страницы. Данные тянутся из GameStatus.info, с кэшем и настройками.",
       "steam-region-block-bypass":
-        "Userscript для Steam: возвращает карточку товара при региональной блокировке «unavailable in your region».",
+        "Userscript для Steam Store: когда висит «unavailable in your region», подтягивает гостевую карточку товара и опционально guest-поиск. Есть Steam-панель настроек и прокси-шлюз для IP-блокировок.",
+      ProxyChecker:
+        "Десктоп-приложение на Electron + React для проверки HTTP/SOCKS/MTProto прокси: батчи, группы, гео, экспорт и синхронизация через GitHub Gist / Google Drive.",
+      "youtube-bot-comments-filter":
+        "Userscript для YouTube: ловит спам-ботов по паттерну ника и прячет или блюрит комментарии. Переключатель hide/blur прямо в шапке комментариев, без отдельной страницы настроек.",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "Бейджи на листингах и на странице игры",
+        "Тултипы в стиле Steam с оценками и железом",
+        "Кэш, ленивая подгрузка и 10 языков UI",
+      ],
+      "steam-region-block-bypass": [
+        "Восстановление карточки через anonymous fetch",
+        "Guest search suggestions и опциональный /search",
+        "Панель Region Bypass + локальный proxy gateway",
+      ],
+      ProxyChecker: [
+        "Протоколы HTTP, SOCKS4/5 и MTProto",
+        "Группы, избранное, трей и автообновления",
+        "Шифрованный sync и локальные бэкапы",
+      ],
+      "youtube-bot-comments-filter": [
+        "Детекция по весам правил в нике",
+        "Режимы hide и blur с сохранением выбора",
+        "Стиль под YouTube light/dark",
+      ],
     },
   },
   interests: {

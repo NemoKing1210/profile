@@ -11,32 +11,56 @@
     <template x-for="project in projects" :key="project.id">
       <a
         class="capsule"
+        :class="[
+          `capsule--${project.tone}`,
+          project.featured ? 'capsule--featured' : '',
+        ]"
         :href="project.url"
         rel="noopener noreferrer"
         target="_blank"
       >
-        <div class="capsule__art" aria-hidden="true">
-          <span
-            class="capsule__glyph"
-            x-text="projectGlyph(project.title)"
-          ></span>
+        <div
+          class="capsule__art"
+          :style="`--mark-fill: ${project.mark.fill}`"
+          aria-hidden="true"
+        >
+          <svg class="capsule__mark" viewBox="0 0 24 24" focusable="false">
+            <path :d="project.mark.path" fill="currentColor"></path>
+          </svg>
         </div>
         <div class="capsule__body">
-          <div class="capsule__top">
-            <h3 class="capsule__title" x-text="project.title"></h3>
+          <div class="capsule__meta">
+            <span class="capsule__kind" x-text="project.kindLabel"></span>
             <span
               class="capsule__status"
               x-text="project.statusLabel"
             ></span>
           </div>
+          <h3 class="capsule__title" x-text="project.title"></h3>
           <p class="capsule__blurb" x-text="project.blurb"></p>
-          <ul class="capsule__tags">
-            <template x-for="tag in project.tags" :key="tag">
-              <li x-text="tag"></li>
+          <ul class="capsule__highlights" x-show="project.highlights.length">
+            <template x-for="(item, hi) in project.highlights" :key="hi">
+              <li x-text="item"></li>
             </template>
           </ul>
+          <div class="capsule__foot">
+            <ul class="capsule__tags">
+              <template x-for="tag in project.tags" :key="tag">
+                <li x-text="tag"></li>
+              </template>
+            </ul>
+            <span class="capsule__cta">
+              <span x-text="t.projects.openCta"></span>
+              <span
+                class="capsule__cta-icon"
+                x-html="icons.arrowTopRightOnSquare"
+                aria-hidden="true"
+              ></span>
+            </span>
+          </div>
         </div>
       </a>
     </template>
   </div>
+  <p class="project-notice" x-text="t.projects.notice"></p>
 </section>
