@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.28.0] — 2026-07-13
+
+### Added
+
+- Flag square from `country-flag-icons` drops into the hero physics layer when the UI locale changes
+
 ## [1.27.3] — 2026-07-13
 
 ### Added

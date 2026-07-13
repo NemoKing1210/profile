@@ -1,7 +1,7 @@
 {
   "name": "profile",
   "private": true,
-  "version": "1.27.3",
+  "version": "1.28.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "@lobehub/icons-static-svg": "^1.91.0",
     "alpinejs": "^3.14.8",
     "canvas-confetti": "^1.9.4",
+    "country-flag-icons": "^1.6.20",
     "heroicons": "^2.2.0",
     "matter-js": "^0.20.0",
     "simple-icons": "^16.26.0"

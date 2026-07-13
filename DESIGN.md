@@ -72,6 +72,7 @@ Ship only purposeful motion:
 3. Hero tech balls: fall-in with physics, drag & collide (skipped / static under `prefers-reduced-motion`).
 4. Section / capsule reveal on scroll (`IntersectionObserver`).
 5. Avatar speech bubble typewriter after prolonged physics play (nudge at 20, join-in + avatar spawn at 30).
+6. Language switch: drop a flag square into the hero physics layer (static placement under `prefers-reduced-motion`).
 
 Respect `prefers-reduced-motion: reduce` (already wired in CSS/JS).
 

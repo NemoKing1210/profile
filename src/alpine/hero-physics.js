@@ -1,4 +1,5 @@
 import Matter from "matter-js";
+import { localeFlagDataUrl } from "../data/locale-flags.js";
 import { techBalls } from "../data/tech-balls.js";
 
 const { Engine, World, Bodies, Body, Mouse, MouseConstraint, Runner, Events } =
@@ -11,6 +12,7 @@ const FRICTION_AIR = 0.01;
 const AI_DENSITY = 0.0022;
 const MAX_AI_SQUARES = 16;
 const MAX_AVATAR_SQUARES = 8;
+const MAX_FLAG_SQUARES = 12;
 const AVATAR_SIZE_GROWTH = 1.5;
 const AVATAR_BASE_DENSITY = AI_DENSITY * 2.5;
 const MAX_BALLS = 28;
@@ -80,6 +82,18 @@ function createAvatarSquareEl(src, size, label) {
   return el;
 }
 
+function createFlagSquareEl(locale, size, label) {
+  const el = document.createElement("div");
+  el.className = "hero-ai hero-flag";
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
+  el.innerHTML = `<img class="hero-flag__img" src="${localeFlagDataUrl(locale)}" alt="" width="128" height="128" decoding="async" draggable="false" />`;
+  if (label) el.title = label;
+  el.setAttribute("aria-hidden", "true");
+  el.dataset.flag = locale;
+  return el;
+}
+
 function syncActorEl(el, body, half) {
   const { x, y } = body.position;
   el.style.transform = `translate3d(${x - half}px, ${y - half}px, 0) rotate(${body.angle}rad)`;
@@ -117,6 +131,7 @@ function placeStatic(container, items, radius) {
  *   spawnAiSquare: (tool: object) => void,
  *   spawnTechBall: (ball: object) => void,
  *   spawnAvatarSquare: (opts: { src: string, label?: string }) => void,
+ *   spawnFlagSquare: (opts: { locale: string, label?: string }) => void,
  *   destroy: () => void
  * }}
  */
@@ -125,6 +140,7 @@ export function initHeroPhysics(container, options = {}) {
     spawnAiSquare() {},
     spawnTechBall() {},
     spawnAvatarSquare() {},
+    spawnFlagSquare() {},
     destroy() {},
   };
 
@@ -194,6 +210,17 @@ export function initHeroPhysics(container, options = {}) {
     actors.push({ el, half, kind: "avatar" });
   };
 
+  const placeStaticFlag = ({ locale, label }) => {
+    const el = createFlagSquareEl(locale, aiSize, label);
+    el.classList.add("hero-ai--static");
+    const half = aiSize / 2;
+    const x = width * 0.5 + Math.random() * Math.max(20, width * 0.35 - aiSize);
+    const y = height - aiSize - 20 - Math.random() * 40;
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    container.appendChild(el);
+    actors.push({ el, half, kind: "flag" });
+  };
+
   if (prefersReducedMotion()) {
     const onStaticPointer = () => notifyInteract();
     container.addEventListener("pointerdown", onStaticPointer);
@@ -218,6 +245,10 @@ export function initHeroPhysics(container, options = {}) {
       spawnAvatarSquare(opts) {
         if (!opts?.src) return;
         placeStaticAvatar(opts);
+      },
+      spawnFlagSquare(opts) {
+        if (!opts?.locale) return;
+        placeStaticFlag(opts);
       },
       destroy() {
         container.removeEventListener("pointerdown", onStaticPointer);
@@ -390,6 +421,41 @@ export function initHeroPhysics(container, options = {}) {
     syncActorEl(el, body, half);
   };
 
+  const spawnFlagSquare = ({ locale, label } = {}) => {
+    if (!locale) return;
+
+    const existing = actors.filter((a) => a.kind === "flag");
+    if (existing.length >= MAX_FLAG_SQUARES) {
+      removeActor(existing[0]);
+    }
+
+    const half = aiSize / 2;
+    const el = createFlagSquareEl(locale, aiSize, label);
+    container.appendChild(el);
+
+    const leftPad = narrow ? half + 16 : width * 0.3;
+    const span = Math.max(40, width - leftPad - half - 24);
+    const x = leftPad + Math.random() * span;
+    const y = -half - 30 - Math.random() * 80;
+    const body = Bodies.rectangle(x, y, aiSize, aiSize, {
+      restitution: 0.55,
+      friction: 0.12,
+      frictionAir: FRICTION_AIR,
+      density: AI_DENSITY,
+      chamfer: { radius: 12 },
+      label: `flag-${locale}`,
+      sleepThreshold: 45,
+    });
+    Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.15);
+    Body.setVelocity(body, {
+      x: (Math.random() - 0.5) * 3,
+      y: 2 + Math.random() * 2,
+    });
+    World.add(world, body);
+    actors.push({ body, el, half, kind: "flag" });
+    syncActorEl(el, body, half);
+  };
+
   const onResize = () => {
     const next = measure();
     if (next.width === width && next.height === height) return;
@@ -418,6 +484,7 @@ export function initHeroPhysics(container, options = {}) {
     spawnAiSquare,
     spawnTechBall,
     spawnAvatarSquare,
+    spawnFlagSquare,
     destroy() {
       spawnTimers.forEach((id) => clearTimeout(id));
       resizeObserver.disconnect();

@@ -152,6 +152,37 @@
   will-change: auto;
 }
 
+.hero-flag {
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.65rem;
+  box-sizing: border-box;
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+      rgba(255, 255, 255, 0.14) 0%,
+      transparent 45%
+    ),
+    var(--bg-store);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 -5px 12px rgba(0, 0, 0, 0.22);
+}
+
+.hero-flag__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
 .hero__veil {
   position: absolute;
   inset: 0;

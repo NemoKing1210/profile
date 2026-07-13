@@ -24,7 +24,7 @@
           class="lang-switch__select"
           :aria-label="t.ui.langLabel"
           :value="locale"
-          @change="setLocale($event.target.value)"
+          @change="setLocale($event.target.value, { celebrate: true })"
         >
           <template x-for="option in localeList" :key="option.code">
             <option :value="option.code" x-text="option.nativeName"></option>

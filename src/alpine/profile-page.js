@@ -288,8 +288,10 @@ export function createProfilePage() {
       return (title || "?").trim().charAt(0).toUpperCase();
     },
 
-    setLocale(code) {
+    setLocale(code, { celebrate = false } = {}) {
       if (!locales[code]) return;
+
+      const changed = this.locale !== code;
       this.locale = code;
 
       try {
@@ -309,6 +311,19 @@ export function createProfilePage() {
       }
 
       this._infiniteScroll?.reset?.();
+
+      if (celebrate && changed) {
+        this.spawnFlagSquare(code);
+      }
+    },
+
+    spawnFlagSquare(code) {
+      const option = this.localeList.find((item) => item.code === code);
+      this._heroPhysics?.spawnFlagSquare?.({
+        locale: code,
+        label: option?.nativeName || code,
+      });
+      this.scrollToHero();
     },
 
     spawnAiTool(tool) {
