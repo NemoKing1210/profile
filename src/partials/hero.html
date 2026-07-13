@@ -30,18 +30,42 @@
       </button>
       <div class="hero__copy">
         <p class="hero__role" x-text="role"></p>
-        <h1 class="hero__name" id="hero-name" x-text="name"></h1>
+        <div
+          class="hero__name-wrap"
+          tabindex="0"
+          aria-describedby="hero-name-tip"
+        >
+          <h1 class="hero__name" id="hero-name" x-text="name"></h1>
+          <span
+            class="hero__name-tip"
+            id="hero-name-tip"
+            role="tooltip"
+            x-text="t.hero.nameTip"
+          ></span>
+        </div>
         <p class="hero__handle" x-text="handle"></p>
         <p class="hero__tagline" x-text="tagline"></p>
         <div class="hero__meta" :aria-label="t.hero.metaLabel">
           <template x-for="chip in metaChips" :key="chip.id">
-            <span class="meta-chip" :class="`meta-chip--${chip.kind}`">
+            <span
+              class="meta-chip"
+              :class="`meta-chip--${chip.kind}${chip.tip ? ' meta-chip--has-tip' : ''}`"
+              :tabindex="chip.tip ? 0 : null"
+              :aria-describedby="chip.tip ? `meta-tip-${chip.id}` : null"
+            >
               <span
                 class="meta-chip__icon"
                 aria-hidden="true"
                 x-html="icons[chip.icon]"
               ></span>
               <span class="meta-chip__label" x-text="chip.label"></span>
+              <span
+                class="meta-chip__tip"
+                x-show="chip.tip"
+                :id="chip.tip ? `meta-tip-${chip.id}` : null"
+                role="tooltip"
+                x-text="chip.tip"
+              ></span>
             </span>
           </template>
         </div>

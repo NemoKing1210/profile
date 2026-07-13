@@ -14,6 +14,30 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.20.0] — 2026-07-13
+
+### Added
+
+- Language meta chips show a “Hello, world!” tooltip in that language
+
+## [1.19.1] — 2026-07-13
+
+### Fixed
+
+- Hero meta chip tooltips now receive hover (Alpine class binding no longer dropped `meta-chip--has-tip`)
+
+## [1.19.0] — 2026-07-13
+
+### Added
+
+- Joke tooltips on hero meta chips: location (“in the Matrix”) and birth year (“Zoomer”)
+
+## [1.18.0] — 2026-07-13
+
+### Added
+
+- Hover/focus tooltip on the hero name with a playful “that’s my name” note
+
 ## [1.17.0] — 2026-07-13
 
 ### Added

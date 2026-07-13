@@ -37,6 +37,9 @@ export default {
     status: "Online",
     statusOffline: "Offline",
     statusLastSeen: "Last online: 1 Jan 1970, 00:00:00",
+    nameTip: "That's my name, in case it wasn't clear",
+    locationTip: "I'm in the Matrix and can't come to your office",
+    birthTip: "I'm a Zoomer",
     metaLabel: "Location, languages, and birth year",
     tagline:
       "I design interfaces that look great and feel effortless to use.",

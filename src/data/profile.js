@@ -10,6 +10,12 @@ const profile = {
   birthYear: 1999,
   /** Spoken languages shown in hero chips (locale codes). */
   spokenLanguages: ["ru", "uk", "en"],
+  /** “Hello, world!” in each spoken language (chip tooltips; not UI-locale copy). */
+  spokenHellos: {
+    ru: "Привет, мир!",
+    uk: "Привіт, світ!",
+    en: "Hello, world!",
+  },
   avatar: "https://github.com/NemoKing1210.png",
   banner: `${base}assets/images/banner.svg`,
 

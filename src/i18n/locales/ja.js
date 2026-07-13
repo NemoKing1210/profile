@@ -37,6 +37,9 @@ export default {
     status: "Online",
     statusOffline: "Offline",
     statusLastSeen: "最終オンライン：1970年1月1日 00:00:00",
+    nameTip: "これが私の名前です。念のため",
+    locationTip: "マトリックスの中にいるので、オフィスには行けません",
+    birthTip: "私はズーマーです",
     metaLabel: "所在地、言語、生年",
     tagline:
       "見た目もよく、使い心地も軽いインターフェースを設計します。",
