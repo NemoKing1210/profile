@@ -299,6 +299,13 @@
     0 12px 28px rgba(0, 0, 0, 0.4);
 }
 
+.media-cover__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
 .media-cover__img {
   display: block;
   width: 100%;
@@ -376,6 +383,8 @@
 }
 
 .media-cover--has-tip {
+  /* Tip escapes the card; media stays clipped by .media-cover__frame. */
+  overflow: visible;
   z-index: 0;
 }
 

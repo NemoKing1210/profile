@@ -71,19 +71,21 @@
             target="_blank"
             :aria-label="film.year ? `${film.title} (${film.year})` : film.title"
           >
-            <img
-              class="media-cover__img"
-              :src="film.cover"
-              :alt="film.title"
-              width="150"
-              height="225"
-              loading="lazy"
-              decoding="async"
-            />
-            <span class="media-cover__shade" aria-hidden="true"></span>
-            <span class="media-cover__meta">
-              <span class="media-cover__year" x-show="film.year" x-text="film.year"></span>
-              <span class="media-cover__name" x-text="film.title"></span>
+            <span class="media-cover__frame">
+              <img
+                class="media-cover__img"
+                :src="film.cover"
+                :alt="film.title"
+                width="150"
+                height="225"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media-cover__shade" aria-hidden="true"></span>
+              <span class="media-cover__meta">
+                <span class="media-cover__year" x-show="film.year" x-text="film.year"></span>
+                <span class="media-cover__name" x-text="film.title"></span>
+              </span>
             </span>
           </a>
         </li>
@@ -156,19 +158,21 @@
             :aria-label="game.year ? `${game.title} (${game.year})` : game.title"
             :aria-describedby="game.tip ? `game-tip-${game.id}` : null"
           >
-            <img
-              class="media-cover__img"
-              :src="game.cover"
-              :alt="game.title"
-              width="528"
-              height="704"
-              loading="lazy"
-              decoding="async"
-            />
-            <span class="media-cover__shade" aria-hidden="true"></span>
-            <span class="media-cover__meta">
-              <span class="media-cover__year" x-show="game.year" x-text="game.year"></span>
-              <span class="media-cover__name" x-text="game.title"></span>
+            <span class="media-cover__frame">
+              <img
+                class="media-cover__img"
+                :src="game.cover"
+                :alt="game.title"
+                width="528"
+                height="704"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media-cover__shade" aria-hidden="true"></span>
+              <span class="media-cover__meta">
+                <span class="media-cover__year" x-show="game.year" x-text="game.year"></span>
+                <span class="media-cover__name" x-text="game.title"></span>
+              </span>
             </span>
             <span
               class="media-cover__tip"
