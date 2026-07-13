@@ -25,6 +25,16 @@ export default {
     hobbies: "爱好",
     gameGenres: "喜欢的游戏类型",
     projectsSubtitle: "资料库 — 精选仓库",
+    infiniteMarks: [
+      "页脚？没听说过",
+      "走廊在重复",
+      "灯的嗡鸣越来越响",
+      "潮湿壁纸的气味",
+      "Level 0",
+      "没有出口",
+      "你来过这里",
+      "别回头",
+    ],
   },
   spoken: {
     ru: "俄语",

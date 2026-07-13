@@ -1,0 +1,239 @@
+/* Infinite-scroll echoes: progressive Backrooms liminal decay
+   --echo-depth is an eased 0…14 strength (slow start, late peak). */
+
+.infinite-echoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-anchor: none;
+}
+
+.infinite-echo {
+  --echo-depth: 0;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-anchor: none;
+  /* Warp the whole loop toward a moist yellow liminal corridor */
+  filter:
+    sepia(calc(var(--echo-depth) * 0.045))
+    hue-rotate(calc(var(--echo-depth) * 2.4deg))
+    saturate(calc(1.03 - var(--echo-depth) * 0.025))
+    contrast(calc(1 + var(--echo-depth) * 0.03))
+    brightness(calc(1.01 + var(--echo-depth) * 0.01))
+    blur(calc(var(--echo-depth) * 0.12px));
+  transform:
+    perspective(calc(1600px - var(--echo-depth) * 40px))
+    rotateX(calc(var(--echo-depth) * 0.22deg))
+    rotateY(calc(var(--echo-depth) * -0.16deg))
+    skewX(calc(var(--echo-depth) * -0.06deg))
+    scale(calc(1 - var(--echo-depth) * 0.004));
+  transform-origin: 50% 0%;
+}
+
+/* Fluorescent haze + damp wallpaper grain */
+.infinite-echo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(210, 185, 110, 0.025) 0 2px,
+      transparent 2px 11px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.03) 0 1px,
+      transparent 1px 4px
+    ),
+    radial-gradient(
+      120% 80% at 50% 0%,
+      rgba(245, 220, 120, calc(0.015 + var(--echo-depth) * 0.014)),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(196, 168, 90, calc(var(--echo-depth) * 0.025)),
+      rgba(90, 70, 35, calc(var(--echo-depth) * 0.035))
+    );
+  mix-blend-mode: soft-light;
+  opacity: calc(0.1 + var(--echo-depth) * 0.045);
+  animation: backrooms-buzz calc(3.6s - var(--echo-depth) * 0.06s) steps(2, end)
+    infinite;
+}
+
+/* Chromatic bleed / exit glitch veil */
+.infinite-echo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(255, 40, 30, calc(var(--echo-depth) * 0.02)) 0%,
+      transparent 35%,
+      transparent 65%,
+      rgba(40, 210, 255, calc(var(--echo-depth) * 0.02)) 100%
+    );
+  mix-blend-mode: screen;
+  opacity: calc(var(--echo-depth) * 0.055);
+  box-shadow:
+    inset calc(var(--echo-depth) * -0.9px) 0 0 rgba(255, 50, 40, 0.1),
+    inset calc(var(--echo-depth) * 0.9px) 0 0 rgba(40, 200, 255, 0.08);
+}
+
+.infinite-echo__mark {
+  position: relative;
+  z-index: 6;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 0.75rem;
+  color: color-mix(
+    in srgb,
+    var(--text-muted) calc(100% - var(--echo-depth) * 4.5%),
+    #c9b46a calc(var(--echo-depth) * 4.5%)
+  );
+  font-family: var(--font-display);
+  font-size: calc(0.78rem + var(--echo-depth) * 0.008rem);
+  font-weight: 600;
+  letter-spacing: calc(0.14em + var(--echo-depth) * 0.014em);
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow:
+    calc(var(--echo-depth) * -0.3px) 0 rgba(255, 55, 40, 0.45),
+    calc(var(--echo-depth) * 0.3px) 0 rgba(50, 200, 255, 0.32),
+    0 0 calc(var(--echo-depth) * 0.45px) rgba(230, 200, 90, 0.28);
+  filter: blur(calc(var(--echo-depth) * 0.035px));
+}
+
+.infinite-echo__mark::before,
+.infinite-echo__mark::after {
+  content: "∞";
+  margin: 0 0.65rem;
+  opacity: calc(0.55 + var(--echo-depth) * 0.015);
+  letter-spacing: 0;
+}
+
+.infinite-echo .store-shell {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+}
+
+/* Panels drift into damp yellow “Level 0” chrome */
+.infinite-echo .panel,
+.infinite-echo .capsule,
+.infinite-echo .stack-card,
+.infinite-echo .link-card,
+.infinite-echo .hub-card,
+.infinite-echo .media-note {
+  border-color: color-mix(
+    in srgb,
+    var(--border-subtle) calc(100% - var(--echo-depth) * 5%),
+    #a89050 calc(var(--echo-depth) * 5%)
+  ) !important;
+  box-shadow:
+    var(--shadow-panel),
+    0 0 calc(var(--echo-depth) * 0.9px) rgba(220, 190, 90, 0.1),
+    inset 0 0 calc(var(--echo-depth) * 6px)
+      rgba(180, 150, 70, calc(var(--echo-depth) * 0.009));
+}
+
+.infinite-echo .panel {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(
+          in srgb,
+          var(--panel-top) calc(100% - var(--echo-depth) * 3.5%),
+          #3a3420 calc(var(--echo-depth) * 3.5%)
+        )
+        0%,
+      color-mix(
+          in srgb,
+          var(--bg-panel) calc(100% - var(--echo-depth) * 4%),
+          #2a2618 calc(var(--echo-depth) * 4%)
+        )
+        100%
+    ) !important;
+}
+
+/* Late loops: harder geometry break */
+.infinite-echo[data-echo-stage="mid"] {
+  animation: backrooms-drift calc(12s - var(--echo-depth) * 0.15s) ease-in-out
+    infinite alternate;
+}
+
+.infinite-echo[data-echo-stage="deep"] .store-shell {
+  transform: scaleY(calc(1 + var(--echo-depth) * 0.0015));
+}
+
+.infinite-echo[data-echo-stage="deep"] .panel__title,
+.infinite-echo[data-echo-stage="deep"] .capsule__title {
+  letter-spacing: calc(0.04em + var(--echo-depth) * 0.02em);
+  color: color-mix(in srgb, var(--text-bright) 65%, #e6d28a 35%);
+}
+
+.infinite-sentinel {
+  height: 1px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+@keyframes backrooms-buzz {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  91% {
+    filter: brightness(1);
+  }
+  92% {
+    filter: brightness(1.12);
+  }
+  93% {
+    filter: brightness(0.88);
+  }
+  95% {
+    filter: brightness(1.04);
+  }
+  97% {
+    filter: brightness(0.94);
+  }
+}
+
+@keyframes backrooms-drift {
+  from {
+    transform:
+      perspective(calc(1600px - var(--echo-depth) * 40px))
+      rotateX(calc(var(--echo-depth) * 0.22deg))
+      rotateY(calc(var(--echo-depth) * -0.16deg))
+      skewX(calc(var(--echo-depth) * -0.06deg))
+      scale(calc(1 - var(--echo-depth) * 0.004));
+  }
+  to {
+    transform:
+      perspective(calc(1600px - var(--echo-depth) * 40px))
+      rotateX(calc(var(--echo-depth) * 0.38deg))
+      rotateY(calc(var(--echo-depth) * 0.14deg))
+      skewX(calc(var(--echo-depth) * 0.08deg))
+      scale(calc(1 - var(--echo-depth) * 0.0055));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .infinite-echo::before,
+  .infinite-echo[data-echo-stage="mid"] {
+    animation: none;
+  }
+}

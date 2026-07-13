@@ -11,6 +11,7 @@ import {
   resolveInitialLocale,
 } from "../i18n/index.js";
 import { initHeroPhysics } from "./hero-physics.js";
+import { initInfiniteScroll } from "./infinite-scroll.js";
 import { initReveal } from "./reveal.js";
 import { celebrateConfetti } from "./confetti.js";
 
@@ -51,6 +52,7 @@ export function createProfilePage() {
     _commentWaitTimer: null,
     _commentStartedAt: 0,
     _stopConfetti: null,
+    _infiniteScroll: null,
 
     get t() {
       return locales[this.locale] || locales[DEFAULT_LOCALE];
@@ -292,6 +294,8 @@ export function createProfilePage() {
       if (this.avatarSpeechOpen && this._avatarSpeechKey) {
         this.startAvatarSpeech(this._avatarSpeechKey);
       }
+
+      this._infiniteScroll?.reset?.();
     },
 
     spawnAiTool(tool) {
@@ -577,6 +581,12 @@ export function createProfilePage() {
         this._heroPhysics = initHeroPhysics(this.$refs.heroPhysics, {
           onInteract: () => this.onPhysicsInteract(),
         });
+        this._infiniteScroll = initInfiniteScroll({
+          source: this.$root.querySelector("[data-infinite-source]"),
+          echoes: this.$refs.infiniteEchoes,
+          sentinel: this.$refs.infiniteSentinel,
+          getMarks: () => this.t.ui.infiniteMarks || [],
+        });
       });
     },
 
@@ -605,6 +615,8 @@ export function createProfilePage() {
       this._stopConfetti = null;
       this._heroPhysics?.destroy?.();
       this._heroPhysics = null;
+      this._infiniteScroll?.destroy?.();
+      this._infiniteScroll = null;
     },
   };
 }

@@ -25,6 +25,16 @@ export default {
     hobbies: "Aficiones",
     gameGenres: "Géneros de juegos favoritos",
     projectsSubtitle: "Biblioteca — repositorios destacados",
+    infiniteMarks: [
+      "¿Footer? Nunca oí hablar",
+      "El pasillo se repite",
+      "Las luces zumban más fuerte",
+      "Olor a papel tapiz húmedo",
+      "Nivel 0",
+      "No hay salida",
+      "Ya estuviste aquí",
+      "No mires atrás",
+    ],
   },
   spoken: {
     ru: "Ruso",

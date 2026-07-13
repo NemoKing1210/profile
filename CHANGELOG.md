@@ -14,6 +14,48 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.25.3] — 2026-07-13
+
+### Fixed
+
+- Scroll jumping backward when recycling old infinite-scroll echoes (instant compensation + no overflow anchoring)
+
+## [1.25.2] — 2026-07-13
+
+### Changed
+
+- Backrooms distortion ramps in more slowly (ease-in over more loops, softer early text decay)
+
+## [1.25.1] — 2026-07-13
+
+### Fixed
+
+- Alpine errors on infinite-scroll clones (`link` / `item` is not defined) by neutralizing directives with `x-ignore`
+
+## [1.25.0] — 2026-07-13
+
+### Added
+
+- Backrooms echo text keeps decaying on scroll: lookalike swaps, glyph noise, word voids
+
+## [1.24.1] — 2026-07-13
+
+### Fixed
+
+- Horizontal page scroll caused by Backrooms echo warp/overlays
+
+## [1.24.0] — 2026-07-13
+
+### Added
+
+- Infinite-scroll echoes intensify with Backrooms-style liminal distortion (yellow haze, warp, flicker, glitched marks)
+
+## [1.23.0] — 2026-07-13
+
+### Added
+
+- Infinite scroll that keeps cloning page sections so the footer stays forever out of reach (with rotating taunt lines)
+
 ## [1.22.1] — 2026-07-13
 
 ### Changed

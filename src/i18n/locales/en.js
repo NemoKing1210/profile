@@ -25,6 +25,16 @@ export default {
     hobbies: "Hobbies",
     gameGenres: "Favorite game genres",
     projectsSubtitle: "Library — featured repositories",
+    infiniteMarks: [
+      "Footer? Never heard of it",
+      "The hallway repeats",
+      "The lights hum louder",
+      "Smell of damp wallpaper",
+      "Level 0",
+      "No exit",
+      "You’ve been here before",
+      "Don’t look back",
+    ],
   },
   spoken: {
     ru: "Russian",

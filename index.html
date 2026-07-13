@@ -29,7 +29,7 @@
     <main id="main">
       {{> hero }}
 
-      <div class="store-shell">
+      <div class="store-shell" data-infinite-source>
         {{> about }}
         {{> stack }}
         {{> projects }}
@@ -37,6 +37,17 @@
         {{> links }}
         {{> comments }}
       </div>
+
+      <div
+        class="infinite-echoes"
+        x-ref="infiniteEchoes"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="infinite-sentinel"
+        x-ref="infiniteSentinel"
+        aria-hidden="true"
+      ></div>
     </main>
 
     {{> footer }}
