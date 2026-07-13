@@ -39,6 +39,7 @@
     <template x-for="item in commentFeed" :key="item.id">
       <li
         class="steam-comment"
+        :data-comment-id="item.id"
         :class="[
           `steam-comment--${item.tone}`,
           item.live && 'steam-comment--live',

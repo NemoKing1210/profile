@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.36.0] — 2026-07-13
+
+### Added
+
+- Farm-raid comment easter egg: voting on «Через 2 часа нашу ферму будут рейдить» spawns a delayed reply chain from the same author
+
 ## [1.35.0] — 2026-07-13
 
 ### Added

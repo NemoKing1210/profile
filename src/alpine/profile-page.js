@@ -29,6 +29,15 @@ import {
 } from "./minecraft-mine.js";
 
 const SOCIAL_CREDIT_COMMENT_ID = "social-credit";
+const FARM_RAID_COMMENT_ID = "farm-raid";
+const FARM_RAID_AUTHOR = "kalerkin_dust";
+const FARM_RAID_REPLY_DELAY_MS = 3_000;
+const FARM_RAID_REPLY_FALLBACKS = [
+  "Пошел пить кофе, буду через 3 часа",
+  "Отошел покормить кошек, прийду минимум через 12 часов 20 минут",
+  "Потопал в магазин. Ждите меня с первым лучом солнца, я приду на пятый день, с востока",
+  "Не ждите",
+];
 
 const COMMENT_DEFAULT_SCORES = {
   clutch: 127,
@@ -100,6 +109,7 @@ export function createProfilePage() {
       socialCreditToastPenalty: false,
       socialCreditFlashOpen: false,
       liveComments: [],
+      liveCommentReplies: [],
       navOpen: false,
       themeJokeOpen: false,
       themeJokeFlash: false,
@@ -117,6 +127,8 @@ export function createProfilePage() {
       _themeFlashTimer: null,
       _themeSithTimer: null,
       _spoofInjected: false,
+      _farmRaidRepliesStarted: false,
+      _farmRaidReplyTimers: [],
       _commentTimer: null,
       _commentWaitTimer: null,
       _commentStartedAt: 0,
@@ -167,13 +179,26 @@ export function createProfilePage() {
         enrich(item, spoofWhen, 0, null)
       );
 
+      const liveRepliesByParent = {};
+      for (const reply of this.liveCommentReplies || []) {
+        const pid = reply.parentId;
+        if (!liveRepliesByParent[pid]) liveRepliesByParent[pid] = [];
+        liveRepliesByParent[pid].push(reply);
+      }
+
       const parents = (this.t.comments?.feed || []).map((item) => {
         const parent = enrich(item, item.when, 0, null);
-        const replies = (item.replies || []).map((reply) =>
+        const staticReplies = (item.replies || []).map((reply) =>
           enrich(reply, reply.when, 1, item.id)
         );
-        replies.sort((a, b) => b.ageDays - a.ageDays);
-        return { ...parent, replies };
+        staticReplies.sort((a, b) => b.ageDays - a.ageDays);
+        const dynamicReplies = (liveRepliesByParent[item.id] || []).map(
+          (reply) => enrich(reply, spoofWhen, 1, item.id)
+        );
+        return {
+          ...parent,
+          replies: [...staticReplies, ...dynamicReplies],
+        };
       });
 
       const sortedParents = this.sortCommentItems(parents, this.commentSort);
@@ -839,6 +864,11 @@ export function createProfilePage() {
 
       this.commentUserVotes = { ...this.commentUserVotes, [id]: next };
 
+      if (id === FARM_RAID_COMMENT_ID) {
+        this._triggerFarmRaidReplies();
+        return;
+      }
+
       if (id !== SOCIAL_CREDIT_COMMENT_ID) return;
 
       if (direction === "up" && next === "up") {
@@ -846,6 +876,57 @@ export function createProfilePage() {
       } else if (direction === "down" && next === "down") {
         this._triggerSocialCreditPenalty();
       }
+    },
+
+    _triggerFarmRaidReplies() {
+      if (this._farmRaidRepliesStarted) return;
+      this._farmRaidRepliesStarted = true;
+
+      const bodies =
+        this.t.comments?.farmRaidReplies?.length > 0
+          ? this.t.comments.farmRaidReplies
+          : FARM_RAID_REPLY_FALLBACKS;
+
+      bodies.forEach((body, index) => {
+        const delay = index * FARM_RAID_REPLY_DELAY_MS;
+        const timer = window.setTimeout(() => {
+          this._appendFarmRaidReply(body, index);
+        }, delay);
+        this._farmRaidReplyTimers.push(timer);
+      });
+    },
+
+    _appendFarmRaidReply(body, index) {
+      this.liveCommentReplies = [
+        ...this.liveCommentReplies,
+        {
+          id: `farm-raid-reply-${index}`,
+          parentId: FARM_RAID_COMMENT_ID,
+          author: FARM_RAID_AUTHOR,
+          body,
+          tone: "neutral",
+          live: true,
+        },
+      ];
+
+      this.$nextTick(() => {
+        document
+          .getElementById("comments")
+          ?.querySelector(
+            `.steam-comment--live[data-comment-id="farm-raid-reply-${index}"]`
+          )
+          ?.scrollIntoView({
+            behavior: prefersReducedMotion() ? "auto" : "smooth",
+            block: "nearest",
+          });
+      });
+    },
+
+    _clearFarmRaidReplyTimers() {
+      for (const timer of this._farmRaidReplyTimers || []) {
+        window.clearTimeout(timer);
+      }
+      this._farmRaidReplyTimers = [];
     },
 
     _triggerSocialCreditReward() {
@@ -1113,6 +1194,7 @@ export function createProfilePage() {
       this.socialCreditFlashOpen = false;
       this._stopConfetti?.();
       this._stopConfetti = null;
+      this._clearFarmRaidReplyTimers();
       this._heroPhysics?.destroy?.();
       this._heroPhysics = null;
       this._infiniteScroll?.destroy?.();

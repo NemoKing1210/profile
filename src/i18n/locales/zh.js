@@ -333,6 +333,12 @@ export default {
     sortControversial: "争议",
     socialCreditReward: "+783994 social credit",
     socialCreditPenalty: "−783994 social credit",
+    farmRaidReplies: [
+      "Пошел пить кофе, буду через 3 часа",
+      "Отошел покормить кошек, прийду минимум через 12 часов 20 минут",
+      "Потопал в магазин. Ждите меня с первым лучом солнца, я приду на пятый день, с востока",
+      "Не ждите",
+    ],
     spoofBodies: [
       "+rep mid diff huge, carry machine",
       "-rep this ||comfiest duo partner in EU||",
