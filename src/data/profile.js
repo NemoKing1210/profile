@@ -146,6 +146,7 @@ const profile = {
     { id: "projects", href: "#projects" },
     { id: "interests", href: "#interests" },
     { id: "links", href: "#links" },
+    { id: "comments", href: "#comments" },
   ],
 };
 

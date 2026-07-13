@@ -50,6 +50,7 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 │ panel: Проекты (capsule shelf)      │
 │ panel: Интересы + Letterboxd note   │
 │ panel: Ссылки (Linktree hub + grid) │
+│ panel: Комментарии (шуточная форма) │
 ├─────────────────────────────────────┤
 │ footer                              │
 └─────────────────────────────────────┘
@@ -59,7 +60,7 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 
 - First viewport = brand + one role line + tagline + CTA group + dominant banner. No stats strips, no card grid in the hero.
 - Panels may use subtle borders/backgrounds (Steam store chrome). Project capsules are interactive containers — that is intentional.
-- One job per section: About / Stack / Projects / Interests / Links.
+- One job per section: About / Stack / Projects / Interests / Links / Comments (joke).
 - Max content width ~`1100px`, aligned with Steam’s readable store column.
 
 ## Motion

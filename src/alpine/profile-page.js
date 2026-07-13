@@ -23,9 +23,39 @@ export function createProfilePage() {
     avatar: profile.avatar,
     banner: profile.banner,
     icons: heroicons,
+    commentDraft: { name: "", message: "" },
+    commentSubmitting: false,
+    commentProgress: 0,
+    _commentTimer: null,
 
     get t() {
       return locales[this.locale] || locales[DEFAULT_LOCALE];
+    },
+
+    get commentProgressStatus() {
+      const statuses = this.t.comments?.progressStatuses || [];
+      if (!statuses.length) return "";
+      const idx = Math.min(
+        statuses.length - 1,
+        Math.floor(this.commentProgress / (100 / statuses.length))
+      );
+      return statuses[idx];
+    },
+
+    get commentFeed() {
+      return (this.t.comments?.feed || []).map((item) => ({
+        ...item,
+        tone: item.tone || "neutral",
+        initials: commentInitials(item.author),
+        avatarColor: commentAvatarColor(item.author),
+      }));
+    },
+
+    get commentsCountLabel() {
+      const count = this.commentFeed.length;
+      const template =
+        this.t.comments?.countLabel || "{count}";
+      return template.replace("{count}", String(count));
     },
 
     get pageTitle() {
@@ -233,6 +263,38 @@ export function createProfilePage() {
       });
     },
 
+    submitComment() {
+      if (this.commentSubmitting) return;
+      this.commentSubmitting = true;
+      this.commentProgress = 0;
+      this._startCommentProgress();
+    },
+
+    _startCommentProgress() {
+      this._stopCommentProgress();
+
+      const tick = () => {
+        const remaining = 99.7 - this.commentProgress;
+        // Each step takes a shrinking share of what's left — never finishes.
+        const step = Math.max(remaining * 0.065, 0.004);
+        this.commentProgress = Math.min(this.commentProgress + step, 99.7);
+
+        // Delay grows sharply near the end (joke infinite load).
+        const closeness = this.commentProgress / 100;
+        const delay = 140 + Math.pow(closeness, 3) * 4200 + closeness * 900;
+        this._commentTimer = window.setTimeout(tick, delay);
+      };
+
+      this._commentTimer = window.setTimeout(tick, 180);
+    },
+
+    _stopCommentProgress() {
+      if (this._commentTimer != null) {
+        window.clearTimeout(this._commentTimer);
+        this._commentTimer = null;
+      }
+    },
+
     init() {
       this.setLocale(resolveInitialLocale());
       this.$nextTick(() => {
@@ -242,6 +304,7 @@ export function createProfilePage() {
     },
 
     destroy() {
+      this._stopCommentProgress();
       this._heroPhysics?.destroy?.();
       this._heroPhysics = null;
     },
@@ -250,4 +313,35 @@ export function createProfilePage() {
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function commentInitials(author) {
+  const parts = String(author || "?")
+    .replace(/[_\-.]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (!parts.length) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+const AVATAR_PALETTE = [
+  "#3d5a80",
+  "#1b6b4a",
+  "#6b3d5a",
+  "#5a4a1b",
+  "#1b4a6b",
+  "#4a3d6b",
+  "#6b4a1b",
+  "#2d6b3d",
+];
+
+function commentAvatarColor(author) {
+  const s = String(author || "");
+  let hash = 0;
+  for (let i = 0; i < s.length; i += 1) {
+    hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
+  }
+  return AVATAR_PALETTE[hash % AVATAR_PALETTE.length];
 }

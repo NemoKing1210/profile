@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.8.0] — 2026-07-13
+
+### Added
+
+- Fake Steam-style comment wall (`+rep` / `-rep`) above the joke comment form
+
+## [1.7.0] — 2026-07-13
+
+### Added
+
+- Joke **Comments** panel at the end: empty state, form, and an infinite progress bar that slows as it nears “done”
+
 ## [1.6.1] — 2026-07-13
 
 ### Changed
