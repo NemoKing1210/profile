@@ -62,7 +62,7 @@ export default {
     blurb:
       "专注干净 UX 与现代网页设计的前端开发者，主攻 Vue/Nuxt。分享游戏与 Web 技术相关的想法。",
     cta: "打开 Linktree",
-    platformsLabel: "也在",
+    platformsLabel: "在 Linktree",
     platforms: {
       telegram: "Telegram",
       email: "Email",
@@ -245,6 +245,7 @@ export default {
   },
   links: {
     title: "链接",
+    directLabel: "直达链接",
     hints: {
       github: "代码与仓库",
       linktree: "所有社交一站到达",

@@ -3,57 +3,107 @@
     <h2 class="panel__title" id="links-title" x-text="linksTitle"></h2>
   </header>
 
-  <a
-    class="hub-card"
-    :href="hub.href"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
+  <article class="hub-card">
     <div class="hub-card__glow" aria-hidden="true"></div>
-    <div class="hub-card__body">
-      <p class="hub-card__eyebrow" x-text="t.hub.eyebrow"></p>
-      <div class="hub-card__title-row">
-        <h3 class="hub-card__title" x-text="t.hub.title"></h3>
-        <span class="hub-card__handle" x-text="hub.handle"></span>
+    <div class="hub-card__head">
+      <div class="hub-card__identity">
+        <img
+          class="hub-card__avatar"
+          :src="avatar"
+          :alt="name"
+          width="96"
+          height="96"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="hub-card__titles">
+          <p class="hub-card__eyebrow" x-text="t.hub.eyebrow"></p>
+          <div class="hub-card__title-row">
+            <h3 class="hub-card__title" x-text="t.hub.title"></h3>
+            <span class="hub-card__handle" x-text="hub.handle"></span>
+          </div>
+        </div>
       </div>
-      <p class="hub-card__blurb" x-text="t.hub.blurb"></p>
-      <p class="hub-card__cta">
+      <a
+        class="hub-card__cta"
+        :href="hub.href"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         <span x-text="t.hub.cta"></span>
-        <span aria-hidden="true"> →</span>
-      </p>
+        <span
+          class="hub-card__cta-icon"
+          aria-hidden="true"
+          x-html="icons.arrowTopRightOnSquare"
+        ></span>
+      </a>
     </div>
-  </a>
 
-  <div class="hub-platforms">
-    <p class="hub-platforms__label" x-text="t.hub.platformsLabel"></p>
-    <ul class="hub-platforms__list">
-      <template x-for="platform in hubPlatforms" :key="platform.id">
+    <p class="hub-card__blurb" x-text="t.hub.blurb"></p>
+
+    <div class="hub-platforms">
+      <p class="hub-platforms__label" x-text="t.hub.platformsLabel"></p>
+      <ul class="hub-platforms__list" role="list">
+        <template x-for="platform in hubPlatforms" :key="platform.id">
+          <li>
+            <a
+              class="hub-pill"
+              :href="hub.href"
+              rel="noopener noreferrer"
+              target="_blank"
+              :aria-label="platform.label"
+            >
+              <span
+                class="hub-pill__icon"
+                :class="{ 'hub-pill__icon--light': platform.lightTile }"
+                :style="`--mark-fill: ${platform.mark.fill}`"
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path :d="platform.mark.path" fill="currentColor"></path>
+                </svg>
+              </span>
+              <span class="hub-pill__label" x-text="platform.label"></span>
+            </a>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </article>
+
+  <div class="links-direct">
+    <p class="links-direct__label" x-text="t.links.directLabel"></p>
+    <ul class="link-grid" role="list">
+      <template x-for="link in links" :key="link.id">
         <li>
           <a
-            class="hub-pill"
-            :href="hub.href"
+            class="link-card"
+            :href="link.href"
             rel="noopener noreferrer"
             target="_blank"
-            x-text="platform.label"
-          ></a>
+          >
+            <span
+              class="link-card__icon"
+              :class="{ 'link-card__icon--light': link.lightTile }"
+              :style="`--mark-fill: ${link.mark.fill}`"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path :d="link.mark.path" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span class="link-card__body">
+              <span class="link-card__label" x-text="link.label"></span>
+              <span class="link-card__hint" x-text="link.hint"></span>
+            </span>
+            <span
+              class="link-card__arrow"
+              aria-hidden="true"
+              x-html="icons.arrowTopRightOnSquare"
+            ></span>
+          </a>
         </li>
       </template>
     </ul>
   </div>
-
-  <ul class="link-grid">
-    <template x-for="link in links" :key="link.id">
-      <li>
-        <a
-          class="link-card"
-          :href="link.href"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <span class="link-card__label" x-text="link.label"></span>
-          <span class="link-card__hint" x-text="link.hint"></span>
-        </a>
-      </li>
-    </template>
-  </ul>
 </section>

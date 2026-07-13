@@ -64,7 +64,7 @@ export default {
     blurb:
       "クリーンな UX とモダンな Web デザインを専門とするフロントエンド開発者。Vue/Nuxt が中心。ゲームと Web 技術について発信しています。",
     cta: "Linktree を開く",
-    platformsLabel: "その他",
+    platformsLabel: "Linktree でも",
     platforms: {
       telegram: "Telegram",
       email: "Email",
@@ -253,6 +253,7 @@ export default {
   },
   links: {
     title: "リンク",
+    directLabel: "直接リンク",
     hints: {
       github: "コードとリポジトリ",
       linktree: "ソーシャルを一箇所に",

@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.34.1] — 2026-07-13
+
+### Fixed
+
+- Links: lighter icon tiles only for dark brand marks (GitHub, Letterboxd)
+
+## [1.34.0] — 2026-07-13
+
+### Changed
+
+- Links section: Linktree hub with avatar/CTA (media-shelf style), brand icon chips, and direct link rows with marks + external affordance
+
 ## [1.33.2] — 2026-07-13
 
 ### Added

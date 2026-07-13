@@ -64,7 +64,7 @@ export default {
     blurb:
       "Frontend developer specializing in clean UX and modern web design, with a focus on Vue/Nuxt. Sharing insights on gaming and web technologies.",
     cta: "Open Linktree",
-    platformsLabel: "Also on",
+    platformsLabel: "On Linktree",
     platforms: {
       telegram: "Telegram",
       email: "Email",
@@ -253,6 +253,7 @@ export default {
   },
   links: {
     title: "Links",
+    directLabel: "Direct links",
     hints: {
       github: "Code & repositories",
       linktree: "All socials in one place",

@@ -1,6 +1,7 @@
 import { aiKitMark, aiToolIcons } from "../data/ai-tool-icons.js";
 import { heroicons } from "../data/heroicons.js";
 import { faviconForHref } from "../data/link-icons.js";
+import { linkMarks } from "../data/link-marks.js";
 import profile from "../data/profile.js";
 import { projectMarks } from "../data/project-marks.js";
 import { techBallById } from "../data/tech-balls.js";
@@ -239,6 +240,8 @@ export function createProfilePage() {
       return profile.links.map((link) => ({
         ...link,
         hint: this.t.links.hints[link.id] || "",
+        mark: linkMarks[link.id] || linkMarks.linktree,
+        lightTile: link.id === "github" || link.id === "letterboxd",
       }));
     },
 
@@ -254,6 +257,8 @@ export function createProfilePage() {
       return (profile.hub?.platforms || []).map((id) => ({
         id,
         label: this.t.hub.platforms[id] || id,
+        mark: linkMarks[id] || linkMarks.linktree,
+        lightTile: id === "github" || id === "letterboxd",
       }));
     },
 

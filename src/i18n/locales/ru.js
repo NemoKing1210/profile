@@ -64,7 +64,7 @@ export default {
     blurb:
       "Frontend-разработчик: чистый UX и современный веб-дизайн, фокус на Vue/Nuxt. Делюсь мыслями про игры и веб-технологии.",
     cta: "Открыть Linktree",
-    platformsLabel: "Там же",
+    platformsLabel: "На Linktree",
     platforms: {
       telegram: "Telegram",
       email: "Email",
@@ -253,6 +253,7 @@ export default {
   },
   links: {
     title: "Ссылки",
+    directLabel: "Прямые ссылки",
     hints: {
       github: "Репозитории и код",
       linktree: "Все соцсети в одном месте",
