@@ -327,7 +327,12 @@ export default {
     spoilerHint: "悬停查看",
     voteUp: "赞同",
     voteDown: "反对",
+    sortLabel: "排序",
+    sortTop: "热门",
+    sortNew: "最新",
+    sortControversial: "争议",
     socialCreditReward: "+783994 social credit",
+    socialCreditPenalty: "−783994 social credit",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
       "-rep this ||comfiest duo partner in EU||",
@@ -384,6 +389,22 @@ export default {
         tone: "plus",
         when: "3 周前",
         body: "+rep carried my ranked games absolute legend",
+        replies: [
+          {
+            id: "carry-reply-1",
+            author: "igl_respect",
+            tone: "plus",
+            when: "3 周前",
+            body: "+rep can confirm, insane IGL",
+          },
+          {
+            id: "carry-reply-2",
+            author: "stack_peek",
+            tone: "plus",
+            when: "3 周前",
+            body: "40 bomb last map, absolute machine",
+          },
+        ],
       },
       {
         id: "scam",
@@ -391,6 +412,15 @@ export default {
         tone: "minus",
         when: "1 个月前",
         body: "-rep never trade with ||anyone else — this guy is gold||",
+        replies: [
+          {
+            id: "scam-reply-1",
+            author: "safeTrader42",
+            tone: "plus",
+            when: "1 个月前",
+            body: "+rep traded 10 times — zero issues, ignore the hater",
+          },
+        ],
       },
       {
         id: "css",
@@ -405,6 +435,22 @@ export default {
         tone: "neutral",
         when: "2 个月前",
         body: "nice profile but still lost 16-4 lmao",
+        replies: [
+          {
+            id: "bait-reply-1",
+            author: "silver_elo",
+            tone: "minus",
+            when: "2 个月前",
+            body: "-rep hardstuck silver, ratio + L",
+          },
+          {
+            id: "bait-reply-2",
+            author: "clip_dealer",
+            tone: "plus",
+            when: "2 个月前",
+            body: "+rep watch his clutch montage before typing",
+          },
+        ],
       },
       {
         id: "stalcraft",

@@ -336,7 +336,12 @@ export default {
     spoilerHint: "Pasa el cursor para leer",
     voteUp: "Voto positivo",
     voteDown: "Voto negativo",
+    sortLabel: "Ordenar",
+    sortTop: "Top",
+    sortNew: "Nuevos",
+    sortControversial: "Polémicos",
     socialCreditReward: "+783994 social credit",
+    socialCreditPenalty: "−783994 social credit",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
       "-rep this ||comfiest duo partner in EU||",
@@ -405,6 +410,22 @@ export default {
         tone: "plus",
         when: "hace 3 semanas",
         body: "+rep carried my ranked games absolute legend",
+        replies: [
+          {
+            id: "carry-reply-1",
+            author: "igl_respect",
+            tone: "plus",
+            when: "hace 3 semanas",
+            body: "+rep can confirm, insane IGL",
+          },
+          {
+            id: "carry-reply-2",
+            author: "stack_peek",
+            tone: "plus",
+            when: "hace 3 semanas",
+            body: "40 bomb last map, absolute machine",
+          },
+        ],
       },
       {
         id: "scam",
@@ -412,6 +433,15 @@ export default {
         tone: "minus",
         when: "hace 1 mes",
         body: "-rep never trade with ||anyone else — this guy is gold||",
+        replies: [
+          {
+            id: "scam-reply-1",
+            author: "safeTrader42",
+            tone: "plus",
+            when: "hace 1 mes",
+            body: "+rep traded 10 times — zero issues, ignore the hater",
+          },
+        ],
       },
       {
         id: "css",
@@ -426,6 +456,22 @@ export default {
         tone: "neutral",
         when: "hace 2 meses",
         body: "nice profile but still lost 16-4 lmao",
+        replies: [
+          {
+            id: "bait-reply-1",
+            author: "silver_elo",
+            tone: "minus",
+            when: "hace 2 meses",
+            body: "-rep hardstuck silver, ratio + L",
+          },
+          {
+            id: "bait-reply-2",
+            author: "clip_dealer",
+            tone: "plus",
+            when: "hace 2 meses",
+            body: "+rep watch his clutch montage before typing",
+          },
+        ],
       },
       {
         id: "stalcraft",

@@ -4,6 +4,37 @@
     <p class="comments-count" x-text="commentsCountLabel"></p>
   </header>
 
+  <div
+    class="comments-sort"
+    role="group"
+    :aria-label="t.comments.sortLabel"
+  >
+    <button
+      type="button"
+      class="comments-sort__btn"
+      :class="commentSort === 'top' && 'comments-sort__btn--active'"
+      :aria-pressed="commentSort === 'top'"
+      @click="setCommentSort('top')"
+      x-text="t.comments.sortTop"
+    ></button>
+    <button
+      type="button"
+      class="comments-sort__btn"
+      :class="commentSort === 'new' && 'comments-sort__btn--active'"
+      :aria-pressed="commentSort === 'new'"
+      @click="setCommentSort('new')"
+      x-text="t.comments.sortNew"
+    ></button>
+    <button
+      type="button"
+      class="comments-sort__btn"
+      :class="commentSort === 'controversial' && 'comments-sort__btn--active'"
+      :aria-pressed="commentSort === 'controversial'"
+      @click="setCommentSort('controversial')"
+      x-text="t.comments.sortControversial"
+    ></button>
+  </div>
+
   <ul class="comment-wall" :aria-label="t.comments.wallLabel">
     <template x-for="item in commentFeed" :key="item.id">
       <li
@@ -11,6 +42,7 @@
         :class="[
           `steam-comment--${item.tone}`,
           item.live && 'steam-comment--live',
+          item.depth === 1 && 'steam-comment--reply',
         ]"
       >
         <div class="steam-comment__vote">
@@ -53,6 +85,7 @@
         </div>
         <div
           class="steam-comment__avatar"
+          :class="item.depth === 1 && 'steam-comment__avatar--reply'"
           :style="`background: ${item.avatarColor}`"
           aria-hidden="true"
           x-text="item.initials"
@@ -186,12 +219,20 @@
   </form>
 
   <div
+    class="social-credit-flash"
+    x-show="socialCreditFlashOpen"
+    x-cloak
+    aria-hidden="true"
+  ></div>
+
+  <div
     class="social-credit-toast"
+    :class="socialCreditToastPenalty && 'social-credit-toast--penalty'"
     x-show="socialCreditToastOpen"
     x-cloak
     x-transition.opacity.duration.300ms
     role="status"
     aria-live="polite"
-    x-text="t.comments.socialCreditReward"
+    x-text="socialCreditToastMessage"
   ></div>
 </section>

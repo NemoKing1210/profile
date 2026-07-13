@@ -36,11 +36,35 @@ const COMMENT_DEFAULT_SCORES = {
   cheater: -23,
   "farm-raid": 12,
   carry: 203,
+  "carry-reply-1": 34,
+  "carry-reply-2": 18,
   scam: -41,
+  "scam-reply-1": 45,
   css: 56,
   bait: 3,
+  "bait-reply-1": -8,
+  "bait-reply-2": 22,
   stalcraft: 91,
   [SOCIAL_CREDIT_COMMENT_ID]: 88,
+};
+
+/** Days ago — locale-agnostic sort key (lower = newer). */
+const COMMENT_AGE_DAYS = {
+  clutch: 2,
+  parser: 5,
+  cheater: 7,
+  "farm-raid": 14,
+  carry: 21,
+  "carry-reply-1": 21,
+  "carry-reply-2": 22,
+  scam: 30,
+  "scam-reply-1": 29,
+  css: 30,
+  bait: 60,
+  "bait-reply-1": 59,
+  "bait-reply-2": 58,
+  stalcraft: 60,
+  [SOCIAL_CREDIT_COMMENT_ID]: 90,
 };
 
 export function createProfilePage() {
@@ -70,7 +94,11 @@ export function createProfilePage() {
       commentRepLockLeft: 0,
       commentRepStrikes: 0,
       commentUserVotes: {},
+      commentSort: "top",
       socialCreditToastOpen: false,
+      socialCreditToastMessage: "",
+      socialCreditToastPenalty: false,
+      socialCreditFlashOpen: false,
       liveComments: [],
       navOpen: false,
       themeJokeOpen: false,
@@ -93,6 +121,7 @@ export function createProfilePage() {
       _commentWaitTimer: null,
       _commentStartedAt: 0,
       _socialCreditToastTimer: null,
+      _socialCreditFlashTimer: null,
       _stopConfetti: null,
       _infiniteScroll: null,
       stackFlipDeg: 0,
@@ -118,9 +147,13 @@ export function createProfilePage() {
     get commentFeed() {
       const spoofWhen = this.t.comments?.spoofWhen || "";
       const spoilerHint = this.t.comments?.spoilerHint || "";
-      const enrich = (item, when) => ({
+
+      const enrich = (item, when, depth = 0, parentId = null) => ({
         ...item,
         when,
+        depth,
+        parentId,
+        ageDays: this.commentAgeDays(item.id, item.live),
         tone: item.tone || "neutral",
         initials: commentInitials(item.author),
         avatarColor: commentAvatarColor(item.author),
@@ -129,13 +162,35 @@ export function createProfilePage() {
         score: this.commentDisplayScore(item.id),
         userVote: this.commentUserVotes[item.id] || null,
       });
+
       const live = (this.liveComments || []).map((item) =>
-        enrich(item, spoofWhen)
+        enrich(item, spoofWhen, 0, null)
       );
-      const base = (this.t.comments?.feed || []).map((item) =>
-        enrich(item, item.when)
-      );
-      return [...live, ...base];
+
+      const parents = (this.t.comments?.feed || []).map((item) => {
+        const parent = enrich(item, item.when, 0, null);
+        const replies = (item.replies || []).map((reply) =>
+          enrich(reply, reply.when, 1, item.id)
+        );
+        replies.sort((a, b) => b.ageDays - a.ageDays);
+        return { ...parent, replies };
+      });
+
+      const sortedParents = this.sortCommentItems(parents, this.commentSort);
+      const flat = [];
+
+      for (const parent of live) {
+        flat.push(parent);
+      }
+
+      for (const parent of sortedParents) {
+        flat.push(parent);
+        for (const reply of parent.replies || []) {
+          flat.push(reply);
+        }
+      }
+
+      return flat;
     },
 
     get commentsCountLabel() {
@@ -712,6 +767,35 @@ export function createProfilePage() {
       }
     },
 
+    commentAgeDays(id, live = false) {
+      if (live) return 0;
+      if (Object.hasOwn(COMMENT_AGE_DAYS, id)) {
+        return COMMENT_AGE_DAYS[id];
+      }
+      return 999;
+    },
+
+    sortCommentItems(items, sort) {
+      const list = [...items];
+      if (sort === "new") {
+        list.sort((a, b) => a.ageDays - b.ageDays || b.score - a.score);
+      } else if (sort === "controversial") {
+        list.sort(
+          (a, b) =>
+            Math.abs(a.score) - Math.abs(b.score) ||
+            b.ageDays - a.ageDays
+        );
+      } else {
+        list.sort((a, b) => b.score - a.score || a.ageDays - b.ageDays);
+      }
+      return list;
+    },
+
+    setCommentSort(sort) {
+      if (sort === this.commentSort) return;
+      this.commentSort = sort;
+    },
+
     commentBaseScore(id) {
       if (Object.hasOwn(COMMENT_DEFAULT_SCORES, id)) {
         return COMMENT_DEFAULT_SCORES[id];
@@ -755,18 +839,37 @@ export function createProfilePage() {
 
       this.commentUserVotes = { ...this.commentUserVotes, [id]: next };
 
-      if (
-        id === SOCIAL_CREDIT_COMMENT_ID &&
-        direction === "up" &&
-        next === "up"
-      ) {
+      if (id !== SOCIAL_CREDIT_COMMENT_ID) return;
+
+      if (direction === "up" && next === "up") {
         this._triggerSocialCreditReward();
+      } else if (direction === "down" && next === "down") {
+        this._triggerSocialCreditPenalty();
       }
     },
 
     _triggerSocialCreditReward() {
+      this._showSocialCreditToast(
+        this.t.comments?.socialCreditReward || "+783994 social credit",
+        false
+      );
       this._stopConfetti?.();
       this._stopConfetti = celebrateConfetti(4_500);
+    },
+
+    _triggerSocialCreditPenalty() {
+      this._showSocialCreditToast(
+        this.t.comments?.socialCreditPenalty || "−783994 social credit",
+        true
+      );
+      this._stopConfetti?.();
+      this._stopConfetti = null;
+      this._flashSocialCreditPenalty();
+    },
+
+    _showSocialCreditToast(message, penalty) {
+      this.socialCreditToastMessage = message;
+      this.socialCreditToastPenalty = penalty;
       this.socialCreditToastOpen = true;
 
       if (this._socialCreditToastTimer != null) {
@@ -775,8 +878,22 @@ export function createProfilePage() {
 
       this._socialCreditToastTimer = window.setTimeout(() => {
         this.socialCreditToastOpen = false;
+        this.socialCreditToastPenalty = false;
         this._socialCreditToastTimer = null;
       }, 4_500);
+    },
+
+    _flashSocialCreditPenalty() {
+      this.socialCreditFlashOpen = true;
+
+      if (this._socialCreditFlashTimer != null) {
+        window.clearTimeout(this._socialCreditFlashTimer);
+      }
+
+      this._socialCreditFlashTimer = window.setTimeout(() => {
+        this.socialCreditFlashOpen = false;
+        this._socialCreditFlashTimer = null;
+      }, 700);
     },
 
     submitComment() {
@@ -987,7 +1104,13 @@ export function createProfilePage() {
         window.clearTimeout(this._socialCreditToastTimer);
         this._socialCreditToastTimer = null;
       }
+      if (this._socialCreditFlashTimer != null) {
+        window.clearTimeout(this._socialCreditFlashTimer);
+        this._socialCreditFlashTimer = null;
+      }
       this.socialCreditToastOpen = false;
+      this.socialCreditToastPenalty = false;
+      this.socialCreditFlashOpen = false;
       this._stopConfetti?.();
       this._stopConfetti = null;
       this._heroPhysics?.destroy?.();

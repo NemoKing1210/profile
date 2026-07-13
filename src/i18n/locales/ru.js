@@ -336,7 +336,12 @@ export default {
     spoilerHint: "Наведи, чтобы прочитать",
     voteUp: "Повысить релевантность",
     voteDown: "Понизить релевантность",
+    sortLabel: "Сортировка",
+    sortTop: "Топ",
+    sortNew: "Новые",
+    sortControversial: "Спорные",
     socialCreditReward: "+783994 social credit",
+    socialCreditPenalty: "−783994 social credit",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
       "-rep this ||comfiest duo partner in EU||",
@@ -405,6 +410,22 @@ export default {
         tone: "plus",
         when: "3 недели назад",
         body: "+rep carried my ranked games absolute legend",
+        replies: [
+          {
+            id: "carry-reply-1",
+            author: "igl_respect",
+            tone: "plus",
+            when: "3 недели назад",
+            body: "+rep подтверждаю, insane IGL",
+          },
+          {
+            id: "carry-reply-2",
+            author: "stack_peek",
+            tone: "plus",
+            when: "3 недели назад",
+            body: "40 bomb на последней карте, машина",
+          },
+        ],
       },
       {
         id: "scam",
@@ -412,6 +433,15 @@ export default {
         tone: "minus",
         when: "1 месяц назад",
         body: "-rep never trade with ||anyone else — this guy is gold||",
+        replies: [
+          {
+            id: "scam-reply-1",
+            author: "safeTrader42",
+            tone: "plus",
+            when: "1 месяц назад",
+            body: "+rep трейдил 10 раз — ноль проблем, игнорь хейтера",
+          },
+        ],
       },
       {
         id: "css",
@@ -426,6 +456,22 @@ export default {
         tone: "neutral",
         when: "2 месяца назад",
         body: "nice profile but still lost 16-4 lmao",
+        replies: [
+          {
+            id: "bait-reply-1",
+            author: "silver_elo",
+            tone: "minus",
+            when: "2 месяца назад",
+            body: "-rep hardstuck silver, ratio + L",
+          },
+          {
+            id: "bait-reply-2",
+            author: "clip_dealer",
+            tone: "plus",
+            when: "2 месяца назад",
+            body: "+rep глянь clutch-монтаж, потом пиши",
+          },
+        ],
       },
       {
         id: "stalcraft",
