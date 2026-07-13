@@ -1,14 +1,16 @@
 const REVEAL_SELECTOR =
   ".panel, .capsule, .stack-card, .link-card, .stack-group, .hub-card, .media-note";
 
-export function initReveal(root) {
+export function initReveal(root, { immediate = false } = {}) {
   const targets = root.querySelectorAll(REVEAL_SELECTOR);
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  if (reduceMotion) {
-    targets.forEach((el) => el.classList.add("is-visible"));
+  if (reduceMotion || immediate) {
+    targets.forEach((el) => {
+      el.classList.add("reveal", "is-visible");
+    });
     return;
   }
 

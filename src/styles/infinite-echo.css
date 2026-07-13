@@ -66,7 +66,7 @@
     );
   mix-blend-mode: soft-light;
   opacity: calc(0.1 + var(--echo-depth) * 0.045);
-  animation: backrooms-buzz calc(3.6s - var(--echo-depth) * 0.06s) steps(2, end)
+  animation: backrooms-buzz calc(1.8s - var(--echo-depth) * 0.03s) steps(2, end)
     infinite;
 }
 
@@ -170,7 +170,7 @@
 
 /* Late loops: harder geometry break */
 .infinite-echo[data-echo-stage="mid"] {
-  animation: backrooms-drift calc(12s - var(--echo-depth) * 0.15s) ease-in-out
+  animation: backrooms-drift calc(6s - var(--echo-depth) * 0.075s) ease-in-out
     infinite alternate;
 }
 

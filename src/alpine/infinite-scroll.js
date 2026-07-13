@@ -6,7 +6,7 @@ const SOURCE_ATTR = "data-infinite-source";
 /** Keep at least this many viewports of buffer before the footer. */
 const BUFFER_VH = 3;
 /** How many loops until distortion reaches its peak. */
-const RAMP_LOOPS = 28;
+const RAMP_LOOPS = 14;
 /** CSS strength scale (eased into this). */
 const CSS_DEPTH_PEAK = 14;
 
@@ -99,7 +99,7 @@ export function initInfiniteScroll({
     }
 
     echoes.appendChild(wrap);
-    initReveal(wrap);
+    initReveal(wrap, { immediate: true });
   }
 
   function fillBuffer() {
@@ -123,7 +123,7 @@ export function initInfiniteScroll({
   function glitchVisibleEchoes(force = false) {
     const now = performance.now();
     // Throttle scroll-driven ticks so text doesn't melt in a few frames.
-    if (!force && now - lastGlitchAt < 160) return;
+    if (!force && now - lastGlitchAt < 80) return;
     lastGlitchAt = now;
 
     const viewTop = 0;
@@ -176,7 +176,7 @@ export function initInfiniteScroll({
   if (!reduceMotion) {
     glitchTimer = window.setInterval(() => {
       glitchVisibleEchoes(true);
-    }, 520);
+    }, 260);
   }
 
   fillBuffer();
@@ -207,7 +207,7 @@ function echoStrength(loop) {
   const tLinear = Math.min(1, Math.max(0, (loop - 1) / (RAMP_LOOPS - 1)));
   const t = tLinear * tLinear * tLinear;
   const depthCss = t * CSS_DEPTH_PEAK;
-  const stage = loop >= 18 ? "deep" : loop >= 9 ? "mid" : "early";
+  const stage = loop >= 9 ? "deep" : loop >= 5 ? "mid" : "early";
   return { t, depthCss, stage };
 }
 
@@ -238,7 +238,7 @@ function corruptMark(text, t, loop) {
   if (t >= 0.75 && Math.random() < 0.35 + t * 0.2) {
     result = `LVL 0 · ${result}`;
   }
-  if (loop >= 20 && Math.random() < 0.3) {
+  if (loop >= 10 && Math.random() < 0.3) {
     result = result.replace(/\s+/g, "░");
   }
   return result;
