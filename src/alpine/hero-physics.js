@@ -9,6 +9,7 @@ const RESTITUTION = 0.78;
 const FRICTION = 0.05;
 const FRICTION_AIR = 0.01;
 const MAX_AI_SQUARES = 16;
+const MAX_BALLS = 28;
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -145,6 +146,17 @@ export function initHeroPhysics(container) {
         if (!tool?.icon) return;
         placeStaticAi(tool);
       },
+      spawnTechBall(ball) {
+        if (!ball?.path) return;
+        const el = createBallEl(ball, radius);
+        el.classList.add("hero-ball--static");
+        const x =
+          width * 0.45 + Math.random() * Math.max(20, width * 0.4 - radius * 2);
+        const y = height - radius * 2 - 20 - Math.random() * 36;
+        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        container.appendChild(el);
+        actors.push({ el, half: radius, kind: "ball" });
+      },
       destroy() {
         container.replaceChildren();
         container.classList.remove("is-ready");
@@ -200,7 +212,14 @@ export function initHeroPhysics(container) {
     if (idx >= 0) actors.splice(idx, 1);
   };
 
-  const spawnBall = (ball, i) => {
+  const spawnBall = (ball, i = 0) => {
+    if (!ball?.path) return;
+
+    const existing = actors.filter((a) => a.kind === "ball");
+    if (existing.length >= MAX_BALLS) {
+      removeActor(existing[0]);
+    }
+
     const el = createBallEl(ball, radius);
     container.appendChild(el);
 
@@ -230,6 +249,8 @@ export function initHeroPhysics(container) {
     const timer = window.setTimeout(() => spawnBall(ball, i), 60 + i * 95);
     spawnTimers.push(timer);
   });
+
+  const spawnTechBall = (ball) => spawnBall(ball, 0);
 
   const spawnAiSquare = (tool) => {
     if (!tool?.icon) return;
@@ -292,6 +313,7 @@ export function initHeroPhysics(container) {
 
   return {
     spawnAiSquare,
+    spawnTechBall,
     destroy() {
       spawnTimers.forEach((id) => clearTimeout(id));
       resizeObserver.disconnect();

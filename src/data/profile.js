@@ -32,6 +32,28 @@ const profile = {
     ],
   },
 
+  /** Stack pillars: copy in locales, techs spawn hero balls by id (no overlap). */
+  stackItems: [
+    {
+      id: "frontend",
+      tone: "accent",
+      mark: "vue",
+      techs: ["html", "css", "vue", "nuxt", "vite", "alpine"],
+    },
+    {
+      id: "backend",
+      tone: "hot",
+      mark: "node",
+      techs: ["node", "laravel", "yii"],
+    },
+    {
+      id: "languages",
+      tone: "green",
+      mark: "ts",
+      techs: ["js", "ts", "php", "lua", "csharp"],
+    },
+  ],
+
   /** Highlight badges in About (labels live in locales). */
   aboutBadges: [
     { id: "craft", tone: "accent" },
@@ -49,21 +71,6 @@ const profile = {
     { id: "claude", label: "Claude" },
     { id: "codex", label: "Codex" },
     { id: "claudecode", label: "Claude Code" },
-  ],
-
-  stackGroups: [
-    {
-      id: "frontend",
-      items: ["Vue.js", "Nuxt.js", "JavaScript/TypeScript", "HTML", "CSS"],
-    },
-    {
-      id: "backend",
-      items: ["Yii2", "Node.js", "Laravel"],
-    },
-    {
-      id: "languages",
-      items: ["JavaScript/TypeScript", "PHP", "Lua", "C#"],
-    },
   ],
 
   projects: [
@@ -135,7 +142,6 @@ const profile = {
 
   nav: [
     { id: "about", href: "#about" },
-    { id: "focus", href: "#focus" },
     { id: "stack", href: "#stack" },
     { id: "projects", href: "#projects" },
     { id: "interests", href: "#interests" },

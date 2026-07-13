@@ -11,7 +11,7 @@ Built with **Vite**, **Alpine.js**, and **Handlebars** partials. Sources stay mo
 ## Features
 
 - Full-bleed hero (banner, avatar, role, CTAs with service favicons)
-- Sections: About, Focus, Stack, Projects, Interests, Links
+- Sections: About, Stack, Projects, Interests, Links
 - About highlights: skill badges, rich copy, AI tooling strip (Cursor, Claude, Codex, Claude Code)
 - Multilingual UI: **ru** (default), **en**, **es**, **de**, **zh** — switcher in the topbar
 - Steam dark palette (see [`DESIGN.md`](DESIGN.md))

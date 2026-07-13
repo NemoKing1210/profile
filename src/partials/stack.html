@@ -1,17 +1,67 @@
 <section class="panel" id="stack" aria-labelledby="stack-title">
-  <header class="panel__head">
+  <header class="panel__head panel__head--row">
     <h2 class="panel__title" id="stack-title" x-text="stack.title"></h2>
+    <p class="panel__sub" x-text="stack.eyebrow"></p>
   </header>
-  <div class="stack-grid">
-    <template x-for="group in stack.groups" :key="group.id">
-      <div class="stack-group">
-        <h3 class="stack-group__label" x-text="group.label"></h3>
-        <ul class="tag-list">
-          <template x-for="tech in group.items" :key="tech">
-            <li x-text="tech"></li>
+  <ul class="stack-cards">
+    <template x-for="item in stack.items" :key="item.id">
+      <li class="stack-card" :class="`stack-card--${item.tone}`">
+        <div class="stack-card__top">
+          <span
+            class="stack-card__mark"
+            :style="`--mark-fill: ${item.mark.fill}; --mark-ink: ${item.mark.ink || '#fff'}`"
+            aria-hidden="true"
+          >
+            <svg class="stack-card__mark-icon" viewBox="0 0 24 24" focusable="false">
+              <path :d="item.mark.path" fill="currentColor"></path>
+            </svg>
+          </span>
+          <h3 class="stack-card__label" x-text="item.label"></h3>
+        </div>
+        <p class="stack-card__detail" x-text="item.detail"></p>
+        <ul class="stack-card__techs ai-tools" :aria-label="stack.techsLabel">
+          <template x-for="tech in item.techs" :key="tech.id">
+            <li>
+              <button
+                type="button"
+                class="ai-tool"
+                :aria-label="spawnTechLabel(tech)"
+                @click="spawnTechBall(tech)"
+              >
+                <span
+                  class="ai-tool__icon"
+                  :style="`color: ${tech.fill}`"
+                  aria-hidden="true"
+                >
+                  <svg class="ai-tool__img" viewBox="0 0 24 24" focusable="false">
+                    <path :d="tech.path" fill="currentColor"></path>
+                  </svg>
+                </span>
+                <span class="ai-tool__name" x-text="tech.label"></span>
+              </button>
+            </li>
           </template>
         </ul>
-      </div>
+      </li>
     </template>
-  </div>
+  </ul>
+
+  <aside class="stack-grow" :aria-label="stack.growLabel">
+    <div class="stack-grow__row">
+      <span
+        class="stack-grow__mark"
+        aria-hidden="true"
+        x-html="icons.arrowTrendingUp"
+      ></span>
+      <div class="stack-grow__copy">
+        <p class="stack-grow__label" x-text="stack.growLabel"></p>
+        <p class="stack-grow__text" x-text="stack.growBlurb"></p>
+      </div>
+    </div>
+    <ul class="stack-grow__tags" :aria-label="stack.growTagsLabel">
+      <template x-for="tag in stack.growTags" :key="tag">
+        <li class="stack-grow__tag" x-text="tag"></li>
+      </template>
+    </ul>
+  </aside>
 </section>

@@ -1,6 +1,8 @@
 import { aiKitMark, aiToolIcons } from "../data/ai-tool-icons.js";
+import { heroicons } from "../data/heroicons.js";
 import { faviconForHref } from "../data/link-icons.js";
 import profile from "../data/profile.js";
+import { techBallById } from "../data/tech-balls.js";
 import {
   DEFAULT_LOCALE,
   STORAGE_KEY,
@@ -20,6 +22,7 @@ export function createProfilePage() {
     birthYear: profile.birthYear,
     avatar: profile.avatar,
     banner: profile.banner,
+    icons: heroicons,
 
     get t() {
       return locales[this.locale] || locales[DEFAULT_LOCALE];
@@ -54,8 +57,37 @@ export function createProfilePage() {
       };
     },
 
-    get focus() {
-      return this.t.focus;
+    get stack() {
+      const copy = this.t.stack;
+      const byId = Object.fromEntries(
+        (copy.items || []).map((item) => [item.id, item])
+      );
+
+      return {
+        title: copy.title,
+        eyebrow: copy.eyebrow,
+        techsLabel: copy.techsLabel,
+        spawnTech: copy.spawnTech,
+        growLabel: copy.growLabel,
+        growBlurb: copy.growBlurb,
+        growTagsLabel: copy.growTagsLabel,
+        growTags: copy.growTags || [],
+        items: (profile.stackItems || []).map((item) => {
+          const local = byId[item.id] || {};
+          const techs = (item.techs || [])
+            .map((id) => techBallById[id])
+            .filter(Boolean);
+          const mark = techBallById[item.mark] || techs[0];
+          return {
+            id: item.id,
+            tone: item.tone || "accent",
+            label: local.label || item.id,
+            detail: local.detail || "",
+            mark: mark || { path: "", fill: "#66c0f4" },
+            techs,
+          };
+        }),
+      };
     },
 
     get interests() {
@@ -67,17 +99,6 @@ export function createProfilePage() {
         ...item,
         label: this.t.nav[item.id] || item.id,
       }));
-    },
-
-    get stack() {
-      return {
-        title: this.t.stack.title,
-        groups: profile.stackGroups.map((group) => ({
-          id: group.id,
-          label: this.t.stack.groups[group.id] || group.id,
-          items: group.items,
-        })),
-      };
     },
 
     get projects() {
@@ -183,10 +204,19 @@ export function createProfilePage() {
 
     spawnAiTool(tool) {
       this._heroPhysics?.spawnAiSquare?.(tool);
-      document.getElementById("top")?.scrollIntoView({
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
-        block: "start",
-      });
+      this.scrollToHero();
+    },
+
+    spawnTechBall(tech) {
+      this._heroPhysics?.spawnTechBall?.(tech);
+      this.scrollToHero();
+    },
+
+    spawnTechLabel(tech) {
+      return (this.t.stack.spawnTech || this.t.about.spawnTool || "{name}").replace(
+        "{name}",
+        tech.label
+      );
     },
 
     spawnToolLabel(tool) {
@@ -194,6 +224,13 @@ export function createProfilePage() {
         "{name}",
         tool.label
       );
+    },
+
+    scrollToHero() {
+      document.getElementById("top")?.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+      });
     },
 
     init() {

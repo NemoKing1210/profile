@@ -22,6 +22,7 @@ Personal profile landing for GitHub Pages.
 - Prefer editing locale files for copy; keep IDs/URLs in `src/data/profile.js`.
 - When adding a string, add it to **all** locale files.
 - Spoken languages for chips: `profile.spokenLanguages` + `spoken` map in each locale.
+- Generic UI icons (non-brand): [`heroicons`](https://heroicons.com) via [`src/data/heroicons.js`](src/data/heroicons.js). Brand logos stay in simple-icons / lobehub.
 - Put page sections in `src/partials/*.html`; include them from `index.html` via `{{> partial }}`.
 - Keep CSS split by concern (`tokens`, `hero`, `panels`, …); import via `src/styles/index.css`.
 - Register Alpine behavior in `src/alpine/`; boot from `src/main.js`.

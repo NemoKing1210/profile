@@ -77,33 +77,33 @@ export default {
     toolkitBlurb: "日常工具栈，用神经网络加速开发、审查与设计。",
     spawnTool: "将 {name} 添加到 Hero",
   },
-  focus: {
-    title: "关注点",
-    items: [
-      {
-        id: "ui",
-        label: "界面",
-        detail: "打造实用好用的 UI，并关注前端应用架构。",
-      },
-      {
-        id: "frameworks",
-        label: "框架",
-        detail: "使用现代技术栈：Vue.js、Nuxt.js、TypeScript 与扎实的页面结构。",
-      },
-      {
-        id: "format",
-        label: "工作方式",
-        detail: "偏好远程：灵活、自主，以及舒适的工作氛围。",
-      },
-    ],
-  },
   stack: {
     title: "技术栈",
-    groups: {
-      frontend: "前端",
-      backend: "后端",
-      languages: "语言",
-    },
+    eyebrow: "关注点与工具",
+    techsLabel: "技术",
+    spawnTech: "将 {name} 添加到 Hero",
+    growLabel: "持续前进",
+    growBlurb:
+      "不满足于已有成果：尝试新方法、阅读、做 pet 项目，并把验证过的东西带到生产——技术栈是活的，不是一份冻结清单。",
+    growTagsLabel: "学习方式",
+    growTags: ["实验", "文档", "Pet 项目", "Code review"],
+    items: [
+      {
+        id: "frontend",
+        label: "前端",
+        detail: "清晰的 UI 与现代客户端技术栈：页面结构、Vue / Nuxt、Vite，必要时使用 Alpine。",
+      },
+      {
+        id: "backend",
+        label: "后端",
+        detail: "远程优先、自主推进；需要时也能用 Node、Laravel、Yii2 做 API 与服务。",
+      },
+      {
+        id: "languages",
+        label: "语言",
+        detail: "日常以 TypeScript / JavaScript 为主；另有 PHP、Lua、C# 按项目需要使用。",
+      },
+    ],
   },
   projects: {
     title: "项目",
@@ -136,7 +136,6 @@ export default {
   },
   nav: {
     about: "关于",
-    focus: "关注点",
     stack: "技术栈",
     projects: "项目",
     interests: "兴趣",

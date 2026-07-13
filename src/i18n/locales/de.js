@@ -79,36 +79,36 @@ export default {
       "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
     spawnTool: "{name} im Hero hinzufügen",
   },
-  focus: {
-    title: "Fokus",
-    items: [
-      {
-        id: "ui",
-        label: "Interfaces",
-        detail:
-          "Nützliche, bedienbare UI mit Fokus auf Frontend-Architektur.",
-      },
-      {
-        id: "frameworks",
-        label: "Frameworks",
-        detail:
-          "Arbeit mit modernem Stack: Vue.js, Nuxt.js, TypeScript und sauberem Markup.",
-      },
-      {
-        id: "format",
-        label: "Arbeitsweise",
-        detail:
-          "Ich bevorzuge Remote: Flexibilität, Autonomie und eine angenehme Atmosphäre.",
-      },
-    ],
-  },
   stack: {
     title: "Stack",
-    groups: {
-      frontend: "Frontend",
-      backend: "Backend",
-      languages: "Sprachen",
-    },
+    eyebrow: "Fokus & Werkzeuge",
+    techsLabel: "Technologien",
+    spawnTech: "{name} im Hero hinzufügen",
+    growLabel: "In Bewegung",
+    growBlurb:
+      "Ich bleibe nicht stehen: neue Ansätze ausprobieren, lesen, Pet-Projekte bauen und Bewährtes in Produktion bringen — der Stack bleibt lebendig, keine feste Liste.",
+    growTagsLabel: "So lerne ich",
+    growTags: ["Experimente", "Docs", "Pet-Projekte", "Code review"],
+    items: [
+      {
+        id: "frontend",
+        label: "Frontend",
+        detail:
+          "Klare UI und moderner Client-Stack: Markup, Vue / Nuxt, Vite und Alpine, wo es passt.",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        detail:
+          "Remote-first und autonom — APIs und Services auch mit Node, Laravel und Yii2.",
+      },
+      {
+        id: "languages",
+        label: "Sprachen",
+        detail:
+          "Alltag: TypeScript / JavaScript; außerdem PHP, Lua und C# je nach Projekt.",
+      },
+    ],
   },
   projects: {
     title: "Projekte",
@@ -146,7 +146,6 @@ export default {
   },
   nav: {
     about: "Über mich",
-    focus: "Fokus",
     stack: "Stack",
     projects: "Projekte",
     interests: "Interessen",

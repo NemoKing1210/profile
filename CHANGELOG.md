@@ -14,6 +14,40 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.6.1] — 2026-07-13
+
+### Changed
+
+- Stack grow mark uses Heroicons `arrow-trending-up` (generic UI icons via `heroicons` package)
+
+## [1.6.0] — 2026-07-13
+
+### Added
+
+- Stack “always learning” callout under the tech pillars (copy + tags in all locales)
+
+## [1.5.0] — 2026-07-13
+
+### Changed
+
+- Merged Focus and Stack into one **Стек** section: three pillars (Frontend / Backend / Languages) with narrative + clickable tech chips
+- Nav no longer lists Focus separately (`#stack` only)
+
+### Removed
+
+- Standalone Focus panel (`src/partials/focus.html`)
+
+## [1.4.0] — 2026-07-13
+
+### Added
+
+- Richer Focus cards with brand marks and clickable tech badges that spawn hero physics balls
+- Focus eyebrow + tech chip labels across all locales
+
+### Changed
+
+- Focus copy refreshed (UI / frameworks / remote+backend pillars)
+
 ## [1.3.0] — 2026-07-13
 
 ### Added

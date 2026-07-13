@@ -20,12 +20,18 @@ import {
 } from "simple-icons";
 
 function ball(id, icon, label, fill) {
+  const resolvedFill = fill || `#${icon.hex}`;
+  const r = parseInt(resolvedFill.slice(1, 3), 16) / 255;
+  const g = parseInt(resolvedFill.slice(3, 5), 16) / 255;
+  const b = parseInt(resolvedFill.slice(5, 7), 16) / 255;
+  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
   return {
     id,
     label: label || icon.title,
     path: icon.path,
     /** Ball fill — brand hex, or override when brand is too dark. */
-    fill: fill || `#${icon.hex}`,
+    fill: resolvedFill,
+    ink: luma > 0.55 ? "#1b2838" : "#ffffff",
   };
 }
 
@@ -46,3 +52,8 @@ export const techBalls = [
   ball("vite", siVite),
   ball("alpine", siAlpinedotjs),
 ];
+
+/** Lookup by id for stack chip spawns. */
+export const techBallById = Object.fromEntries(
+  techBalls.map((item) => [item.id, item])
+);

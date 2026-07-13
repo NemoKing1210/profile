@@ -79,36 +79,36 @@ export default {
       "Everyday stack for speeding up development, review, and design with neural networks.",
     spawnTool: "Add {name} to hero",
   },
-  focus: {
-    title: "Focus",
-    items: [
-      {
-        id: "ui",
-        label: "Interfaces",
-        detail:
-          "Building useful, usable UI with attention to frontend application architecture.",
-      },
-      {
-        id: "frameworks",
-        label: "Frameworks",
-        detail:
-          "Working with a modern stack: Vue.js, Nuxt.js, TypeScript, and solid markup.",
-      },
-      {
-        id: "format",
-        label: "Work style",
-        detail:
-          "I prefer remote work: flexibility, autonomy, and a comfortable atmosphere.",
-      },
-    ],
-  },
   stack: {
     title: "Stack",
-    groups: {
-      frontend: "Frontend",
-      backend: "Backend",
-      languages: "Languages",
-    },
+    eyebrow: "Focus & tools",
+    techsLabel: "Technologies",
+    spawnTech: "Add {name} to hero",
+    growLabel: "Still learning",
+    growBlurb:
+      "I don’t stop at what’s already working: I try new approaches, read, ship pet projects, and carry what proves useful into production — the stack stays alive, not a frozen list.",
+    growTagsLabel: "How I learn",
+    growTags: ["Experiments", "Docs", "Pet projects", "Code review"],
+    items: [
+      {
+        id: "frontend",
+        label: "Frontend",
+        detail:
+          "Clear UI and a modern client stack: markup, Vue / Nuxt, Vite, and Alpine where it fits.",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        detail:
+          "Remote-first and autonomous — I can also ship APIs and services with Node, Laravel, and Yii2.",
+      },
+      {
+        id: "languages",
+        label: "Languages",
+        detail:
+          "Day-to-day TypeScript / JavaScript; also PHP, Lua, and C# when the project needs them.",
+      },
+    ],
   },
   projects: {
     title: "Projects",
@@ -146,7 +146,6 @@ export default {
   },
   nav: {
     about: "About",
-    focus: "Focus",
     stack: "Stack",
     projects: "Projects",
     interests: "Interests",

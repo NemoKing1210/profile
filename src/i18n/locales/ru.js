@@ -79,36 +79,36 @@ export default {
       "Повседневный стек для ускорения разработки, ревью и проектирования вместе с нейросетями.",
     spawnTool: "Добавить {name} в hero",
   },
-  focus: {
-    title: "Фокус",
-    items: [
-      {
-        id: "ui",
-        label: "Интерфейсы",
-        detail:
-          "Создание удобных и функциональных UI с вниманием к архитектуре frontend-приложений.",
-      },
-      {
-        id: "frameworks",
-        label: "Фреймворки",
-        detail:
-          "Работа с современным стеком: Vue.js, Nuxt.js, TypeScript и чистая вёрстка.",
-      },
-      {
-        id: "format",
-        label: "Формат",
-        detail:
-          "Предпочитаю удалёнку: гибкость, автономность и комфортная рабочая атмосфера.",
-      },
-    ],
-  },
   stack: {
     title: "Стек",
-    groups: {
-      frontend: "Frontend",
-      backend: "Backend",
-      languages: "Языки",
-    },
+    eyebrow: "Фокус и инструменты",
+    techsLabel: "Технологии",
+    spawnTech: "Добавить {name} в hero",
+    growLabel: "В движении",
+    growBlurb:
+      "Не останавливаюсь на достигнутом: пробую новые подходы, читаю, собираю pet-проекты и переношу удачное в прод — стек живой, а не зафиксированный список.",
+    growTagsLabel: "Как учусь",
+    growTags: ["Эксперименты", "Документация", "Pet-проекты", "Code review"],
+    items: [
+      {
+        id: "frontend",
+        label: "Frontend",
+        detail:
+          "Понятные UI и современный клиентский стек: вёрстка, Vue / Nuxt, Vite и Alpine там, где уместно.",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        detail:
+          "Удалёнка и автономность: при необходимости поднимаю API и сервисы на Node, Laravel и Yii2.",
+      },
+      {
+        id: "languages",
+        label: "Языки",
+        detail:
+          "Основной язык — TypeScript / JavaScript; также PHP, Lua и C# под задачи проекта.",
+      },
+    ],
   },
   projects: {
     title: "Проекты",
@@ -146,7 +146,6 @@ export default {
   },
   nav: {
     about: "О себе",
-    focus: "Фокус",
     stack: "Стек",
     projects: "Проекты",
     interests: "Интересы",
