@@ -14,5 +14,6 @@ alwaysApply: true
 - Default UI language is Russian; `document.documentElement.lang` follows the switcher.
 - `vite.config.js` `base` must match the Pages path (`/profile/` for this repo).
 - Do not commit `node_modules/` or `dist/`.
+- Versioning: keep `package.json` `version` and `CHANGELOG.md` in sync (SemVer / Keep a Changelog). See `AGENTS.md`.
 - Preserve accessibility (skip link, focus-visible, reduced motion, x-cloak).
 - Do not use Handlebars `{{ }}` for Alpine text binding — keep `x-text` / `:attr`.

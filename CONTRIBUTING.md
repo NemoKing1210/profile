@@ -15,6 +15,18 @@ Thanks for helping improve this profile site.
 3. Make a focused change; run `npm run build` before opening a PR.
 4. Open a PR with a short summary of *why*.
 
+## Releases / versioning
+
+This repo uses **SemVer** (`package.json` → `version`) and **Keep a Changelog** ([`CHANGELOG.md`](CHANGELOG.md)).
+
+When a PR ships a release-worthy change:
+
+1. Bump `version` in `package.json`.
+2. Add a dated section in `CHANGELOG.md` (`Added` / `Changed` / `Fixed` / `Removed`).
+3. Clear or shrink `[Unreleased]` accordingly.
+
+Do not bump the version without a changelog entry.
+
 ## Pull requests
 
 - One concern per PR when possible.
