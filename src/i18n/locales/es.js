@@ -28,13 +28,16 @@ export default {
   },
   spoken: {
     ru: "Ruso",
+    uk: "Ucraniano",
     en: "Inglés",
+    ja: "Japonés",
   },
   hero: {
     role: "Desarrollador frontend",
     status: "Online",
     statusOffline: "Offline",
     statusLastSeen: "Última vez: 1 ene 1970, 00:00:00",
+    metaLabel: "Ubicación, idiomas y año de nacimiento",
     tagline:
       "Diseño interfaces que se ven bien y son cómodas de usar.",
     location: "Remoto",

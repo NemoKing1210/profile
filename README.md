@@ -13,7 +13,7 @@ Built with **Vite**, **Alpine.js**, and **Handlebars** partials. Sources stay mo
 - Full-bleed hero (banner, avatar, role, CTAs with service favicons)
 - Sections: About, Stack, Projects, Interests, Links
 - About highlights: skill badges, rich copy, AI tooling strip (Cursor, Claude, Codex, Claude Code)
-- Multilingual UI: **ru** (default), **en**, **es**, **de**, **zh** — switcher in the topbar
+- Multilingual UI: **ru** (default), **uk**, **en**, **es**, **de**, **zh**, **ja** — switcher in the topbar
 - Steam dark palette (see [`DESIGN.md`](DESIGN.md))
 - Accessible basics: skip link, focus-visible, reduced motion, `x-cloak`
 - CI deploy via GitHub Actions → Pages
@@ -29,7 +29,7 @@ Built with **Vite**, **Alpine.js**, and **Handlebars** partials. Sources stay mo
 | Style | Split CSS in `src/styles/` |
 | Behavior | [Alpine.js](https://alpinejs.dev/) via `src/main.js` |
 | Data | `src/data/profile.js` (IDs, URLs, stack) |
-| Copy / i18n | `src/i18n/locales/{ru,en,es,de,zh}.js` |
+| Copy / i18n | `src/i18n/locales/{ru,uk,en,es,de,zh,ja}.js` |
 | AI brand icons | [`@lobehub/icons-static-svg`](https://www.npmjs.com/package/@lobehub/icons-static-svg) |
 | Hosting | GitHub Pages from `dist/` (Actions) |
 
@@ -97,7 +97,7 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 │   │   ├── profile.js         # locale-agnostic data
 │   │   ├── ai-tool-icons.js   # Lobe AI brand icons
 │   │   └── link-icons.js      # favicons for outbound CTAs
-│   ├── i18n/locales/          # ru en es de zh
+│   ├── i18n/locales/          # ru uk en es de zh ja
 │   ├── alpine/                # profile-page, reveal
 │   ├── partials/              # topbar, hero, about, …
 │   └── styles/                # tokens, hero, panels, …
@@ -110,7 +110,7 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 ## Internationalization
 
 - Default language: **Russian** (`document.documentElement.lang` follows the switcher).
-- Locales: `ru`, `en`, `es`, `de`, `zh`.
+- Locales: `ru`, `uk`, `en`, `es`, `de`, `zh`, `ja`.
 - Spoken-language chips in the hero come from `profile.spokenLanguages` + each locale’s `spoken` map.
 - Preference is stored in `localStorage` (see Alpine `profile-page`).
 

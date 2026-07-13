@@ -9,7 +9,7 @@ const profile = {
   handle: "@NemoKing1210",
   birthYear: 1999,
   /** Spoken languages shown in hero chips (locale codes). */
-  spokenLanguages: ["ru", "en"],
+  spokenLanguages: ["ru", "uk", "en"],
   avatar: "https://github.com/NemoKing1210.png",
   banner: `${base}assets/images/banner.svg`,
 

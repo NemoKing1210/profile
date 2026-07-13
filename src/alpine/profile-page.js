@@ -230,16 +230,31 @@ export function createProfilePage() {
     },
 
     get metaChips() {
-      const spoken = (profile.spokenLanguages || []).map(
-        (code) => this.t.spoken[code] || code
-      );
-      return [
-        this.t.hero.location,
-        ...spoken,
-        this.birthYear
-          ? `${this.t.ui.birthPrefix} ${this.birthYear}`
-          : null,
-      ].filter(Boolean);
+      const chips = [
+        {
+          id: "location",
+          kind: "location",
+          icon: "mapPin",
+          label: this.t.hero.location,
+        },
+        ...(profile.spokenLanguages || []).map((code) => ({
+          id: `lang-${code}`,
+          kind: "lang",
+          icon: "language",
+          label: this.t.spoken[code] || code,
+        })),
+      ];
+
+      if (this.birthYear) {
+        chips.push({
+          id: "birth",
+          kind: "birth",
+          icon: "cake",
+          label: `${this.t.ui.birthPrefix} ${this.birthYear}`,
+        });
+      }
+
+      return chips;
     },
 
     projectGlyph(title) {

@@ -28,13 +28,16 @@ export default {
   },
   spoken: {
     ru: "俄语",
+    uk: "乌克兰语",
     en: "英语",
+    ja: "日语",
   },
   hero: {
     role: "前端开发者",
     status: "Online",
     statusOffline: "Offline",
     statusLastSeen: "上次在线：1970-01-01 00:00:00",
+    metaLabel: "地点、语言与出生年份",
     tagline: "我设计既好看又好用的界面。",
     location: "远程",
   },

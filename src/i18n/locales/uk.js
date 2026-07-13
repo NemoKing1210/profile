@@ -1,0 +1,291 @@
+export default {
+  code: "uk",
+  nativeName: "Українська",
+  meta: {
+    description:
+      "Кирило — frontend-розробник. Vue, Nuxt, TypeScript. Профіль, стек і проєкти.",
+  },
+  ui: {
+    pageTitleSuffix: "Профіль",
+    skipToContent: "До змісту",
+    navLabel: "Основна навігація",
+    menuOpen: "Відкрити меню",
+    menuClose: "Закрити меню",
+    langLabel: "Мова",
+    themeToggle: "Перемкнути тему",
+    themeDeniedTitle: "Світлої теми не буде",
+    themeDenied:
+      "Я її не люблю — вона випалює очі вночі. Приєднуйся до темного боку Сили: у ситхів UX теж темний.",
+    backToTop: "Нагору",
+    footerNote: "Static profile · GitHub Pages",
+    birthPrefix: "н.",
+    bannerAlt: "банер",
+    avatarAlt: "аватар",
+    spawnAvatar: "Додати аватар у hero",
+    hobbies: "Хобі",
+    gameGenres: "Улюблені жанри ігор",
+    projectsSubtitle: "Бібліотека — обрані репозиторії",
+  },
+  spoken: {
+    ru: "Російська",
+    uk: "Українська",
+    en: "Англійська",
+    ja: "Японська",
+  },
+  hero: {
+    role: "Frontend-розробник",
+    status: "Online",
+    statusOffline: "Offline",
+    statusLastSeen: "Був онлайн: 1 січ 1970, 00:00:00",
+    metaLabel: "Локація, мови та рік народження",
+    tagline:
+      "Проєктую інтерфейси, які не лише гарно виглядають, а й зручні у користуванні.",
+    location: "Віддалено",
+  },
+  hub: {
+    eyebrow: "Соцхаб",
+    title: "Linktree",
+    blurb:
+      "Frontend-розробник: чистий UX і сучасний веб-дизайн, фокус на Vue/Nuxt. Ділюся думками про ігри та веб-технології.",
+    cta: "Відкрити Linktree",
+    platformsLabel: "Також на",
+    platforms: {
+      telegram: "Telegram",
+      email: "Email",
+      discord: "Discord",
+      whatsapp: "WhatsApp",
+      facebook: "Facebook",
+      github: "GitHub",
+      steam: "Steam",
+      backloggd: "Backloggd",
+      letterboxd: "Letterboxd",
+      notion: "Notion",
+    },
+  },
+  letterboxd: {
+    title: "Letterboxd",
+    filmsWatched: "{count} фільмів",
+    favoritesLabel: "Обране",
+  },
+  about: {
+    title: "Про мене",
+    eyebrow: "Frontend-first · backend теж",
+    badgesLabel: "Сильні сторони",
+    lead:
+      "Збираю інтерфейси, де <mark class=\"about-hl\">майстерність</mark> і смак працюють разом — швидко, акуратно й з увагою до деталей.",
+    paragraphs: [
+      "Люблю поєднувати розробку з візуальним і творчим поглядом. Впевнено працюю й з <strong>backend</strong> (Node.js, PHP, Laravel, Yii2), але <mark class=\"about-hl\">frontend</mark> ближчий: саме там більше задоволення від результату й уваги до UX.",
+      "В IT надихає можливість <strong>бачити результат одразу</strong> — ідея перетворюється на робочий продукт на очах. Сучасний AI-інструментарій допомагає прискорювати ітерації, не жертвуючи якістю коду.",
+    ],
+    badges: {
+      craft: "UI-майстерність",
+      vue: "Vue · Nuxt",
+      ts: "TypeScript",
+      backend: "Backend теж",
+      ai: "AI-native",
+      agents: "AI-агенти",
+      remote: "Remote-ready",
+    },
+    statusLabel: "Доступність",
+    statusWorkBadge: "Закрито",
+    statusWork: "Не в пошуках роботи",
+    statusWorkNote: "HR, можна не писати — уже mid-commit і задоволений.",
+    statusHappyBadge: "Відкрито",
+    statusHappy: "Завжди в пошуках щастя",
+    statusHappyNote: "Офери приймаються: кава, меми, гарний DX.",
+    statusPunch: "Резюме не додаю. Гарний настрій — обов'язково.",
+  },
+  stack: {
+    title: "Стек",
+    eyebrow: "Фокус і інструменти",
+    techsLabel: "Технології",
+    spawnTech: "Додати {name} у hero",
+    toolkitLabel: "AI та агенти",
+    toolkitBlurb:
+      "Щоденний стек для прискорення розробки, рев'ю та проєктування разом із нейромережами.",
+    spawnTool: "Додати {name} у hero",
+    growLabel: "У русі",
+    growBlurb:
+      "Не зупиняюся на досягнутому: пробую нові підходи, читаю, збираю pet-проєкти й переношу вдале в прод — стек живий, а не зафіксований список.",
+    growTagsLabel: "Як вчуся",
+    growTags: ["Експерименти", "Документація", "Pet-проєкти", "Code review"],
+    items: [
+      {
+        id: "frontend",
+        label: "Frontend",
+        detail:
+          "Зрозумілі UI та сучасний клієнтський стек: верстка, Vue / Nuxt, Vite і Alpine там, де доречно.",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        detail:
+          "Віддалена робота й автономність: за потреби піднімаю API та сервіси на Node, Laravel і Yii2.",
+      },
+      {
+        id: "languages",
+        label: "Мови",
+        detail:
+          "Основна мова — TypeScript / JavaScript; також PHP, Lua і C# під задачі проєкту.",
+      },
+    ],
+  },
+  projects: {
+    title: "Проєкти",
+    status: {
+      public: "Public",
+    },
+    blurbs: {
+      "steam-gamestatus":
+        "Userscript для Steam Store: бейджі crack/Denuvo-статусу через GameStatus.info API.",
+      "youtube-bot-comments-filter":
+        "Userscript для YouTube: ловить спам-ботів за патерном ніка, ховає або блюрить коментарі.",
+      ProxyChecker:
+        "Кросплатформний десктопний застосунок для перевірки доступності та швидкості проксі.",
+      "steam-region-block-bypass":
+        "Userscript для Steam: повертає картку товару при регіональній блокуванні «unavailable in your region».",
+    },
+  },
+  interests: {
+    title: "Інтереси",
+    hobbies: ["Відеоігри", "Фільми", "Аніме", "Серіали", "Манґа"],
+    gameGenres: [
+      "Сюжетні шутери",
+      "Пісочниці",
+      "Постапокаліпсис / зомбі",
+    ],
+  },
+  links: {
+    title: "Посилання",
+    hints: {
+      github: "Репозиторії та код",
+      linktree: "Усі соцмережі в одному місці",
+      letterboxd: "Фільми та списки",
+      orcid: "Науковий профіль",
+    },
+  },
+  comments: {
+    title: "Коментарі",
+    wallLabel: "Стіна коментарів",
+    countLabel: "{count} повідомлень",
+    inviteTitle: "Залиште свій",
+    inviteBlurb:
+      "Я буду дуже радий, якщо ви щось напишете — справді. Навіть одне слово вже свято.",
+    nameLabel: "Ім'я",
+    namePlaceholder: "Як вас представити",
+    messageLabel: "Коментар",
+    messagePlaceholder: "+rep nice profile / -rep …",
+    submit: "Надіслати",
+    sending: "Надсилання…",
+    progressLabel: "Надсилання коментаря",
+    finaleTitle: "Помилка сервера",
+    progressStatuses: [
+      "Підключаємося до сервера…",
+      "Перевіряємо орфографію…",
+      "Узгоджуємо з модерацією…",
+      "Чекаємо відповідь від бекенду…",
+      "Майже готово…",
+      "Ще зовсім трохи…",
+    ],
+    spoofWhen: "щойно",
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep baited me into 1v5 and left voice",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "Ти все ще тут?.." },
+      {
+        at: 45,
+        text: "Я не думаю, що твій коментар пройде модерацію…",
+      },
+      { at: 60, text: "Схоже, залишилося зовсім трохи…" },
+      { at: 75, text: "А ти терплячий, ну чекай, чекай…" },
+      {
+        at: 90,
+        text: "У нас повільний сервер, а відвідувачів багато, вибач…",
+      },
+      {
+        at: 105,
+        text: "Ми збільшили потужність серверів, твій запит майже оброблено…",
+      },
+      {
+        at: 120,
+        text: "Сподіваюся, на твій коментар не вплине сонячна радіація…",
+      },
+      { at: 135, text: "Я вже читаю байти твого коментаря…" },
+      {
+        at: 150,
+        text: "Сталася помилка на сервері. Причина: у нас немає сервера :( Але ти молодець, що все ще тут — тримай конфетті. Можеш спробувати надіслати ще раз: може, до того часу в мене з'явиться сервер, але конфетті ти отримаєш у будь-якому разі :)",
+      },
+    ],
+    feed: [
+      {
+        id: "clutch",
+        author: "xX_AWP_God_Xx",
+        tone: "plus",
+        when: "2 дні тому",
+        body: "+rep good teammate clutch king",
+      },
+      {
+        id: "parser",
+        author: "ScrapLord2007",
+        tone: "plus",
+        when: "5 днів тому",
+        body: "+rep good expert at parsing bad sites",
+      },
+      {
+        id: "cheater",
+        author: "salty_potato",
+        tone: "minus",
+        when: "1 тиждень тому",
+        body: "-rep cheater wallhack confirmed !!!",
+      },
+      {
+        id: "trade",
+        author: "Skins4Days",
+        tone: "plus",
+        when: "2 тижні тому",
+        body: "+rep fast trade smooth deal thank u",
+      },
+      {
+        id: "carry",
+        author: "midOrFeed",
+        tone: "plus",
+        when: "3 тижні тому",
+        body: "+rep carried my ranked games absolute legend",
+      },
+      {
+        id: "scam",
+        author: "TrustNo1_Steam",
+        tone: "minus",
+        when: "1 місяць тому",
+        body: "-rep tried to scam me with fake middleman",
+      },
+      {
+        id: "css",
+        author: "flexbox_enjoyer",
+        tone: "plus",
+        when: "1 місяць тому",
+        body: "+rep fixed my CSS in 5 minutes god tier",
+      },
+      {
+        id: "bait",
+        author: "noobSlayer99",
+        tone: "neutral",
+        when: "2 місяці тому",
+        body: "nice profile but still lost 16-4 lmao",
+      },
+    ],
+  },
+  nav: {
+    about: "Про мене",
+    stack: "Стек",
+    projects: "Проєкти",
+    interests: "Інтереси",
+    links: "Посилання",
+    comments: "Коментарі",
+  },
+};

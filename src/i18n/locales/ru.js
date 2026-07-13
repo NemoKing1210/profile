@@ -28,13 +28,16 @@ export default {
   },
   spoken: {
     ru: "Русский",
+    uk: "Украинский",
     en: "Английский",
+    ja: "Японский",
   },
   hero: {
     role: "Frontend-разработчик",
     status: "Online",
     statusOffline: "Offline",
     statusLastSeen: "Был в сети: 1 янв 1970, 00:00:00",
+    metaLabel: "Локация, языки и год рождения",
     tagline:
       "Проектирую интерфейсы, которые не только красиво выглядят, но и удобны для пользователей.",
     location: "Удалённо",

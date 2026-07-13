@@ -10,7 +10,7 @@ Personal profile landing for GitHub Pages.
 - **Bundler:** Vite. Dev = modular sources; prod = `dist/`.
 - **UI:** Alpine.js + Handlebars partials (`src/partials/`) + CSS (`src/styles/`).
 - Content: [`src/data/profile.js`](src/data/profile.js) (IDs / stack / links).
-- i18n: [`src/i18n/locales/`](src/i18n/locales/) — `ru`, `en`, `es`, `de`, `zh`.
+- i18n: [`src/i18n/locales/`](src/i18n/locales/) — `ru`, `uk`, `en`, `es`, `de`, `zh`, `ja`.
 - Visual system: Steam dark theme — [`DESIGN.md`](DESIGN.md).
 - Language: UI is multilingual; default `ru`, switcher in topbar.
 - Pages URL base: `/profile/` (see `vite.config.js`).
@@ -49,7 +49,7 @@ Personal profile landing for GitHub Pages.
 | Task | Touch |
 |------|--------|
 | Update bio / projects / links | `src/data/profile.js` + `src/i18n/locales/*` |
-| Translations | `src/i18n/locales/{ru,en,es,de,zh}.js` |
+| Translations | `src/i18n/locales/{ru,uk,en,es,de,zh,ja}.js` |
 | Layout shell | `index.html` (`{{> partial }}`) |
 | Section markup (blocks) | `src/partials/*.html` |
 | Alpine logic | `src/alpine/*`, `src/main.js` |

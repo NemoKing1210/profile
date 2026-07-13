@@ -33,9 +33,16 @@
         <h1 class="hero__name" id="hero-name" x-text="name"></h1>
         <p class="hero__handle" x-text="handle"></p>
         <p class="hero__tagline" x-text="tagline"></p>
-        <div class="hero__meta">
-          <template x-for="chip in metaChips" :key="chip">
-            <span class="meta-chip" x-text="chip"></span>
+        <div class="hero__meta" :aria-label="t.hero.metaLabel">
+          <template x-for="chip in metaChips" :key="chip.id">
+            <span class="meta-chip" :class="`meta-chip--${chip.kind}`">
+              <span
+                class="meta-chip__icon"
+                aria-hidden="true"
+                x-html="icons[chip.icon]"
+              ></span>
+              <span class="meta-chip__label" x-text="chip.label"></span>
+            </span>
           </template>
         </div>
         <div class="hero__actions">

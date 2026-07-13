@@ -14,6 +14,13 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.17.0] — 2026-07-13
+
+### Added
+
+- Ukrainian and Japanese UI locales; Ukrainian in spoken languages
+- Redesigned hero meta chips with icons (location, languages, birth year)
+
 ## [1.16.1] — 2026-07-13
 
 ### Added
