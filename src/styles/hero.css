@@ -186,8 +186,14 @@
 .hero__inner a,
 .hero__inner button,
 .hero__inner .hero__name-wrap,
-.hero__inner .meta-chip--has-tip {
+.hero__inner .meta-chip--has-tip,
+.hero__inner .hero__speech {
   pointer-events: auto;
+}
+
+.hero__avatar-slot {
+  position: relative;
+  justify-self: start;
 }
 
 .hero__avatar-btn {
@@ -199,6 +205,76 @@
   border-radius: var(--radius);
   line-height: 0;
   transition: transform 0.2s var(--ease);
+}
+
+.hero__speech {
+  position: absolute;
+  bottom: calc(100% + 0.75rem);
+  left: 0;
+  z-index: 8;
+  width: max-content;
+  max-width: min(16.5rem, calc(100vw - 2.5rem));
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px 12px 12px 4px;
+  border: 1px solid var(--border-strong);
+  background:
+    linear-gradient(160deg, rgba(27, 40, 56, 0.98) 0%, rgba(14, 20, 25, 0.98) 100%);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.48),
+    0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--text);
+  animation: hero-speech-in 0.35s var(--ease) both;
+}
+
+.hero__speech::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 1.35rem;
+  border: 7px solid transparent;
+  border-top-color: color-mix(in srgb, var(--bg-store) 92%, var(--accent));
+}
+
+.hero__speech-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-wrap: pretty;
+}
+
+.hero__speech-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.1em;
+  vertical-align: -0.1em;
+  background: var(--accent);
+  animation: hero-speech-caret 0.7s steps(1) infinite;
+}
+
+@keyframes hero-speech-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-speech-caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .hero__avatar-btn:hover {
@@ -326,9 +402,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero__name-tip,
-  .meta-chip__tip {
+  .meta-chip__tip,
+  .hero__speech,
+  .hero__speech-caret {
     transition: none;
     transform: none;
+    animation: none;
   }
 
   .meta-chip--has-tip:hover .meta-chip__tip,

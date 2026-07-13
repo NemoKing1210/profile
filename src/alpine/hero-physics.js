@@ -112,6 +112,7 @@ function placeStatic(container, items, radius) {
 /**
  * Interactive physics layer in the hero.
  * @param {HTMLElement} container
+ * @param {{ onInteract?: () => void }} [options]
  * @returns {{
  *   spawnAiSquare: (tool: object) => void,
  *   spawnTechBall: (ball: object) => void,
@@ -119,7 +120,7 @@ function placeStatic(container, items, radius) {
  *   destroy: () => void
  * }}
  */
-export function initHeroPhysics(container) {
+export function initHeroPhysics(container, options = {}) {
   const noop = {
     spawnAiSquare() {},
     spawnTechBall() {},
@@ -128,6 +129,14 @@ export function initHeroPhysics(container) {
   };
 
   if (!container) return noop;
+
+  const notifyInteract = () => {
+    try {
+      options.onInteract?.();
+    } catch {
+      /* ignore consumer errors */
+    }
+  };
 
   container.replaceChildren();
   container.classList.add("is-ready");
@@ -186,6 +195,9 @@ export function initHeroPhysics(container) {
   };
 
   if (prefersReducedMotion()) {
+    const onStaticPointer = () => notifyInteract();
+    container.addEventListener("pointerdown", onStaticPointer);
+
     placeStatic(container, items, radius);
     return {
       spawnAiSquare(tool) {
@@ -208,6 +220,7 @@ export function initHeroPhysics(container) {
         placeStaticAvatar(opts);
       },
       destroy() {
+        container.removeEventListener("pointerdown", onStaticPointer);
         container.replaceChildren();
         container.classList.remove("is-ready");
       },
@@ -240,7 +253,10 @@ export function initHeroPhysics(container) {
 
   container.classList.add("is-grab");
 
-  const onStartDrag = () => container.classList.add("is-dragging");
+  const onStartDrag = () => {
+    container.classList.add("is-dragging");
+    notifyInteract();
+  };
   const onEndDrag = () => container.classList.remove("is-dragging");
   Events.on(mouseConstraint, "startdrag", onStartDrag);
   Events.on(mouseConstraint, "enddrag", onEndDrag);

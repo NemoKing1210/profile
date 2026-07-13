@@ -40,6 +40,8 @@ export default {
     nameTip: "这是我的名字，怕你没看懂",
     locationTip: "我在矩阵里，没法去你们办公室",
     birthTip: "我是Z世代",
+    playEnough: "还没玩够吗？要不往下看看我的主页？",
+    playAlong: "看起来挺好玩——我也来一起玩！",
     metaLabel: "地点、语言与出生年份",
     tagline: "我设计既好看又好用的界面。",
     location: "远程",

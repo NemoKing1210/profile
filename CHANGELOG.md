@@ -14,6 +14,24 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.22.1] — 2026-07-13
+
+### Changed
+
+- Avatar speech bubbles auto-hide 5 seconds after typing finishes
+
+## [1.22.0] — 2026-07-13
+
+### Added
+
+- At 30 hero physics interactions, a second speech bubble and an auto-spawned avatar join the play
+
+## [1.21.0] — 2026-07-13
+
+### Added
+
+- After 20 hero physics interactions, a typewriter speech bubble appears above the avatar nudging visitors to keep reading
+
 ## [1.20.0] — 2026-07-13
 
 ### Added

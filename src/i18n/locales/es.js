@@ -40,6 +40,9 @@ export default {
     nameTip: "Ese es mi nombre, por si no quedaba claro",
     locationTip: "Estoy en Matrix y no podré ir a vuestra oficina",
     birthTip: "Soy zoomer",
+    playEnough:
+      "¿Todavía no te cansas de jugar? ¿Miramos el resto del perfil?",
+    playAlong: "Parece divertido — ¡juego contigo!",
     metaLabel: "Ubicación, idiomas y año de nacimiento",
     tagline:
       "Diseño interfaces que se ven bien y son cómodas de usar.",

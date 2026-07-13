@@ -13,21 +13,38 @@
   <div class="hero__veil" aria-hidden="true"></div>
   <div class="hero__inner">
     <div class="hero__identity">
-      <button
-        type="button"
-        class="hero__avatar-btn"
-        @click="spawnAvatarSquare()"
-        :aria-label="t.ui.spawnAvatar"
-      >
-        <img
-          class="hero__avatar"
-          :src="avatar"
-          :alt="`${name} — ${t.ui.avatarAlt}`"
-          width="128"
-          height="128"
-          draggable="false"
-        />
-      </button>
+      <div class="hero__avatar-slot">
+        <button
+          type="button"
+          class="hero__avatar-btn"
+          @click="spawnAvatarSquare()"
+          :aria-label="t.ui.spawnAvatar"
+        >
+          <img
+            class="hero__avatar"
+            :src="avatar"
+            :alt="`${name} — ${t.ui.avatarAlt}`"
+            width="128"
+            height="128"
+            draggable="false"
+          />
+        </button>
+        <div
+          class="hero__speech"
+          x-show="avatarSpeechOpen"
+          x-cloak
+          role="status"
+          aria-live="polite"
+        >
+          <p class="hero__speech-text">
+            <span x-text="avatarSpeechText"></span><span
+              class="hero__speech-caret"
+              x-show="avatarSpeechTyping"
+              aria-hidden="true"
+            ></span>
+          </p>
+        </div>
+      </div>
       <div class="hero__copy">
         <p class="hero__role" x-text="role"></p>
         <div
