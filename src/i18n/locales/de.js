@@ -75,16 +75,24 @@ export default {
       agents: "KI-Agenten",
       remote: "Remote-ready",
     },
-    toolkitLabel: "KI & Agenten",
-    toolkitBlurb:
-      "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
-    spawnTool: "{name} im Hero hinzufügen",
+    statusLabel: "Verfügbarkeit",
+    statusWorkBadge: "Geschlossen",
+    statusWork: "Nicht auf Jobsuche",
+    statusWorkNote: "HR: danke — schon mid-commit und zufrieden.",
+    statusHappyBadge: "Offen",
+    statusHappy: "Immer auf der Suche nach Glück",
+    statusHappyNote: "Angebote willkommen: Kaffee, Memes, gutes DX.",
+    statusPunch: "Kein Lebenslauf beigelegt. Gute Laune Pflicht.",
   },
   stack: {
     title: "Stack",
     eyebrow: "Fokus & Werkzeuge",
     techsLabel: "Technologien",
     spawnTech: "{name} im Hero hinzufügen",
+    toolkitLabel: "KI & Agenten",
+    toolkitBlurb:
+      "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
+    spawnTool: "{name} im Hero hinzufügen",
     growLabel: "In Bewegung",
     growBlurb:
       "Ich bleibe nicht stehen: neue Ansätze ausprobieren, lesen, Pet-Projekte bauen und Bewährtes in Produktion bringen — der Stack bleibt lebendig, keine feste Liste.",

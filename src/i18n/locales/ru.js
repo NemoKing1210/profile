@@ -75,16 +75,24 @@ export default {
       agents: "AI-агенты",
       remote: "Remote-ready",
     },
-    toolkitLabel: "AI и агенты",
-    toolkitBlurb:
-      "Повседневный стек для ускорения разработки, ревью и проектирования вместе с нейросетями.",
-    spawnTool: "Добавить {name} в hero",
+    statusLabel: "Доступность",
+    statusWorkBadge: "Закрыто",
+    statusWork: "Не в поисках работы",
+    statusWorkNote: "HR, можно не писать — уже mid-commit и доволен.",
+    statusHappyBadge: "Открыто",
+    statusHappy: "Всегда в поисках счастья",
+    statusHappyNote: "Офферы принимаются: кофе, мемы, хороший DX.",
+    statusPunch: "Резюме не прикладываю. Хорошее настроение — обязательно.",
   },
   stack: {
     title: "Стек",
     eyebrow: "Фокус и инструменты",
     techsLabel: "Технологии",
     spawnTech: "Добавить {name} в hero",
+    toolkitLabel: "AI и агенты",
+    toolkitBlurb:
+      "Повседневный стек для ускорения разработки, ревью и проектирования вместе с нейросетями.",
+    spawnTool: "Добавить {name} в hero",
     growLabel: "В движении",
     growBlurb:
       "Не останавливаюсь на достигнутом: пробую новые подходы, читаю, собираю pet-проекты и переношу удачное в прод — стек живой, а не зафиксированный список.",

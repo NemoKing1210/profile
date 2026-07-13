@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.13.0] — 2026-07-13
+
+### Changed
+
+- Moved the “AI & agents” toolkit block from About into Stack
+
+## [1.12.0] — 2026-07-13
+
+### Added
+
+- About “availability” aside: not looking for work, always looking for happiness (localized joke copy)
+
 ## [1.11.1] — 2026-07-13
 
 ### Changed

@@ -96,13 +96,11 @@ export function createProfilePage() {
     get about() {
       return {
         ...this.t.about,
-        kitMark: aiKitMark,
         badges: (profile.aboutBadges || []).map((badge) => ({
           id: badge.id,
           tone: badge.tone || "muted",
           label: this.t.about.badges?.[badge.id] || badge.id,
         })),
-        tools: this.aiTools,
       };
     },
 
@@ -117,6 +115,11 @@ export function createProfilePage() {
         eyebrow: copy.eyebrow,
         techsLabel: copy.techsLabel,
         spawnTech: copy.spawnTech,
+        toolkitLabel: copy.toolkitLabel,
+        toolkitBlurb: copy.toolkitBlurb,
+        spawnTool: copy.spawnTool,
+        kitMark: aiKitMark,
+        tools: this.aiTools,
         growLabel: copy.growLabel,
         growBlurb: copy.growBlurb,
         growTagsLabel: copy.growTagsLabel,
@@ -269,14 +272,14 @@ export function createProfilePage() {
     },
 
     spawnTechLabel(tech) {
-      return (this.t.stack.spawnTech || this.t.about.spawnTool || "{name}").replace(
+      return (this.t.stack.spawnTech || "{name}").replace(
         "{name}",
         tech.label
       );
     },
 
     spawnToolLabel(tool) {
-      return (this.t.about.spawnTool || "{name}").replace(
+      return (this.t.stack.spawnTool || "{name}").replace(
         "{name}",
         tool.label
       );

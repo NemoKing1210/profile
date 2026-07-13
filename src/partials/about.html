@@ -21,55 +21,40 @@
     </template>
   </div>
 
-  <aside class="ai-kit" :aria-label="about.toolkitLabel">
-    <div class="ai-kit__intro">
-      <span
-        class="ai-kit__mark"
-        :class="about.kitMark.mono && 'ai-kit__mark--mono'"
-        aria-hidden="true"
-      >
-        <img
-          class="ai-kit__mark-img"
-          :src="about.kitMark.src"
-          alt=""
-          width="18"
-          height="18"
-          decoding="async"
-        />
-      </span>
-      <div class="ai-kit__copy">
-        <p class="ai-kit__label" x-text="about.toolkitLabel"></p>
-        <p class="ai-kit__blurb" x-text="about.toolkitBlurb"></p>
+  <aside class="about-status" :aria-label="about.statusLabel">
+    <p class="about-status__eyebrow" x-text="about.statusLabel"></p>
+    <div class="about-status__pair">
+      <div class="about-status__card about-status__card--closed">
+        <span
+          class="about-status__icon"
+          aria-hidden="true"
+          x-html="icons.briefcase"
+        ></span>
+        <div class="about-status__copy">
+          <span
+            class="about-status__badge"
+            x-text="about.statusWorkBadge"
+          ></span>
+          <p class="about-status__line" x-text="about.statusWork"></p>
+          <p class="about-status__note" x-text="about.statusWorkNote"></p>
+        </div>
+      </div>
+      <div class="about-status__card about-status__card--open">
+        <span
+          class="about-status__icon"
+          aria-hidden="true"
+          x-html="icons.faceSmile"
+        ></span>
+        <div class="about-status__copy">
+          <span
+            class="about-status__badge"
+            x-text="about.statusHappyBadge"
+          ></span>
+          <p class="about-status__line" x-text="about.statusHappy"></p>
+          <p class="about-status__note" x-text="about.statusHappyNote"></p>
+        </div>
       </div>
     </div>
-    <ul class="ai-tools">
-      <template x-for="tool in about.tools" :key="tool.id">
-        <li>
-          <button
-            type="button"
-            class="ai-tool"
-            :data-tool="tool.id"
-            :aria-label="spawnToolLabel(tool)"
-            @click="spawnAiTool(tool)"
-          >
-            <span
-              class="ai-tool__icon"
-              :class="tool.mono && 'ai-tool__icon--mono'"
-              aria-hidden="true"
-            >
-              <img
-                class="ai-tool__img"
-                :src="tool.icon"
-                alt=""
-                width="16"
-                height="16"
-                decoding="async"
-              />
-            </span>
-            <span class="ai-tool__name" x-text="tool.label"></span>
-          </button>
-        </li>
-      </template>
-    </ul>
+    <p class="about-status__punch" x-text="about.statusPunch"></p>
   </aside>
 </section>

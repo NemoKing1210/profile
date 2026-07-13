@@ -75,16 +75,24 @@ export default {
       agents: "AI agents",
       remote: "Remote-ready",
     },
-    toolkitLabel: "AI & agents",
-    toolkitBlurb:
-      "Everyday stack for speeding up development, review, and design with neural networks.",
-    spawnTool: "Add {name} to hero",
+    statusLabel: "Availability",
+    statusWorkBadge: "Closed",
+    statusWork: "Not looking for work",
+    statusWorkNote: "Recruiters: thanks — already mid-commit and content.",
+    statusHappyBadge: "Open",
+    statusHappy: "Always looking for happiness",
+    statusHappyNote: "Offers welcome: coffee, memes, delightful DX.",
+    statusPunch: "No résumé attached. Good vibes required.",
   },
   stack: {
     title: "Stack",
     eyebrow: "Focus & tools",
     techsLabel: "Technologies",
     spawnTech: "Add {name} to hero",
+    toolkitLabel: "AI & agents",
+    toolkitBlurb:
+      "Everyday stack for speeding up development, review, and design with neural networks.",
+    spawnTool: "Add {name} to hero",
     growLabel: "Still learning",
     growBlurb:
       "I don’t stop at what’s already working: I try new approaches, read, ship pet projects, and carry what proves useful into production — the stack stays alive, not a frozen list.",

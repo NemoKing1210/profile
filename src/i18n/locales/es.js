@@ -75,16 +75,24 @@ export default {
       agents: "Agentes IA",
       remote: "Remote-ready",
     },
-    toolkitLabel: "IA y agentes",
-    toolkitBlurb:
-      "Stack diario para acelerar desarrollo, revisión y diseño junto a redes neuronales.",
-    spawnTool: "Añadir {name} al hero",
+    statusLabel: "Disponibilidad",
+    statusWorkBadge: "Cerrado",
+    statusWork: "No busco trabajo",
+    statusWorkNote: "RR. HH.: gracias — ya estoy mid-commit y contento.",
+    statusHappyBadge: "Abierto",
+    statusHappy: "Siempre busco la felicidad",
+    statusHappyNote: "Se aceptan ofertas: café, memes y buen DX.",
+    statusPunch: "Sin CV adjunto. Buen humor obligatorio.",
   },
   stack: {
     title: "Stack",
     eyebrow: "Enfoque y herramientas",
     techsLabel: "Tecnologías",
     spawnTech: "Añadir {name} al hero",
+    toolkitLabel: "IA y agentes",
+    toolkitBlurb:
+      "Stack diario para acelerar desarrollo, revisión y diseño junto a redes neuronales.",
+    spawnTool: "Añadir {name} al hero",
     growLabel: "En movimiento",
     growBlurb:
       "No me quedo en lo ya logrado: pruebo enfoques nuevos, leo, hago pet projects y llevo lo útil a producción — el stack está vivo, no es una lista congelada.",
