@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.14.0] — 2026-07-13
+
+### Added
+
+- Mobile hamburger menu in the topbar (drawer nav under 860px)
+
 ## [1.13.2] — 2026-07-13
 
 ### Changed

@@ -9,6 +9,8 @@ export default {
     pageTitleSuffix: "主页",
     skipToContent: "跳到内容",
     navLabel: "主导航",
+    menuOpen: "打开菜单",
+    menuClose: "关闭菜单",
     langLabel: "语言",
     backToTop: "回到顶部",
     footerNote: "Static profile · GitHub Pages",

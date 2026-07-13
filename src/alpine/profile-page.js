@@ -30,6 +30,7 @@ export function createProfilePage() {
     commentWaitTaunt: "",
     commentFinale: false,
     liveComments: [],
+    navOpen: false,
     _spoofInjected: false,
     _commentTimer: null,
     _commentWaitTimer: null,
@@ -271,6 +272,14 @@ export function createProfilePage() {
       });
     },
 
+    toggleNav() {
+      this.navOpen = !this.navOpen;
+    },
+
+    closeNav() {
+      this.navOpen = false;
+    },
+
     spawnTechLabel(tech) {
       return (this.t.stack.spawnTech || "{name}").replace(
         "{name}",
@@ -413,6 +422,12 @@ export function createProfilePage() {
 
     init() {
       this.setLocale(resolveInitialLocale());
+      this._onNavResize = () => {
+        if (window.matchMedia("(min-width: 860px)").matches) {
+          this.closeNav();
+        }
+      };
+      window.addEventListener("resize", this._onNavResize);
       this.$nextTick(() => {
         initReveal(this.$root);
         this._heroPhysics = initHeroPhysics(this.$refs.heroPhysics);
@@ -420,6 +435,9 @@ export function createProfilePage() {
     },
 
     destroy() {
+      window.removeEventListener("resize", this._onNavResize);
+      this._onNavResize = null;
+      this.closeNav();
       this._stopCommentProgress();
       this._stopConfetti?.();
       this._stopConfetti = null;

@@ -9,6 +9,8 @@ export default {
     pageTitleSuffix: "Профиль",
     skipToContent: "К содержимому",
     navLabel: "Основная навигация",
+    menuOpen: "Открыть меню",
+    menuClose: "Закрыть меню",
     langLabel: "Язык",
     backToTop: "Наверх",
     footerNote: "Static profile · GitHub Pages",

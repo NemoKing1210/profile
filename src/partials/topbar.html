@@ -1,10 +1,10 @@
-<header class="topbar">
+<header class="topbar" :class="navOpen && 'topbar--open'">
   <div class="topbar__inner">
-    <a class="brand" href="#top">
+    <a class="brand" href="#top" @click="closeNav()">
       <span class="brand__mark" aria-hidden="true"></span>
       <span class="brand__text" x-text="name"></span>
     </a>
-    <nav class="nav" :aria-label="t.ui.navLabel">
+    <nav class="nav nav--desktop" :aria-label="t.ui.navLabel">
       <template x-for="item in nav" :key="item.href">
         <a class="nav__link" :href="item.href" x-text="item.label"></a>
       </template>
@@ -26,5 +26,46 @@
       <span class="status-dot" aria-hidden="true"></span>
       <span class="status-text" x-text="status"></span>
     </div>
+    <button
+      type="button"
+      class="topbar__burger"
+      :aria-expanded="navOpen"
+      aria-controls="topbar-menu"
+      :aria-label="navOpen ? t.ui.menuClose : t.ui.menuOpen"
+      @click="toggleNav()"
+    >
+      <span
+        class="topbar__burger-icon"
+        aria-hidden="true"
+        x-html="navOpen ? icons.xMark : icons.bars3"
+      ></span>
+    </button>
+  </div>
+
+  <div
+    class="topbar__backdrop"
+    x-show="navOpen"
+    x-cloak
+    @click="closeNav()"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    id="topbar-menu"
+    class="topbar__panel"
+    x-show="navOpen"
+    x-cloak
+    @keydown.escape.window="closeNav()"
+  >
+    <nav class="nav nav--mobile" :aria-label="t.ui.navLabel">
+      <template x-for="item in nav" :key="`m-${item.href}`">
+        <a
+          class="nav__link nav__link--mobile"
+          :href="item.href"
+          x-text="item.label"
+          @click="closeNav()"
+        ></a>
+      </template>
+    </nav>
   </div>
 </header>
