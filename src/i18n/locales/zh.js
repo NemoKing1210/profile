@@ -78,7 +78,8 @@ export default {
   },
   letterboxd: {
     title: "Letterboxd",
-    filmsWatched: "看过 {count} 部电影",
+    about:
+      "Letterboxd 是影迷社交网络：观影日记、评分、片单与讨论。",
     favoritesLabel: "最爱",
     openProfile: "主页",
     subgenresLabel: "喜欢的子类型",
@@ -89,6 +90,22 @@ export default {
       sciFi: "科幻",
       animation: "动画",
       apocalypse: "末日",
+    },
+  },
+  backloggd: {
+    title: "Backloggd",
+    about:
+      "Backloggd 是游戏版 Letterboxd：游玩日记、评分、待玩列表与片单。",
+    favoritesLabel: "最爱",
+    openProfile: "主页",
+    genresLabel: "喜欢的类型",
+    tips: {
+      programming: "正是这款游戏让我爱上了编程",
+    },
+    genres: {
+      storyShooters: "剧情射击",
+      sandboxes: "沙盒",
+      apocalypse: "末世 / 丧尸",
     },
   },
   about: {
@@ -215,11 +232,6 @@ export default {
       anime: "动漫",
       series: "剧集",
       manga: "漫画",
-    },
-    gameGenres: {
-      storyShooters: "剧情射击",
-      sandboxes: "沙盒",
-      apocalypse: "末世 / 丧尸",
     },
   },
   links: {

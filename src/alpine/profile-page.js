@@ -198,21 +198,15 @@ export function createProfilePage() {
     get interests() {
       const copy = this.t.interests || {};
       const hobbyLabels = copy.hobbies || {};
-      const genreLabels = copy.gameGenres || {};
       const hobbies = (profile.interests?.hobbies || []).map((hobby) => ({
         ...hobby,
         label: hobbyLabels[hobby.id] || hobby.id,
         icon: this.icons[hobby.icon] || "",
       }));
-      const gameGenres = (profile.interests?.gameGenres || []).map((genre) => ({
-        ...genre,
-        label: genreLabels[genre.id] || genre.id,
-      }));
       return {
         title: copy.title || "",
         blurb: copy.blurb || "",
         hobbies,
-        gameGenres,
       };
     },
 
@@ -269,21 +263,21 @@ export function createProfilePage() {
       const subgenreLabels = copy.subgenres || {};
       return {
         href: media.href || "",
-        filmsWatched: media.filmsWatched || 0,
+        about: copy.about || "",
         favorites: (media.favorites || []).map((film) =>
           typeof film === "string"
             ? {
                 id: film,
                 title: film,
                 year: null,
-                banner: "",
+                cover: "",
                 href: media.href || "",
               }
             : {
                 id: film.id,
                 title: film.title,
                 year: film.year || null,
-                banner: film.banner || "",
+                cover: film.banner || film.cover || "",
                 href: film.href || media.href || "",
               }
         ),
@@ -294,16 +288,46 @@ export function createProfilePage() {
       };
     },
 
-    get letterboxdStat() {
-      const count = this.letterboxd.filmsWatched || 0;
-      return (this.t.letterboxd.filmsWatched || "{count}").replace(
-        "{count}",
-        String(count)
-      );
-    },
-
     get letterboxdCta() {
       return this.t.letterboxd.openProfile || this.t.letterboxd.title || "Letterboxd";
+    },
+
+    get backloggd() {
+      const media = profile.media?.backloggd || {};
+      const copy = this.t.backloggd || {};
+      const genreLabels = copy.genres || {};
+      const tipCopy = copy.tips || {};
+      return {
+        href: media.href || "",
+        about: copy.about || "",
+        favorites: (media.favorites || []).map((game) =>
+          typeof game === "string"
+            ? {
+                id: game,
+                title: game,
+                year: null,
+                cover: "",
+                href: media.href || "",
+                tip: "",
+              }
+            : {
+                id: game.id,
+                title: game.title,
+                year: game.year || null,
+                cover: game.cover || "",
+                href: game.href || media.href || "",
+                tip: game.tip ? tipCopy[game.tip] || "" : "",
+              }
+        ),
+        genres: (media.genres || []).map((item) => ({
+          ...item,
+          label: genreLabels[item.id] || item.id,
+        })),
+      };
+    },
+
+    get backloggdCta() {
+      return this.t.backloggd.openProfile || this.t.backloggd.title || "Backloggd";
     },
 
     get primaryLinks() {

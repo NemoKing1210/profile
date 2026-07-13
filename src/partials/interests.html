@@ -26,84 +26,143 @@
     </ul>
   </div>
 
-  <div class="interest-card interest-card--genres">
-    <div class="interest-card__head">
-      <h3 class="interest-card__label" x-text="t.ui.gameGenres"></h3>
-    </div>
-    <ul class="interest-badges" role="list">
-      <template x-for="genre in interests.gameGenres" :key="genre.id">
-        <li
-          class="interest-badge"
-          :class="`interest-badge--${genre.tone}`"
-          x-text="genre.label"
-        ></li>
-      </template>
-    </ul>
-  </div>
-
-  <div class="film-shelf">
-    <div class="film-shelf__head">
-      <div class="film-shelf__titles">
-        <h3 class="film-shelf__title" x-text="t.letterboxd.title"></h3>
-        <p class="film-shelf__stat" x-text="letterboxdStat"></p>
+  <div class="media-shelf">
+    <div class="media-shelf__head">
+      <div class="media-shelf__titles">
+        <h3 class="media-shelf__title" x-text="t.letterboxd.title"></h3>
       </div>
       <a
-        class="film-shelf__cta"
+        class="media-shelf__cta"
         :href="letterboxd.href"
         rel="noopener noreferrer"
         target="_blank"
       >
         <span x-text="letterboxdCta"></span>
         <span
-          class="film-shelf__cta-icon"
+          class="media-shelf__cta-icon"
           aria-hidden="true"
           x-html="icons.arrowTopRightOnSquare"
         ></span>
       </a>
     </div>
 
-    <p class="film-shelf__label" x-text="t.letterboxd.favoritesLabel"></p>
+    <p class="media-shelf__about" x-text="letterboxd.about"></p>
+    <p class="media-shelf__label" x-text="t.letterboxd.favoritesLabel"></p>
 
-    <ul class="film-banners" role="list">
+    <ul class="media-covers" role="list">
       <template x-for="film in letterboxd.favorites" :key="film.id">
         <li>
           <a
-            class="film-banner"
+            class="media-cover"
             :href="film.href"
             rel="noopener noreferrer"
             target="_blank"
             :aria-label="film.year ? `${film.title} (${film.year})` : film.title"
           >
             <img
-              class="film-banner__img"
-              :src="film.banner"
+              class="media-cover__img"
+              :src="film.cover"
               :alt="film.title"
               width="150"
               height="225"
               loading="lazy"
               decoding="async"
             />
-            <span class="film-banner__shade" aria-hidden="true"></span>
-            <span class="film-banner__meta">
-              <span class="film-banner__year" x-show="film.year" x-text="film.year"></span>
-              <span class="film-banner__name" x-text="film.title"></span>
+            <span class="media-cover__shade" aria-hidden="true"></span>
+            <span class="media-cover__meta">
+              <span class="media-cover__year" x-show="film.year" x-text="film.year"></span>
+              <span class="media-cover__name" x-text="film.title"></span>
             </span>
           </a>
         </li>
       </template>
     </ul>
 
-    <div
-      class="film-tastes"
-      x-show="letterboxd.subgenres.length"
-    >
-      <div class="film-tastes__row">
+    <div class="media-tastes" x-show="letterboxd.subgenres.length">
+      <div class="media-tastes__row">
         <p
-          class="film-tastes__label"
+          class="media-tastes__label"
           x-text="t.letterboxd.subgenresLabel"
         ></p>
         <ul class="interest-badges" role="list">
           <template x-for="tag in letterboxd.subgenres" :key="tag.id">
+            <li
+              class="interest-badge"
+              :class="`interest-badge--${tag.tone}`"
+              x-text="tag.label"
+            ></li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="media-shelf">
+    <div class="media-shelf__head">
+      <div class="media-shelf__titles">
+        <h3 class="media-shelf__title" x-text="t.backloggd.title"></h3>
+      </div>
+      <a
+        class="media-shelf__cta"
+        :href="backloggd.href"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span x-text="backloggdCta"></span>
+        <span
+          class="media-shelf__cta-icon"
+          aria-hidden="true"
+          x-html="icons.arrowTopRightOnSquare"
+        ></span>
+      </a>
+    </div>
+
+    <p class="media-shelf__about" x-text="backloggd.about"></p>
+    <p class="media-shelf__label" x-text="t.backloggd.favoritesLabel"></p>
+
+    <ul class="media-covers media-covers--five" role="list">
+      <template x-for="game in backloggd.favorites" :key="game.id">
+        <li>
+          <a
+            class="media-cover"
+            :class="{ 'media-cover--has-tip': game.tip }"
+            :href="game.href"
+            rel="noopener noreferrer"
+            target="_blank"
+            :aria-label="game.year ? `${game.title} (${game.year})` : game.title"
+            :aria-describedby="game.tip ? `game-tip-${game.id}` : null"
+          >
+            <img
+              class="media-cover__img"
+              :src="game.cover"
+              :alt="game.title"
+              width="528"
+              height="704"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="media-cover__shade" aria-hidden="true"></span>
+            <span class="media-cover__meta">
+              <span class="media-cover__year" x-show="game.year" x-text="game.year"></span>
+              <span class="media-cover__name" x-text="game.title"></span>
+            </span>
+            <span
+              class="media-cover__tip"
+              x-show="game.tip"
+              :id="game.tip ? `game-tip-${game.id}` : null"
+              role="tooltip"
+              x-text="game.tip"
+            ></span>
+          </a>
+        </li>
+      </template>
+    </ul>
+
+    <div class="media-tastes" x-show="backloggd.genres.length">
+      <div class="media-tastes__row">
+        <p class="media-tastes__label" x-text="t.backloggd.genresLabel"></p>
+        <ul class="interest-badges" role="list">
+          <template x-for="tag in backloggd.genres" :key="tag.id">
             <li
               class="interest-badge"
               :class="`interest-badge--${tag.tone}`"

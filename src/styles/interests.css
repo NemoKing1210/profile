@@ -1,4 +1,4 @@
-/* Interests — intro + hobby chips, genre badges, Letterboxd posters */
+/* Interests — intro + hobby chips, Backloggd / Letterboxd shelves */
 
 .interest-intro {
   margin: 0 0 0.85rem;
@@ -14,33 +14,6 @@
   color: var(--text);
   font-size: 0.98rem;
   line-height: 1.55;
-}
-
-.interest-card {
-  margin-bottom: 0.85rem;
-  padding: 1rem 1.05rem;
-  background: rgba(14, 20, 25, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius);
-}
-
-.interest-card__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.35rem 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.interest-card__label {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
 }
 
 .interest-chips {
@@ -151,9 +124,10 @@
   background: rgba(164, 208, 7, 0.08);
 }
 
-/* Film banner shelf */
+/* Media shelves (Backloggd / Letterboxd) */
 
-.film-shelf {
+.media-shelf {
+  margin-top: 0.85rem;
   padding: 1rem 1.05rem 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-left: 3px solid var(--accent);
@@ -161,23 +135,23 @@
   background: rgba(14, 20, 25, 0.45);
 }
 
-.film-shelf__head {
+.media-shelf__head {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.55rem 1rem;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.45rem;
 }
 
-.film-shelf__titles {
+.media-shelf__titles {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.35rem 0.85rem;
 }
 
-.film-shelf__title {
+.media-shelf__title {
   margin: 0;
   font-family: var(--font-display);
   font-size: 0.9rem;
@@ -187,16 +161,7 @@
   color: var(--text-bright);
 }
 
-.film-shelf__stat {
-  margin: 0;
-  color: var(--accent-green);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.film-shelf__cta {
+.media-shelf__cta {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -217,33 +182,41 @@
     color 160ms ease;
 }
 
-.film-shelf__cta:hover,
-.film-shelf__cta:focus-visible {
+.media-shelf__cta:hover,
+.media-shelf__cta:focus-visible {
   background: rgba(102, 192, 244, 0.16);
   border-color: rgba(102, 192, 244, 0.5);
   color: var(--text-bright);
   outline: none;
 }
 
-.film-shelf__cta-icon {
+.media-shelf__cta-icon {
   display: inline-flex;
   width: 0.95rem;
   height: 0.95rem;
 }
 
-.film-shelf__cta-icon svg {
+.media-shelf__cta-icon svg {
   width: 100%;
   height: 100%;
 }
 
-.film-shelf__label {
+.media-shelf__about {
+  margin: 0 0 0.75rem;
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.media-shelf__label {
   margin: 0 0 0.65rem;
   color: var(--text-muted);
   font-size: 0.8rem;
   font-weight: 600;
 }
 
-.film-banners {
+.media-covers {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -253,13 +226,23 @@
 }
 
 @media (min-width: 480px) {
-  .film-banners {
+  .media-covers {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.75rem;
   }
+
+  .media-covers--five {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
-.film-banner {
+@media (min-width: 720px) {
+  .media-covers--five {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.media-cover {
   position: relative;
   display: block;
   overflow: hidden;
@@ -275,8 +258,8 @@
     box-shadow 180ms ease;
 }
 
-.film-banner:hover,
-.film-banner:focus-visible {
+.media-cover:hover,
+.media-cover:focus-visible {
   border-color: rgba(102, 192, 244, 0.45);
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
@@ -284,14 +267,14 @@
   z-index: 1;
 }
 
-.film-banner:focus-visible {
+.media-cover:focus-visible {
   box-shadow:
     0 0 0 2px var(--bg-panel),
     0 0 0 4px var(--accent),
     0 12px 28px rgba(0, 0, 0, 0.4);
 }
 
-.film-banner__img {
+.media-cover__img {
   display: block;
   width: 100%;
   height: 100%;
@@ -299,12 +282,12 @@
   transition: transform 320ms ease;
 }
 
-.film-banner:hover .film-banner__img,
-.film-banner:focus-visible .film-banner__img {
+.media-cover:hover .media-cover__img,
+.media-cover:focus-visible .media-cover__img {
   transform: scale(1.05);
 }
 
-.film-banner__shade {
+.media-cover__shade {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -316,7 +299,7 @@
   pointer-events: none;
 }
 
-.film-banner__meta {
+.media-cover__meta {
   position: absolute;
   left: 0.45rem;
   right: 0.45rem;
@@ -327,7 +310,7 @@
   z-index: 1;
 }
 
-.film-banner__year {
+.media-cover__year {
   align-self: flex-start;
   padding: 0.1rem 0.35rem;
   border-radius: 2px;
@@ -341,7 +324,7 @@
   text-transform: uppercase;
 }
 
-.film-banner__name {
+.media-cover__name {
   font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
@@ -356,18 +339,75 @@
 }
 
 @media (min-width: 720px) {
-  .film-banner__name {
+  .media-cover__name {
     font-size: 0.8rem;
   }
 
-  .film-banner__meta {
+  .media-cover__meta {
     left: 0.55rem;
     right: 0.55rem;
     bottom: 0.55rem;
   }
 }
 
-.film-tastes {
+.media-cover--has-tip {
+  z-index: 0;
+}
+
+.media-cover__tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.55rem);
+  z-index: 3;
+  width: max-content;
+  max-width: min(16rem, 70vw);
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(102, 192, 244, 0.35);
+  background: rgba(14, 20, 25, 0.96);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: center;
+  text-shadow: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 160ms ease;
+}
+
+.media-cover__tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: rgba(102, 192, 244, 0.35);
+}
+
+.media-cover--has-tip:hover,
+.media-cover--has-tip:focus-visible {
+  z-index: 2;
+}
+
+.media-cover--has-tip:hover .media-cover__tip,
+.media-cover--has-tip:focus-visible .media-cover__tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.media-tastes {
   margin-top: 0.95rem;
   padding-top: 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -375,12 +415,12 @@
   gap: 0.75rem;
 }
 
-.film-tastes__row {
+.media-tastes__row {
   display: grid;
   gap: 0.45rem;
 }
 
-.film-tastes__label {
+.media-tastes__label {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.78rem;
@@ -389,18 +429,24 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .film-banner,
-  .film-banner__img {
+  .media-cover,
+  .media-cover__img,
+  .media-cover__tip {
     transition: none;
   }
 
-  .film-banner:hover,
-  .film-banner:focus-visible {
+  .media-cover:hover,
+  .media-cover:focus-visible {
     transform: none;
   }
 
-  .film-banner:hover .film-banner__img,
-  .film-banner:focus-visible .film-banner__img {
+  .media-cover:hover .media-cover__img,
+  .media-cover:focus-visible .media-cover__img {
     transform: none;
+  }
+
+  .media-cover--has-tip:hover .media-cover__tip,
+  .media-cover--has-tip:focus-visible .media-cover__tip {
+    transform: translateX(-50%);
   }
 }

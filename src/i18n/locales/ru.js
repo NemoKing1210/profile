@@ -80,7 +80,8 @@ export default {
   },
   letterboxd: {
     title: "Letterboxd",
-    filmsWatched: "{count} фильмов",
+    about:
+      "Letterboxd — социальная сеть для киноманов: дневник просмотров, оценки, списки и обсуждения фильмов.",
     favoritesLabel: "Избранное",
     openProfile: "Профиль",
     subgenresLabel: "Любимые поджанры",
@@ -91,6 +92,22 @@ export default {
       sciFi: "Научная фантастика",
       animation: "Анимация",
       apocalypse: "Постапокалипсис",
+    },
+  },
+  backloggd: {
+    title: "Backloggd",
+    about:
+      "Backloggd — аналог Letterboxd для игр: журнал прохождений, оценки, бэклог и списки.",
+    favoritesLabel: "Избранное",
+    openProfile: "Профиль",
+    genresLabel: "Любимые жанры",
+    tips: {
+      programming: "Благодаря этой игре я полюбил программирование",
+    },
+    genres: {
+      storyShooters: "Сюжетные шутеры",
+      sandboxes: "Песочницы",
+      apocalypse: "Постапокалипсис / зомби",
     },
   },
   about: {
@@ -223,11 +240,6 @@ export default {
       anime: "Аниме",
       series: "Сериалы",
       manga: "Манга",
-    },
-    gameGenres: {
-      storyShooters: "Сюжетные шутеры",
-      sandboxes: "Песочницы",
-      apocalypse: "Постапокалипсис / зомби",
     },
   },
   links: {

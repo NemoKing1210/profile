@@ -14,6 +14,33 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.32.2] — 2026-07-13
+
+### Changed
+
+- Backloggd favorites use real cover images; Minecraft links to [minecraft--1](https://backloggd.com/games/minecraft--1/)
+
+## [1.32.1] — 2026-07-13
+
+### Added
+
+- Roblox cover tooltip: programming origin story
+
+### Removed
+
+- Film / game count badges from Letterboxd and Backloggd shelves
+
+## [1.32.0] — 2026-07-13
+
+### Added
+
+- Backloggd shelf in Interests (favorite games from [NemoKing](https://backloggd.com/u/NemoKing/), genres, SVG cover stubs)
+- Short “what is this service” blurbs for Letterboxd and Backloggd
+
+### Changed
+
+- Game genre badges moved into the Backloggd shelf footer
+
 ## [1.31.3] — 2026-07-13
 
 ### Added

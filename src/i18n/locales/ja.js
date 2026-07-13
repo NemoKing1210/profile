@@ -80,7 +80,8 @@ export default {
   },
   letterboxd: {
     title: "Letterboxd",
-    filmsWatched: "{count} 本の映画を鑑賞",
+    about:
+      "Letterboxd は映画好き向けのSNS。視聴日記、評価、リスト、議論ができます。",
     favoritesLabel: "お気に入り",
     openProfile: "プロフィール",
     subgenresLabel: "好きなサブジャンル",
@@ -91,6 +92,22 @@ export default {
       sciFi: "SF",
       animation: "アニメーション",
       apocalypse: "ポストアポカリプス",
+    },
+  },
+  backloggd: {
+    title: "Backloggd",
+    about:
+      "Backloggd はゲーム版 Letterboxd。プレイ日記、評価、バックログ、リストができます。",
+    favoritesLabel: "お気に入り",
+    openProfile: "プロフィール",
+    genresLabel: "好きなジャンル",
+    tips: {
+      programming: "このゲームのおかげでプログラミングが好きになった",
+    },
+    genres: {
+      storyShooters: "ストーリー重視のシューター",
+      sandboxes: "サンドボックス",
+      apocalypse: "ポストアポカリプス / ゾンビ",
     },
   },
   about: {
@@ -223,11 +240,6 @@ export default {
       anime: "アニメ",
       series: "TV シリーズ",
       manga: "マンガ",
-    },
-    gameGenres: {
-      storyShooters: "ストーリー重視のシューター",
-      sandboxes: "サンドボックス",
-      apocalypse: "ポストアポカリプス / ゾンビ",
     },
   },
   links: {

@@ -80,7 +80,8 @@ export default {
   },
   letterboxd: {
     title: "Letterboxd",
-    filmsWatched: "{count} películas",
+    about:
+      "Letterboxd es una red social para cinéfilos: diario de visionados, valoraciones, listas y debate.",
     favoritesLabel: "Favoritos",
     openProfile: "Perfil",
     subgenresLabel: "Subgéneros favoritos",
@@ -91,6 +92,22 @@ export default {
       sciFi: "Ciencia ficción",
       animation: "Animación",
       apocalypse: "Postapocalipsis",
+    },
+  },
+  backloggd: {
+    title: "Backloggd",
+    about:
+      "Backloggd es Letterboxd para juegos: diario de partidas, valoraciones, backlog y listas.",
+    favoritesLabel: "Favoritos",
+    openProfile: "Perfil",
+    genresLabel: "Géneros favoritos",
+    tips: {
+      programming: "Gracias a este juego me enamoré de la programación",
+    },
+    genres: {
+      storyShooters: "Shooters con historia",
+      sandboxes: "Sandboxes",
+      apocalypse: "Postapocalipsis / zombis",
     },
   },
   about: {
@@ -223,11 +240,6 @@ export default {
       anime: "Anime",
       series: "Series",
       manga: "Manga",
-    },
-    gameGenres: {
-      storyShooters: "Shooters con historia",
-      sandboxes: "Sandboxes",
-      apocalypse: "Postapocalipsis / zombis",
     },
   },
   links: {

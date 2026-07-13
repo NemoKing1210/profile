@@ -148,7 +148,7 @@ const profile = {
 
   /**
    * Interests chrome (labels in locales).
-   * Film posters: vertical `*-banner.jpg` in `public/assets/images/films/` (~2:3).
+   * Film / game art: vertical covers ~2:3 in `public/assets/images/{films,games}/`.
    */
   interests: {
     hobbies: [
@@ -158,17 +158,57 @@ const profile = {
       { id: "series", icon: "tv", tone: "hot" },
       { id: "manga", icon: "bookOpen", tone: "green" },
     ],
-    gameGenres: [
-      { id: "storyShooters", tone: "hot" },
-      { id: "sandboxes", tone: "accent" },
-      { id: "apocalypse", tone: "green" },
-    ],
   },
 
   media: {
+    backloggd: {
+      href: "https://backloggd.com/u/NemoKing/",
+      favorites: [
+        {
+          id: "dying-light",
+          title: "Dying Light",
+          year: 2015,
+          cover: `${base}assets/images/games/dying-light-cover.jpg`,
+          href: "https://backloggd.com/games/dying-light/",
+        },
+        {
+          id: "terraria",
+          title: "Terraria",
+          year: 2011,
+          cover: `${base}assets/images/games/terraria-cover.jpg`,
+          href: "https://backloggd.com/games/terraria/",
+        },
+        {
+          id: "minecraft",
+          title: "Minecraft",
+          year: 2011,
+          cover: `${base}assets/images/games/minecraft-cover.jpg`,
+          href: "https://backloggd.com/games/minecraft--1/",
+        },
+        {
+          id: "roblox",
+          title: "Roblox",
+          year: 2006,
+          tip: "programming",
+          cover: `${base}assets/images/games/roblox-cover.jpg`,
+          href: "https://backloggd.com/games/roblox/",
+        },
+        {
+          id: "metro-exodus",
+          title: "Metro Exodus",
+          year: 2019,
+          cover: `${base}assets/images/games/metro-exodus-cover.jpg`,
+          href: "https://backloggd.com/games/metro-exodus/",
+        },
+      ],
+      genres: [
+        { id: "storyShooters", tone: "hot" },
+        { id: "sandboxes", tone: "accent" },
+        { id: "apocalypse", tone: "green" },
+      ],
+    },
     letterboxd: {
       href: "https://letterboxd.com/nemoking/",
-      filmsWatched: 576,
       favorites: [
         {
           id: "lotr-fellowship",
@@ -199,7 +239,6 @@ const profile = {
           href: "https://letterboxd.com/film/the-avengers-2012/",
         },
       ],
-      /** Taste chips under the poster shelf (labels in locales). */
       subgenres: [
         { id: "epicFantasy", tone: "accent" },
         { id: "superhero", tone: "hot" },
@@ -210,7 +249,6 @@ const profile = {
       ],
     },
   },
-
   nav: [
     { id: "about", href: "#about" },
     { id: "stack", href: "#stack" },
