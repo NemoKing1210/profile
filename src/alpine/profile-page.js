@@ -263,6 +263,8 @@ export function createProfilePage() {
       const subgenreLabels = copy.subgenres || {};
       return {
         href: media.href || "",
+        name: media.name || "",
+        avatar: media.avatar || "",
         about: copy.about || "",
         favorites: (media.favorites || []).map((film) =>
           typeof film === "string"
@@ -299,6 +301,8 @@ export function createProfilePage() {
       const tipCopy = copy.tips || {};
       return {
         href: media.href || "",
+        name: media.name || "",
+        avatar: media.avatar || "",
         about: copy.about || "",
         favorites: (media.favorites || []).map((game) =>
           typeof game === "string"
@@ -328,6 +332,22 @@ export function createProfilePage() {
 
     get backloggdCta() {
       return this.t.backloggd.openProfile || this.t.backloggd.title || "Backloggd";
+    },
+
+    get steam() {
+      const media = profile.media?.steam || {};
+      const copy = this.t.steam || {};
+      return {
+        href: media.href || "",
+        handle: media.handle || "",
+        name: media.name || "",
+        avatar: media.avatar || "",
+        title: copy.title || "Steam",
+        about: copy.about || "",
+        invite: copy.invite || "",
+        cta: copy.cta || copy.openProfile || "Steam",
+        mark: projectMarks.steam,
+      };
     },
 
     get primaryLinks() {

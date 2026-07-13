@@ -161,8 +161,17 @@ const profile = {
   },
 
   media: {
+    steam: {
+      href: "https://steamcommunity.com/id/mrnemoking/",
+      handle: "mrnemoking",
+      name: "NemoKing",
+      avatar:
+        "https://avatars.akamai.steamstatic.com/4a8a0898fa1dc804fe5d6e870f838f5f95c1fe02_full.jpg",
+    },
     backloggd: {
       href: "https://backloggd.com/u/NemoKing/",
+      name: "NemoKing",
+      avatar: "https://backloggd-avatars.b-cdn.net/hexhxddmx02ohfsx4bjveq99onqc",
       favorites: [
         {
           id: "dying-light",
@@ -209,6 +218,9 @@ const profile = {
     },
     letterboxd: {
       href: "https://letterboxd.com/nemoking/",
+      name: "Kirill",
+      avatar:
+        "https://a.ltrbxd.com/resized/avatar/upload/2/9/7/2/5/2/0/9/shard/avtr-0-220-0-220-crop.jpg?v=a12e6d8c43",
       favorites: [
         {
           id: "lotr-fellowship",

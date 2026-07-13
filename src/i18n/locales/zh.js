@@ -108,6 +108,15 @@ export default {
       apocalypse: "末世 / 丧尸",
     },
   },
+  steam: {
+    title: "Steam",
+    inviteTitle: "一起玩？",
+    about:
+      "Steam 是 Valve 的游戏平台：库、好友、联机与社区。",
+    invite:
+      "想一起玩的话——合作、休闲，或只是线上挂着——欢迎来我的主页。加好友就好，很高兴认识你。",
+    cta: "打开 Steam 主页",
+  },
   about: {
     title: "关于我",
     eyebrow: "Frontend 优先 · 也能做后端",

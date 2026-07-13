@@ -28,8 +28,20 @@
 
   <div class="media-shelf">
     <div class="media-shelf__head">
-      <div class="media-shelf__titles">
-        <h3 class="media-shelf__title" x-text="t.letterboxd.title"></h3>
+      <div class="media-shelf__identity">
+        <img
+          class="media-shelf__avatar"
+          :src="letterboxd.avatar"
+          :alt="letterboxd.name"
+          width="220"
+          height="220"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="media-shelf__titles">
+          <h3 class="media-shelf__title" x-text="t.letterboxd.title"></h3>
+          <p class="media-shelf__name" x-text="letterboxd.name"></p>
+        </div>
       </div>
       <a
         class="media-shelf__cta"
@@ -99,8 +111,20 @@
 
   <div class="media-shelf">
     <div class="media-shelf__head">
-      <div class="media-shelf__titles">
-        <h3 class="media-shelf__title" x-text="t.backloggd.title"></h3>
+      <div class="media-shelf__identity">
+        <img
+          class="media-shelf__avatar"
+          :src="backloggd.avatar"
+          :alt="backloggd.name"
+          width="175"
+          height="175"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="media-shelf__titles">
+          <h3 class="media-shelf__title" x-text="t.backloggd.title"></h3>
+          <p class="media-shelf__name" x-text="backloggd.name"></p>
+        </div>
       </div>
       <a
         class="media-shelf__cta"
@@ -173,4 +197,50 @@
       </div>
     </div>
   </div>
+
+  <aside class="steam-invite" aria-labelledby="steam-invite-title">
+    <div class="steam-invite__glow" aria-hidden="true"></div>
+    <div class="steam-invite__persona">
+      <img
+        class="steam-invite__avatar"
+        :src="steam.avatar"
+        :alt="steam.name"
+        width="184"
+        height="184"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="steam-invite__who">
+        <p class="steam-invite__eyebrow" x-text="steam.title"></p>
+        <p class="steam-invite__name" x-text="steam.name"></p>
+      </div>
+    </div>
+    <div class="steam-invite__body">
+      <h3
+        class="steam-invite__title"
+        id="steam-invite-title"
+        x-text="t.steam.inviteTitle"
+      ></h3>
+      <p class="steam-invite__about" x-text="steam.about"></p>
+      <p class="steam-invite__invite" x-text="steam.invite"></p>
+      <div class="steam-invite__actions">
+        <a
+          class="btn btn--primary steam-invite__cta"
+          :href="steam.href"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <svg
+            class="steam-invite__cta-mark"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path :d="steam.mark.path" fill="currentColor"></path>
+          </svg>
+          <span x-text="steam.cta"></span>
+        </a>
+      </div>
+    </div>
+  </aside>
 </section>

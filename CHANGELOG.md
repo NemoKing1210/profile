@@ -14,6 +14,24 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.33.2] — 2026-07-13
+
+### Added
+
+- Letterboxd and Backloggd shelf headers show profile avatar + display name
+
+## [1.33.1] — 2026-07-13
+
+### Changed
+
+- Steam invite: avatar + nickname, full-width text, removed handle line
+
+## [1.33.0] — 2026-07-13
+
+### Added
+
+- Steam invite card in Interests: co-op welcome + link to [mrnemoking](https://steamcommunity.com/id/mrnemoking/)
+
 ## [1.32.2] — 2026-07-13
 
 ### Changed

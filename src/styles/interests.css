@@ -144,11 +144,28 @@
   margin-bottom: 0.45rem;
 }
 
+.media-shelf__identity {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.media-shelf__avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(102, 192, 244, 0.35);
+  background: rgba(14, 20, 25, 0.55);
+}
+
 .media-shelf__titles {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.85rem;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
 }
 
 .media-shelf__title {
@@ -159,6 +176,14 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-bright);
+}
+
+.media-shelf__name {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .media-shelf__cta {
@@ -426,6 +451,147 @@
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+/* Steam co-op invite */
+
+.steam-invite {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  overflow: hidden;
+  margin-top: 0.85rem;
+  padding: 1.15rem 1.2rem 1.25rem;
+  border: 1px solid rgba(102, 192, 244, 0.22);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(125deg, rgba(26, 159, 255, 0.18) 0%, transparent 45%),
+    linear-gradient(180deg, #1e2f42 0%, #152433 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+@media (min-width: 640px) {
+  .steam-invite {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.25rem 1.35rem;
+    padding: 1.35rem 1.45rem;
+  }
+}
+
+.steam-invite__glow {
+  position: absolute;
+  inset: auto -12% -55% auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(102, 192, 244, 0.22), transparent 68%);
+  pointer-events: none;
+}
+
+.steam-invite__persona {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .steam-invite__persona {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.55rem;
+    min-width: 7.5rem;
+  }
+}
+
+.steam-invite__avatar {
+  width: 4.5rem;
+  height: 4.5rem;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 0.35rem;
+  border: 2px solid rgba(102, 192, 244, 0.45);
+  background: rgba(14, 20, 25, 0.55);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.steam-invite__who {
+  min-width: 0;
+}
+
+.steam-invite__eyebrow {
+  margin: 0 0 0.2rem;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.steam-invite__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-bright);
+  line-height: 1.2;
+}
+
+.steam-invite__body {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.steam-invite__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-bright);
+}
+
+.steam-invite__about {
+  margin: 0 0 0.55rem;
+  max-width: none;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.steam-invite__invite {
+  margin: 0;
+  max-width: none;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.steam-invite__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-top: 1rem;
+}
+
+.steam-invite__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+
+.steam-invite__cta-mark {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

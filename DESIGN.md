@@ -48,7 +48,7 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 │ panel: О себе                       │
 │ panel: Стек (focus + tech chips)    │
 │ panel: Проекты (capsule shelf)      │
-│ panel: Интересы (chips + Letterboxd + Backloggd)│
+│ panel: Интересы (Letterboxd + Backloggd + Steam)│
 │ panel: Ссылки (Linktree hub + grid)            │
 │ panel: Комментарии (шуточная форма)            │
 ├─────────────────────────────────────┤

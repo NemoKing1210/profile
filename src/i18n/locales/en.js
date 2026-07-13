@@ -110,6 +110,15 @@ export default {
       apocalypse: "Post-apocalypse / zombies",
     },
   },
+  steam: {
+    title: "Steam",
+    inviteTitle: "Want to play?",
+    about:
+      "Steam is Valve’s game platform: library, friends, multiplayer, and community.",
+    invite:
+      "If you want to play together — co-op, casual, or just hang out online — you’re welcome on my profile. Add me as a friend; I’d be glad.",
+    cta: "Open Steam profile",
+  },
   about: {
     title: "About",
     eyebrow: "Frontend-first · backend too",

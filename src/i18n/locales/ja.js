@@ -110,6 +110,15 @@ export default {
       apocalypse: "ポストアポカリプス / ゾンビ",
     },
   },
+  steam: {
+    title: "Steam",
+    inviteTitle: "一緒に遊ぼう？",
+    about:
+      "Steam は Valve のゲームプラットフォーム。ライブラリ、フレンド、マルチプレイ、コミュニティ。",
+    invite:
+      "一緒に遊びたいなら — 協力、カジュアル、オンラインで雑談でも — プロフィールへどうぞ。フレンド追加歓迎です。",
+    cta: "Steam プロフィールを開く",
+  },
   about: {
     title: "自己紹介",
     eyebrow: "Frontend-first · backend も",
