@@ -1,7 +1,7 @@
 {
   "name": "profile",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@lobehub/icons-static-svg": "^1.91.0",
-    "alpinejs": "^3.14.8"
+    "alpinejs": "^3.14.8",
+    "matter-js": "^0.20.0",
+    "simple-icons": "^16.26.0"
   },
   "devDependencies": {
     "vite": "^6.3.5",

@@ -69,7 +69,8 @@ Ship only purposeful motion:
 
 1. Banner subtle scale-in on load.
 2. Hero identity rise-in.
-3. Section / capsule reveal on scroll (`IntersectionObserver`).
+3. Hero tech balls: fall-in with physics, drag & collide (skipped / static under `prefers-reduced-motion`).
+4. Section / capsule reveal on scroll (`IntersectionObserver`).
 
 Respect `prefers-reduced-motion: reduce` (already wired in CSS/JS).
 

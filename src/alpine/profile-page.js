@@ -8,6 +8,7 @@ import {
   locales,
   resolveInitialLocale,
 } from "../i18n/index.js";
+import { initHeroPhysics } from "./hero-physics.js";
 import { initReveal } from "./reveal.js";
 
 export function createProfilePage() {
@@ -181,7 +182,15 @@ export function createProfilePage() {
 
     init() {
       this.setLocale(resolveInitialLocale());
-      this.$nextTick(() => initReveal(this.$root));
+      this.$nextTick(() => {
+        initReveal(this.$root);
+        this._stopHeroPhysics = initHeroPhysics(this.$refs.heroPhysics);
+      });
+    },
+
+    destroy() {
+      this._stopHeroPhysics?.();
+      this._stopHeroPhysics = null;
     },
   };
 }

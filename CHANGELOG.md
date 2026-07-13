@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.2.0] — 2026-07-13
+
+### Added
+
+- Hero physics layer: colorful tech/language balls fall in on load (Matter.js), collide, and can be dragged
+- Tech ball icons via `simple-icons` (Vue, Nuxt, JS/TS, HTML/CSS, Node, PHP, Laravel, Yii, Lua, C#/.NET, Vite, Alpine)
+
+### Changed
+
+- Hero veil softened on the right so the ball pile stays readable
+- Hero min-height slightly increased to give the physics playfield more room
+
 ## [1.1.0] — 2026-07-13
 
 ### Added

@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: min(72vh, 560px);
+  min-height: min(78vh, 620px);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -10,6 +10,7 @@
 .hero__banner {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background-color: var(--bg-store);
   background-size: cover;
   background-position: center;
@@ -17,22 +18,86 @@
   animation: banner-in 1.1s var(--ease) both;
 }
 
+.hero__physics {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  touch-action: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.hero__physics.is-ready {
+  opacity: 1;
+}
+
+.hero__physics.is-grab {
+  cursor: grab;
+}
+
+.hero__physics.is-dragging {
+  cursor: grabbing;
+}
+
+.hero-ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      rgba(255, 255, 255, 0.42) 0%,
+      transparent 42%
+    ),
+    var(--ball-fill, #66c0f4);
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+  will-change: transform;
+  user-select: none;
+}
+
+.hero-ball__icon {
+  width: 52%;
+  height: 52%;
+  display: block;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+}
+
+.hero-ball--static {
+  will-change: auto;
+}
+
 .hero__veil {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
-    linear-gradient(90deg, rgba(14, 20, 25, 0.92) 0%, rgba(14, 20, 25, 0.55) 42%, rgba(14, 20, 25, 0.25) 100%),
-    linear-gradient(0deg, rgba(14, 20, 25, 0.95) 0%, rgba(14, 20, 25, 0.35) 45%, transparent 75%);
+    linear-gradient(90deg, rgba(14, 20, 25, 0.9) 0%, rgba(14, 20, 25, 0.35) 38%, rgba(14, 20, 25, 0.05) 100%),
+    linear-gradient(0deg, rgba(14, 20, 25, 0.78) 0%, rgba(14, 20, 25, 0.18) 40%, transparent 72%);
   pointer-events: none;
 }
 
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
   padding: 2.5rem 1.25rem 2rem;
+  pointer-events: none;
+}
+
+.hero__inner a,
+.hero__inner button {
+  pointer-events: auto;
 }
 
 .hero__identity {

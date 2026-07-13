@@ -38,6 +38,7 @@
 
   .hero__banner,
   .hero__identity,
+  .hero__physics,
   .reveal {
     animation: none !important;
     transition: none !important;
