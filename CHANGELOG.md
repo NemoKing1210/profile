@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.27.3] — 2026-07-13
+
+### Added
+
+- Fake comment from `WonderKusWhy` (+rep Stalcraft teammate)
+
+## [1.27.2] — 2026-07-13
+
+### Changed
+
+- Replaced the fake trade +rep comment with `kalerkin_dust` farm-raid note
+
 ## [1.27.1] — 2026-07-13
 
 ### Changed
