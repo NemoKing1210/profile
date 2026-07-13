@@ -31,6 +31,12 @@ export function createProfilePage() {
     commentFinale: false,
     liveComments: [],
     navOpen: false,
+    themeJokeOpen: false,
+    themeJokeFlash: false,
+    themeSith: false,
+    _themeJokeTimer: null,
+    _themeFlashTimer: null,
+    _themeSithTimer: null,
     _spoofInjected: false,
     _commentTimer: null,
     _commentWaitTimer: null,
@@ -280,6 +286,35 @@ export function createProfilePage() {
       this.navOpen = false;
     },
 
+    pokeThemeJoke() {
+      this.themeJokeFlash = true;
+      if (this._themeFlashTimer != null) {
+        window.clearTimeout(this._themeFlashTimer);
+      }
+      this._themeFlashTimer = window.setTimeout(() => {
+        this.themeJokeFlash = false;
+        this._themeFlashTimer = null;
+      }, 220);
+
+      this.themeJokeOpen = true;
+      if (this._themeJokeTimer != null) {
+        window.clearTimeout(this._themeJokeTimer);
+      }
+      this._themeJokeTimer = window.setTimeout(() => {
+        this.themeJokeOpen = false;
+        this._themeJokeTimer = null;
+      }, 5200);
+
+      this.themeSith = true;
+      if (this._themeSithTimer != null) {
+        window.clearTimeout(this._themeSithTimer);
+      }
+      this._themeSithTimer = window.setTimeout(() => {
+        this.themeSith = false;
+        this._themeSithTimer = null;
+      }, 5000);
+    },
+
     spawnTechLabel(tech) {
       return (this.t.stack.spawnTech || "{name}").replace(
         "{name}",
@@ -438,6 +473,20 @@ export function createProfilePage() {
       window.removeEventListener("resize", this._onNavResize);
       this._onNavResize = null;
       this.closeNav();
+      if (this._themeJokeTimer != null) {
+        window.clearTimeout(this._themeJokeTimer);
+        this._themeJokeTimer = null;
+      }
+      if (this._themeFlashTimer != null) {
+        window.clearTimeout(this._themeFlashTimer);
+        this._themeFlashTimer = null;
+      }
+      if (this._themeSithTimer != null) {
+        window.clearTimeout(this._themeSithTimer);
+        this._themeSithTimer = null;
+      }
+      this.themeJokeOpen = false;
+      this.themeSith = false;
       this._stopCommentProgress();
       this._stopConfetti?.();
       this._stopConfetti = null;

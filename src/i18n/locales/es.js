@@ -12,6 +12,10 @@ export default {
     menuOpen: "Abrir menú",
     menuClose: "Cerrar menú",
     langLabel: "Idioma",
+    themeToggle: "Cambiar tema",
+    themeDeniedTitle: "No habrá tema claro",
+    themeDenied:
+      "No me gusta: me quema los ojos por la noche. Únete al lado oscuro de la Fuerza: el UX sith también es oscuro.",
     backToTop: "Volver arriba",
     footerNote: "Static profile · GitHub Pages",
     birthPrefix: "n.",

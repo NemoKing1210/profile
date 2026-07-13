@@ -12,6 +12,10 @@ export default {
     menuOpen: "打开菜单",
     menuClose: "关闭菜单",
     langLabel: "语言",
+    themeToggle: "切换主题",
+    themeDeniedTitle: "不会有浅色主题",
+    themeDenied:
+      "我不喜欢——晚上刺得眼睛发疼。来加入原力黑暗面吧：西斯的 UX 也是暗色的。",
     backToTop: "回到顶部",
     footerNote: "Static profile · GitHub Pages",
     birthPrefix: "生于",

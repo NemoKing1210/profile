@@ -9,22 +9,52 @@
         <a class="nav__link" :href="item.href" x-text="item.label"></a>
       </template>
     </nav>
-    <label class="lang-switch">
-      <span class="visually-hidden" x-text="t.ui.langLabel"></span>
-      <select
-        class="lang-switch__select"
-        :aria-label="t.ui.langLabel"
-        :value="locale"
-        @change="setLocale($event.target.value)"
-      >
-        <template x-for="option in localeList" :key="option.code">
-          <option :value="option.code" x-text="option.nativeName"></option>
-        </template>
-      </select>
-    </label>
-    <div class="topbar__status" x-show="status" x-cloak>
-      <span class="status-dot" aria-hidden="true"></span>
-      <span class="status-text" x-text="status"></span>
+    <div class="topbar__tools">
+      <label class="lang-switch">
+        <span class="visually-hidden" x-text="t.ui.langLabel"></span>
+        <select
+          class="lang-switch__select"
+          :aria-label="t.ui.langLabel"
+          :value="locale"
+          @change="setLocale($event.target.value)"
+        >
+          <template x-for="option in localeList" :key="option.code">
+            <option :value="option.code" x-text="option.nativeName"></option>
+          </template>
+        </select>
+      </label>
+      <div class="theme-joke">
+        <button
+          type="button"
+          class="theme-joke__btn"
+          :class="themeJokeFlash && 'theme-joke__btn--flash'"
+          :aria-label="t.ui.themeToggle"
+          :aria-expanded="themeJokeOpen"
+          aria-controls="theme-joke-toast"
+          @click="pokeThemeJoke()"
+        >
+          <span
+            class="theme-joke__icon"
+            aria-hidden="true"
+            x-html="icons.sun"
+          ></span>
+        </button>
+        <div
+          id="theme-joke-toast"
+          class="theme-joke__toast"
+          role="status"
+          aria-live="polite"
+          x-show="themeJokeOpen"
+          x-cloak
+        >
+          <p class="theme-joke__title" x-text="t.ui.themeDeniedTitle"></p>
+          <p class="theme-joke__text" x-text="t.ui.themeDenied"></p>
+        </div>
+      </div>
+      <div class="topbar__status" x-show="status" x-cloak>
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="status-text" x-text="status"></span>
+      </div>
     </div>
     <button
       type="button"

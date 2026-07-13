@@ -14,6 +14,42 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.15.5] — 2026-07-13
+
+### Changed
+
+- Panel backgrounds also shift to dark red during Sith theme
+
+## [1.15.4] — 2026-07-13
+
+### Changed
+
+- Smoother Sith theme crossfade via `@property` color tokens; hero banner veil, avatar, and CTAs tint red too
+
+## [1.15.3] — 2026-07-13
+
+### Added
+
+- Theme joke button briefly paints the site dark-red (Sith mode) for 5 seconds
+
+## [1.15.2] — 2026-07-13
+
+### Changed
+
+- Grouped locale, theme toggle, and online status in a tighter topbar tools cluster
+
+## [1.15.1] — 2026-07-13
+
+### Changed
+
+- Theme-joke toast now nods to the Sith / dark side of the Force
+
+## [1.15.0] — 2026-07-13
+
+### Added
+
+- Joke theme toggle in the topbar that refuses light mode with localized copy
+
 ## [1.14.0] — 2026-07-13
 
 ### Added

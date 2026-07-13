@@ -12,6 +12,10 @@ export default {
     menuOpen: "Open menu",
     menuClose: "Close menu",
     langLabel: "Language",
+    themeToggle: "Toggle theme",
+    themeDeniedTitle: "No light theme",
+    themeDenied:
+      "I don’t like it — it burns my eyes at night. Come to the dark side of the Force: Sith UX stays dark too.",
     backToTop: "Back to top",
     footerNote: "Static profile · GitHub Pages",
     birthPrefix: "b.",

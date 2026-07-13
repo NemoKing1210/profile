@@ -17,7 +17,11 @@
     />
     <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml" />
   </head>
-  <body x-data="profilePage" x-cloak>
+  <body
+    x-data="profilePage"
+    x-cloak
+    :class="themeSith && 'theme-sith'"
+  >
     <a class="skip-link" href="#main" x-text="t.ui.skipToContent"></a>
 
     {{> topbar }}

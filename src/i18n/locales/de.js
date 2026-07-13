@@ -12,6 +12,10 @@ export default {
     menuOpen: "Menü öffnen",
     menuClose: "Menü schließen",
     langLabel: "Sprache",
+    themeToggle: "Theme wechseln",
+    themeDeniedTitle: "Kein helles Theme",
+    themeDenied:
+      "Mag ich nicht — es brennt mir nachts die Augen aus. Komm zur dunklen Seite der Macht: Sith-UX bleibt dunkel.",
     backToTop: "Nach oben",
     footerNote: "Static profile · GitHub Pages",
     birthPrefix: "geb.",
