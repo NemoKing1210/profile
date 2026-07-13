@@ -12,57 +12,71 @@ import {
   locales,
   resolveInitialLocale,
 } from "../i18n/index.js";
+import {
+  ACTIVITY_DAYS,
+  ACTIVITY_MAX,
+  ACTIVITY_WEEKS,
+  aboutActivityMethods,
+  aboutActivityState,
+} from "./about-activity.js";
 import { initHeroPhysics } from "./hero-physics.js";
 import { initInfiniteScroll } from "./infinite-scroll.js";
 import { initReveal } from "./reveal.js";
 import { celebrateConfetti } from "./confetti.js";
 
 export function createProfilePage() {
-  return {
-    locale: DEFAULT_LOCALE,
-    localeList,
-    name: profile.name,
-    handle: profile.handle,
-    birthYear: profile.birthYear,
-    avatar: profile.avatar,
-    banner: profile.banner,
-    icons: heroicons,
-    commentDraft: { name: "", message: "" },
-    commentSubmitting: false,
-    commentProgress: 0,
-    commentWaitTaunt: "",
-    commentFinale: false,
-    commentRepLocked: false,
-    commentRepLockLeft: 0,
-    commentRepStrikes: 0,
-    liveComments: [],
-    navOpen: false,
-    themeJokeOpen: false,
-    themeJokeFlash: false,
-    themeSith: false,
-    physicsPlayCount: 0,
-    avatarSpeechOpen: false,
-    avatarSpeechText: "",
-    avatarSpeechTyping: false,
-    _avatarSpeechKey: null,
-    _speechPlayEnoughDone: false,
-    _speechPlayAlongDone: false,
-    _avatarSpeechTimer: null,
-    _avatarSpeechHideTimer: null,
-    _themeJokeTimer: null,
-    _themeFlashTimer: null,
-    _themeSithTimer: null,
-    _spoofInjected: false,
-    _commentTimer: null,
-    _commentWaitTimer: null,
-    _commentStartedAt: 0,
-    _stopConfetti: null,
-    _infiniteScroll: null,
-    stackFlipDeg: 0,
-    _stackFlipRaf: 0,
-    _onStackFlipScroll: null,
+  // Spread must not evaluate activity getters (object rest/spread calls them).
+  // Copy descriptors so Alpine keeps real getters/methods.
+  return Object.defineProperties(
+    {
+      ACTIVITY_WEEKS,
+      ACTIVITY_DAYS,
+      ACTIVITY_MAX,
+      ...aboutActivityState(),
+      locale: DEFAULT_LOCALE,
+      localeList,
+      name: profile.name,
+      handle: profile.handle,
+      birthYear: profile.birthYear,
+      avatar: profile.avatar,
+      banner: profile.banner,
+      icons: heroicons,
+      commentDraft: { name: "", message: "" },
+      commentSubmitting: false,
+      commentProgress: 0,
+      commentWaitTaunt: "",
+      commentFinale: false,
+      commentRepLocked: false,
+      commentRepLockLeft: 0,
+      commentRepStrikes: 0,
+      liveComments: [],
+      navOpen: false,
+      themeJokeOpen: false,
+      themeJokeFlash: false,
+      themeSith: false,
+      physicsPlayCount: 0,
+      avatarSpeechOpen: false,
+      avatarSpeechText: "",
+      avatarSpeechTyping: false,
+      _avatarSpeechKey: null,
+      _speechPlayEnoughDone: false,
+      _speechPlayAlongDone: false,
+      _avatarSpeechTimer: null,
+      _avatarSpeechHideTimer: null,
+      _themeJokeTimer: null,
+      _themeFlashTimer: null,
+      _themeSithTimer: null,
+      _spoofInjected: false,
+      _commentTimer: null,
+      _commentWaitTimer: null,
+      _commentStartedAt: 0,
+      _stopConfetti: null,
+      _infiniteScroll: null,
+      stackFlipDeg: 0,
+      _stackFlipRaf: 0,
+      _onStackFlipScroll: null,
 
-    get t() {
+      get t() {
       return locales[this.locale] || locales[DEFAULT_LOCALE];
     },
 
@@ -429,6 +443,8 @@ export function createProfilePage() {
       }
 
       this._infiniteScroll?.reset?.();
+
+      this.refreshActivityLocale?.();
 
       if (celebrate && changed) {
         this.spawnFlagSquare(code);
@@ -850,6 +866,7 @@ export function createProfilePage() {
           getMarks: () => this.t.ui.infiniteMarks || [],
         });
         this._bindStackFlip();
+        this.initAboutActivity();
       });
     },
 
@@ -882,8 +899,11 @@ export function createProfilePage() {
       this._heroPhysics = null;
       this._infiniteScroll?.destroy?.();
       this._infiniteScroll = null;
+      this.destroyAboutActivity();
     },
-  };
+    },
+    Object.getOwnPropertyDescriptors(aboutActivityMethods())
+  );
 }
 
 function prefersReducedMotion() {

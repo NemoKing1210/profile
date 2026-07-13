@@ -21,6 +21,109 @@
     </template>
   </div>
 
+  <div
+    class="about-activity"
+    x-ref="aboutActivity"
+    :class="{ 'about-activity--done': activityComplete }"
+  >
+    <header class="about-activity__head">
+      <div class="about-activity__titles">
+        <p class="about-activity__label" x-text="about.activity?.label"></p>
+        <p
+          class="about-activity__eyebrow"
+          x-text="about.activity?.eyebrow"
+        ></p>
+      </div>
+      <p
+        class="about-activity__summary"
+        x-text="activitySummary"
+        aria-live="polite"
+      ></p>
+    </header>
+
+    <div
+      class="about-activity__chart"
+      role="img"
+      :aria-label="activityChartAria"
+      @scroll="hideActivityTip()"
+    >
+      <div
+        class="about-activity__months"
+        :style="`--activity-weeks: ${ACTIVITY_WEEKS}`"
+        aria-hidden="true"
+      >
+        <template x-for="month in activityMonths" :key="month.key">
+          <span
+            class="about-activity__month"
+            x-text="month.label"
+            :style="`grid-column: ${month.week + 1}`"
+          ></span>
+        </template>
+      </div>
+
+      <div class="about-activity__body">
+        <div class="about-activity__days" aria-hidden="true">
+          <span x-text="about.activity?.days?.mon"></span>
+          <span aria-hidden="true"></span>
+          <span x-text="about.activity?.days?.wed"></span>
+          <span aria-hidden="true"></span>
+          <span x-text="about.activity?.days?.fri"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </div>
+
+        <div
+          class="about-activity__grid"
+          :style="`--activity-weeks: ${ACTIVITY_WEEKS}`"
+        >
+          <template x-for="cell in activityCells" :key="cell.id">
+            <button
+              type="button"
+              class="about-activity__cell"
+              :class="[
+                `about-activity__cell--${cell.level}`,
+                { 'about-activity__cell--pulse': activityRunning && cell.level === ACTIVITY_MAX },
+              ]"
+              :data-level="cell.level"
+              :aria-label="activityCellTip(cell)"
+              @mouseenter="showActivityTip($event, cell)"
+              @mouseleave="hideActivityTip()"
+              @focus="showActivityTip($event, cell)"
+              @blur="hideActivityTip()"
+            ></button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <template x-teleport="body">
+      <div
+        class="about-activity__tip"
+        x-ref="activityTip"
+        x-show="activityTipOpen"
+        x-cloak
+        :class="{ 'about-activity__tip--below': activityTipBelow }"
+        :style="activityTipStyle"
+        role="tooltip"
+      >
+        <p class="about-activity__tip-date" x-text="activityTipDate"></p>
+        <p class="about-activity__tip-text" x-text="activityTipText"></p>
+      </div>
+    </template>
+
+    <footer class="about-activity__foot">
+      <div class="about-activity__legend" aria-hidden="true">
+        <span x-text="about.activity?.less"></span>
+        <span class="about-activity__cell about-activity__cell--0"></span>
+        <span class="about-activity__cell about-activity__cell--1"></span>
+        <span class="about-activity__cell about-activity__cell--2"></span>
+        <span class="about-activity__cell about-activity__cell--3"></span>
+        <span class="about-activity__cell about-activity__cell--4"></span>
+        <span x-text="about.activity?.more"></span>
+      </div>
+    </footer>
+  </div>
+
   <aside class="about-status" :aria-label="about.statusLabel">
     <p class="about-status__eyebrow" x-text="about.statusLabel"></p>
     <div class="about-status__pair">
