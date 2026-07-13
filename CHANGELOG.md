@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.13.2] — 2026-07-13
+
+### Changed
+
+- Avatar spawns grow size and density ×1.5 each click with no size cap; avatar limit raised to 8
+
+## [1.13.1] — 2026-07-13
+
+### Changed
+
+- Each hero avatar click spawns a square 1.5× larger than the previous one (capped to the hero)
+
 ## [1.13.0] — 2026-07-13
 
 ### Changed

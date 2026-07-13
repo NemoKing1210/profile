@@ -10,7 +10,9 @@ const FRICTION = 0.05;
 const FRICTION_AIR = 0.01;
 const AI_DENSITY = 0.0022;
 const MAX_AI_SQUARES = 16;
-const MAX_AVATAR_SQUARES = 4;
+const MAX_AVATAR_SQUARES = 8;
+const AVATAR_SIZE_GROWTH = 1.5;
+const AVATAR_BASE_DENSITY = AI_DENSITY * 2.5;
 const MAX_BALLS = 28;
 
 function prefersReducedMotion() {
@@ -142,12 +144,23 @@ export function initHeroPhysics(container) {
   const narrow = width < 640;
   const radius = narrow ? 24 : 64;
   const aiSize = narrow ? 56 : 112;
+  const baseAvatarSize = aiSize * 2;
+  let avatarGeneration = 0;
   const items = techBalls.slice(0, narrow ? 9 : techBalls.length);
 
   /** @type {{ body?: import("matter-js").Body, el: HTMLElement, half: number, kind: string }[]} */
   const actors = [];
   /** @type {number[]} */
   const spawnTimers = [];
+
+  const nextAvatarStats = () => {
+    const scale = AVATAR_SIZE_GROWTH ** avatarGeneration;
+    avatarGeneration += 1;
+    return {
+      size: baseAvatarSize * scale,
+      density: AVATAR_BASE_DENSITY * scale,
+    };
+  };
 
   const placeStaticAi = (tool) => {
     const el = createAiSquareEl(tool, aiSize);
@@ -161,7 +174,7 @@ export function initHeroPhysics(container) {
   };
 
   const placeStaticAvatar = ({ src, label }) => {
-    const size = aiSize * 2;
+    const { size } = nextAvatarStats();
     const el = createAvatarSquareEl(src, size, label);
     el.classList.add("hero-ai--static");
     const half = size / 2;
@@ -324,7 +337,7 @@ export function initHeroPhysics(container) {
     syncActorEl(el, body, half);
   };
 
-  /** 2× size of AI squares; mass ≈ 10× a normal AI square (2× then ×5). */
+  /** Starts at 2× AI square size; each click grows size & density ×1.5. */
   const spawnAvatarSquare = ({ src, label } = {}) => {
     if (!src) return;
 
@@ -333,7 +346,7 @@ export function initHeroPhysics(container) {
       removeActor(existing[0]);
     }
 
-    const size = aiSize * 2;
+    const { size, density } = nextAvatarStats();
     const half = size / 2;
     const el = createAvatarSquareEl(src, size, label);
     container.appendChild(el);
@@ -346,9 +359,8 @@ export function initHeroPhysics(container) {
       restitution: 0.42,
       friction: 0.16,
       frictionAir: FRICTION_AIR,
-      // mass ∝ density × area; area is 4× → density × 2.5 yields ~10× mass
-      density: AI_DENSITY * 2.5,
-      chamfer: { radius: 16 },
+      density,
+      chamfer: { radius: Math.max(10, Math.round(size * 0.07)) },
       label: "avatar",
       sleepThreshold: 50,
     });
