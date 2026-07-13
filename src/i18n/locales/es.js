@@ -82,6 +82,16 @@ export default {
     title: "Letterboxd",
     filmsWatched: "{count} películas",
     favoritesLabel: "Favoritos",
+    openProfile: "Perfil",
+    subgenresLabel: "Subgéneros favoritos",
+    subgenres: {
+      epicFantasy: "Fantasía épica",
+      superhero: "Superhéroes",
+      adventure: "Aventura",
+      sciFi: "Ciencia ficción",
+      animation: "Animación",
+      apocalypse: "Postapocalipsis",
+    },
   },
   about: {
     title: "Sobre mí",
@@ -205,12 +215,20 @@ export default {
   },
   interests: {
     title: "Intereses",
-    hobbies: ["Videojuegos", "Películas", "Anime", "Series", "Manga"],
-    gameGenres: [
-      "Shooters con historia",
-      "Sandboxes",
-      "Postapocalipsis / zombis",
-    ],
+    blurb:
+      "Además de programar, me gustan las películas, los videojuegos, el anime, las series y el manga: todo lo que cuenta bien una historia en pantalla.",
+    hobbies: {
+      games: "Videojuegos",
+      movies: "Películas",
+      anime: "Anime",
+      series: "Series",
+      manga: "Manga",
+    },
+    gameGenres: {
+      storyShooters: "Shooters con historia",
+      sandboxes: "Sandboxes",
+      apocalypse: "Postapocalipsis / zombis",
+    },
   },
   links: {
     title: "Enlaces",

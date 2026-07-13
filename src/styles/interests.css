@@ -1,0 +1,406 @@
+/* Interests — intro + hobby chips, genre badges, Letterboxd posters */
+
+.interest-intro {
+  margin: 0 0 0.85rem;
+  padding: 1rem 1.05rem;
+  background: rgba(14, 20, 25, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+}
+
+.interest-intro__text {
+  margin: 0 0 0.85rem;
+  max-width: 62ch;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.interest-card {
+  margin-bottom: 0.85rem;
+  padding: 1rem 1.05rem;
+  background: rgba(14, 20, 25, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+}
+
+.interest-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.interest-card__label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.interest-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.interest-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.7rem 0.38rem 0.55rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.interest-chip__icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.interest-chip__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.interest-chip--accent {
+  color: var(--accent);
+  border-color: rgba(102, 192, 244, 0.28);
+  background: rgba(102, 192, 244, 0.08);
+}
+
+.interest-chip--hot {
+  color: #7ec8ff;
+  border-color: rgba(26, 159, 255, 0.35);
+  background: rgba(26, 159, 255, 0.1);
+}
+
+.interest-chip--green {
+  color: var(--accent-green);
+  border-color: rgba(164, 208, 7, 0.32);
+  background: rgba(164, 208, 7, 0.08);
+}
+
+.interest-badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.interest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.62rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.28);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.interest-badge::before {
+  content: "";
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: 0.9;
+}
+
+.interest-badge--accent {
+  color: var(--accent);
+  border-color: rgba(102, 192, 244, 0.28);
+  background: rgba(102, 192, 244, 0.08);
+}
+
+.interest-badge--hot {
+  color: #7ec8ff;
+  border-color: rgba(26, 159, 255, 0.35);
+  background: rgba(26, 159, 255, 0.1);
+}
+
+.interest-badge--green {
+  color: var(--accent-green);
+  border-color: rgba(164, 208, 7, 0.32);
+  background: rgba(164, 208, 7, 0.08);
+}
+
+/* Film banner shelf */
+
+.film-shelf {
+  padding: 1rem 1.05rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: rgba(14, 20, 25, 0.45);
+}
+
+.film-shelf__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.film-shelf__titles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.85rem;
+}
+
+.film-shelf__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.film-shelf__stat {
+  margin: 0;
+  color: var(--accent-green);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.film-shelf__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.65rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(102, 192, 244, 0.28);
+  background: rgba(102, 192, 244, 0.08);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.film-shelf__cta:hover,
+.film-shelf__cta:focus-visible {
+  background: rgba(102, 192, 244, 0.16);
+  border-color: rgba(102, 192, 244, 0.5);
+  color: var(--text-bright);
+  outline: none;
+}
+
+.film-shelf__cta-icon {
+  display: inline-flex;
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.film-shelf__cta-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.film-shelf__label {
+  margin: 0 0 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.film-banners {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 0.55rem;
+}
+
+@media (min-width: 480px) {
+  .film-banners {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+.film-banner {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-deep);
+  aspect-ratio: 2 / 3;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.film-banner:hover,
+.film-banner:focus-visible {
+  border-color: rgba(102, 192, 244, 0.45);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  outline: none;
+  z-index: 1;
+}
+
+.film-banner:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--bg-panel),
+    0 0 0 4px var(--accent),
+    0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.film-banner__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 320ms ease;
+}
+
+.film-banner:hover .film-banner__img,
+.film-banner:focus-visible .film-banner__img {
+  transform: scale(1.05);
+}
+
+.film-banner__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 42%,
+    rgba(14, 20, 25, 0.45) 72%,
+    rgba(14, 20, 25, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+.film-banner__meta {
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  z-index: 1;
+}
+
+.film-banner__year {
+  align-self: flex-start;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  background: rgba(164, 208, 7, 0.18);
+  border: 1px solid rgba(164, 208, 7, 0.35);
+  color: var(--accent-green);
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.film-banner__name {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text-bright);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (min-width: 720px) {
+  .film-banner__name {
+    font-size: 0.8rem;
+  }
+
+  .film-banner__meta {
+    left: 0.55rem;
+    right: 0.55rem;
+    bottom: 0.55rem;
+  }
+}
+
+.film-tastes {
+  margin-top: 0.95rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.film-tastes__row {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.film-tastes__label {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-banner,
+  .film-banner__img {
+    transition: none;
+  }
+
+  .film-banner:hover,
+  .film-banner:focus-visible {
+    transform: none;
+  }
+
+  .film-banner:hover .film-banner__img,
+  .film-banner:focus-visible .film-banner__img {
+    transform: none;
+  }
+}

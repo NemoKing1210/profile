@@ -82,6 +82,16 @@ export default {
     title: "Letterboxd",
     filmsWatched: "{count} 本の映画を鑑賞",
     favoritesLabel: "お気に入り",
+    openProfile: "プロフィール",
+    subgenresLabel: "好きなサブジャンル",
+    subgenres: {
+      epicFantasy: "叙事ファンタジー",
+      superhero: "スーパーヒーロー",
+      adventure: "アドベンチャー",
+      sciFi: "SF",
+      animation: "アニメーション",
+      apocalypse: "ポストアポカリプス",
+    },
   },
   about: {
     title: "自己紹介",
@@ -205,12 +215,20 @@ export default {
   },
   interests: {
     title: "興味",
-    hobbies: ["ビデオゲーム", "映画", "アニメ", "TV シリーズ", "マンガ"],
-    gameGenres: [
-      "ストーリー重視のシューター",
-      "サンドボックス",
-      "ポストアポカリプス / ゾンビ",
-    ],
+    blurb:
+      "プログラミング以外にも、映画、ビデオゲーム、アニメ、ドラマ、マンガが好きです。画面でうまく語られる物語なら何でも。",
+    hobbies: {
+      games: "ビデオゲーム",
+      movies: "映画",
+      anime: "アニメ",
+      series: "TV シリーズ",
+      manga: "マンガ",
+    },
+    gameGenres: {
+      storyShooters: "ストーリー重視のシューター",
+      sandboxes: "サンドボックス",
+      apocalypse: "ポストアポカリプス / ゾンビ",
+    },
   },
   links: {
     title: "リンク",

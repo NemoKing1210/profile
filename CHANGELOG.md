@@ -14,6 +14,30 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.31.3] — 2026-07-13
+
+### Added
+
+- Letterboxd shelf footer: favorite film subgenres
+
+## [1.31.2] — 2026-07-13
+
+### Changed
+
+- Interests: intro copy merged with hobby chips; removed chip highlight interactivity
+
+## [1.31.1] — 2026-07-13
+
+### Changed
+
+- Interests film shelf uses vertical 2:3 posters in a 4-across row (Letterboxd-style)
+
+## [1.31.0] — 2026-07-13
+
+### Changed
+
+- Interests: hobby chips with icons, genre badges, interactive highlight, Letterboxd film-banner shelf (SVG stubs in `public/assets/images/films/` — replace with real banners)
+
 ## [1.30.1] — 2026-07-13
 
 ### Added

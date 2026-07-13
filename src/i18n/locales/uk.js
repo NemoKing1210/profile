@@ -82,6 +82,16 @@ export default {
     title: "Letterboxd",
     filmsWatched: "{count} фільмів",
     favoritesLabel: "Обране",
+    openProfile: "Профіль",
+    subgenresLabel: "Улюблені піджанри",
+    subgenres: {
+      epicFantasy: "Епічне фентезі",
+      superhero: "Супергероїка",
+      adventure: "Пригоди",
+      sciFi: "Наукова фантастика",
+      animation: "Анімація",
+      apocalypse: "Постапокаліпсис",
+    },
   },
   about: {
     title: "Про мене",
@@ -205,12 +215,20 @@ export default {
   },
   interests: {
     title: "Інтереси",
-    hobbies: ["Відеоігри", "Фільми", "Аніме", "Серіали", "Манґа"],
-    gameGenres: [
-      "Сюжетні шутери",
-      "Пісочниці",
-      "Постапокаліпсис / зомбі",
-    ],
+    blurb:
+      "Окрім програмування люблю фільми, відеоігри, аніме, серіали й манґу — усе, що добре розповідає історію на екрані.",
+    hobbies: {
+      games: "Відеоігри",
+      movies: "Фільми",
+      anime: "Аніме",
+      series: "Серіали",
+      manga: "Манґа",
+    },
+    gameGenres: {
+      storyShooters: "Сюжетні шутери",
+      sandboxes: "Пісочниці",
+      apocalypse: "Постапокаліпсис / зомбі",
+    },
   },
   links: {
     title: "Посилання",

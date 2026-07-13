@@ -146,15 +146,67 @@ const profile = {
     },
   ],
 
+  /**
+   * Interests chrome (labels in locales).
+   * Film posters: vertical `*-banner.jpg` in `public/assets/images/films/` (~2:3).
+   */
+  interests: {
+    hobbies: [
+      { id: "games", icon: "puzzlePiece", tone: "accent" },
+      { id: "movies", icon: "film", tone: "accent" },
+      { id: "anime", icon: "sparkles", tone: "hot" },
+      { id: "series", icon: "tv", tone: "hot" },
+      { id: "manga", icon: "bookOpen", tone: "green" },
+    ],
+    gameGenres: [
+      { id: "storyShooters", tone: "hot" },
+      { id: "sandboxes", tone: "accent" },
+      { id: "apocalypse", tone: "green" },
+    ],
+  },
+
   media: {
     letterboxd: {
       href: "https://letterboxd.com/nemoking/",
       filmsWatched: 576,
       favorites: [
-        "The Lord of the Rings: The Fellowship of the Ring (2001)",
-        "The Lord of the Rings: The Two Towers (2002)",
-        "The Lord of the Rings: The Return of the King (2003)",
-        "The Avengers (2012)",
+        {
+          id: "lotr-fellowship",
+          title: "The Fellowship of the Ring",
+          year: 2001,
+          banner: `${base}assets/images/films/lotr-fellowship-banner.jpg`,
+          href: "https://letterboxd.com/film/the-lord-of-the-rings-the-fellowship-of-the-ring/",
+        },
+        {
+          id: "lotr-two-towers",
+          title: "The Two Towers",
+          year: 2002,
+          banner: `${base}assets/images/films/lotr-two-towers-banner.jpg`,
+          href: "https://letterboxd.com/film/the-lord-of-the-rings-the-two-towers/",
+        },
+        {
+          id: "lotr-return",
+          title: "The Return of the King",
+          year: 2003,
+          banner: `${base}assets/images/films/lotr-return-banner.jpg`,
+          href: "https://letterboxd.com/film/the-lord-of-the-rings-the-return-of-the-king/",
+        },
+        {
+          id: "avengers-2012",
+          title: "The Avengers",
+          year: 2012,
+          banner: `${base}assets/images/films/avengers-2012-banner.jpg`,
+          href: "https://letterboxd.com/film/the-avengers-2012/",
+        },
+      ],
+      /** Taste chips under the poster shelf (labels in locales). */
+      subgenres: [
+        { id: "epicFantasy", tone: "accent" },
+        { id: "superhero", tone: "hot" },
+        { id: "adventure", tone: "accent" },
+        { id: "sciFi", tone: "green" },
+        { id: "animation", tone: "hot" },
+        { id: "apocalypse", tone: "green" },
       ],
     },
   },

@@ -48,9 +48,9 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 │ panel: О себе                       │
 │ panel: Стек (focus + tech chips)    │
 │ panel: Проекты (capsule shelf)      │
-│ panel: Интересы + Letterboxd note   │
-│ panel: Ссылки (Linktree hub + grid) │
-│ panel: Комментарии (шуточная форма) │
+│ panel: Интересы (chips + genres + film banners)│
+│ panel: Ссылки (Linktree hub + grid)            │
+│ panel: Комментарии (шуточная форма)            │
 ├─────────────────────────────────────┤
 │ footer                              │
 └─────────────────────────────────────┘
@@ -74,6 +74,7 @@ Ship only purposeful motion:
 5. Avatar speech bubble typewriter after prolonged physics play (nudge at 20, join-in + avatar spawn at 30).
 6. Language switch: drop a flag square into the hero physics layer (static placement under `prefers-reduced-motion`).
 7. Stack “favorite library” card: scroll proximity drives a one-way 3D flip from React → Vue (locked to Vue under `prefers-reduced-motion`).
+8. Interests: portrait posters lift on hover.
 
 Respect `prefers-reduced-motion: reduce` (already wired in CSS/JS).
 

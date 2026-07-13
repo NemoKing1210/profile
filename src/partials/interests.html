@@ -6,40 +6,112 @@
       x-text="interests.title"
     ></h2>
   </header>
-  <div class="interests-grid">
-    <div class="stack-group">
-      <h3 class="stack-group__label" x-text="t.ui.hobbies"></h3>
-      <ul class="tag-list">
-        <template x-for="hobby in interests.hobbies" :key="hobby">
-          <li x-text="hobby"></li>
-        </template>
-      </ul>
-    </div>
-    <div class="stack-group">
-      <h3 class="stack-group__label" x-text="t.ui.gameGenres"></h3>
-      <ul class="tag-list">
-        <template x-for="genre in interests.gameGenres" :key="genre">
-          <li x-text="genre"></li>
-        </template>
-      </ul>
-    </div>
-  </div>
 
-  <a
-    class="media-note"
-    :href="letterboxd.href"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    <div class="media-note__top">
-      <h3 class="media-note__title" x-text="t.letterboxd.title"></h3>
-      <p class="media-note__stat" x-text="letterboxdStat"></p>
-    </div>
-    <p class="media-note__label" x-text="t.letterboxd.favoritesLabel"></p>
-    <ul class="media-note__list">
-      <template x-for="film in letterboxd.favorites" :key="film">
-        <li x-text="film"></li>
+  <div class="interest-intro">
+    <p class="interest-intro__text" x-text="interests.blurb"></p>
+    <ul class="interest-chips" role="list" :aria-label="t.ui.hobbies">
+      <template x-for="hobby in interests.hobbies" :key="hobby.id">
+        <li
+          class="interest-chip"
+          :class="`interest-chip--${hobby.tone}`"
+        >
+          <span
+            class="interest-chip__icon"
+            aria-hidden="true"
+            x-html="hobby.icon"
+          ></span>
+          <span class="interest-chip__label" x-text="hobby.label"></span>
+        </li>
       </template>
     </ul>
-  </a>
+  </div>
+
+  <div class="interest-card interest-card--genres">
+    <div class="interest-card__head">
+      <h3 class="interest-card__label" x-text="t.ui.gameGenres"></h3>
+    </div>
+    <ul class="interest-badges" role="list">
+      <template x-for="genre in interests.gameGenres" :key="genre.id">
+        <li
+          class="interest-badge"
+          :class="`interest-badge--${genre.tone}`"
+          x-text="genre.label"
+        ></li>
+      </template>
+    </ul>
+  </div>
+
+  <div class="film-shelf">
+    <div class="film-shelf__head">
+      <div class="film-shelf__titles">
+        <h3 class="film-shelf__title" x-text="t.letterboxd.title"></h3>
+        <p class="film-shelf__stat" x-text="letterboxdStat"></p>
+      </div>
+      <a
+        class="film-shelf__cta"
+        :href="letterboxd.href"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span x-text="letterboxdCta"></span>
+        <span
+          class="film-shelf__cta-icon"
+          aria-hidden="true"
+          x-html="icons.arrowTopRightOnSquare"
+        ></span>
+      </a>
+    </div>
+
+    <p class="film-shelf__label" x-text="t.letterboxd.favoritesLabel"></p>
+
+    <ul class="film-banners" role="list">
+      <template x-for="film in letterboxd.favorites" :key="film.id">
+        <li>
+          <a
+            class="film-banner"
+            :href="film.href"
+            rel="noopener noreferrer"
+            target="_blank"
+            :aria-label="film.year ? `${film.title} (${film.year})` : film.title"
+          >
+            <img
+              class="film-banner__img"
+              :src="film.banner"
+              :alt="film.title"
+              width="150"
+              height="225"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="film-banner__shade" aria-hidden="true"></span>
+            <span class="film-banner__meta">
+              <span class="film-banner__year" x-show="film.year" x-text="film.year"></span>
+              <span class="film-banner__name" x-text="film.title"></span>
+            </span>
+          </a>
+        </li>
+      </template>
+    </ul>
+
+    <div
+      class="film-tastes"
+      x-show="letterboxd.subgenres.length"
+    >
+      <div class="film-tastes__row">
+        <p
+          class="film-tastes__label"
+          x-text="t.letterboxd.subgenresLabel"
+        ></p>
+        <ul class="interest-badges" role="list">
+          <template x-for="tag in letterboxd.subgenres" :key="tag.id">
+            <li
+              class="interest-badge"
+              :class="`interest-badge--${tag.tone}`"
+              x-text="tag.label"
+            ></li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>

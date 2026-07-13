@@ -196,7 +196,24 @@ export function createProfilePage() {
     },
 
     get interests() {
-      return this.t.interests;
+      const copy = this.t.interests || {};
+      const hobbyLabels = copy.hobbies || {};
+      const genreLabels = copy.gameGenres || {};
+      const hobbies = (profile.interests?.hobbies || []).map((hobby) => ({
+        ...hobby,
+        label: hobbyLabels[hobby.id] || hobby.id,
+        icon: this.icons[hobby.icon] || "",
+      }));
+      const gameGenres = (profile.interests?.gameGenres || []).map((genre) => ({
+        ...genre,
+        label: genreLabels[genre.id] || genre.id,
+      }));
+      return {
+        title: copy.title || "",
+        blurb: copy.blurb || "",
+        hobbies,
+        gameGenres,
+      };
     },
 
     get nav() {
@@ -247,7 +264,34 @@ export function createProfilePage() {
     },
 
     get letterboxd() {
-      return profile.media?.letterboxd || { favorites: [], filmsWatched: 0 };
+      const media = profile.media?.letterboxd || {};
+      const copy = this.t.letterboxd || {};
+      const subgenreLabels = copy.subgenres || {};
+      return {
+        href: media.href || "",
+        filmsWatched: media.filmsWatched || 0,
+        favorites: (media.favorites || []).map((film) =>
+          typeof film === "string"
+            ? {
+                id: film,
+                title: film,
+                year: null,
+                banner: "",
+                href: media.href || "",
+              }
+            : {
+                id: film.id,
+                title: film.title,
+                year: film.year || null,
+                banner: film.banner || "",
+                href: film.href || media.href || "",
+              }
+        ),
+        subgenres: (media.subgenres || []).map((item) => ({
+          ...item,
+          label: subgenreLabels[item.id] || item.id,
+        })),
+      };
     },
 
     get letterboxdStat() {
@@ -256,6 +300,10 @@ export function createProfilePage() {
         "{count}",
         String(count)
       );
+    },
+
+    get letterboxdCta() {
+      return this.t.letterboxd.openProfile || this.t.letterboxd.title || "Letterboxd";
     },
 
     get primaryLinks() {

@@ -80,6 +80,16 @@ export default {
     title: "Letterboxd",
     filmsWatched: "看过 {count} 部电影",
     favoritesLabel: "最爱",
+    openProfile: "主页",
+    subgenresLabel: "喜欢的子类型",
+    subgenres: {
+      epicFantasy: "史诗奇幻",
+      superhero: "超级英雄",
+      adventure: "冒险",
+      sciFi: "科幻",
+      animation: "动画",
+      apocalypse: "末日",
+    },
   },
   about: {
     title: "关于我",
@@ -197,8 +207,20 @@ export default {
   },
   interests: {
     title: "兴趣",
-    hobbies: ["电子游戏", "电影", "动漫", "剧集", "漫画"],
-    gameGenres: ["剧情射击", "沙盒", "末世 / 丧尸"],
+    blurb:
+      "除了编程，我也喜欢电影、电子游戏、动漫、剧集和漫画——一切能在屏幕上讲好故事的东西。",
+    hobbies: {
+      games: "电子游戏",
+      movies: "电影",
+      anime: "动漫",
+      series: "剧集",
+      manga: "漫画",
+    },
+    gameGenres: {
+      storyShooters: "剧情射击",
+      sandboxes: "沙盒",
+      apocalypse: "末世 / 丧尸",
+    },
   },
   links: {
     title: "链接",
