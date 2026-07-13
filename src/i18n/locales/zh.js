@@ -325,6 +325,9 @@ export default {
     ],
     spoofWhen: "刚刚",
     spoilerHint: "悬停查看",
+    voteUp: "赞同",
+    voteDown: "反对",
+    socialCreditReward: "+783994 social credit",
     spoofBodies: [
       "+rep mid diff huge, carry machine",
       "-rep this ||comfiest duo partner in EU||",
@@ -409,6 +412,13 @@ export default {
         tone: "plus",
         when: "2 个月前",
         body: "+rep лучший тиммейт в stalcraft 2.1",
+      },
+      {
+        id: "social-credit",
+        author: "社会信用观察员",
+        tone: "neutral",
+        when: "3 个月前",
+        body: "谁给这个评论好评，我们就给他增加社会信用分！",
       },
     ],
   },

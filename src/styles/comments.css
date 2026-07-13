@@ -18,8 +18,8 @@
 
 .steam-comment {
   display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  gap: 0.7rem;
+  grid-template-columns: 2.1rem 2.5rem 1fr;
+  gap: 0.55rem 0.7rem;
   padding: 0.7rem 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius);
@@ -32,6 +32,81 @@
 
 .steam-comment--minus {
   border-color: rgba(229, 94, 94, 0.22);
+}
+
+.steam-comment__vote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.08rem;
+  padding-top: 0.12rem;
+}
+
+.steam-comment__vote-btn {
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.3rem;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color 120ms ease,
+    background 120ms ease;
+}
+
+.steam-comment__vote-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.steam-comment__vote-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.steam-comment__vote-btn--active-up {
+  color: var(--accent-green);
+}
+
+.steam-comment__vote-btn--active-up:hover {
+  color: #c6e05a;
+}
+
+.steam-comment__vote-btn--active-down {
+  color: #f09595;
+}
+
+.steam-comment__vote-btn--active-down:hover {
+  color: #f5aaaa;
+}
+
+.steam-comment__vote-icon :is(svg) {
+  width: 1rem;
+  height: 1rem;
+}
+
+.steam-comment__score {
+  min-width: 1.35rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.steam-comment__score--up {
+  color: var(--accent-green);
+}
+
+.steam-comment__score--down {
+  color: #f09595;
 }
 
 .steam-comment__avatar {
@@ -346,6 +421,32 @@
   color: var(--text);
   font-size: 0.95rem;
   line-height: 1.45;
+}
+
+.social-credit-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.75rem;
+  z-index: 2500;
+  max-width: min(92vw, 24rem);
+  padding: 0.85rem 1.25rem;
+  border: 2px solid #de2910;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255, 222, 0, 0.22), transparent 60%),
+    linear-gradient(165deg, #8b0000 0%, #5c0000 55%, #3a0000 100%);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 222, 0, 0.25);
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: #ffde00;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

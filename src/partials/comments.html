@@ -13,6 +13,44 @@
           item.live && 'steam-comment--live',
         ]"
       >
+        <div class="steam-comment__vote">
+          <button
+            type="button"
+            class="steam-comment__vote-btn"
+            :class="item.userVote === 'up' && 'steam-comment__vote-btn--active-up'"
+            :aria-label="t.comments.voteUp"
+            :aria-pressed="item.userVote === 'up'"
+            @click="voteComment(item.id, 'up')"
+          >
+            <span
+              class="steam-comment__vote-icon"
+              aria-hidden="true"
+              x-html="icons.chevronUp"
+            ></span>
+          </button>
+          <span
+            class="steam-comment__score"
+            :class="{
+              'steam-comment__score--up': item.score > 0,
+              'steam-comment__score--down': item.score < 0,
+            }"
+            x-text="formatCommentScore(item.score)"
+          ></span>
+          <button
+            type="button"
+            class="steam-comment__vote-btn"
+            :class="item.userVote === 'down' && 'steam-comment__vote-btn--active-down'"
+            :aria-label="t.comments.voteDown"
+            :aria-pressed="item.userVote === 'down'"
+            @click="voteComment(item.id, 'down')"
+          >
+            <span
+              class="steam-comment__vote-icon"
+              aria-hidden="true"
+              x-html="icons.chevronDown"
+            ></span>
+          </button>
+        </div>
         <div
           class="steam-comment__avatar"
           :style="`background: ${item.avatarColor}`"
@@ -146,4 +184,14 @@
       <p class="comments-finale__body" x-text="commentWaitTaunt"></p>
     </div>
   </form>
+
+  <div
+    class="social-credit-toast"
+    x-show="socialCreditToastOpen"
+    x-cloak
+    x-transition.opacity.duration.300ms
+    role="status"
+    aria-live="polite"
+    x-text="t.comments.socialCreditReward"
+  ></div>
 </section>

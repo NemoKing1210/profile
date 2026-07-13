@@ -28,6 +28,21 @@ import {
   minecraftMineState,
 } from "./minecraft-mine.js";
 
+const SOCIAL_CREDIT_COMMENT_ID = "social-credit";
+
+const COMMENT_DEFAULT_SCORES = {
+  clutch: 127,
+  parser: 84,
+  cheater: -23,
+  "farm-raid": 12,
+  carry: 203,
+  scam: -41,
+  css: 56,
+  bait: 3,
+  stalcraft: 91,
+  [SOCIAL_CREDIT_COMMENT_ID]: 88,
+};
+
 export function createProfilePage() {
   // Spread must not evaluate activity getters (object rest/spread calls them).
   // Copy descriptors so Alpine keeps real getters/methods.
@@ -54,6 +69,8 @@ export function createProfilePage() {
       commentRepLocked: false,
       commentRepLockLeft: 0,
       commentRepStrikes: 0,
+      commentUserVotes: {},
+      socialCreditToastOpen: false,
       liveComments: [],
       navOpen: false,
       themeJokeOpen: false,
@@ -75,6 +92,7 @@ export function createProfilePage() {
       _commentTimer: null,
       _commentWaitTimer: null,
       _commentStartedAt: 0,
+      _socialCreditToastTimer: null,
       _stopConfetti: null,
       _infiniteScroll: null,
       stackFlipDeg: 0,
@@ -100,23 +118,23 @@ export function createProfilePage() {
     get commentFeed() {
       const spoofWhen = this.t.comments?.spoofWhen || "";
       const spoilerHint = this.t.comments?.spoilerHint || "";
-      const live = (this.liveComments || []).map((item) => ({
+      const enrich = (item, when) => ({
         ...item,
-        when: spoofWhen,
+        when,
         tone: item.tone || "neutral",
         initials: commentInitials(item.author),
         avatarColor: commentAvatarColor(item.author),
         bodySegments: parseCommentBody(item.body),
         spoilerHint,
-      }));
-      const base = (this.t.comments?.feed || []).map((item) => ({
-        ...item,
-        tone: item.tone || "neutral",
-        initials: commentInitials(item.author),
-        avatarColor: commentAvatarColor(item.author),
-        bodySegments: parseCommentBody(item.body),
-        spoilerHint,
-      }));
+        score: this.commentDisplayScore(item.id),
+        userVote: this.commentUserVotes[item.id] || null,
+      });
+      const live = (this.liveComments || []).map((item) =>
+        enrich(item, spoofWhen)
+      );
+      const base = (this.t.comments?.feed || []).map((item) =>
+        enrich(item, item.when)
+      );
       return [...live, ...base];
     },
 
@@ -694,6 +712,73 @@ export function createProfilePage() {
       }
     },
 
+    commentBaseScore(id) {
+      if (Object.hasOwn(COMMENT_DEFAULT_SCORES, id)) {
+        return COMMENT_DEFAULT_SCORES[id];
+      }
+      return id.startsWith("spoof-") ? 1 : 0;
+    },
+
+    commentDisplayScore(id) {
+      const base = this.commentBaseScore(id);
+      const vote = this.commentUserVotes[id];
+      if (vote === "up") return base + 1;
+      if (vote === "down") return base - 1;
+      return base;
+    },
+
+    formatCommentScore(score) {
+      const abs = Math.abs(score);
+      if (abs >= 10000) {
+        const compact = (abs / 1000).toFixed(1).replace(/\.0$/, "");
+        return score < 0 ? `-${compact}k` : `${compact}k`;
+      }
+      return String(score);
+    },
+
+    voteComment(id, direction) {
+      const current = this.commentUserVotes[id] || null;
+      let next = current;
+
+      if (direction === "up") {
+        next = current === "up" ? null : "up";
+      } else if (direction === "down") {
+        next = current === "down" ? null : "down";
+      }
+
+      if (next === null) {
+        const votes = { ...this.commentUserVotes };
+        delete votes[id];
+        this.commentUserVotes = votes;
+        return;
+      }
+
+      this.commentUserVotes = { ...this.commentUserVotes, [id]: next };
+
+      if (
+        id === SOCIAL_CREDIT_COMMENT_ID &&
+        direction === "up" &&
+        next === "up"
+      ) {
+        this._triggerSocialCreditReward();
+      }
+    },
+
+    _triggerSocialCreditReward() {
+      this._stopConfetti?.();
+      this._stopConfetti = celebrateConfetti(4_500);
+      this.socialCreditToastOpen = true;
+
+      if (this._socialCreditToastTimer != null) {
+        window.clearTimeout(this._socialCreditToastTimer);
+      }
+
+      this._socialCreditToastTimer = window.setTimeout(() => {
+        this.socialCreditToastOpen = false;
+        this._socialCreditToastTimer = null;
+      }, 4_500);
+    },
+
     submitComment() {
       if (this.commentSubmitting || this.commentRepLocked) return;
       this.commentFinale = false;
@@ -898,6 +983,11 @@ export function createProfilePage() {
       this.themeSith = false;
       this._stopCommentProgress();
       this._clearMinusRepLock();
+      if (this._socialCreditToastTimer != null) {
+        window.clearTimeout(this._socialCreditToastTimer);
+        this._socialCreditToastTimer = null;
+      }
+      this.socialCreditToastOpen = false;
       this._stopConfetti?.();
       this._stopConfetti = null;
       this._heroPhysics?.destroy?.();
