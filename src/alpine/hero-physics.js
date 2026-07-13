@@ -8,6 +8,7 @@ const WALL = 80;
 const RESTITUTION = 0.78;
 const FRICTION = 0.05;
 const FRICTION_AIR = 0.01;
+const MAX_AI_SQUARES = 16;
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -48,9 +49,23 @@ function createBallEl(ball, radius) {
   return el;
 }
 
-function syncBallEl(el, body, radius) {
+function createAiSquareEl(tool, size) {
+  const el = document.createElement("div");
+  el.className = "hero-ai";
+  if (tool.mono) el.classList.add("hero-ai--mono");
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
+  el.style.setProperty("--ai-fill", tool.fill || "#1a2332");
+  el.innerHTML = `<img class="hero-ai__img" src="${tool.icon}" alt="" width="48" height="48" decoding="async" draggable="false" />`;
+  el.title = tool.label;
+  el.setAttribute("aria-hidden", "true");
+  el.dataset.tool = tool.id;
+  return el;
+}
+
+function syncActorEl(el, body, half) {
   const { x, y } = body.position;
-  el.style.transform = `translate3d(${x - radius}px, ${y - radius}px, 0) rotate(${body.angle}rad)`;
+  el.style.transform = `translate3d(${x - half}px, ${y - half}px, 0) rotate(${body.angle}rad)`;
 }
 
 function makeWalls(width, height) {
@@ -78,12 +93,17 @@ function placeStatic(container, items, radius) {
 }
 
 /**
- * Interactive physics balls in the hero.
+ * Interactive physics layer in the hero.
  * @param {HTMLElement} container
- * @returns {() => void} cleanup
+ * @returns {{ spawnAiSquare: (tool: object) => void, destroy: () => void }}
  */
 export function initHeroPhysics(container) {
-  if (!container) return () => {};
+  const noop = {
+    spawnAiSquare() {},
+    destroy() {},
+  };
+
+  if (!container) return noop;
 
   container.replaceChildren();
   container.classList.add("is-ready");
@@ -99,13 +119,36 @@ export function initHeroPhysics(container) {
   let { width, height } = measure();
   const narrow = width < 640;
   const radius = narrow ? 24 : 64;
+  const aiSize = narrow ? 56 : 112;
   const items = techBalls.slice(0, narrow ? 9 : techBalls.length);
+
+  /** @type {{ body?: import("matter-js").Body, el: HTMLElement, half: number, kind: string }[]} */
+  const actors = [];
+  /** @type {number[]} */
+  const spawnTimers = [];
+
+  const placeStaticAi = (tool) => {
+    const el = createAiSquareEl(tool, aiSize);
+    el.classList.add("hero-ai--static");
+    const half = aiSize / 2;
+    const x = width * 0.55 + Math.random() * Math.max(20, width * 0.35 - aiSize);
+    const y = height - aiSize - 20 - Math.random() * 40;
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    container.appendChild(el);
+    actors.push({ el, half, kind: "ai" });
+  };
 
   if (prefersReducedMotion()) {
     placeStatic(container, items, radius);
-    return () => {
-      container.replaceChildren();
-      container.classList.remove("is-ready");
+    return {
+      spawnAiSquare(tool) {
+        if (!tool?.icon) return;
+        placeStaticAi(tool);
+      },
+      destroy() {
+        container.replaceChildren();
+        container.classList.remove("is-ready");
+      },
     };
   }
 
@@ -118,9 +161,6 @@ export function initHeroPhysics(container) {
 
   let wallBodies = makeWalls(width, height);
   World.add(world, wallBodies);
-
-  /** @type {{ body: import("matter-js").Body, el: HTMLElement, radius: number }[]} */
-  const actors = [];
 
   const mouse = Mouse.create(container);
   mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
@@ -145,43 +185,86 @@ export function initHeroPhysics(container) {
 
   const afterUpdate = () => {
     for (const actor of actors) {
-      syncBallEl(actor.el, actor.body, actor.radius);
+      if (!actor.body) continue;
+      syncActorEl(actor.el, actor.body, actor.half);
     }
   };
   Events.on(engine, "afterUpdate", afterUpdate);
 
   Runner.run(runner, engine);
 
-  const spawnTimers = [];
-  items.forEach((ball, i) => {
-    const timer = window.setTimeout(() => {
-      const el = createBallEl(ball, radius);
-      container.appendChild(el);
+  const removeActor = (actor) => {
+    if (actor.body) World.remove(world, actor.body);
+    actor.el.remove();
+    const idx = actors.indexOf(actor);
+    if (idx >= 0) actors.splice(idx, 1);
+  };
 
-      // Bias toward the open right side of the hero so the pile stays visible.
-      const leftPad = narrow ? radius + 16 : width * 0.28;
-      const span = Math.max(40, width - leftPad - radius - 24);
-      const x = leftPad + Math.random() * span;
-      const y = -radius - 40 - Math.random() * 160 - i * 28;
-      const body = Bodies.circle(x, y, radius, {
-        restitution: RESTITUTION,
-        friction: FRICTION,
-        frictionAir: FRICTION_AIR,
-        density: 0.0018,
-        label: ball.id,
-        sleepThreshold: 45,
-      });
-      Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.12);
-      Body.setVelocity(body, {
-        x: (Math.random() - 0.35) * 2.5,
-        y: Math.random() * 1.5,
-      });
-      World.add(world, body);
-      actors.push({ body, el, radius });
-      syncBallEl(el, body, radius);
-    }, 60 + i * 95);
+  const spawnBall = (ball, i) => {
+    const el = createBallEl(ball, radius);
+    container.appendChild(el);
+
+    const leftPad = narrow ? radius + 16 : width * 0.28;
+    const span = Math.max(40, width - leftPad - radius - 24);
+    const x = leftPad + Math.random() * span;
+    const y = -radius - 40 - Math.random() * 160 - i * 28;
+    const body = Bodies.circle(x, y, radius, {
+      restitution: RESTITUTION,
+      friction: FRICTION,
+      frictionAir: FRICTION_AIR,
+      density: 0.0018,
+      label: ball.id,
+      sleepThreshold: 45,
+    });
+    Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.12);
+    Body.setVelocity(body, {
+      x: (Math.random() - 0.35) * 2.5,
+      y: Math.random() * 1.5,
+    });
+    World.add(world, body);
+    actors.push({ body, el, half: radius, kind: "ball" });
+    syncActorEl(el, body, radius);
+  };
+
+  items.forEach((ball, i) => {
+    const timer = window.setTimeout(() => spawnBall(ball, i), 60 + i * 95);
     spawnTimers.push(timer);
   });
+
+  const spawnAiSquare = (tool) => {
+    if (!tool?.icon) return;
+
+    const existing = actors.filter((a) => a.kind === "ai");
+    if (existing.length >= MAX_AI_SQUARES) {
+      removeActor(existing[0]);
+    }
+
+    const half = aiSize / 2;
+    const el = createAiSquareEl(tool, aiSize);
+    container.appendChild(el);
+
+    const leftPad = narrow ? half + 16 : width * 0.3;
+    const span = Math.max(40, width - leftPad - half - 24);
+    const x = leftPad + Math.random() * span;
+    const y = -half - 30 - Math.random() * 80;
+    const body = Bodies.rectangle(x, y, aiSize, aiSize, {
+      restitution: 0.55,
+      friction: 0.12,
+      frictionAir: FRICTION_AIR,
+      density: 0.0022,
+      chamfer: { radius: 12 },
+      label: `ai-${tool.id}`,
+      sleepThreshold: 45,
+    });
+    Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.15);
+    Body.setVelocity(body, {
+      x: (Math.random() - 0.5) * 3,
+      y: 2 + Math.random() * 2,
+    });
+    World.add(world, body);
+    actors.push({ body, el, half, kind: "ai" });
+    syncActorEl(el, body, half);
+  };
 
   const onResize = () => {
     const next = measure();
@@ -194,11 +277,11 @@ export function initHeroPhysics(container) {
     World.add(world, wallBodies);
 
     for (const actor of actors) {
-      const { body } = actor;
-      const r = actor.radius;
-      const x = Math.min(Math.max(body.position.x, r), width - r);
-      const y = Math.min(Math.max(body.position.y, r), height - r);
-      Body.setPosition(body, { x, y });
+      if (!actor.body) continue;
+      const h = actor.half;
+      const x = Math.min(Math.max(actor.body.position.x, h), width - h);
+      const y = Math.min(Math.max(actor.body.position.y, h), height - h);
+      Body.setPosition(actor.body, { x, y });
     }
 
     Mouse.setElement(mouse, container);
@@ -207,16 +290,19 @@ export function initHeroPhysics(container) {
   const resizeObserver = new ResizeObserver(() => onResize());
   resizeObserver.observe(container);
 
-  return () => {
-    spawnTimers.forEach((id) => clearTimeout(id));
-    resizeObserver.disconnect();
-    Events.off(engine, "afterUpdate", afterUpdate);
-    Events.off(mouseConstraint, "startdrag", onStartDrag);
-    Events.off(mouseConstraint, "enddrag", onEndDrag);
-    Runner.stop(runner);
-    World.clear(world, false);
-    Engine.clear(engine);
-    container.replaceChildren();
-    container.classList.remove("is-ready", "is-grab", "is-dragging");
+  return {
+    spawnAiSquare,
+    destroy() {
+      spawnTimers.forEach((id) => clearTimeout(id));
+      resizeObserver.disconnect();
+      Events.off(engine, "afterUpdate", afterUpdate);
+      Events.off(mouseConstraint, "startdrag", onStartDrag);
+      Events.off(mouseConstraint, "enddrag", onEndDrag);
+      Runner.stop(runner);
+      World.clear(world, false);
+      Engine.clear(engine);
+      container.replaceChildren();
+      container.classList.remove("is-ready", "is-grab", "is-dragging");
+    },
   };
 }

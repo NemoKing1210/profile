@@ -77,6 +77,7 @@ export default {
     toolkitLabel: "AI & agents",
     toolkitBlurb:
       "Everyday stack for speeding up development, review, and design with neural networks.",
+    spawnTool: "Add {name} to hero",
   },
   focus: {
     title: "Focus",

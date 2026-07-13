@@ -77,6 +77,7 @@ export default {
     toolkitLabel: "IA y agentes",
     toolkitBlurb:
       "Stack diario para acelerar desarrollo, revisión y diseño junto a redes neuronales.",
+    spawnTool: "Añadir {name} al hero",
   },
   focus: {
     title: "Enfoque",

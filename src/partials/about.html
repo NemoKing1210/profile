@@ -44,22 +44,30 @@
     </div>
     <ul class="ai-tools">
       <template x-for="tool in about.tools" :key="tool.id">
-        <li class="ai-tool" :data-tool="tool.id">
-          <span
-            class="ai-tool__icon"
-            :class="tool.mono && 'ai-tool__icon--mono'"
-            aria-hidden="true"
+        <li>
+          <button
+            type="button"
+            class="ai-tool"
+            :data-tool="tool.id"
+            :aria-label="spawnToolLabel(tool)"
+            @click="spawnAiTool(tool)"
           >
-            <img
-              class="ai-tool__img"
-              :src="tool.icon"
-              alt=""
-              width="16"
-              height="16"
-              decoding="async"
-            />
-          </span>
-          <span class="ai-tool__name" x-text="tool.label"></span>
+            <span
+              class="ai-tool__icon"
+              :class="tool.mono && 'ai-tool__icon--mono'"
+              aria-hidden="true"
+            >
+              <img
+                class="ai-tool__img"
+                :src="tool.icon"
+                alt=""
+                width="16"
+                height="16"
+                decoding="async"
+              />
+            </span>
+            <span class="ai-tool__name" x-text="tool.label"></span>
+          </button>
         </li>
       </template>
     </ul>

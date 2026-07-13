@@ -142,6 +142,7 @@ export function createProfilePage() {
           label: tool.label,
           icon: icon.src,
           mono: icon.mono,
+          fill: icon.fill || "#1a2332",
         };
       });
     },
@@ -180,17 +181,36 @@ export function createProfilePage() {
       if (meta) meta.setAttribute("content", this.t.meta.description);
     },
 
+    spawnAiTool(tool) {
+      this._heroPhysics?.spawnAiSquare?.(tool);
+      document.getElementById("top")?.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+      });
+    },
+
+    spawnToolLabel(tool) {
+      return (this.t.about.spawnTool || "{name}").replace(
+        "{name}",
+        tool.label
+      );
+    },
+
     init() {
       this.setLocale(resolveInitialLocale());
       this.$nextTick(() => {
         initReveal(this.$root);
-        this._stopHeroPhysics = initHeroPhysics(this.$refs.heroPhysics);
+        this._heroPhysics = initHeroPhysics(this.$refs.heroPhysics);
       });
     },
 
     destroy() {
-      this._stopHeroPhysics?.();
-      this._stopHeroPhysics = null;
+      this._heroPhysics?.destroy?.();
+      this._heroPhysics = null;
     },
   };
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }

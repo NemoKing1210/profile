@@ -77,6 +77,7 @@ export default {
     toolkitLabel: "AI и агенты",
     toolkitBlurb:
       "Повседневный стек для ускорения разработки, ревью и проектирования вместе с нейросетями.",
+    spawnTool: "Добавить {name} в hero",
   },
   focus: {
     title: "Фокус",

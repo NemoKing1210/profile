@@ -13,9 +13,10 @@ export const aiKitMark = {
   mono: true,
 };
 
+/** Brand fills for hero physics squares. */
 export const aiToolIcons = {
-  cursor: { src: cursor, mono: true },
-  claude: { src: claude, mono: false },
-  codex: { src: codex, mono: false },
-  claudecode: { src: claudeCode, mono: false },
+  cursor: { src: cursor, mono: true, fill: "#1a2332" },
+  claude: { src: claude, mono: false, fill: "#2a1f1c" },
+  codex: { src: codex, mono: false, fill: "#1a1f3a" },
+  claudecode: { src: claudeCode, mono: false, fill: "#2a1f1c" },
 };

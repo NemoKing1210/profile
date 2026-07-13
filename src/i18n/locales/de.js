@@ -77,6 +77,7 @@ export default {
     toolkitLabel: "KI & Agenten",
     toolkitBlurb:
       "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
+    spawnTool: "{name} im Hero hinzufügen",
   },
   focus: {
     title: "Fokus",

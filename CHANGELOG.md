@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.3.0] — 2026-07-13
+
+### Added
+
+- Click an AI tool chip (Cursor, Claude, Codex, Claude Code) to drop a matching physics square into the hero
+
 ## [1.2.0] — 2026-07-13
 
 ### Added
