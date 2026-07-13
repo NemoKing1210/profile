@@ -143,6 +143,7 @@ export default {
     statusWorkBadge: "クローズ",
     statusWork: "仕事は探していません",
     statusWorkNote: "求人の受信箱は一時停止 — 今は ship と落ち着いたコードが大事です。",
+    statusWorkDenied: "ケーキなら、まあ考えるかも...",
     statusHappyBadge: "オープン",
     statusHappy: "幸せはいつでも募集中",
     statusHappyNote: "歓迎：コーヒー、ミーム、心地よい DX。",

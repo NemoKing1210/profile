@@ -143,6 +143,7 @@ export default {
     statusWorkBadge: "Закрыто",
     statusWork: "Не в поисках работы",
     statusWorkNote: "Инбокс вакансий на паузе — сейчас важнее ship и спокойный код.",
+    statusWorkDenied: "Ну может за тортик и соглашусь...",
     statusHappyBadge: "Открыто",
     statusHappy: "Всегда в поисках счастья",
     statusHappyNote: "Офферы принимаются: кофе, мемы, хороший DX.",

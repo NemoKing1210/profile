@@ -128,18 +128,23 @@
     <p class="about-status__eyebrow" x-text="about.statusLabel"></p>
     <div class="about-status__pair">
       <div class="about-status__card about-status__card--closed">
-        <span
-          class="about-status__icon"
-          aria-hidden="true"
-          x-html="icons.briefcase"
-        ></span>
-        <div class="about-status__copy">
+        <div class="about-status__card-body">
           <span
-            class="about-status__badge"
-            x-text="about.statusWorkBadge"
+            class="about-status__icon"
+            aria-hidden="true"
+            x-html="icons.briefcase"
           ></span>
-          <p class="about-status__line" x-text="about.statusWork"></p>
-          <p class="about-status__note" x-text="about.statusWorkNote"></p>
+          <div class="about-status__copy">
+            <span
+              class="about-status__badge"
+              x-text="about.statusWorkBadge"
+            ></span>
+            <p class="about-status__line" x-text="about.statusWork"></p>
+            <p class="about-status__note" x-text="about.statusWorkNote"></p>
+          </div>
+        </div>
+        <div class="about-status__denial" aria-hidden="true">
+          <p class="about-status__denial-text" x-text="about.statusWorkDenied"></p>
         </div>
       </div>
       <div class="about-status__card about-status__card--open">

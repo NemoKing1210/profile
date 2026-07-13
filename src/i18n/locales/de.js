@@ -143,6 +143,7 @@ export default {
     statusWorkBadge: "Geschlossen",
     statusWork: "Nicht auf Jobsuche",
     statusWorkNote: "Stellenpostfach pausiert — gerade zählen Ship und ruhiger Code mehr.",
+    statusWorkDenied: "Na ja, für einen Kuchen würde ich vielleicht ja sagen...",
     statusHappyBadge: "Offen",
     statusHappy: "Immer auf der Suche nach Glück",
     statusHappyNote: "Angebote willkommen: Kaffee, Memes, gutes DX.",

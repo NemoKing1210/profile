@@ -141,6 +141,7 @@ export default {
     statusWorkBadge: "关闭",
     statusWork: "暂不找工作",
     statusWorkNote: "招聘信箱暂停——眼下更重要的是交付和安心写代码。",
+    statusWorkDenied: "要是给块蛋糕，也许可以考虑...",
     statusHappyBadge: "开放",
     statusHappy: "永远在找幸福",
     statusHappyNote: "欢迎投递：咖啡、梗图、舒服的 DX。",
