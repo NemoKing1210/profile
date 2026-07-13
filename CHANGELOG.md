@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.40.0] — 2026-07-13
+
+### Added
+
+- Birth-year meta chip: click (or Enter/Space) fires a confetti burst from the chip plus a short side-cannon celebration
+
+## [1.39.0] — 2026-07-13
+
+### Added
+
+- Fixed back-to-top button with a circular progress ring that fills as you scroll through the main store content
+
 ## [1.38.0] — 2026-07-13
 
 ### Added

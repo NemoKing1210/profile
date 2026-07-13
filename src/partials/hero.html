@@ -66,9 +66,13 @@
           <template x-for="chip in metaChips" :key="chip.id">
             <span
               class="meta-chip"
-              :class="`meta-chip--${chip.kind}${chip.tip ? ' meta-chip--has-tip' : ''}`"
-              :tabindex="chip.tip ? 0 : null"
+              :class="`meta-chip--${chip.kind}${chip.tip ? ' meta-chip--has-tip' : ''}${chip.kind === 'birth' ? ' meta-chip--party' : ''}`"
+              :tabindex="chip.tip || chip.kind === 'birth' ? 0 : null"
+              :role="chip.kind === 'birth' ? 'button' : null"
               :aria-describedby="chip.tip ? `meta-tip-${chip.id}` : null"
+              @click="onMetaChipActivate(chip, $event)"
+              @keydown.enter.prevent="onMetaChipActivate(chip, $event)"
+              @keydown.space.prevent="onMetaChipActivate(chip, $event)"
             >
               <span
                 class="meta-chip__icon"

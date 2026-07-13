@@ -497,7 +497,12 @@
   outline: none;
 }
 
-.meta-chip--has-tip:focus-visible {
+.meta-chip--party {
+  cursor: pointer;
+}
+
+.meta-chip--has-tip:focus-visible,
+.meta-chip--party:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

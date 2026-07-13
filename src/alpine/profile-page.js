@@ -22,7 +22,7 @@ import {
 import { initHeroPhysics } from "./hero-physics.js";
 import { initInfiniteScroll } from "./infinite-scroll.js";
 import { initReveal } from "./reveal.js";
-import { celebrateConfetti } from "./confetti.js";
+import { celebrateConfetti, burstConfettiAt } from "./confetti.js";
 import {
   minecraftMineMethods,
   minecraftMineState,
@@ -139,6 +139,10 @@ export function createProfilePage() {
       stackFlipDeg: 0,
       _stackFlipRaf: 0,
       _onStackFlipScroll: null,
+      scrollTopVisible: false,
+      scrollProgress: 0,
+      _scrollTopRaf: 0,
+      _onScrollTop: null,
 
       get t() {
       return locales[this.locale] || locales[DEFAULT_LOCALE];
@@ -714,6 +718,65 @@ export function createProfilePage() {
       });
     },
 
+    onMetaChipActivate(chip, event) {
+      if (chip?.kind !== "birth") return;
+      const point = event?.currentTarget?.getBoundingClientRect?.();
+      const x = point
+        ? point.left + point.width / 2
+        : event?.clientX ?? window.innerWidth / 2;
+      const y = point
+        ? point.top + point.height / 2
+        : event?.clientY ?? window.innerHeight * 0.35;
+      burstConfettiAt(x, y, { count: 96 });
+      this._stopConfetti?.();
+      this._stopConfetti = celebrateConfetti(3_500);
+    },
+
+    updateScrollTop() {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      const vh = window.innerHeight || 1;
+      this.scrollTopVisible = y > vh * 0.4;
+
+      const source = this.$root.querySelector("[data-infinite-source]");
+      let maxScroll =
+        document.documentElement.scrollHeight - vh;
+      if (source) {
+        const sourceBottom =
+          source.getBoundingClientRect().bottom + y;
+        maxScroll = sourceBottom - vh;
+      }
+      maxScroll = Math.max(1, maxScroll);
+      this.scrollProgress = Math.min(1, Math.max(0, y / maxScroll));
+    },
+
+    _scheduleScrollTop() {
+      if (this._scrollTopRaf) return;
+      this._scrollTopRaf = requestAnimationFrame(() => {
+        this._scrollTopRaf = 0;
+        this.updateScrollTop();
+      });
+    },
+
+    _bindScrollTop() {
+      this._unbindScrollTop();
+      this._onScrollTop = () => this._scheduleScrollTop();
+      window.addEventListener("scroll", this._onScrollTop, { passive: true });
+      window.addEventListener("resize", this._onScrollTop, { passive: true });
+      this.updateScrollTop();
+    },
+
+    _unbindScrollTop() {
+      if (this._onScrollTop) {
+        window.removeEventListener("scroll", this._onScrollTop);
+        window.removeEventListener("resize", this._onScrollTop);
+        this._onScrollTop = null;
+      }
+      if (this._scrollTopRaf) {
+        cancelAnimationFrame(this._scrollTopRaf);
+        this._scrollTopRaf = 0;
+      }
+    },
+
     updateStackFlip() {
       if (prefersReducedMotion()) {
         this.stackFlipDeg = 180;
@@ -1154,6 +1217,7 @@ export function createProfilePage() {
           getMarks: () => this.t.ui.infiniteMarks || [],
         });
         this._bindStackFlip();
+        this._bindScrollTop();
         this.initAboutActivity();
       });
     },
@@ -1162,6 +1226,7 @@ export function createProfilePage() {
       window.removeEventListener("resize", this._onNavResize);
       this._onNavResize = null;
       this._unbindStackFlip();
+      this._unbindScrollTop();
       this.closeNav();
       if (this._themeJokeTimer != null) {
         window.clearTimeout(this._themeJokeTimer);

@@ -75,6 +75,8 @@ Ship only purposeful motion:
 6. Language switch: drop a flag square into the hero physics layer (static placement under `prefers-reduced-motion`).
 7. Stack “favorite library” card: scroll proximity drives a one-way 3D flip from React → Vue (locked to Vue under `prefers-reduced-motion`).
 8. Interests: portrait posters lift on hover.
+9. Fixed back-to-top control: circular scroll progress ring (fills through the main store content).
+10. Birth-year meta chip: click/Enter/Space fires a confetti burst (skipped under `prefers-reduced-motion`).
 
 Respect `prefers-reduced-motion: reduce` (already wired in CSS/JS).
 

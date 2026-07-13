@@ -1,0 +1,24 @@
+<button
+  type="button"
+  class="scroll-top"
+  data-mc-immune
+  :class="{ 'is-visible': scrollTopVisible }"
+  :aria-label="t.ui.backToTop"
+  :aria-hidden="!scrollTopVisible"
+  :tabindex="scrollTopVisible ? 0 : -1"
+  @click="scrollToHero()"
+>
+  <svg class="scroll-top__ring" viewBox="0 0 56 56" aria-hidden="true">
+    <circle class="scroll-top__track" cx="28" cy="28" r="24" />
+    <circle
+      class="scroll-top__prog"
+      cx="28"
+      cy="28"
+      r="24"
+      pathLength="100"
+      stroke-dasharray="100"
+      :stroke-dashoffset="100 - scrollProgress * 100"
+    />
+  </svg>
+  <span class="scroll-top__icon" x-html="icons.chevronUp"></span>
+</button>

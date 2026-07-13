@@ -4,7 +4,7 @@ const HITS_TO_BREAK = 10;
 const STAGE_ATTR = "data-mc-stage";
 const MINE_TICK_MS = 85;
 const BLOCKED =
-  ".mc-pickaxe, .mc-mine-toast, .mc-crack, .skip-link, [data-mc-immune], script, style, noscript";
+  ".mc-pickaxe, .mc-mine-toast, .mc-crack, .skip-link, .scroll-top, [data-mc-immune], script, style, noscript";
 
 const PREFERRED =
   ".media-cover, .interest-chip, .interest-badge, .btn, .capsule, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .topbar, .footer, .brand, .interest-intro";

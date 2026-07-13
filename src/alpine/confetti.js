@@ -3,6 +3,28 @@ import confetti from "canvas-confetti";
 const CONFETTI_COLORS = ["#66c0f4", "#1a9fff", "#a4d007", "#ffffff", "#c7d5e0"];
 
 /**
+ * One-shot burst from a viewport point (client coordinates).
+ * No-op when the user prefers reduced motion.
+ */
+export function burstConfettiAt(clientX, clientY, { count = 80 } = {}) {
+  if (prefersReducedMotion()) return;
+
+  const w = window.innerWidth || 1;
+  const h = window.innerHeight || 1;
+  confetti({
+    particleCount: count,
+    spread: 78,
+    startVelocity: 38,
+    origin: {
+      x: Math.min(1, Math.max(0, clientX / w)),
+      y: Math.min(1, Math.max(0, clientY / h)),
+    },
+    colors: CONFETTI_COLORS,
+    zIndex: 2400,
+  });
+}
+
+/**
  * Side-cannon confetti for `durationMs` (default 10s).
  * No-op when the user prefers reduced motion.
  */
