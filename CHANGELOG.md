@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.16.1] — 2026-07-13
+
+### Added
+
+- Comments nav item shows a live count badge in the topbar
+
+## [1.16.0] — 2026-07-13
+
+### Added
+
+- Online badge flips to Offline on hover with a Unix epoch timestamp tooltip joke
+
 ## [1.15.5] — 2026-07-13
 
 ### Changed

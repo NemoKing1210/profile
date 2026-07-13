@@ -33,6 +33,8 @@ export default {
   hero: {
     role: "Frontend-Entwickler",
     status: "Online",
+    statusOffline: "Offline",
+    statusLastSeen: "Zuletzt online: 1. Jan 1970, 00:00:00",
     tagline:
       "Ich gestalte Interfaces, die gut aussehen und angenehm zu bedienen sind.",
     location: "Remote",

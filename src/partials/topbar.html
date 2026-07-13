@@ -6,7 +6,15 @@
     </a>
     <nav class="nav nav--desktop" :aria-label="t.ui.navLabel">
       <template x-for="item in nav" :key="item.href">
-        <a class="nav__link" :href="item.href" x-text="item.label"></a>
+        <a class="nav__link" :href="item.href">
+          <span x-text="item.label"></span>
+          <span
+            class="nav__badge"
+            x-show="item.badge != null"
+            x-text="item.badge"
+            x-cloak
+          ></span>
+        </a>
       </template>
     </nav>
     <div class="topbar__tools">
@@ -51,9 +59,25 @@
           <p class="theme-joke__text" x-text="t.ui.themeDenied"></p>
         </div>
       </div>
-      <div class="topbar__status" x-show="status" x-cloak>
+      <div
+        class="topbar__status"
+        x-show="status"
+        x-cloak
+        tabindex="0"
+        :aria-label="`${status}. ${t.hero.statusLastSeen}`"
+      >
         <span class="status-dot" aria-hidden="true"></span>
-        <span class="status-text" x-text="status"></span>
+        <span class="status-text status-text--online" x-text="status"></span>
+        <span
+          class="status-text status-text--offline"
+          x-text="t.hero.statusOffline"
+          aria-hidden="true"
+        ></span>
+        <span
+          class="topbar__status-tip"
+          role="tooltip"
+          x-text="t.hero.statusLastSeen"
+        ></span>
       </div>
     </div>
     <button
@@ -92,9 +116,16 @@
         <a
           class="nav__link nav__link--mobile"
           :href="item.href"
-          x-text="item.label"
           @click="closeNav()"
-        ></a>
+        >
+          <span x-text="item.label"></span>
+          <span
+            class="nav__badge"
+            x-show="item.badge != null"
+            x-text="item.badge"
+            x-cloak
+          ></span>
+        </a>
       </template>
     </nav>
   </div>

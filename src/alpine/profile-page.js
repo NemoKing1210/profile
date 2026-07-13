@@ -154,9 +154,11 @@ export function createProfilePage() {
     },
 
     get nav() {
+      const commentsCount = this.commentFeed.length;
       return profile.nav.map((item) => ({
         ...item,
         label: this.t.nav[item.id] || item.id,
+        badge: item.id === "comments" ? commentsCount : null,
       }));
     },
 
