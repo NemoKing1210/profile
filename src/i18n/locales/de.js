@@ -105,7 +105,7 @@ export default {
     statusLabel: "Verfügbarkeit",
     statusWorkBadge: "Geschlossen",
     statusWork: "Nicht auf Jobsuche",
-    statusWorkNote: "HR: danke — schon mid-commit und zufrieden.",
+    statusWorkNote: "Stellenpostfach pausiert — gerade zählen Ship und ruhiger Code mehr.",
     statusHappyBadge: "Offen",
     statusHappy: "Immer auf der Suche nach Glück",
     statusHappyNote: "Angebote willkommen: Kaffee, Memes, gutes DX.",
@@ -145,6 +145,18 @@ export default {
           "Alltag: TypeScript / JavaScript; außerdem PHP, Lua und C# je nach Projekt.",
       },
     ],
+    favoriteFlip: {
+      ariaLabel:
+        "Scherz-Karte: vorne React, hinten Vue. Dreht sich, je näher du scrollst.",
+      frontBadge: "Lieblingsbibliothek",
+      frontLabel: "React",
+      frontDetail:
+        "Meine Lieblingsbibliothek: Komponenten, Hooks und ein lebendiges Ökosystem. Damit fing alles an — und es wärmt immer noch.",
+      backBadge: "Lieblings-Framework",
+      backLabel: "Vue",
+      backDetail:
+        "Okay, erwischt: mein Lieblings-Framework ist Vue / Nuxt. Sauberes DX, klares Template-Modell und das Ökosystem, mit dem ich wirklich Produktion baue.",
+    },
   },
   projects: {
     title: "Projekte",

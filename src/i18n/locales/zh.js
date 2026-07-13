@@ -103,7 +103,7 @@ export default {
     statusLabel: "状态",
     statusWorkBadge: "关闭",
     statusWork: "暂不找工作",
-    statusWorkNote: "HR 可以歇歇——我正在开心写代码。",
+    statusWorkNote: "招聘信箱暂停——眼下更重要的是交付和安心写代码。",
     statusHappyBadge: "开放",
     statusHappy: "永远在找幸福",
     statusHappyNote: "欢迎投递：咖啡、梗图、舒服的 DX。",
@@ -139,6 +139,17 @@ export default {
         detail: "日常以 TypeScript / JavaScript 为主；另有 PHP、Lua、C# 按项目需要使用。",
       },
     ],
+    favoriteFlip: {
+      ariaLabel: "玩笑卡片：正面是 React，背面是 Vue。越靠近滚动翻得越开。",
+      frontBadge: "最爱的库",
+      frontLabel: "React",
+      frontDetail:
+        "我最爱的库：组件、Hooks 和活跃的生态。一切从它开始——到现在还暖着心。",
+      backBadge: "最爱的框架",
+      backLabel: "Vue",
+      backDetail:
+        "好吧被抓到了：我最爱的框架是 Vue / Nuxt。干净的 DX、清晰的模板模型，以及我真正拿来做生产的生态。",
+    },
   },
   projects: {
     title: "项目",

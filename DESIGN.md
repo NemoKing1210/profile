@@ -73,6 +73,7 @@ Ship only purposeful motion:
 4. Section / capsule reveal on scroll (`IntersectionObserver`).
 5. Avatar speech bubble typewriter after prolonged physics play (nudge at 20, join-in + avatar spawn at 30).
 6. Language switch: drop a flag square into the hero physics layer (static placement under `prefers-reduced-motion`).
+7. Stack “favorite library” card: scroll proximity drives a one-way 3D flip from React → Vue (locked to Vue under `prefers-reduced-motion`).
 
 Respect `prefers-reduced-motion: reduce` (already wired in CSS/JS).
 

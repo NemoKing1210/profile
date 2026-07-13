@@ -105,7 +105,7 @@ export default {
     statusLabel: "Доступность",
     statusWorkBadge: "Закрыто",
     statusWork: "Не в поисках работы",
-    statusWorkNote: "HR, можно не писать — уже mid-commit и доволен.",
+    statusWorkNote: "Инбокс вакансий на паузе — сейчас важнее ship и спокойный код.",
     statusHappyBadge: "Открыто",
     statusHappy: "Всегда в поисках счастья",
     statusHappyNote: "Офферы принимаются: кофе, мемы, хороший DX.",
@@ -145,6 +145,18 @@ export default {
           "Основной язык — TypeScript / JavaScript; также PHP, Lua и C# под задачи проекта.",
       },
     ],
+    favoriteFlip: {
+      ariaLabel:
+        "Шуточная карточка: с лица React, на обороте — Vue. Переворачивается при приближении скроллом.",
+      frontBadge: "Любимая библиотека",
+      frontLabel: "React",
+      frontDetail:
+        "Моя любимая библиотека: компоненты, хуки и живая экосистема. С неё всё началось — и до сих пор греет сердце.",
+      backBadge: "Любимый фреймворк",
+      backLabel: "Vue",
+      backDetail:
+        "Ладно, подловили: мой любимый фреймворк — Vue / Nuxt. Чистый DX, понятный шаблон и экосистема, на которой я реально собираю прод.",
+    },
   },
   projects: {
     title: "Проекты",

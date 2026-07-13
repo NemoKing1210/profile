@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.29.1] — 2026-07-13
+
+### Changed
+
+- Stack flip card stays on Vue after the reveal; Vue side calls out the favorite framework
+
+## [1.29.0] — 2026-07-13
+
+### Added
+
+- Stack joke card: React-branded face flips toward Vue as you scroll closer
+
 ## [1.28.0] — 2026-07-13
 
 ### Added

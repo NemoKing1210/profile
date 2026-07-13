@@ -46,6 +46,62 @@
     </template>
   </ul>
 
+  <aside
+    class="stack-flip"
+    x-ref="stackFlip"
+    :aria-label="stack.favoriteFlip.ariaLabel"
+  >
+    <div class="stack-flip__perspective">
+      <div
+        class="stack-flip__inner"
+        :style="`transform: rotateY(${stackFlipDeg}deg)`"
+      >
+        <div
+          class="stack-flip__face stack-flip__face--react"
+          :aria-hidden="stackFlipDeg > 90"
+        >
+          <div class="stack-flip__top">
+            <span
+              class="stack-flip__mark"
+              :style="`--mark-fill: ${stack.favoriteFlip.front.mark.fill}; --mark-ink: ${stack.favoriteFlip.front.mark.ink || '#fff'}`"
+              aria-hidden="true"
+            >
+              <svg class="stack-flip__mark-icon" viewBox="0 0 24 24" focusable="false">
+                <path :d="stack.favoriteFlip.front.mark.path" fill="currentColor"></path>
+              </svg>
+            </span>
+            <div class="stack-flip__titles">
+              <p class="stack-flip__badge" x-text="stack.favoriteFlip.front.badge"></p>
+              <h3 class="stack-flip__label" x-text="stack.favoriteFlip.front.label"></h3>
+            </div>
+          </div>
+          <p class="stack-flip__detail" x-text="stack.favoriteFlip.front.detail"></p>
+        </div>
+        <div
+          class="stack-flip__face stack-flip__face--vue"
+          :aria-hidden="stackFlipDeg <= 90"
+        >
+          <div class="stack-flip__top">
+            <span
+              class="stack-flip__mark"
+              :style="`--mark-fill: ${stack.favoriteFlip.back.mark.fill}; --mark-ink: ${stack.favoriteFlip.back.mark.ink || '#fff'}`"
+              aria-hidden="true"
+            >
+              <svg class="stack-flip__mark-icon" viewBox="0 0 24 24" focusable="false">
+                <path :d="stack.favoriteFlip.back.mark.path" fill="currentColor"></path>
+              </svg>
+            </span>
+            <div class="stack-flip__titles">
+              <p class="stack-flip__badge" x-text="stack.favoriteFlip.back.badge"></p>
+              <h3 class="stack-flip__label" x-text="stack.favoriteFlip.back.label"></h3>
+            </div>
+          </div>
+          <p class="stack-flip__detail" x-text="stack.favoriteFlip.back.detail"></p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <aside class="ai-kit" :aria-label="stack.toolkitLabel">
     <div class="ai-kit__intro">
       <span

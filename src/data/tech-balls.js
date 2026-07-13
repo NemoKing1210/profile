@@ -13,6 +13,7 @@ import {
   siNodedotjs,
   siNuxt,
   siPhp,
+  siReact,
   siTypescript,
   siVite,
   siVuedotjs,
@@ -53,7 +54,10 @@ export const techBalls = [
   ball("alpine", siAlpinedotjs),
 ];
 
+/** Extra marks (not in hero spawn set) for stack UI. */
+const stackOnlyBalls = [ball("react", siReact)];
+
 /** Lookup by id for stack chip spawns. */
 export const techBallById = Object.fromEntries(
-  techBalls.map((item) => [item.id, item])
+  [...techBalls, ...stackOnlyBalls].map((item) => [item.id, item])
 );

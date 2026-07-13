@@ -105,7 +105,7 @@ export default {
     statusLabel: "ステータス",
     statusWorkBadge: "クローズ",
     statusWork: "仕事は探していません",
-    statusWorkNote: "リクルーターの方へ — すでにコミット中で満足しています。",
+    statusWorkNote: "求人の受信箱は一時停止 — 今は ship と落ち着いたコードが大事です。",
     statusHappyBadge: "オープン",
     statusHappy: "幸せはいつでも募集中",
     statusHappyNote: "歓迎：コーヒー、ミーム、心地よい DX。",
@@ -145,6 +145,18 @@ export default {
           "日常は TypeScript / JavaScript。プロジェクト次第で PHP、Lua、C# も。",
       },
     ],
+    favoriteFlip: {
+      ariaLabel:
+        "ジョークカード：表は React、裏は Vue。スクロールで近づくほど裏返ります。",
+      frontBadge: "大好きなライブラリ",
+      frontLabel: "React",
+      frontDetail:
+        "大好きなライブラリ：コンポーネント、フック、活きたエコシステム。ここから始まって、今も心を温めます。",
+      backBadge: "大好きなフレームワーク",
+      backLabel: "Vue",
+      backDetail:
+        "ばれたね：大好きなフレームワークは Vue / Nuxt。きれいな DX、わかりやすいテンプレート、本番で本当に使っているエコシステム。",
+    },
   },
   projects: {
     title: "プロジェクト",
