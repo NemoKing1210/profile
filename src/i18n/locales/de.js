@@ -57,10 +57,26 @@ export default {
   },
   about: {
     title: "Über mich",
+    eyebrow: "Frontend-first · Backend auch",
+    badgesLabel: "Highlights",
+    lead:
+      "Ich baue Interfaces, in denen <mark class=\"about-hl\">Technik</mark> und Geschmack zusammenarbeiten — schnell, präzise und detailverliebt.",
     paragraphs: [
-      "Ich verbinde Technik gern mit einem visuellen, kreativen Ansatz. Ich bleibe neugierig und entwickle mich als Spezialist weiter.",
-      "In der IT inspiriert mich, Ergebnisse sofort zu sehen — das macht Entwicklung greifbar und spannend.",
+      "Ich verbinde Engineering gern mit einem visuellen, kreativen Blick. Mit dem <strong>Backend</strong> komme ich klar (Node.js, PHP, Laravel, Yii2), aber <mark class=\"about-hl\">Frontend</mark> liegt mir mehr — mehr Freude am Ergebnis und stärkerer Fokus auf UX.",
+      "In der IT treibt mich an, <strong>Ergebnisse sofort zu sehen</strong>: eine Idee wird zum laufenden Produkt. Modernes AI-Tooling hilft mir, schneller zu iterieren, ohne Codequalität zu opfern.",
     ],
+    badges: {
+      craft: "UI-Handwerk",
+      vue: "Vue · Nuxt",
+      ts: "TypeScript",
+      backend: "Backend auch",
+      ai: "AI-native",
+      agents: "KI-Agenten",
+      remote: "Remote-ready",
+    },
+    toolkitLabel: "KI & Agenten",
+    toolkitBlurb:
+      "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
   },
   focus: {
     title: "Fokus",

@@ -32,8 +32,17 @@
               :class="index === 0 ? 'btn--primary' : 'btn--ghost'"
               :href="link.href"
               rel="noopener noreferrer"
-              x-text="link.label"
-            ></a>
+            >
+              <img
+                class="btn__icon"
+                :src="link.icon"
+                alt=""
+                width="16"
+                height="16"
+                decoding="async"
+              />
+              <span x-text="link.label"></span>
+            </a>
           </template>
         </div>
       </div>

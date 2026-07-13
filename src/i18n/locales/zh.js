@@ -56,10 +56,25 @@ export default {
   },
   about: {
     title: "关于我",
+    eyebrow: "Frontend 优先 · 也能做后端",
+    badgesLabel: "亮点",
+    lead:
+      "我打造让 <mark class=\"about-hl\">技术</mark> 与审美同行的界面——快速、精准，并执着于细节。",
     paragraphs: [
-      "我喜欢把技术与视觉、创意结合起来。保持开放学习，并持续提升专业能力。",
-      "在 IT 中最打动我的是能立刻看到成果——这让开发过程直观而有趣。",
+      "我喜欢把工程与视觉、创意结合起来。也能胜任 <strong>后端</strong>（Node.js、PHP、Laravel、Yii2），但更偏爱 <mark class=\"about-hl\">前端</mark>——结果更有成就感，也更贴近 UX。",
+      "在 IT 中推动我的是<strong>立刻看到结果</strong>——想法在眼前变成可用产品。现代 AI 工具帮我更快迭代，同时不牺牲代码质量。",
     ],
+    badges: {
+      craft: "UI 功力",
+      vue: "Vue · Nuxt",
+      ts: "TypeScript",
+      backend: "也能后端",
+      ai: "AI-native",
+      agents: "AI 智能体",
+      remote: "Remote-ready",
+    },
+    toolkitLabel: "AI 与智能体",
+    toolkitBlurb: "日常工具栈，用神经网络加速开发、审查与设计。",
   },
   focus: {
     title: "关注点",

@@ -1,3 +1,5 @@
+import { aiKitMark, aiToolIcons } from "../data/ai-tool-icons.js";
+import { faviconForHref } from "../data/link-icons.js";
 import profile from "../data/profile.js";
 import {
   DEFAULT_LOCALE,
@@ -39,7 +41,16 @@ export function createProfilePage() {
     },
 
     get about() {
-      return this.t.about;
+      return {
+        ...this.t.about,
+        kitMark: aiKitMark,
+        badges: (profile.aboutBadges || []).map((badge) => ({
+          id: badge.id,
+          tone: badge.tone || "muted",
+          label: this.t.about.badges?.[badge.id] || badge.id,
+        })),
+        tools: this.aiTools,
+      };
     },
 
     get focus() {
@@ -116,7 +127,22 @@ export function createProfilePage() {
     },
 
     get primaryLinks() {
-      return this.links.slice(0, 2);
+      return this.links.slice(0, 2).map((link) => ({
+        ...link,
+        icon: faviconForHref(link.href),
+      }));
+    },
+
+    get aiTools() {
+      return (profile.aiTools || []).map((tool) => {
+        const icon = aiToolIcons[tool.id] || aiToolIcons.cursor;
+        return {
+          id: tool.id,
+          label: tool.label,
+          icon: icon.src,
+          mono: icon.mono,
+        };
+      });
     },
 
     get metaChips() {

@@ -1,10 +1,67 @@
 <section class="panel" id="about" aria-labelledby="about-title">
-  <header class="panel__head">
+  <header class="panel__head panel__head--row">
     <h2 class="panel__title" id="about-title" x-text="about.title"></h2>
+    <p class="about-eyebrow" x-text="about.eyebrow"></p>
   </header>
-  <div class="panel__body prose">
+
+  <ul class="about-badges" :aria-label="about.badgesLabel">
+    <template x-for="badge in about.badges" :key="badge.id">
+      <li
+        class="about-badge"
+        :class="`about-badge--${badge.tone}`"
+        x-text="badge.label"
+      ></li>
+    </template>
+  </ul>
+
+  <div class="about-body prose">
+    <p class="about-lead" x-html="about.lead"></p>
     <template x-for="(paragraph, index) in about.paragraphs" :key="index">
-      <p x-text="paragraph"></p>
+      <p x-html="paragraph"></p>
     </template>
   </div>
+
+  <aside class="ai-kit" :aria-label="about.toolkitLabel">
+    <div class="ai-kit__intro">
+      <span
+        class="ai-kit__mark"
+        :class="about.kitMark.mono && 'ai-kit__mark--mono'"
+        aria-hidden="true"
+      >
+        <img
+          class="ai-kit__mark-img"
+          :src="about.kitMark.src"
+          alt=""
+          width="18"
+          height="18"
+          decoding="async"
+        />
+      </span>
+      <div class="ai-kit__copy">
+        <p class="ai-kit__label" x-text="about.toolkitLabel"></p>
+        <p class="ai-kit__blurb" x-text="about.toolkitBlurb"></p>
+      </div>
+    </div>
+    <ul class="ai-tools">
+      <template x-for="tool in about.tools" :key="tool.id">
+        <li class="ai-tool" :data-tool="tool.id">
+          <span
+            class="ai-tool__icon"
+            :class="tool.mono && 'ai-tool__icon--mono'"
+            aria-hidden="true"
+          >
+            <img
+              class="ai-tool__img"
+              :src="tool.icon"
+              alt=""
+              width="16"
+              height="16"
+              decoding="async"
+            />
+          </span>
+          <span class="ai-tool__name" x-text="tool.label"></span>
+        </li>
+      </template>
+    </ul>
+  </aside>
 </section>

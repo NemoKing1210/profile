@@ -32,6 +32,25 @@ const profile = {
     ],
   },
 
+  /** Highlight badges in About (labels live in locales). */
+  aboutBadges: [
+    { id: "craft", tone: "accent" },
+    { id: "vue", tone: "accent" },
+    { id: "ts", tone: "accent" },
+    { id: "backend", tone: "accent" },
+    { id: "ai", tone: "hot" },
+    { id: "agents", tone: "hot" },
+    { id: "remote", tone: "green" },
+  ],
+
+  /** AI / agent tooling highlighted in About. */
+  aiTools: [
+    { id: "cursor", label: "Cursor" },
+    { id: "claude", label: "Claude" },
+    { id: "codex", label: "Codex" },
+    { id: "claudecode", label: "Claude Code" },
+  ],
+
   stackGroups: [
     {
       id: "frontend",
