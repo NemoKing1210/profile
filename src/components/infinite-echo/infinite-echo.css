@@ -1,10 +1,11 @@
 /* Infinite-scroll echoes: progressive Backrooms liminal decay
-   --echo-depth is an eased 0…14 strength (slow start, late peak). */
+   --echo-depth is visual-only strength (delayed vs text glitch; late peak). */
 
 .infinite-echoes {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  /* Match .store-shell gap so cloned panels continue the same rhythm. */
+  gap: 1.25rem;
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
@@ -92,42 +93,12 @@
     inset calc(var(--echo-depth) * 0.9px) 0 0 rgba(40, 200, 255, 0.08);
 }
 
-.infinite-echo__mark {
-  position: relative;
-  z-index: 6;
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 2.5rem 1.25rem 0.75rem;
-  color: color-mix(
-    in srgb,
-    var(--text-muted) calc(100% - var(--echo-depth) * 4.5%),
-    #c9b46a calc(var(--echo-depth) * 4.5%)
-  );
-  font-family: var(--font-display);
-  font-size: calc(0.78rem + var(--echo-depth) * 0.008rem);
-  font-weight: 600;
-  letter-spacing: calc(0.14em + var(--echo-depth) * 0.014em);
-  text-align: center;
-  text-transform: uppercase;
-  text-shadow:
-    calc(var(--echo-depth) * -0.3px) 0 rgba(255, 55, 40, 0.45),
-    calc(var(--echo-depth) * 0.3px) 0 rgba(50, 200, 255, 0.32),
-    0 0 calc(var(--echo-depth) * 0.45px) rgba(230, 200, 90, 0.28);
-  filter: blur(calc(var(--echo-depth) * 0.035px));
-}
-
-.infinite-echo__mark::before,
-.infinite-echo__mark::after {
-  content: "∞";
-  margin: 0 0.65rem;
-  opacity: calc(0.55 + var(--echo-depth) * 0.015);
-  letter-spacing: 0;
-}
-
 .infinite-echo .store-shell {
   position: relative;
   z-index: 1;
   margin-top: 0;
+  /* Drop bottom padding so loops abut like one continuous store. */
+  padding-bottom: 0;
 }
 
 /* Panels drift into damp yellow “Level 0” chrome */

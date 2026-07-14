@@ -59,7 +59,10 @@ export function corruptEchoContent(root, intensity, options = {}) {
 
   const budget =
     options.budget ??
-    Math.max(1, Math.floor(nodes.length * (0.015 + t * 0.08)) + Math.ceil(t * 4));
+    Math.max(
+      2,
+      Math.floor(nodes.length * (0.045 + t * 0.2)) + Math.ceil(t * 12)
+    );
 
   let remaining = budget;
   const order = shuffled(nodes);
@@ -74,7 +77,12 @@ export function corruptEchoContent(root, intensity, options = {}) {
     remaining -= Math.max(1, spent);
   }
 
-  if (t >= 0.5 && Math.random() < 0.08 + t * 0.22) {
+  // Void / replace whole words more often as depth climbs.
+  const voidChance = 0.12 + t * 0.45;
+  if (t >= 0.18 && Math.random() < voidChance) {
+    voidAWord(nodes, t);
+  }
+  if (t >= 0.45 && Math.random() < voidChance * 0.7) {
     voidAWord(nodes, t);
   }
 }
@@ -107,15 +115,15 @@ function mutateText(text, t, budget) {
   const chars = [...text];
   const maxSwaps = Math.min(
     budget,
-    Math.max(1, Math.ceil(chars.length * (0.01 + t * 0.08)))
+    Math.max(1, Math.ceil(chars.length * (0.035 + t * 0.22)))
   );
   let swaps = 0;
 
   // Early intensity prefers lookalikes; glyphs dominate later.
-  const lookalikeChance = 0.7 - t * 0.35;
-  const caseChance = t >= 0.35 ? 0.2 : 0;
+  const lookalikeChance = 0.55 - t * 0.35;
+  const caseChance = t >= 0.2 ? 0.18 + t * 0.12 : 0.08;
 
-  for (let attempt = 0; attempt < maxSwaps * 3 && swaps < maxSwaps; attempt += 1) {
+  for (let attempt = 0; attempt < maxSwaps * 4 && swaps < maxSwaps; attempt += 1) {
     const idx = Math.floor(Math.random() * chars.length);
     const ch = chars[idx];
     if (/\s/.test(ch)) continue;
@@ -131,10 +139,10 @@ function mutateText(text, t, budget) {
     swaps += 1;
   }
 
-  // Occasional local scramble only in the back half of the ramp.
-  if (t >= 0.4 && chars.length > 4 && Math.random() < t * 0.22) {
+  // Local scramble kicks in earlier and more often.
+  if (t >= 0.22 && chars.length > 4 && Math.random() < 0.2 + t * 0.45) {
     const start = Math.floor(Math.random() * (chars.length - 3));
-    const end = Math.min(chars.length, start + 2 + Math.floor(Math.random() * 3));
+    const end = Math.min(chars.length, start + 2 + Math.floor(Math.random() * 4));
     const slice = chars.slice(start, end);
     for (let i = slice.length - 1; i > 0; i -= 1) {
       if (/\s/.test(slice[i]) || /\s/.test(slice[i - 1])) continue;
@@ -160,9 +168,9 @@ function voidAWord(nodes, t) {
   const snippet =
     VOID_SNIPPETS[Math.floor(Math.random() * VOID_SNIPPETS.length)];
   parts[idx] =
-    Math.random() < 0.3 + t * 0.35
+    Math.random() < 0.35 + t * 0.4
       ? snippet
-      : "█".repeat(Math.min(8, parts[idx].length));
+      : "█".repeat(Math.min(10, parts[idx].length));
   node.nodeValue = parts.join("");
 }
 

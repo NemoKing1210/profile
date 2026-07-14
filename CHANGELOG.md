@@ -14,6 +14,22 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.54.3] — 2026-07-14
+
+### Changed
+
+- Infinite-scroll liminal marks speak through the avatar speech bubble from the 3rd loop (topbar brand bubble while scrolled)
+- Expanded `infiniteMarks` line pool (8 → 24) across all locales
+- Infinite-scroll text decay is stronger and ramps sooner (higher budgets, faster depth curve)
+- Infinite-scroll CSS warp / stage drift starts later (from loop 6; mid/deep stages delayed)
+
+## [1.54.2] — 2026-07-14
+
+### Changed
+
+- Infinite-scroll echoes are seamless: removed `infinite-echo__mark` separators and extra padding between loops
+- Liminal mark lines appear as steam-comment messages from the 5th echo onward
+
 ## [1.54.1] — 2026-07-14
 
 ### Changed

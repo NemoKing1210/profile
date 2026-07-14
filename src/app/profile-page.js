@@ -103,6 +103,7 @@ export function createProfilePage() {
             echoes: this.$refs.infiniteEchoes,
             sentinel: this.$refs.infiniteSentinel,
             getMarks: () => this.t.ui.infiniteMarks || [],
+            onMark: (text) => this.showSpeech(text),
           });
           this._bindStackFlip();
           this._bindScrollTop();

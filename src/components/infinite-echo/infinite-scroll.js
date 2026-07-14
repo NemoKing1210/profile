@@ -5,22 +5,28 @@ const MAX_ECHOES = 12;
 const SOURCE_ATTR = "data-infinite-source";
 /** Keep at least this many viewports of buffer before the footer. */
 const BUFFER_VH = 3;
-/** How many loops until distortion reaches its peak. */
-const RAMP_LOOPS = 14;
+/** How many loops until text / visual ramps finish. */
+const RAMP_LOOPS = 9;
+/** Loop index where CSS warp / haze starts climbing (1-based). */
+const CSS_START_LOOP = 6;
 /** CSS strength scale (eased into this). */
 const CSS_DEPTH_PEAK = 14;
+/** Echo loop at which liminal marks start speaking via the avatar bubble. */
+const MARK_MESSAGE_FROM_LOOP = 3;
 
-const GLITCH_CHARS = "в–‘в–’в–“в–€в–Њв–ђв•±в•І|_-=+*~";
+const GLITCH_CHARS = "░▒▓█▌▐╱╲|_-=+*~";
 
 /**
  * Keeps cloning the store content ahead of the footer so scroll never catches it.
  * Each echo intensifies a Backrooms-style liminal distortion.
+ * From loop 3+, entering an echo triggers an avatar speech mark via `onMark`.
  */
 export function initInfiniteScroll({
   source,
   echoes,
   sentinel,
   getMarks,
+  onMark,
 }) {
   if (!source || !echoes || !sentinel) {
     return { reset() {}, destroy() {} };
@@ -30,6 +36,8 @@ export function initInfiniteScroll({
   let ticking = false;
   let glitchTimer = null;
   let lastGlitchAt = 0;
+  const markObservers = new Set();
+  const spokenLoops = new Set();
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
@@ -48,7 +56,7 @@ export function initInfiniteScroll({
       if (!first) return false;
 
       const rect = first.getBoundingClientRect();
-      // Never recycle an echo that's still near/on screen вЂ” that causes jumps.
+      // Never recycle an echo that's still near/on screen — that causes jumps.
       if (rect.bottom > -80) return false;
 
       const height = first.offsetHeight;
@@ -60,16 +68,47 @@ export function initInfiniteScroll({
     return true;
   }
 
+  function speakMarkForLoop(loopNo) {
+    if (!onMark || spokenLoops.has(loopNo) || loopNo < MARK_MESSAGE_FROM_LOOP) {
+      return;
+    }
+    spokenLoops.add(loopNo);
+
+    const marks = getMarks?.() || [];
+    const { t } = echoStrength(loopNo);
+    const rawMark =
+      marks.length > 0
+        ? marks[(loopNo - MARK_MESSAGE_FROM_LOOP) % marks.length]
+        : `∞ ${loopNo}`;
+    onMark(corruptMark(rawMark, t, loopNo));
+  }
+
+  function watchEchoMark(wrap, loopNo) {
+    if (!onMark || loopNo < MARK_MESSAGE_FROM_LOOP) return;
+
+    const markIo = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        markIo.disconnect();
+        markObservers.delete(markIo);
+        speakMarkForLoop(loopNo);
+      },
+      {
+        root: null,
+        // Fire when the top of the echo enters the lower half of the viewport.
+        rootMargin: "0px 0px -35% 0px",
+        threshold: 0,
+      }
+    );
+    markObservers.add(markIo);
+    markIo.observe(wrap);
+  }
+
   function appendEcho() {
     if (!makeRoom()) return;
 
     loop += 1;
     const { t, depthCss, stage } = echoStrength(loop);
-
-    const marks = getMarks?.() || [];
-    const rawMark =
-      marks.length > 0 ? marks[(loop - 1) % marks.length] : `в€ћ ${loop}`;
-    const markText = corruptMark(rawMark, t, loop);
 
     const wrap = document.createElement("div");
     wrap.className = "infinite-echo";
@@ -78,28 +117,24 @@ export function initInfiniteScroll({
     wrap.setAttribute("data-echo-stage", stage);
     wrap.style.setProperty("--echo-depth", depthCss.toFixed(3));
     wrap.setAttribute("inert", "");
-    // Clones are static snapshots вЂ” Alpine must not rebind x-for scopes.
+    // Clones are static snapshots — Alpine must not rebind x-for scopes.
     wrap.setAttribute("x-ignore", "");
-
-    const mark = document.createElement("p");
-    mark.className = "infinite-echo__mark";
-    mark.textContent = markText;
-    wrap.appendChild(mark);
 
     const clone = source.cloneNode(true);
     clone.removeAttribute(SOURCE_ATTR);
     neutralizeAlpineClone(clone);
     wrap.appendChild(clone);
 
-    // Gentle first pass вЂ” early loops stay almost readable.
-    if (t > 0.04) {
+    // First pass — early loops already fray; later ones melt harder.
+    if (t > 0.02) {
       corruptEchoContent(wrap, t, {
-        budget: Math.max(1, Math.ceil(2 + t * 10)),
+        budget: Math.max(6, Math.ceil(12 + t * 55)),
       });
     }
 
     echoes.appendChild(wrap);
     initReveal(wrap, { immediate: true });
+    watchEchoMark(wrap, loop);
   }
 
   function fillBuffer() {
@@ -123,7 +158,7 @@ export function initInfiniteScroll({
   function glitchVisibleEchoes(force = false) {
     const now = performance.now();
     // Throttle scroll-driven ticks so text doesn't melt in a few frames.
-    if (!force && now - lastGlitchAt < 80) return;
+    if (!force && now - lastGlitchAt < 55) return;
     lastGlitchAt = now;
 
     const viewTop = 0;
@@ -134,14 +169,16 @@ export function initInfiniteScroll({
 
       const loopNo = Number(echo.getAttribute("data-infinite-echo")) || 1;
       const { t } = echoStrength(loopNo);
-      if (t < 0.03) continue;
+      if (t < 0.02) continue;
 
       const visible =
         Math.min(rect.bottom, viewBottom) - Math.max(rect.top, viewTop);
       const coverage = Math.max(0, visible) / Math.max(1, rect.height);
       const budget = Math.max(
-        1,
-        Math.ceil((1 + t * 5) * (0.35 + coverage * 0.65) * (reduceMotion ? 0.3 : 1))
+        2,
+        Math.ceil(
+          (4 + t * 18) * (0.5 + coverage * 0.9) * (reduceMotion ? 0.35 : 1)
+        )
       );
       corruptEchoContent(echo, t, { budget });
     }
@@ -176,12 +213,21 @@ export function initInfiniteScroll({
   if (!reduceMotion) {
     glitchTimer = window.setInterval(() => {
       glitchVisibleEchoes(true);
-    }, 260);
+    }, 160);
   }
 
   fillBuffer();
 
+  function clearMarkObservers() {
+    for (const markIo of markObservers) {
+      markIo.disconnect();
+    }
+    markObservers.clear();
+  }
+
   function reset() {
+    clearMarkObservers();
+    spokenLoops.clear();
     loop = 0;
     echoes.replaceChildren();
     fillBuffer();
@@ -189,12 +235,14 @@ export function initInfiniteScroll({
 
   function destroy() {
     observer.disconnect();
+    clearMarkObservers();
     window.removeEventListener("scroll", onScrollOrResize);
     window.removeEventListener("resize", onScrollOrResize);
     if (glitchTimer != null) {
       window.clearInterval(glitchTimer);
       glitchTimer = null;
     }
+    spokenLoops.clear();
     loop = 0;
     echoes.replaceChildren();
   }
@@ -202,12 +250,23 @@ export function initInfiniteScroll({
   return { reset, destroy };
 }
 
-/** Cubic ease-in: early loops barely shift, later ones climb harder. */
+/**
+ * Text intensity (`t`) ramps early; visual CSS (`depthCss` / stage) stays quiet
+ * until CSS_START_LOOP, then climbs to the peak.
+ */
 function echoStrength(loop) {
   const tLinear = Math.min(1, Math.max(0, (loop - 1) / (RAMP_LOOPS - 1)));
-  const t = tLinear * tLinear * tLinear;
-  const depthCss = t * CSS_DEPTH_PEAK;
-  const stage = loop >= 9 ? "deep" : loop >= 5 ? "mid" : "early";
+  const t = Math.min(1, 0.1 + tLinear * tLinear * 0.9);
+
+  const cssSpan = Math.max(1, RAMP_LOOPS - CSS_START_LOOP);
+  const cssLinear = Math.min(
+    1,
+    Math.max(0, (loop - CSS_START_LOOP) / cssSpan)
+  );
+  // Cubed so early post-start loops stay almost flat, late ones tip hard.
+  const depthCss = cssLinear * cssLinear * cssLinear * CSS_DEPTH_PEAK;
+
+  const stage = loop >= 11 ? "deep" : loop >= 8 ? "mid" : "early";
   return { t, depthCss, stage };
 }
 
@@ -233,13 +292,13 @@ function corruptMark(text, t, loop) {
 
   let result = chars.join("");
   if (t >= 0.45 && Math.random() < 0.35 + t * 0.25) {
-    result = `${result} В· no exit`;
+    result = `${result} · no exit`;
   }
   if (t >= 0.75 && Math.random() < 0.35 + t * 0.2) {
-    result = `LVL 0 В· ${result}`;
+    result = `LVL 0 · ${result}`;
   }
   if (loop >= 10 && Math.random() < 0.3) {
-    result = result.replace(/\s+/g, "в–‘");
+    result = result.replace(/\s+/g, "░");
   }
   return result;
 }
@@ -266,6 +325,6 @@ function neutralizeAlpineClone(root) {
     }
   }
 
-  // x-for leaves both <template> and rendered siblings вЂ” drop templates.
+  // x-for leaves both <template> and rendered siblings — drop templates.
   root.querySelectorAll("template").forEach((el) => el.remove());
 }
