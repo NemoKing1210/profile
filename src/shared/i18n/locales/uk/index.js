@@ -101,6 +101,7 @@ export default {
     statusOffline: "Offline",
     statusLastSeen: "Був онлайн: 1 січ 1970, 00:00:00",
     nameTip: "Це моє ім'я, якщо ви не зрозуміли",
+    avatarTip: "Ну давай, клікни на мене!",
     locationTip: "Я в Матриці і не зможу приїхати до вас в офіс",
     birthTip: "Так, я зумер, а що?",
     playEnough:

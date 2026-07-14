@@ -20,6 +20,7 @@ export function aboutActivityState() {
     _activityTimer: null,
     _activityStartTimer: null,
     _activityObserver: null,
+    _activityInView: false,
   };
 }
 
@@ -134,6 +135,7 @@ export function aboutActivityMethods() {
     destroyAboutActivity() {
       this.hideActivityTip();
       this._stopActivityAnimation();
+      this._activityInView = false;
       if (this._onActivityScroll) {
         window.removeEventListener("scroll", this._onActivityScroll);
         this._onActivityScroll = null;
@@ -167,25 +169,40 @@ export function aboutActivityMethods() {
 
       this._activityObserver = new IntersectionObserver(
         (entries) => {
-          entries.forEach((entry) => {
-            if (
-              entry.isIntersecting &&
-              !this.activityRunning &&
-              !this.activityComplete &&
-              this._activityStartTimer == null
-            ) {
-              this._queueActivityAnimation();
-            }
-          });
+          const entry = entries[0];
+          if (!entry) return;
+          const inView = entry.intersectionRatio >= 0.35;
+          if (inView === this._activityInView) return;
+          if (inView) this._onActivityEnterView();
+          else this._onActivityLeaveView();
         },
-        { threshold: 0.35, rootMargin: "0px 0px -8% 0px" }
+        { threshold: [0, 0.35], rootMargin: "0px 0px -8% 0px" }
       );
 
       this._activityObserver.observe(root);
     },
 
+    _onActivityEnterView() {
+      this._activityInView = true;
+      if (this.activityComplete) return;
+
+      if (this.activityRunning) {
+        if (this._activityTimer == null) this._scheduleActivityTick();
+        return;
+      }
+
+      this._queueActivityAnimation();
+    },
+
+    _onActivityLeaveView() {
+      this._activityInView = false;
+      this._stopActivityStartTimer();
+      this._stopActivityTimer();
+    },
+
     _queueActivityAnimation() {
       if (
+        !this._activityInView ||
         this.activityRunning ||
         this.activityComplete ||
         this._activityStartTimer != null
@@ -200,12 +217,19 @@ export function aboutActivityMethods() {
     },
 
     _startActivityAnimation() {
-      if (this.activityRunning || this.activityComplete) return;
+      if (
+        !this._activityInView ||
+        this.activityRunning ||
+        this.activityComplete
+      ) {
+        return;
+      }
       this.activityRunning = true;
       this._scheduleActivityTick();
     },
 
     _scheduleActivityTick() {
+      if (!this._activityInView || this.activityComplete) return;
       this._stopActivityTimer();
       const span = ACTIVITY_TICK_MAX_MS - ACTIVITY_TICK_MIN_MS;
       const delay =
@@ -217,6 +241,8 @@ export function aboutActivityMethods() {
     },
 
     _tickActivity() {
+      if (!this._activityInView) return;
+
       const cells = this.activityCells;
       const upgradable = [];
       for (let i = 0; i < cells.length; i += 1) {

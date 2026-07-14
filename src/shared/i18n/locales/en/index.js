@@ -101,6 +101,7 @@ export default {
     statusOffline: "Offline",
     statusLastSeen: "Last online: 1 Jan 1970, 00:00:00",
     nameTip: "That's my name, in case it wasn't clear",
+    avatarTip: "Come on, click me!",
     locationTip: "I'm in the Matrix and can't come to your office",
     birthTip: "Yes, I'm a Zoomer — so what?",
     playEnough:

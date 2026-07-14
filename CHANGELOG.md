@@ -13,9 +13,12 @@ Update **both** when cutting a release.
 ### Added
 
 - Achievement unlock date shown in the achievements drawer (localized)
+- Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 
 ### Fixed
 
+- Hero physics simulation pauses when `hero__physics` is off-screen
+- About activity grid ticks only while the chart is in view
 - Avatar speech bubble follows light theme tokens (no hard-coded Steam-dark fill)
 - About activity chart / tip adopt light theme tokens
 - Stack flip / explore / grow blocks adopt light theme tokens

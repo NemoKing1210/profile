@@ -101,6 +101,7 @@ export default {
     statusOffline: "Offline",
     statusLastSeen: "上次在线：1970-01-01 00:00:00",
     nameTip: "这是我的名字，怕你没看懂",
+    avatarTip: "来嘛，点我一下！",
     locationTip: "我在矩阵里，没法去你们办公室",
     birthTip: "对，我是Z世代，怎么了？",
     playEnough: "还没玩够吗？要不往下看看我的主页？",

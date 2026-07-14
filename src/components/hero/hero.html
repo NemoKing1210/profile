@@ -18,6 +18,10 @@
           type="button"
           class="hero__avatar-btn"
           @click="spawnAvatarSquare()"
+          @mouseenter="showSpeechI18n('hero.avatarTip', { holdMs: null })"
+          @mouseleave="hideSpeech()"
+          @focusin="showSpeechI18n('hero.avatarTip', { holdMs: null })"
+          @focusout="hideSpeech()"
           :aria-label="t.ui.spawnAvatar"
         >
           <img

@@ -101,6 +101,7 @@ export default {
     statusOffline: "Offline",
     statusLastSeen: "最終オンライン：1970年1月1日 00:00:00",
     nameTip: "これが私の名前です。念のため",
+    avatarTip: "ほら、クリックしてよ！",
     locationTip: "マトリックスの中にいるので、オフィスには行けません",
     birthTip: "そう、ズーマーだけど何か？",
     playEnough:

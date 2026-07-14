@@ -316,7 +316,27 @@ export function initHeroPhysics(container, options = {}) {
   };
   Events.on(engine, "afterUpdate", afterUpdate);
 
-  Runner.run(runner, engine);
+  let running = false;
+  const setRunning = (shouldRun) => {
+    if (shouldRun === running) return;
+    running = shouldRun;
+    if (shouldRun) Runner.run(runner, engine);
+    else Runner.stop(runner);
+  };
+
+  const visibilityObserver = new IntersectionObserver(
+    ([entry]) => {
+      setRunning(Boolean(entry?.isIntersecting));
+    },
+    { threshold: 0 },
+  );
+  visibilityObserver.observe(container);
+
+  {
+    const rect = container.getBoundingClientRect();
+    const viewH = window.innerHeight || 0;
+    setRunning(rect.bottom > 0 && rect.top < viewH);
+  }
 
   const removeActor = (actor) => {
     if (actor.body) World.remove(world, actor.body);
@@ -541,6 +561,7 @@ export function initHeroPhysics(container, options = {}) {
   };
 
   const onScroll = () => {
+    if (!running) return;
     if (!scrollRaf) {
       scrollRaf = requestAnimationFrame(applyScrollInertia);
     }
@@ -555,13 +576,14 @@ export function initHeroPhysics(container, options = {}) {
     spawnFlagSquare,
     destroy() {
       spawnTimers.forEach((id) => clearTimeout(id));
+      visibilityObserver.disconnect();
       resizeObserver.disconnect();
       window.removeEventListener("scroll", onScroll);
       if (scrollRaf) cancelAnimationFrame(scrollRaf);
       Events.off(engine, "afterUpdate", afterUpdate);
       Events.off(mouseConstraint, "startdrag", onStartDrag);
       Events.off(mouseConstraint, "enddrag", onEndDrag);
-      Runner.stop(runner);
+      setRunning(false);
       World.clear(world, false);
       Engine.clear(engine);
       container.replaceChildren();
