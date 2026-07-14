@@ -3,7 +3,7 @@
     class="hero__banner"
     role="img"
     :aria-label="`${name} — ${t.ui.bannerAlt}`"
-    :style="`background-image: url('${themeLight ? bannerLight : banner}')`"
+    :style="`--hero-banner-dark: url('${banner}'); --hero-banner-light: url('${bannerLight}')`"
   ></div>
   <div
     class="hero__physics"

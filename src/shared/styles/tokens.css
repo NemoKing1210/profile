@@ -139,12 +139,18 @@
   --max: 1100px;
   --topbar-h: 52px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --theme-duration: 1.35s;
+  /* Light/dark morph: keep short — long fades + per-node transitions lag hard. */
+  --theme-duration: 0.32s;
   --locale-blur-duration: 1.6s;
   --locale-blur: 6px;
 }
 
 /* Temporary Sith / dark-red joke theme (toggled from the topbar sun button). */
+body.theme-sith,
+body.is-theme-switching-sith {
+  --theme-duration: 1.35s;
+}
+
 body.theme-sith {
   --bg-deep: #120808;
   --bg-header: #1a0c0c;

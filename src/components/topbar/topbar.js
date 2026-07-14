@@ -12,6 +12,10 @@ const LOCALE_BLUR_MID_MS = LOCALE_BLUR_MS / 2;
 const THEME_STORAGE_KEY = "profile:theme";
 const THEME_COLOR_DARK = "#171a21";
 const THEME_COLOR_LIGHT = "#ffffff";
+/** Match `--theme-duration` (light/dark). */
+const THEME_FADE_MS = 320;
+/** Match `body.theme-sith { --theme-duration }` */
+const THEME_SITH_FADE_MS = 1350;
 
 export function localeChromeState() {
   return {
@@ -22,6 +26,8 @@ export function localeChromeState() {
     themeJokeFlash: false,
     themeSith: false,
     themeLight: false,
+    themeSwitching: false,
+    themeSwitchSithPace: false,
     navOpen: false,
     activeNavId: "",
     _localeBlurGen: 0,
@@ -30,6 +36,7 @@ export function localeChromeState() {
     _themeJokeTimer: null,
     _themeFlashTimer: null,
     _themeSithTimer: null,
+    _themeSwitchTimer: null,
     _navSpyRaf: 0,
     _navSpyLayout: false,
     _onNavSpyScroll: null,
@@ -342,11 +349,14 @@ export function localeChromeMethods() {
         this._themeJokeTimer = null;
       }, 5200);
 
+      this._beginThemeSwitch(THEME_SITH_FADE_MS, { sithPace: true });
       this.themeSith = true;
       if (this._themeSithTimer != null) {
         window.clearTimeout(this._themeSithTimer);
       }
       this._themeSithTimer = window.setTimeout(() => {
+        // Keep long duration while leaving sith (class drops --theme-duration otherwise).
+        this._beginThemeSwitch(THEME_SITH_FADE_MS, { sithPace: true });
         this.themeSith = false;
         this._themeSithTimer = null;
       }, 5000);
@@ -359,6 +369,7 @@ export function localeChromeMethods() {
       this.themeJokeOpen = false;
       this.themeJokeFlash = false;
       this.themeSith = false;
+      this._beginThemeSwitch(THEME_FADE_MS);
       this.themeLight = !this.themeLight;
       this._persistThemePreference();
       this._syncThemeColorMeta();
@@ -369,6 +380,7 @@ export function localeChromeMethods() {
       if (!unlocked) {
         this.themeLight = false;
         this._syncThemeColorMeta();
+        this._preloadThemeBanners();
         return;
       }
 
@@ -378,6 +390,7 @@ export function localeChromeMethods() {
         this.themeLight = false;
       }
       this._syncThemeColorMeta();
+      this._preloadThemeBanners();
     },
 
     _persistThemePreference() {
@@ -401,6 +414,32 @@ export function localeChromeMethods() {
       }
     },
 
+    _beginThemeSwitch(durationMs, { sithPace = false } = {}) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      this.themeSwitchSithPace = sithPace;
+      this.themeSwitching = true;
+      if (this._themeSwitchTimer != null) {
+        window.clearTimeout(this._themeSwitchTimer);
+      }
+      this._themeSwitchTimer = window.setTimeout(() => {
+        this.themeSwitching = false;
+        this.themeSwitchSithPace = false;
+        this._themeSwitchTimer = null;
+      }, durationMs + 48);
+    },
+
+    _preloadThemeBanners() {
+      for (const url of [this.banner, this.bannerLight]) {
+        if (!url) continue;
+        const img = new Image();
+        img.decoding = "async";
+        img.src = url;
+      }
+    },
+
     _clearThemeJokeTimers() {
       if (this._themeJokeTimer != null) {
         window.clearTimeout(this._themeJokeTimer);
@@ -416,12 +455,22 @@ export function localeChromeMethods() {
       }
     },
 
+    _clearThemeSwitch() {
+      if (this._themeSwitchTimer != null) {
+        window.clearTimeout(this._themeSwitchTimer);
+        this._themeSwitchTimer = null;
+      }
+      this.themeSwitching = false;
+      this.themeSwitchSithPace = false;
+    },
+
     destroyLocaleChrome() {
       this.closeNav();
       this.closeLangMenu();
       this.closeAchievementsPanel?.();
       this._clearLocaleBlur();
       this._clearThemeJokeTimers();
+      this._clearThemeSwitch();
       this.themeJokeOpen = false;
       this.themeJokeFlash = false;
       this.themeSith = false;

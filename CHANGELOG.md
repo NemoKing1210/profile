@@ -23,6 +23,7 @@ Update **both** when cutting a release.
 - Comments wall / form adopt light theme tokens (plus / minus tones keep readable contrast)
 - Hero light theme: softer banner wash, name/avatar shadows, chips and physics tiles
 - Light-theme hero banner asset (`banner-light.svg`) instead of brightening the dark SVG
+- Theme switch performance: shorter token morph, suppress per-node fades, opacity banner crossfade
 
 ## [1.57.1] — 2026-07-14
 

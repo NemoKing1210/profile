@@ -22,6 +22,7 @@ body {
     radial-gradient(800px 400px at 90% 20%, var(--glow-b), transparent 50%),
     linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-store) 35%, var(--bg-deep) 100%);
   background-attachment: fixed;
+  /* Tokens interpolate on body; descendants pick them up — no per-node theme fades. */
   transition:
     color var(--theme-duration) var(--ease),
     --bg-deep var(--theme-duration) var(--ease),
@@ -36,17 +37,38 @@ body {
     --accent-green var(--theme-duration) var(--ease),
     --text var(--theme-duration) var(--ease),
     --text-muted var(--theme-duration) var(--ease),
-    --glow-a var(--theme-duration) var(--ease),
-    --glow-b var(--theme-duration) var(--ease),
     --btn-primary-start var(--theme-duration) var(--ease),
     --btn-primary-end var(--theme-duration) var(--ease),
     --hero-tint var(--theme-duration) var(--ease),
     --hero-veil var(--theme-duration) var(--ease);
 }
 
+/* While tokens morph: kill descendant transitions (they duplicated body work) and
+   drop fixed backgrounds (repaint thrash with animated page gradients). */
+body.is-theme-switching {
+  background-attachment: scroll;
+}
+
+body.is-theme-switching *,
+body.is-theme-switching *::before,
+body.is-theme-switching *::after {
+  transition: none !important;
+}
+
+/* Banner light layer crossfades via opacity — keep that one compositor-friendly fade. */
+body.is-theme-switching .hero__banner::before {
+  transition: opacity var(--theme-duration) var(--ease) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   body {
     transition: none;
+  }
+
+  body.is-theme-switching *,
+  body.is-theme-switching *::before,
+  body.is-theme-switching *::after {
+    transition: none !important;
   }
 }
 
