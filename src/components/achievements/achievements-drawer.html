@@ -110,25 +110,31 @@
 
     <div
       class="achievements-drawer__progress"
+      :class="achievementsComplete && 'is-complete'"
       role="progressbar"
       :aria-valuenow="achievementsProgress.done"
       :aria-valuemin="0"
       :aria-valuemax="achievementsProgress.total"
-      :aria-label="achievementsProgressLabel"
+      :aria-label="achievementsComplete ? t.achievements.progressPraise : achievementsProgressLabel"
     >
-      <div class="achievements-drawer__progress-meta">
+      <div class="achievements-drawer__progress-meta" x-show="!achievementsComplete">
         <span x-text="t.achievements.progressCaption"></span>
         <span
           class="achievements-drawer__progress-count"
           x-text="achievementsProgressLabel"
         ></span>
       </div>
-      <div class="achievements-drawer__progress-track">
+      <div class="achievements-drawer__progress-track" x-show="!achievementsComplete">
         <div
           class="achievements-drawer__progress-fill"
           :style="`width: ${achievementsProgress.ratio * 100}%`"
         ></div>
       </div>
+      <p
+        class="achievements-drawer__progress-praise"
+        x-show="achievementsComplete"
+        x-text="t.achievements.progressPraise"
+      ></p>
     </div>
   </aside>
 </div>

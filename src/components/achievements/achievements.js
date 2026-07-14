@@ -2,10 +2,12 @@ import {
   ACHIEVEMENT_EFFECT_IDS,
   ACHIEVEMENT_ICONS,
   ACHIEVEMENT_IDS,
+  LONG_STAY_MS,
   achievementsTotalCount,
   achievementsUnlockedCount,
   clearAllAchievements,
   isAchievementEffectEnabled,
+  isAchievementUnlocked,
   lockAchievement,
   readAchievementUnlocks,
   resolveAchievementRef,
@@ -26,6 +28,10 @@ export function achievementsState() {
     _achievementToastQueue: [],
     _achievementToastTimer: null,
     _achievementBtnPulseTimer: null,
+    _longStayAccumMs: 0,
+    _longStayStartedAt: null,
+    _longStayTimer: null,
+    _onLongStayVisibility: null,
   };
 }
 
@@ -51,6 +57,11 @@ export function achievementsMethods() {
       return template
         .replace("{done}", String(done))
         .replace("{total}", String(total));
+    },
+
+    get achievementsComplete() {
+      const { done, total } = this.achievementsProgress;
+      return total > 0 && done >= total;
     },
 
     get unlockedAchievements() {
@@ -313,6 +324,77 @@ export function achievementsMethods() {
       }
     },
 
+    /**
+     * Unlock `longStay` after LONG_STAY_MS of visible tab time.
+     * Pauses while the document is hidden so background tabs don't count.
+     */
+    bindLongStayAchievement() {
+      if (isAchievementUnlocked("longStay")) return;
+      if (this._onLongStayVisibility) return;
+
+      this._longStayAccumMs = 0;
+      this._longStayStartedAt = null;
+      this._longStayTimer = null;
+
+      this._onLongStayVisibility = () => {
+        if (document.hidden) {
+          this._pauseLongStayClock();
+        } else {
+          this._resumeLongStayClock();
+        }
+      };
+      document.addEventListener("visibilitychange", this._onLongStayVisibility);
+
+      if (!document.hidden) {
+        this._resumeLongStayClock();
+      }
+    },
+
+    _resumeLongStayClock() {
+      if (isAchievementUnlocked("longStay")) {
+        this._teardownLongStayAchievement();
+        return;
+      }
+      if (this._longStayStartedAt != null) return;
+
+      this._longStayStartedAt = performance.now();
+      const remaining = Math.max(0, LONG_STAY_MS - this._longStayAccumMs);
+
+      if (this._longStayTimer != null) {
+        window.clearTimeout(this._longStayTimer);
+      }
+      this._longStayTimer = window.setTimeout(() => {
+        this._longStayTimer = null;
+        this._longStayStartedAt = null;
+        this._longStayAccumMs = LONG_STAY_MS;
+        this.unlockAchievementRecord("longStay");
+        this._teardownLongStayAchievement();
+      }, remaining);
+    },
+
+    _pauseLongStayClock() {
+      if (this._longStayStartedAt == null) return;
+
+      this._longStayAccumMs += performance.now() - this._longStayStartedAt;
+      this._longStayStartedAt = null;
+
+      if (this._longStayTimer != null) {
+        window.clearTimeout(this._longStayTimer);
+        this._longStayTimer = null;
+      }
+    },
+
+    _teardownLongStayAchievement() {
+      this._pauseLongStayClock();
+      if (this._onLongStayVisibility) {
+        document.removeEventListener(
+          "visibilitychange",
+          this._onLongStayVisibility
+        );
+        this._onLongStayVisibility = null;
+      }
+    },
+
     bindAchievementDebugApi() {
       const resolve = (ref) => resolveAchievementRef(ref);
 
@@ -385,6 +467,7 @@ export function achievementsMethods() {
         this._achievementBtnPulseTimer = null;
       }
       this.achievementBtnPulse = false;
+      this._teardownLongStayAchievement();
       this.closeAchievementsPanel();
       if (window.achievement) {
         delete window.achievement;

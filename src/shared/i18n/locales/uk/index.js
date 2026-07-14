@@ -102,6 +102,7 @@ export default {
     unlockedAt: "Отримано: {date}",
     progressCaption: "Прогрес",
     progressLabel: "{done} / {total}",
+    progressPraise: "Усі досягнення зібрано. Легенда.",
     effectToggleLabel: "Ефект досягнення",
     toastEyebrow: "Досягнення отримано",
     items: {
@@ -114,6 +115,11 @@ export default {
         title: "Мисливець за комітами",
         how: "Заповни сітку активності й з’їж усі клітинки змійкою.",
         effect: "Почесне звання. Граф вкладів GitHub у тривозі.",
+      },
+      longStay: {
+        title: "Засидівся",
+        how: "Проведи на сайті більше п’яти хвилин.",
+        effect: "Почесне звання. Час летить непомітно.",
       },
     },
   },

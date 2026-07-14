@@ -121,6 +121,7 @@ export function createProfilePage() {
           this._bindScrollTop();
           this._bindNavSpy();
           this.initAboutActivity();
+          this.bindLongStayAchievement?.();
           this.bindAchievementDebugApi?.();
         });
       },

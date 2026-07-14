@@ -102,6 +102,7 @@ export default {
     unlockedAt: "Desbloqueado: {date}",
     progressCaption: "Progreso",
     progressLabel: "{done} / {total}",
+    progressPraise: "Todos los logros desbloqueados. Leyenda.",
     effectToggleLabel: "Efecto del logro",
     toastEyebrow: "Logro desbloqueado",
     items: {
@@ -114,6 +115,11 @@ export default {
         title: "Cazador de commits",
         how: "Llena la cuadrícula de actividad y cómete todas las celdas con la serpiente.",
         effect: "Título honorífico. El gráfico de GitHub está nervioso.",
+      },
+      longStay: {
+        title: "Sigues aquí",
+        how: "Pasa más de cinco minutos en el sitio.",
+        effect: "Título honorífico. El tiempo vuela mientras navegas.",
       },
     },
   },

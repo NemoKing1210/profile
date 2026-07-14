@@ -12,6 +12,7 @@ import chevronUp from "heroicons/24/outline/chevron-up.svg?raw";
 import bookOpen from "heroicons/24/outline/book-open.svg?raw";
 import briefcase from "heroicons/24/outline/briefcase.svg?raw";
 import cake from "heroicons/24/outline/cake.svg?raw";
+import clock from "heroicons/24/outline/clock.svg?raw";
 import faceSmile from "heroicons/24/outline/face-smile.svg?raw";
 import film from "heroicons/24/outline/film.svg?raw";
 import language from "heroicons/24/outline/language.svg?raw";
@@ -33,6 +34,7 @@ export const heroicons = {
   bookOpen,
   briefcase,
   cake,
+  clock,
   faceSmile,
   film,
   language,

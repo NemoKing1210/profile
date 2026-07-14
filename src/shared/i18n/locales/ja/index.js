@@ -101,6 +101,7 @@ export default {
     unlockedAt: "解除日：{date}",
     progressCaption: "進捗",
     progressLabel: "{done} / {total}",
+    progressPraise: "実績コンプリート。伝説。",
     effectToggleLabel: "実績効果",
     toastEyebrow: "実績解除",
     items: {
@@ -113,6 +114,11 @@ export default {
         title: "コミットハンター",
         how: "アクティビティを埋め尽くし、スネークですべてのマスを食べる。",
         effect: "名誉称号。GitHub の草が動揺している。",
+      },
+      longStay: {
+        title: "まだいるの",
+        how: "サイトに5分以上滞在する。",
+        effect: "名誉称号。見ているとあっという間。",
       },
     },
   },

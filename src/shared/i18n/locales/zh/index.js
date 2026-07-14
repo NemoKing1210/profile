@@ -99,6 +99,7 @@ export default {
     unlockedAt: "解锁于：{date}",
     progressCaption: "进度",
     progressLabel: "{done} / {total}",
+    progressPraise: "成就全满。传说。",
     effectToggleLabel: "成就效果",
     toastEyebrow: "成就已解锁",
     items: {
@@ -111,6 +112,11 @@ export default {
         title: "提交猎人",
         how: "填满活跃度网格，再用贪吃蛇吃光所有格子。",
         effect: "荣誉称号。GitHub 贡献图表示焦虑。",
+      },
+      longStay: {
+        title: "还没走",
+        how: "在网站上停留超过五分钟。",
+        effect: "荣誉称号。一刷起来就停不下来。",
       },
     },
   },

@@ -8,13 +8,21 @@ export const ACHIEVEMENTS_STORAGE_KEY = "profile:achievements";
 const LEGACY_LIGHT_THEME_KEY = "profile:light-theme-unlocked";
 
 /** Stable ids — keep in sync with locale `achievements.items`. */
-export const ACHIEVEMENT_IDS = Object.freeze(["lightTheme", "activitySnake"]);
+export const ACHIEVEMENT_IDS = Object.freeze([
+  "lightTheme",
+  "activitySnake",
+  "longStay",
+]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
 export const ACHIEVEMENT_ICONS = Object.freeze({
   lightTheme: "sun",
   activitySnake: "puzzlePiece",
+  longStay: "clock",
 });
+
+/** Active dwell time on the page required to unlock `longStay`. */
+export const LONG_STAY_MS = 5 * 60 * 1000;
 
 /** Achievements with a toggleable gameplay effect in the drawer. */
 export const ACHIEVEMENT_EFFECT_IDS = Object.freeze(new Set(["lightTheme"]));

@@ -102,6 +102,7 @@ export default {
     unlockedAt: "Freigeschaltet: {date}",
     progressCaption: "Fortschritt",
     progressLabel: "{done} / {total}",
+    progressPraise: "Alle Erfolge freigeschaltet. Legende.",
     effectToggleLabel: "Erfolgseffekt",
     toastEyebrow: "Erfolg freigeschaltet",
     items: {
@@ -114,6 +115,11 @@ export default {
         title: "Commit-Jäger",
         how: "Fülle das Aktivitätsraster und friss jede Zelle mit der Schlange.",
         effect: "Ehrenhaft. Der GitHub-Beitragsgraph ist nervös.",
+      },
+      longStay: {
+        title: "Immer noch da",
+        how: "Verbringe mehr als fünf Minuten auf der Seite.",
+        effect: "Ehrenhaft. Die Zeit vergeht beim Scrollen.",
       },
     },
   },

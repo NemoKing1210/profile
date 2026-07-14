@@ -102,6 +102,7 @@ export default {
     unlockedAt: "Получено: {date}",
     progressCaption: "Прогресс",
     progressLabel: "{done} / {total}",
+    progressPraise: "Все достижения собраны. Легенда.",
     effectToggleLabel: "Эффект достижения",
     toastEyebrow: "Достижение получено",
     items: {
@@ -114,6 +115,11 @@ export default {
         title: "Охотник за коммитами",
         how: "Заполни сетку активности и съешь все клетки змейкой.",
         effect: "Почётное звание. GitHub contribution graph в тревоге.",
+      },
+      longStay: {
+        title: "Засиделся",
+        how: "Проведи на сайте больше пяти минут.",
+        effect: "Почётное звание. Время летит незаметно.",
       },
     },
   },

@@ -102,6 +102,7 @@ export default {
     unlockedAt: "Unlocked: {date}",
     progressCaption: "Progress",
     progressLabel: "{done} / {total}",
+    progressPraise: "Every achievement unlocked. Legend.",
     effectToggleLabel: "Achievement effect",
     toastEyebrow: "Achievement unlocked",
     items: {
@@ -114,6 +115,11 @@ export default {
         title: "Commit Hunter",
         how: "Fill the activity grid, then eat every square with the snake.",
         effect: "Honorary title. The GitHub contribution graph is nervous.",
+      },
+      longStay: {
+        title: "Still Here",
+        how: "Spend more than five minutes on the site.",
+        effect: "Honorary title. Time flies when you're scrolling.",
       },
     },
   },
