@@ -5,14 +5,15 @@ alwaysApply: true
 
 # Profile landing conventions
 
-- Vite + Alpine.js + [vite-plugin-handlebars](https://www.npmjs.com/package/vite-plugin-handlebars) + split CSS. No backend. Publish `dist/` via GitHub Actions.
-- Content: `src/data/profile.js`. Prefer editing that file for copy and links.
-- Sections: `src/partials/<name>.html`, included from `index.html` as `{{> name }}`.
-- i18n locales: `src/i18n/locales/` (`ru` `uk` `en` `es` `de` `zh` `ja`). Spoken langs in `profile.spokenLanguages`.
-- Styles: keep section files under `src/styles/`; entry is `index.css`.
+- Vite + Alpine.js + [vite-plugin-handlebars](https://www.npmjs.com/package/vite-plugin-handlebars) + colocated components. No backend. Publish `dist/` via GitHub Actions.
+- Content: `src/shared/data/profile.js`. Prefer editing that file for copy and links.
+- Components: `src/components/<section>/` (HTML + CSS + JS `index.js`); include as `{{> section/name }}`.
+- Shared foundation: `src/shared/{styles,data,i18n,lib}/`.
+- i18n locales: `src/shared/i18n/locales/` (`ru` `uk` `en` `es` `de` `zh` `ja`). Spoken langs in `profile.spokenLanguages`.
 - Follow `DESIGN.md`: Steam dark palette, Exo 2 + Source Sans 3.
 - Default UI language is Russian; `document.documentElement.lang` follows the switcher.
 - `vite.config.js` `base` must match the Pages path (`/profile/` for this repo).
+- Single Alpine root `profilePage` composed in `src/app/profile-page.js` — do not add a second framework or N `x-data` islands.
 - Do not commit `node_modules/` or `dist/`.
 - Versioning: keep `package.json` `version` and `CHANGELOG.md` in sync (SemVer / Keep a Changelog). See `AGENTS.md`.
 - Preserve accessibility (skip link, focus-visible, reduced motion, x-cloak).

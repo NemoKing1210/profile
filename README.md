@@ -25,11 +25,11 @@ Built with **Vite**, **Alpine.js**, and **Handlebars** partials. Sources stay mo
 | Layer | Choice |
 |-------|--------|
 | Bundler | [Vite](https://vitejs.dev/) |
-| Markup | `index.html` + Handlebars `{{> partial }}` from `src/partials/` |
-| Style | Split CSS in `src/styles/` |
-| Behavior | [Alpine.js](https://alpinejs.dev/) via `src/main.js` |
-| Data | `src/data/profile.js` (IDs, URLs, stack) |
-| Copy / i18n | `src/i18n/locales/{ru,uk,en,es,de,zh,ja}.js` |
+| Markup | `index.html` + Handlebars `{{> section/name }}` from `src/components/` |
+| Style | Shared foundation + colocated component CSS |
+| Behavior | [Alpine.js](https://alpinejs.dev/) via `src/app/profile-page.js` (one root) |
+| Data | `src/shared/data/profile.js` (IDs, URLs, stack) |
+| Copy / i18n | `src/shared/i18n/locales/{ru,uk,en,es,de,zh,ja}/` |
 | AI brand icons | [`@lobehub/icons-static-svg`](https://www.npmjs.com/package/@lobehub/icons-static-svg) |
 | Hosting | GitHub Pages from `dist/` (Actions) |
 
@@ -67,12 +67,12 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 
 | What | Where |
 |------|--------|
-| Name, stack, projects, links, AI tools, badges | [`src/data/profile.js`](src/data/profile.js) |
-| Bio, UI strings, translations | [`src/i18n/locales/`](src/i18n/locales/) |
-| Section HTML | [`src/partials/`](src/partials/) |
-| Page shell / section order | [`index.html`](index.html) (`{{> name }}`) |
-| Alpine logic | [`src/alpine/`](src/alpine/), [`src/main.js`](src/main.js) |
-| Styles | [`src/styles/`](src/styles/) → entry [`index.css`](src/styles/index.css) |
+| Name, stack, projects, links, AI tools, badges | [`src/shared/data/profile.js`](src/shared/data/profile.js) |
+| Bio, UI strings, translations | [`src/shared/i18n/locales/`](src/shared/i18n/locales/) |
+| Section UI (HTML/CSS/JS) | [`src/components/`](src/components/) |
+| Page shell / section order | [`index.html`](index.html) (`{{> section/name }}`) |
+| Alpine composer | [`src/app/profile-page.js`](src/app/profile-page.js), [`src/main.js`](src/main.js) |
+| Shared styles | [`src/shared/styles/`](src/shared/styles/) |
 | Static images | [`public/assets/images/`](public/assets/images/) |
 | Vite / Pages base / Handlebars | [`vite.config.js`](vite.config.js) |
 | Deploy pipeline | [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) |
@@ -84,7 +84,7 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 ## Structure
 
 ```
-├── index.html                 # shell + {{> partial }}
+├── index.html                 # shell + {{> section/name }}
 ├── vite.config.js             # Vite + vite-plugin-handlebars, base: /profile/
 ├── package.json               # version + scripts + deps
 ├── CHANGELOG.md               # release history
@@ -92,15 +92,15 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 ├── AGENTS.md                  # instructions for AI coding agents
 ├── public/assets/images/
 ├── src/
-│   ├── main.js                # boot Alpine + CSS
-│   ├── data/
-│   │   ├── profile.js         # locale-agnostic data
-│   │   ├── ai-tool-icons.js   # Lobe AI brand icons
-│   │   └── link-icons.js      # favicons for outbound CTAs
-│   ├── i18n/locales/          # ru uk en es de zh ja
-│   ├── alpine/                # profile-page, reveal
-│   ├── partials/              # topbar, hero, about, …
-│   └── styles/                # tokens, hero, panels, …
+│   ├── main.js                # boot Alpine + CSS cascade
+│   ├── app.css                # foundation CSS barrel
+│   ├── app/                   # profile-page composer + shared view-model
+│   ├── shared/
+│   │   ├── data/              # profile.js, icons, marks
+│   │   ├── i18n/locales/      # ru uk en es de zh ja
+│   │   ├── styles/            # tokens, base, panels, motion
+│   │   └── lib/               # confetti, reveal
+│   └── components/            # colocated HTML + CSS + JS per section
 ├── dist/                      # build output (not committed)
 └── .github/workflows/deploy.yml
 ```

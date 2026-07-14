@@ -8,25 +8,45 @@ Personal profile landing for GitHub Pages.
 
 - **No backend.**
 - **Bundler:** Vite. Dev = modular sources; prod = `dist/`.
-- **UI:** Alpine.js + Handlebars partials (`src/partials/`) + CSS (`src/styles/`).
-- Content: [`src/data/profile.js`](src/data/profile.js) (IDs / stack / links).
-- i18n: [`src/i18n/locales/`](src/i18n/locales/) — `ru`, `uk`, `en`, `es`, `de`, `zh`, `ja`.
+- **UI:** Alpine.js + colocated components (`src/components/`) + shared foundation (`src/shared/`).
+- Content: [`src/shared/data/profile.js`](src/shared/data/profile.js) (IDs / stack / links).
+- i18n: [`src/shared/i18n/locales/`](src/shared/i18n/locales/) — `ru`, `uk`, `en`, `es`, `de`, `zh`, `ja`.
 - Visual system: Steam dark theme — [`DESIGN.md`](DESIGN.md).
 - Language: UI is multilingual; default `ru`, switcher in topbar.
 - Pages URL base: `/profile/` (see `vite.config.js`).
-- HTML includes: [`vite-plugin-handlebars`](https://www.npmjs.com/package/vite-plugin-handlebars) — `{{> name }}` → `src/partials/<name>.html`.
+- HTML includes: [`vite-plugin-handlebars`](https://www.npmjs.com/package/vite-plugin-handlebars) — `partialDirectory` = `src/components`; `{{> section/name }}` → `src/components/<section>/<name>.html`.
 - **Versioning:** [`package.json`](package.json) `version` + [`CHANGELOG.md`](CHANGELOG.md) (Keep a Changelog / SemVer).
+
+## Layout
+
+```
+src/
+  main.js                 # boot Alpine + CSS cascade
+  app.css                 # foundation CSS imports
+  app/
+    profile-page.js       # single Alpine root composer
+    view-model.js         # cross-cutting getters (t, nav)
+  shared/
+    styles/               # tokens, base, buttons, panels, motion
+    data/                 # profile IDs/URLs, icons, marks
+    i18n/                 # locales (not colocated per component)
+    lib/                  # confetti, reveal
+  components/<name>/
+    index.js              # public API + CSS side-effect import
+    *.html                # Handlebars partials
+    *.css / *.js          # colocated styles & Alpine mixins / views
+```
 
 ## Do
 
-- Prefer editing locale files for copy; keep IDs/URLs in `src/data/profile.js`.
+- Prefer editing locale files for copy; keep IDs/URLs in `src/shared/data/profile.js`.
 - When adding a string, add it to **all** locale files.
 - Spoken languages for chips: `profile.spokenLanguages` + `spoken` map in each locale.
-- Generic UI icons (non-brand): [`heroicons`](https://heroicons.com) via [`src/data/heroicons.js`](src/data/heroicons.js). Brand logos stay in simple-icons / lobehub.
-- Put page sections in `src/partials/*.html`; include them from `index.html` via `{{> partial }}`.
-- Keep CSS split by concern (`tokens`, `hero`, `panels`, …); import via `src/styles/index.css`.
-- Register Alpine behavior in `src/alpine/`; boot from `src/main.js`.
-- Avoid Handlebars `{{ … }}` inside partials for Alpine text — use `x-text` / bindings (already the pattern).
+- Generic UI icons (non-brand): [`heroicons`](https://heroicons.com) via [`src/shared/data/heroicons.js`](src/shared/data/heroicons.js). Brand logos stay in simple-icons / lobehub.
+- Put UI in `src/components/<section>/` (markup + CSS + JS); include via `{{> section/name }}`.
+- Export Alpine `*State` / `*Methods` (and view getters) from each component’s `index.js`; compose in `app/profile-page.js`.
+- Keep shared styles in `src/shared/styles/`; component CSS loads via `index.js` (order fixed in `main.js`).
+- Avoid Handlebars `{{ … }}` inside partials for Alpine text — use `x-text` / bindings.
 - Preserve accessibility: skip link, focus styles, reduced motion, `[x-cloak]`.
 - After structural changes, run `npm run build` and confirm it succeeds.
 - When shipping a meaningful change set (feature, fix, or breaking change), update **versioning**:
@@ -41,19 +61,20 @@ Personal profile landing for GitHub Pages.
 - Don’t commit `node_modules/` or `dist/`.
 - Don’t change `base` unless the GitHub repo name / Pages path changes.
 - Don’t restyle away from DESIGN.md palette.
-- Don’t invent a second framework alongside Alpine unless asked.
+- Don’t invent a second framework or multiple Alpine roots alongside `profilePage`.
 - Don’t bump `package.json` version without a matching `CHANGELOG.md` entry (and vice versa for releases).
+- Don’t colocate i18n strings into components (keep 7 locales in sync under `shared/i18n`).
 
 ## Common tasks
 
 | Task | Touch |
 |------|--------|
-| Update bio / projects / links | `src/data/profile.js` + `src/i18n/locales/*` |
-| Translations | `src/i18n/locales/{ru,uk,en,es,de,zh,ja}.js` |
-| Layout shell | `index.html` (`{{> partial }}`) |
-| Section markup (blocks) | `src/partials/*.html` |
-| Alpine logic | `src/alpine/*`, `src/main.js` |
-| Theme | `src/styles/*`, `DESIGN.md` |
+| Update bio / projects / links | `src/shared/data/profile.js` + `src/shared/i18n/locales/*` |
+| Translations | `src/shared/i18n/locales/{ru,uk,en,es,de,zh,ja}/` |
+| Layout shell | `index.html` (`{{> section/name }}`) |
+| Section UI | `src/components/<section>/*` |
+| Page composer | `src/app/profile-page.js` |
+| Theme tokens | `src/shared/styles/*`, `DESIGN.md` |
 | Images | `public/assets/images/*` |
 | Handlebars / Vite config | `vite.config.js` |
 | Deploy pipeline | `.github/workflows/deploy.yml` |

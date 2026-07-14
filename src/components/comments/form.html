@@ -1,0 +1,125 @@
+<div class="comments-invite">
+  <p class="comments-invite__title" x-text="t.comments.inviteTitle"></p>
+  <p class="comments-invite__blurb" x-text="t.comments.inviteBlurb"></p>
+</div>
+
+<form
+  class="comments-form"
+  @submit.prevent="submitComment"
+  :aria-busy="commentSubmitting"
+>
+  <div class="comments-form__row">
+    <label class="comments-field">
+      <span class="comments-field__label" x-text="t.comments.nameLabel"></span>
+      <input
+        class="comments-field__input"
+        type="text"
+        name="name"
+        autocomplete="nickname"
+        maxlength="80"
+        required
+        :disabled="commentSubmitting"
+        x-model="commentDraft.name"
+        :placeholder="t.comments.namePlaceholder"
+      />
+    </label>
+  </div>
+
+  <label class="comments-field">
+    <span class="comments-field__label" x-text="t.comments.messageLabel"></span>
+    <div class="comments-field__wrap">
+      <textarea
+        class="comments-field__input comments-field__input--area"
+        name="message"
+        rows="4"
+        maxlength="600"
+        required
+        :disabled="commentSubmitting || commentRepLocked"
+        x-model="commentDraft.message"
+        @input="onCommentMessageInput()"
+        :placeholder="t.comments.messagePlaceholder"
+        :aria-describedby="commentRepLocked ? 'comment-rep-tooltip' : undefined"
+      ></textarea>
+      <div
+        id="comment-rep-tooltip"
+        class="comments-rep-tooltip"
+        x-show="commentRepLocked"
+        x-cloak
+        x-transition.opacity.duration.200ms
+        role="status"
+        aria-live="polite"
+      >
+        <p
+          class="comments-rep-tooltip__title"
+          x-text="t.comments.minusRepTitle"
+        ></p>
+        <p
+          class="comments-rep-tooltip__text"
+          x-text="commentMinusRepHint"
+        ></p>
+      </div>
+    </div>
+  </label>
+
+  <div class="comments-form__actions">
+    <button
+      class="btn btn--primary"
+      type="submit"
+      :disabled="commentSubmitting || commentRepLocked"
+      x-text="commentSubmitting ? t.comments.sending : t.comments.submit"
+    ></button>
+  </div>
+
+  <div
+    class="comments-progress"
+    x-show="commentSubmitting && !commentFinale"
+    x-cloak
+    role="progressbar"
+    :aria-valuenow="Math.floor(commentProgress)"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    :aria-label="t.comments.progressLabel"
+  >
+    <div class="comments-progress__meta">
+      <span x-text="commentProgressStatus"></span>
+      <span
+        class="comments-progress__pct"
+        x-text="`${commentProgress.toFixed(1)}%`"
+      ></span>
+    </div>
+    <div class="comments-progress__track">
+      <div
+        class="comments-progress__fill"
+        :style="`width: ${commentProgress}%`"
+      ></div>
+    </div>
+  </div>
+
+  <div
+    class="comments-finale"
+    x-show="commentFinale"
+    x-cloak
+    role="status"
+  >
+    <p class="comments-finale__title" x-text="t.comments.finaleTitle"></p>
+    <p class="comments-finale__body" x-text="commentWaitTaunt"></p>
+  </div>
+</form>
+
+<div
+  class="social-credit-flash"
+  x-show="socialCreditFlashOpen"
+  x-cloak
+  aria-hidden="true"
+></div>
+
+<div
+  class="social-credit-toast"
+  :class="socialCreditToastPenalty && 'social-credit-toast--penalty'"
+  x-show="socialCreditToastOpen"
+  x-cloak
+  x-transition.opacity.duration.300ms
+  role="status"
+  aria-live="polite"
+  x-text="socialCreditToastMessage"
+></div>

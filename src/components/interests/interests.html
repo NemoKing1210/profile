@@ -1,0 +1,102 @@
+<section class="panel" id="interests" aria-labelledby="interests-title">
+  <header class="panel__head">
+    <h2
+      class="panel__title"
+      id="interests-title"
+      x-text="interests.title"
+    ></h2>
+  </header>
+
+  <div class="interest-intro">
+    <p class="interest-intro__text" x-text="interests.blurb"></p>
+    <ul class="interest-chips" role="list" :aria-label="t.ui.hobbies">
+      <template x-for="hobby in interests.hobbies" :key="hobby.id">
+        <li
+          class="interest-chip"
+          :class="`interest-chip--${hobby.tone}`"
+        >
+          <span
+            class="interest-chip__icon"
+            aria-hidden="true"
+            x-html="hobby.icon"
+          ></span>
+          <span class="interest-chip__label" x-text="hobby.label"></span>
+        </li>
+      </template>
+    </ul>
+  </div>
+
+  {{> interests/media-shelf
+    source="letterboxd"
+    localeKey="letterboxd"
+    cta="letterboxdCta"
+    itemVar="film"
+    tastesKey="subgenres"
+    tastesLabelKey="subgenresLabel"
+    avatarW="220"
+    avatarH="220"
+    coverW="150"
+    coverH="225"
+  }}
+
+  {{> interests/media-shelf
+    source="backloggd"
+    localeKey="backloggd"
+    cta="backloggdCta"
+    coversClass="media-covers--five"
+    itemVar="game"
+    tastesKey="genres"
+    tastesLabelKey="genresLabel"
+    avatarW="175"
+    avatarH="175"
+    coverW="528"
+    coverH="704"
+    withTips=true
+  }}
+
+  <aside class="steam-invite" aria-labelledby="steam-invite-title">
+    <div class="steam-invite__glow" aria-hidden="true"></div>
+    <div class="steam-invite__persona">
+      <img
+        class="steam-invite__avatar"
+        :src="steam.avatar"
+        :alt="steam.name"
+        width="184"
+        height="184"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="steam-invite__who">
+        <p class="steam-invite__eyebrow" x-text="steam.title"></p>
+        <p class="steam-invite__name" x-text="steam.name"></p>
+      </div>
+    </div>
+    <div class="steam-invite__body">
+      <h3
+        class="steam-invite__title"
+        id="steam-invite-title"
+        x-text="t.steam.inviteTitle"
+      ></h3>
+      <p class="steam-invite__about" x-text="steam.about"></p>
+      <p class="steam-invite__invite" x-text="steam.invite"></p>
+      <div class="steam-invite__actions">
+        <a
+          class="btn btn--primary steam-invite__cta"
+          :href="steam.href"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <svg
+            class="steam-invite__cta-mark"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path :d="steam.mark.path" fill="currentColor"></path>
+          </svg>
+          <span x-text="steam.cta"></span>
+        </a>
+      </div>
+    </div>
+  </aside>
+</section>

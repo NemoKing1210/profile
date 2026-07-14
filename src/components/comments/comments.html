@@ -1,0 +1,10 @@
+<section class="panel panel--comments" id="comments" aria-labelledby="comments-title">
+  <header class="panel__head panel__head--row">
+    <h2 class="panel__title" id="comments-title" x-text="t.comments.title"></h2>
+    <p class="comments-count" x-text="commentsCountLabel"></p>
+  </header>
+
+  {{> comments/wall }}
+
+  {{> comments/form }}
+</section>

@@ -1,0 +1,395 @@
+import commentsFeed from "./comments-feed.js";
+
+export default {
+  code: "ja",
+  nativeName: "日本語",
+  meta: {
+    description:
+      "Kirill — フロントエンド開発者。Vue、Nuxt、TypeScript。プロフィール、スタック、プロジェクト。",
+  },
+  ui: {
+    pageTitleSuffix: "プロフィール",
+    skipToContent: "コンテンツへスキップ",
+    navLabel: "メインナビゲーション",
+    menuOpen: "メニューを開く",
+    menuClose: "メニューを閉じる",
+    langLabel: "言語",
+    themeToggle: "テーマを切り替え",
+    themeDeniedTitle: "ライトテーマはありません",
+    themeDenied:
+      "好きじゃない — 夜に目が痛い。フォースの闇の側へ来い：シスの UX もダークのままだ。",
+    backToTop: "トップへ戻る",
+    footerNote: "Static profile · GitHub Pages",
+    birthPrefix: "生",
+    bannerAlt: "バナー",
+    avatarAlt: "アバター",
+    spawnAvatar: "ヒーローにアバターを追加",
+    hobbies: "趣味",
+    gameGenres: "好きなゲームジャンル",
+    projectsSubtitle: "ライブラリ — userscript とデスクトップ",
+    infiniteMarks: [
+      "フッター？知らないね",
+      "廊下が繰り返す",
+      "灯のハムが強くなる",
+      "湿った壁紙の匂い",
+      "レベル 0",
+      "出口なし",
+      "ここに来たことがある",
+      "振り返るな",
+    ],
+    mineToast: "ツルハシ装備 · 左クリック長押しで UI 破壊 · Esc でしまう",
+  },
+  spoken: {
+    ru: "ロシア語",
+    uk: "ウクライナ語",
+    en: "英語",
+    ja: "日本語",
+  },
+  hero: {
+    role: "フロントエンド開発者",
+    status: "Online",
+    statusOffline: "Offline",
+    statusLastSeen: "最終オンライン：1970年1月1日 00:00:00",
+    nameTip: "これが私の名前です。念のため",
+    locationTip: "マトリックスの中にいるので、オフィスには行けません",
+    birthTip: "私はズーマーです",
+    playEnough:
+      "まだ遊び足りない？プロフィールの続きも見てみない？",
+    playAlong: "楽しそうだね——一緒に遊ばせて！",
+    metaLabel: "所在地、言語、生年",
+    tagline:
+      "見た目もよく、使い心地も軽いインターフェースを設計します。",
+    location: "リモート",
+  },
+  hub: {
+    eyebrow: "ソーシャルハブ",
+    title: "Linktree",
+    blurb:
+      "クリーンな UX とモダンな Web デザインを専門とするフロントエンド開発者。Vue/Nuxt が中心。ゲームと Web 技術について発信しています。",
+    cta: "Linktree を開く",
+    platformsLabel: "Linktree でも",
+    platforms: {
+      telegram: "Telegram",
+      email: "Email",
+      discord: "Discord",
+      whatsapp: "WhatsApp",
+      facebook: "Facebook",
+      github: "GitHub",
+      steam: "Steam",
+      backloggd: "Backloggd",
+      letterboxd: "Letterboxd",
+      notion: "Notion",
+    },
+  },
+  letterboxd: {
+    title: "Letterboxd",
+    about:
+      "Letterboxd は映画好き向けのSNS。視聴日記、評価、リスト、議論ができます。",
+    favoritesLabel: "お気に入り",
+    openProfile: "プロフィール",
+    subgenresLabel: "好きなサブジャンル",
+    subgenres: {
+      epicFantasy: "叙事ファンタジー",
+      superhero: "スーパーヒーロー",
+      adventure: "アドベンチャー",
+      sciFi: "SF",
+      animation: "アニメーション",
+      apocalypse: "ポストアポカリプス",
+    },
+  },
+  backloggd: {
+    title: "Backloggd",
+    about:
+      "Backloggd はゲーム版 Letterboxd。プレイ日記、評価、バックログ、リストができます。",
+    favoritesLabel: "お気に入り",
+    openProfile: "プロフィール",
+    genresLabel: "好きなジャンル",
+    tips: {
+      programming: "このゲームのおかげでプログラミングが好きになった",
+    },
+    genres: {
+      storyShooters: "ストーリー重視のシューター",
+      sandboxes: "サンドボックス",
+      apocalypse: "ポストアポカリプス / ゾンビ",
+    },
+  },
+  steam: {
+    title: "Steam",
+    inviteTitle: "一緒に遊ぼう？",
+    about:
+      "Steam は Valve のゲームプラットフォーム。ライブラリ、フレンド、マルチプレイ、コミュニティ。",
+    invite:
+      "一緒に遊びたいなら — 協力、カジュアル、オンラインで雑談でも — プロフィールへどうぞ。フレンド追加歓迎です。",
+    cta: "Steam プロフィールを開く",
+  },
+  about: {
+    title: "自己紹介",
+    eyebrow: "Frontend-first · backend も",
+    badgesLabel: "ハイライト",
+    lead:
+      "<mark class=\"about-hl\">技術</mark>とセンスが噛み合うインターフェースを作る — 速く、正確で、細部にこだわります。",
+    paragraphs: [
+      "エンジニアリングとビジュアル・クリエイティブな視点を融合するのが好きです。<strong>バックエンド</strong>（Node.js、PHP、Laravel、Yii2）も得意ですが、<mark class=\"about-hl\">フロントエンド</mark>が本領 — 成果への喜びも UX への集中も、ここが一番。",
+      "IT で私を動かすのは<strong>すぐに結果が見える</strong>こと — アイデアが目の前で動くプロダクトになる。モダンな AI ツールで、コード品質を落とさずに速く回せます。",
+    ],
+    badges: {
+      frontend: "Frontend first",
+      details: "細部へのこだわり",
+      ship: "アイデア→UI",
+      backend: "Backend も対応",
+      ai: "AI をワークフローに",
+      remote: "Remote",
+    },
+    statusLabel: "ステータス",
+    statusWorkBadge: "クローズ",
+    statusWork: "仕事は探していません",
+    statusWorkNote: "求人の受信箱は一時停止 — 今は ship と落ち着いたコードが大事です。",
+    statusWorkDenied: "ケーキなら、まあ考えるかも...",
+    statusHappyBadge: "オープン",
+    statusHappy: "幸せはいつでも募集中",
+    statusHappyNote: "歓迎：コーヒー、ミーム、心地よい DX。",
+    statusPunch: "履歴書は添付しません。良い雰囲気は必須。",
+    activity: {
+      label: "アクティビティ",
+      eyebrow: "過去1年",
+      summary: "過去1年で {count} 件の「コントリビューション」",
+      summaryDone: "全部マックス。月曜まで息を整えよう。",
+      less: "少",
+      more: "多",
+      chartAria: "年間アクティビティ: {count} 件",
+      tipTemplate: "{date}: {tip}",
+      days: { mon: "月", wed: "水", fri: "金" },
+      tips: [
+        "README の typo を修正",
+        "変数名を variableFinal2 に変更",
+        "また npm install",
+        "DevTools を5分眺めた",
+        "コミットメッセージ「fix fix」",
+        "あとでやる TODO を追加",
+        "VS Code のタブを切り替え",
+        "margin を 1px 調整",
+        "リポ全体に Prettier",
+        "動かない理由を検索",
+        "console.log を削除（違う方）",
+        "念のため依存を更新",
+        "// temp と書いて放置",
+        "きれいな履歴のため rebase",
+        "条件反射で Stack Overflow を開く",
+        "div を中央寄せ（margin: auto）",
+        "z-index 戦争に勝利",
+        "「一時的に」!important を追加",
+        "目測でグリッドに揃えた",
+        "Chrome を直して Safari を壊した",
+        "気分でファイル名を変更",
+        "border を消してまた付けた",
+        "誰も気づかない hover を実装",
+        "色を #66c0f4 にして戻した",
+        "npm audit が黙るまで待った",
+        "MDN のタブを12個閉じた",
+        ":has() なしで CSS を書いた",
+        "flex を置いて祈った",
+        "1px 右へ、また左へ",
+        "「うっかり」lockfile を更新",
+      ],
+    },
+  },
+  stack: {
+    title: "スタック",
+    eyebrow: "フォーカスとツール",
+    techsLabel: "テクノロジー",
+    spawnTech: "ヒーローに {name} を追加",
+    toolkitLabel: "AI とエージェント",
+    toolkitBlurb:
+      "開発・レビュー・設計をニューラルネットと一緒に加速する、日常のスタック。",
+    spawnTool: "ヒーローに {name} を追加",
+    growLabel: "学び続けています",
+    growBlurb:
+      "うまくいっているところで止まらない：新しいアプローチを試し、読み、ペットプロジェクトを出し、効いたものを本番へ — スタックは凍ったリストではなく、生き続けます。",
+    growTagsLabel: "学び方",
+    growTags: ["実験", "ドキュメント", "ペットプロジェクト", "コードレビュー"],
+    items: [
+      {
+        id: "frontend",
+        label: "Frontend",
+        detail:
+          "わかりやすい UI とモダンなクライアントスタック：マークアップ、Vue / Nuxt、Vite、必要なら Alpine。",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        detail:
+          "リモートファーストで自律的 — 必要なら Node、Laravel、Yii2 で API とサービスも届けます。",
+      },
+      {
+        id: "languages",
+        label: "言語",
+        detail:
+          "日常は TypeScript / JavaScript。プロジェクト次第で PHP、Lua、C# も。",
+      },
+    ],
+    favoriteFlip: {
+      ariaLabel:
+        "ジョークカード：表は React、裏は Vue。スクロールで近づくほど裏返ります。",
+      frontBadge: "大好きなライブラリ",
+      frontLabel: "React",
+      frontDetail:
+        "大好きなライブラリ：コンポーネント、フック、活きたエコシステム。ここから始まって、今も心を温めます。",
+      backBadge: "大好きなフレームワーク",
+      backLabel: "Vue",
+      backDetail:
+        "ばれたね：大好きなフレームワークは Vue / Nuxt。きれいな DX、わかりやすいテンプレート、本番で本当に使っているエコシステム。",
+    },
+  },
+  projects: {
+    title: "プロジェクト",
+    openCta: "GitHub で開く",
+    notice:
+      "まずは小さく——userscript と pet projects から。もっと大きなものはこれから。",
+    status: {
+      public: "Public",
+    },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
+    blurbs: {
+      "steam-gamestatus":
+        "Steam Store / Community 用 userscript：保護・日付・スコア・スペックのバッジをゲームカードに表示。ページを離れずに GameStatus.info のデータを取得し、キャッシュと設定パネル付き。",
+      "steam-region-block-bypass":
+        "Steam Store 用 userscript：「unavailable in your region」表示時にゲスト商品ページを復元し、任意でゲスト検索も。Steam 風設定パネルと IP 制限向けプロキシゲートウェイ付き。",
+      ProxyChecker:
+        "Electron + React のデスクトップアプリ。HTTP/SOCKS/MTProto プロキシの一括チェック、グループ、地理情報、エクスポート、GitHub Gist / Google Drive 同期に対応。",
+      "youtube-bot-comments-filter":
+        "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "一覧とゲームページにバッジ",
+        "Steam 風ツールチップ（スコア／スペック）",
+        "キャッシュ、遅延読み込み、UI 10言語",
+      ],
+      "steam-region-block-bypass": [
+        "匿名ゲスト取得でページを復元",
+        "ゲスト検索サジェストと任意の /search",
+        "Region Bypass パネル＋ローカル gateway",
+      ],
+      ProxyChecker: [
+        "HTTP・SOCKS4/5・MTProto 対応",
+        "グループ、お気に入り、トレイ、自動更新",
+        "暗号化同期とローカルバックアップ",
+      ],
+      "youtube-bot-comments-filter": [
+        "重み付きニックネーム規則エンジン",
+        "hide / blur モードと設定の保存",
+        "YouTube の light/dark に合わせた見た目",
+      ],
+    },
+  },
+  interests: {
+    title: "興味",
+    blurb:
+      "プログラミング以外にも、映画、ビデオゲーム、アニメ、ドラマ、マンガが好きです。画面でうまく語られる物語なら何でも。",
+    hobbies: {
+      games: "ビデオゲーム",
+      movies: "映画",
+      anime: "アニメ",
+      series: "TV シリーズ",
+      manga: "マンガ",
+    },
+  },
+  links: {
+    title: "リンク",
+    directLabel: "直接リンク",
+    hints: {
+      github: "コードとリポジトリ",
+      linktree: "ソーシャルを一箇所に",
+      letterboxd: "映画とリスト",
+      orcid: "研究プロフィール",
+    },
+  },
+  comments: {
+    feed: commentsFeed,
+    title: "コメント",
+    wallLabel: "コメントウォール",
+    countLabel: "{count} 件のコメント",
+    inviteTitle: "あなたのも残して",
+    inviteBlurb:
+      "何か書いてもらえると本当に嬉しいです。一言でも十分うれしい。",
+    nameLabel: "名前",
+    namePlaceholder: "どう紹介しましょうか",
+    messageLabel: "コメント",
+    messagePlaceholder: "+rep nice profile / -rep …",
+    minusRepTitle: "モデレーションが不満",
+    minusRepHint:
+      "悪いコメントは禁止です。優しい言葉と +rep だけ。{seconds}秒待って、いいことを考えてね。",
+    submit: "送信",
+    sending: "送信中…",
+    progressLabel: "コメントを送信中",
+    finaleTitle: "サーバーエラー",
+    progressStatuses: [
+      "サーバーに接続中…",
+      "スペルを確認中…",
+      "モデレーション待ち…",
+      "バックエンドの応答待ち…",
+      "もう少し…",
+      "あとちょっと…",
+    ],
+    spoofWhen: "たった今",
+    spoilerHint: "ホバーで表示",
+    voteUp: "賛成",
+    voteDown: "反対",
+    sortLabel: "並べ替え",
+    sortTop: "トップ",
+    sortNew: "新着",
+    sortControversial: "物議",
+    socialCreditReward: "+783994 social credit",
+    socialCreditPenalty: "−783994 social credit",
+    farmRaidReplies: [
+      "Пошел пить кофе, буду через 3 часа",
+      "Отошел покормить кошек, прийду минимум через 12 часов 20 минут",
+      "Потопал в магазин. Ждите меня с первым лучом солнца, я приду на пятый день, с востока",
+      "Не ждите",
+    ],
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep this ||comfiest duo partner in EU||",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "まだいるの…？" },
+      {
+        at: 45,
+        text: "あなたのコメント、モデレーション通らないかも…",
+      },
+      { at: 60, text: "あとちょっとだけみたい…" },
+      { at: 75, text: "忍耐強いね — 待って、待って…" },
+      {
+        at: 90,
+        text: "サーバーが遅くて訪問者も多い、ごめん…",
+      },
+      {
+        at: 105,
+        text: "サーバーをスケールした — リクエストはほぼ処理済み…",
+      },
+      {
+        at: 120,
+        text: "太陽放射がコメントに影響しないといいけど…",
+      },
+      { at: 135, text: "もうコメントのバイトを読んでる…" },
+      {
+        at: 150,
+        text: "サーバーエラー。理由：サーバーがない :( でもまだここにいるあなたはすごい — 紙吹雪をどうぞ。もう一度送ってみて。その頃にはサーバーがあるかも — どっちにしても紙吹雪はもらえるよ :)",
+      },
+    ]
+  },
+  nav: {
+    about: "自己紹介",
+    stack: "スタック",
+    projects: "プロジェクト",
+    interests: "興味",
+    links: "リンク",
+    comments: "コメント",
+  },
+};

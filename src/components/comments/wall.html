@@ -1,0 +1,106 @@
+<div
+  class="comments-sort"
+  role="group"
+  :aria-label="t.comments.sortLabel"
+>
+  <button
+    type="button"
+    class="comments-sort__btn"
+    :class="commentSort === 'top' && 'comments-sort__btn--active'"
+    :aria-pressed="commentSort === 'top'"
+    @click="setCommentSort('top')"
+    x-text="t.comments.sortTop"
+  ></button>
+  <button
+    type="button"
+    class="comments-sort__btn"
+    :class="commentSort === 'new' && 'comments-sort__btn--active'"
+    :aria-pressed="commentSort === 'new'"
+    @click="setCommentSort('new')"
+    x-text="t.comments.sortNew"
+  ></button>
+  <button
+    type="button"
+    class="comments-sort__btn"
+    :class="commentSort === 'controversial' && 'comments-sort__btn--active'"
+    :aria-pressed="commentSort === 'controversial'"
+    @click="setCommentSort('controversial')"
+    x-text="t.comments.sortControversial"
+  ></button>
+</div>
+
+<ul class="comment-wall" :aria-label="t.comments.wallLabel">
+  <template x-for="item in commentFeed" :key="item.id">
+    <li
+      class="steam-comment"
+      :data-comment-id="item.id"
+      :class="[
+        `steam-comment--${item.tone}`,
+        item.live && 'steam-comment--live',
+        item.depth === 1 && 'steam-comment--reply',
+      ]"
+    >
+      <div class="steam-comment__vote">
+        <button
+          type="button"
+          class="steam-comment__vote-btn"
+          :class="item.userVote === 'up' && 'steam-comment__vote-btn--active-up'"
+          :aria-label="t.comments.voteUp"
+          :aria-pressed="item.userVote === 'up'"
+          @click="voteComment(item.id, 'up')"
+        >
+          <span
+            class="steam-comment__vote-icon"
+            aria-hidden="true"
+            x-html="icons.chevronUp"
+          ></span>
+        </button>
+        <span
+          class="steam-comment__score"
+          :class="{
+            'steam-comment__score--up': item.score > 0,
+            'steam-comment__score--down': item.score < 0,
+          }"
+          x-text="formatCommentScore(item.score)"
+        ></span>
+        <button
+          type="button"
+          class="steam-comment__vote-btn"
+          :class="item.userVote === 'down' && 'steam-comment__vote-btn--active-down'"
+          :aria-label="t.comments.voteDown"
+          :aria-pressed="item.userVote === 'down'"
+          @click="voteComment(item.id, 'down')"
+        >
+          <span
+            class="steam-comment__vote-icon"
+            aria-hidden="true"
+            x-html="icons.chevronDown"
+          ></span>
+        </button>
+      </div>
+      <div
+        class="steam-comment__avatar"
+        :class="item.depth === 1 && 'steam-comment__avatar--reply'"
+        :style="`background: ${item.avatarColor}`"
+        aria-hidden="true"
+        x-text="item.initials"
+      ></div>
+      <div class="steam-comment__main">
+        <div class="steam-comment__meta">
+          <span class="steam-comment__author" x-text="item.author"></span>
+          <time class="steam-comment__when" x-text="item.when"></time>
+        </div>
+        <div class="steam-comment__body">
+          <template x-for="(seg, si) in item.bodySegments" :key="`${item.id}-${si}`">
+            <span
+              :class="seg.blur && 'comment-spoiler'"
+              :tabindex="seg.blur ? 0 : undefined"
+              :title="seg.blur ? item.spoilerHint : undefined"
+              x-text="seg.text"
+            ></span>
+          </template>
+        </div>
+      </div>
+    </li>
+  </template>
+</ul>

@@ -1,0 +1,395 @@
+import commentsFeed from "./comments-feed.js";
+
+export default {
+  code: "ru",
+  nativeName: "Русский",
+  meta: {
+    description:
+      "Кирилл — frontend-разработчик. Vue, Nuxt, TypeScript. Профиль, стек, проекты.",
+  },
+  ui: {
+    pageTitleSuffix: "Профиль",
+    skipToContent: "К содержимому",
+    navLabel: "Основная навигация",
+    menuOpen: "Открыть меню",
+    menuClose: "Закрыть меню",
+    langLabel: "Язык",
+    themeToggle: "Переключить тему",
+    themeDeniedTitle: "Белой темы не будет",
+    themeDenied:
+      "Я её не люблю — она выжигает мне глаза по ночам. Присоединяйся к тёмной стороне Силы: у ситхов UX тоже тёмный.",
+    backToTop: "Наверх",
+    footerNote: "Static profile · GitHub Pages",
+    birthPrefix: "г.р.",
+    bannerAlt: "баннер",
+    avatarAlt: "аватар",
+    spawnAvatar: "Добавить аватар в hero",
+    hobbies: "Хобби",
+    gameGenres: "Любимые жанры игр",
+    projectsSubtitle: "Библиотека — userscripts и десктоп",
+    infiniteMarks: [
+      "Футер? Не слышал",
+      "Коридор повторяется",
+      "Гул ламп всё громче",
+      "Запах влажных обоев",
+      "Уровень 0",
+      "Выхода нет",
+      "Ты здесь уже был",
+      "Не оглядывайся",
+    ],
+    mineToast: "Кирка в руках · Удерживай ЛКМ — ломать UI · Esc — убрать",
+  },
+  spoken: {
+    ru: "Русский",
+    uk: "Украинский",
+    en: "Английский",
+    ja: "Японский",
+  },
+  hero: {
+    role: "Frontend-разработчик",
+    status: "Online",
+    statusOffline: "Offline",
+    statusLastSeen: "Был в сети: 1 янв 1970, 00:00:00",
+    nameTip: "Это моё имя, если вы не поняли",
+    locationTip: "Я в Матрице и не смогу приехать к вам в офис",
+    birthTip: "Я зумер",
+    playEnough:
+      "Ты ещё не наигрался? Может, посмотришь мой профиль дальше?",
+    playAlong: "Видимо, это весело — я поиграю вместе с тобой!",
+    metaLabel: "Локация, языки и год рождения",
+    tagline:
+      "Проектирую интерфейсы, которые не только красиво выглядят, но и удобны для пользователей.",
+    location: "Удалённо",
+  },
+  hub: {
+    eyebrow: "Соцхаб",
+    title: "Linktree",
+    blurb:
+      "Frontend-разработчик: чистый UX и современный веб-дизайн, фокус на Vue/Nuxt. Делюсь мыслями про игры и веб-технологии.",
+    cta: "Открыть Linktree",
+    platformsLabel: "На Linktree",
+    platforms: {
+      telegram: "Telegram",
+      email: "Email",
+      discord: "Discord",
+      whatsapp: "WhatsApp",
+      facebook: "Facebook",
+      github: "GitHub",
+      steam: "Steam",
+      backloggd: "Backloggd",
+      letterboxd: "Letterboxd",
+      notion: "Notion",
+    },
+  },
+  letterboxd: {
+    title: "Letterboxd",
+    about:
+      "Letterboxd — социальная сеть для киноманов: дневник просмотров, оценки, списки и обсуждения фильмов.",
+    favoritesLabel: "Избранное",
+    openProfile: "Профиль",
+    subgenresLabel: "Любимые поджанры",
+    subgenres: {
+      epicFantasy: "Эпическое фэнтези",
+      superhero: "Супергероика",
+      adventure: "Приключения",
+      sciFi: "Научная фантастика",
+      animation: "Анимация",
+      apocalypse: "Постапокалипсис",
+    },
+  },
+  backloggd: {
+    title: "Backloggd",
+    about:
+      "Backloggd — аналог Letterboxd для игр: журнал прохождений, оценки, бэклог и списки.",
+    favoritesLabel: "Избранное",
+    openProfile: "Профиль",
+    genresLabel: "Любимые жанры",
+    tips: {
+      programming: "Благодаря этой игре я полюбил программирование",
+    },
+    genres: {
+      storyShooters: "Сюжетные шутеры",
+      sandboxes: "Песочницы",
+      apocalypse: "Постапокалипсис / зомби",
+    },
+  },
+  steam: {
+    title: "Steam",
+    inviteTitle: "Поиграем?",
+    about:
+      "Steam — платформа Valve для игр: библиотека, друзья, мультиплеер и сообщество.",
+    invite:
+      "Если хотите поиграть вместе — в кооп, казуал или просто потусить онлайн — добро пожаловать в мой профиль. Добавляйтесь в друзья, буду рад.",
+    cta: "Открыть профиль Steam",
+  },
+  about: {
+    title: "О себе",
+    eyebrow: "Frontend-first · backend тоже",
+    badgesLabel: "Сильные стороны",
+    lead:
+      "Собираю интерфейсы, где <mark class=\"about-hl\">техника</mark> и вкус работают вместе — быстро, аккуратно и с вниманием к деталям.",
+    paragraphs: [
+      "Люблю совмещать разработку с визуальным и творческим взглядом. Уверенно работаю и с <strong>backend</strong> (Node.js, PHP, Laravel, Yii2), но <mark class=\"about-hl\">frontend</mark> ближе: именно там больше кайфа от результата и внимания к UX.",
+      "В IT вдохновляет возможность <strong>видеть результат сразу</strong> — идея превращается в рабочий продукт на глазах. Современный AI-инструментарий помогает ускорять итерации, не жертвуя качеством кода.",
+    ],
+    badges: {
+      frontend: "Frontend first",
+      details: "К деталям",
+      ship: "От идеи до UI",
+      backend: "Backend по делу",
+      ai: "AI в процессе",
+      remote: "Remote",
+    },
+    statusLabel: "Доступность",
+    statusWorkBadge: "Закрыто",
+    statusWork: "Не в поисках работы",
+    statusWorkNote: "Инбокс вакансий на паузе — сейчас важнее ship и спокойный код.",
+    statusWorkDenied: "Ну может за тортик и соглашусь...",
+    statusHappyBadge: "Открыто",
+    statusHappy: "Всегда в поисках счастья",
+    statusHappyNote: "Офферы принимаются: кофе, мемы, хороший DX.",
+    statusPunch: "Резюме не прикладываю. Хорошее настроение — обязательно.",
+    activity: {
+      label: "Активность",
+      eyebrow: "за последний год",
+      summary: "{count} «вкладов» за последний год",
+      summaryDone: "Везде максимум. Можно выдохнуть до понедельника.",
+      less: "Меньше",
+      more: "Больше",
+      chartAria: "Карта активности за год: {count} вкладов",
+      tipTemplate: "{date}: {tip}",
+      days: { mon: "Пн", wed: "Ср", fri: "Пт" },
+      tips: [
+        "Поправил опечатку в README",
+        "Переименовал переменную в variableFinal2",
+        "npm install (снова)",
+        "Смотрел в DevTools пять минут",
+        "Коммит «fix fix»",
+        "Добавил TODO на потом",
+        "Переключил табы VS Code",
+        "Поправил margin на 1px",
+        "Запустил prettier на весь проект",
+        "Погуглил, почему не работает",
+        "Удалил console.log (не тот)",
+        "Обновил зависимость «на всякий»",
+        "Написал «// temp» и забыл",
+        "Сделал rebase ради красивой истории",
+        "Открыл Stack Overflow из привычки",
+        "Центровал div (margin: auto)",
+        "Поборол z-index войной слоёв",
+        "Добавил !important «временно»",
+        "Выровнял по сетке на глаз",
+        "Починил баг в Chrome, сломал в Safari",
+        "Переименовал файл ради кайфа",
+        "Убрал border и добавил снова",
+        "Сделал hover, который никто не заметит",
+        "Сменил цвет на #66c0f4 и обратно",
+        "Подождал, пока npm audit замолчит",
+        "Закрыл 12 вкладок MDN",
+        "Написал CSS без селектора :has()",
+        "Поставил flex и надеялся на лучшее",
+        "Сдвинул пиксель вправо, потом влево",
+        "Обновил lockfile «само так вышло»",
+      ],
+    },
+  },
+  stack: {
+    title: "Стек",
+    eyebrow: "Фокус и инструменты",
+    techsLabel: "Технологии",
+    spawnTech: "Добавить {name} в hero",
+    toolkitLabel: "AI и агенты",
+    toolkitBlurb:
+      "Повседневный стек для ускорения разработки, ревью и проектирования вместе с нейросетями.",
+    spawnTool: "Добавить {name} в hero",
+    growLabel: "В движении",
+    growBlurb:
+      "Не останавливаюсь на достигнутом: пробую новые подходы, читаю, собираю pet-проекты и переношу удачное в прод — стек живой, а не зафиксированный список.",
+    growTagsLabel: "Как учусь",
+    growTags: ["Эксперименты", "Документация", "Pet-проекты", "Code review"],
+    items: [
+      {
+        id: "frontend",
+        label: "Frontend",
+        detail:
+          "Понятные UI и современный клиентский стек: вёрстка, Vue / Nuxt, Vite и Alpine там, где уместно.",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        detail:
+          "Удалёнка и автономность: при необходимости поднимаю API и сервисы на Node, Laravel и Yii2.",
+      },
+      {
+        id: "languages",
+        label: "Языки",
+        detail:
+          "Основной язык — TypeScript / JavaScript; также PHP, Lua и C# под задачи проекта.",
+      },
+    ],
+    favoriteFlip: {
+      ariaLabel:
+        "Шуточная карточка: с лица React, на обороте — Vue. Переворачивается при приближении скроллом.",
+      frontBadge: "Любимая библиотека",
+      frontLabel: "React",
+      frontDetail:
+        "Моя любимая библиотека: компоненты, хуки и живая экосистема. С неё всё началось — и до сих пор греет сердце.",
+      backBadge: "Любимый фреймворк",
+      backLabel: "Vue",
+      backDetail:
+        "Мой любимый фреймворк — Vue / Nuxt. Чистый DX, понятный шаблон и экосистема, на которой я реально собираю прод.",
+    },
+  },
+  projects: {
+    title: "Проекты",
+    openCta: "Открыть на GitHub",
+    notice:
+      "Пока начинаю с малого — userscripts и pet-проекты. Крупнее и сложнее — впереди.",
+    status: {
+      public: "Public",
+    },
+    kinds: {
+      userscript: "Userscript",
+      desktop: "Desktop",
+    },
+    blurbs: {
+      "steam-gamestatus":
+        "Userscript для Steam Store и Community: бейджи защиты, дат, оценок и железа прямо на карточках игр — без ухода со страницы. Данные тянутся из GameStatus.info, с кэшем и настройками.",
+      "steam-region-block-bypass":
+        "Userscript для Steam Store: когда висит «unavailable in your region», подтягивает гостевую карточку товара и опционально guest-поиск. Есть Steam-панель настроек и прокси-шлюз для IP-блокировок.",
+      ProxyChecker:
+        "Десктоп-приложение на Electron + React для проверки HTTP/SOCKS/MTProto прокси: батчи, группы, гео, экспорт и синхронизация через GitHub Gist / Google Drive.",
+      "youtube-bot-comments-filter":
+        "Userscript для YouTube: ловит спам-ботов по паттерну ника и прячет или блюрит комментарии. Переключатель hide/blur прямо в шапке комментариев, без отдельной страницы настроек.",
+    },
+    highlights: {
+      "steam-gamestatus": [
+        "Бейджи на листингах и на странице игры",
+        "Тултипы в стиле Steam с оценками и железом",
+        "Кэш, ленивая подгрузка и 10 языков UI",
+      ],
+      "steam-region-block-bypass": [
+        "Восстановление карточки через anonymous fetch",
+        "Guest search suggestions и опциональный /search",
+        "Панель Region Bypass + локальный proxy gateway",
+      ],
+      ProxyChecker: [
+        "Протоколы HTTP, SOCKS4/5 и MTProto",
+        "Группы, избранное, трей и автообновления",
+        "Шифрованный sync и локальные бэкапы",
+      ],
+      "youtube-bot-comments-filter": [
+        "Детекция по весам правил в нике",
+        "Режимы hide и blur с сохранением выбора",
+        "Стиль под YouTube light/dark",
+      ],
+    },
+  },
+  interests: {
+    title: "Интересы",
+    blurb:
+      "Помимо программирования люблю фильмы, видеоигры, аниме, сериалы и мангу — всё, что хорошо рассказывает историю на экране.",
+    hobbies: {
+      games: "Видеоигры",
+      movies: "Фильмы",
+      anime: "Аниме",
+      series: "Сериалы",
+      manga: "Манга",
+    },
+  },
+  links: {
+    title: "Ссылки",
+    directLabel: "Прямые ссылки",
+    hints: {
+      github: "Репозитории и код",
+      linktree: "Все соцсети в одном месте",
+      letterboxd: "Фильмы и списки",
+      orcid: "Научный профиль",
+    },
+  },
+  comments: {
+    feed: commentsFeed,
+    title: "Комментарии",
+    wallLabel: "Стена комментариев",
+    countLabel: "{count} сообщений",
+    inviteTitle: "Оставьте свой",
+    inviteBlurb:
+      "Я буду очень рад, если вы что-нибудь напишете — правда. Даже одно слово уже праздник.",
+    nameLabel: "Имя",
+    namePlaceholder: "Как вас представить",
+    messageLabel: "Комментарий",
+    messagePlaceholder: "+rep nice profile / -rep …",
+    minusRepTitle: "Модерация недовольна",
+    minusRepHint:
+      "Плохие комментарии оставлять нельзя. Только добрые слова и +rep. Посиди {seconds} сек и подумай о хорошем.",
+    submit: "Отправить",
+    sending: "Отправка…",
+    progressLabel: "Отправка комментария",
+    finaleTitle: "Ошибка сервера",
+    progressStatuses: [
+      "Подключаемся к серверу…",
+      "Проверяем орфографию…",
+      "Согласовываем с модерацией…",
+      "Ждём ответ от бэкенда…",
+      "Почти готово…",
+      "Ещё совсем немного…",
+    ],
+    spoofWhen: "только что",
+    spoilerHint: "Наведи, чтобы прочитать",
+    voteUp: "Повысить релевантность",
+    voteDown: "Понизить релевантность",
+    sortLabel: "Сортировка",
+    sortTop: "Топ",
+    sortNew: "Новые",
+    sortControversial: "Спорные",
+    socialCreditReward: "+783994 social credit",
+    socialCreditPenalty: "−783994 social credit",
+    farmRaidReplies: [
+      "Пошел пить кофе, буду через 3 часа",
+      "Отошел покормить кошек, прийду минимум через 12 часов 20 минут",
+      "Потопал в магазин. Ждите меня с первым лучом солнца, я приду на пятый день, с востока",
+      "Не ждите",
+    ],
+    spoofBodies: [
+      "+rep mid diff huge, carry machine",
+      "-rep this ||comfiest duo partner in EU||",
+      "+rep clutch god, I drop for you anytime",
+      "bro typed faster than my ping, insane",
+      "+rep trusted trader, no scam energy",
+    ],
+    waitTaunts: [
+      { at: 30, text: "Ты всё ещё здесь?.." },
+      {
+        at: 45,
+        text: "Я не думаю, что твой комментарий пройдёт модерацию…",
+      },
+      { at: 60, text: "Похоже, осталось совсем чуть-чуть…" },
+      { at: 75, text: "А ты терпеливый парень, ну жди, жди…" },
+      {
+        at: 90,
+        text: "У нас медленный сервер, а посетителей много, извини…",
+      },
+      {
+        at: 105,
+        text: "Мы увеличили мощность серверов, твой запрос почти обработан…",
+      },
+      {
+        at: 120,
+        text: "Надеюсь, на твой комментарий не повлияет солнечная радиация…",
+      },
+      { at: 135, text: "Я уже читаю байты твоего комментария…" },
+      {
+        at: 150,
+        text: "Произошла ошибка на сервере. Причина: у нас нет сервера :( Но ты молодец, что всё ещё тут — держи конфетти. Можешь попробовать ещё раз отправить: может, к этому моменту у меня появится сервер, но зато ты получишь конфетти :)",
+      },
+    ]
+  },
+  nav: {
+    about: "О себе",
+    stack: "Стек",
+    projects: "Проекты",
+    interests: "Интересы",
+    links: "Ссылки",
+    comments: "Комментарии",
+  },
+};

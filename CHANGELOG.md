@@ -10,18 +10,33 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+### Planned
+
+- (none yet)
+
+## [1.41.0] — 2026-07-14
+
 ### Changed
 
+- Component-folder architecture: each UI section lives in `src/components/<name>/` (HTML + CSS + JS); shared foundation under `src/shared/`; Alpine composer in `src/app/`
+
+## [1.40.2] — 2026-07-14
+
+### Changed
+
+- Nest Handlebars partials by section under `src/partials/<section>/` (e.g. `comments/{comments,wall,form}.html`); includes use `{{> section/name }}`
+
+## [1.40.1] — 2026-07-14
+
+### Changed
+
+- Split large `src/` modules for clearer ownership: Alpine mixins (`comments`, `locale-chrome`, `scroll-chrome`, `view-model`), CSS by section (`about`, `about-activity`, `stack`, `hero-physics`, `buttons`), media data, Handlebars subpartials, and per-locale `comments-feed` modules
 - Topbar brand mark uses site favicon instead of a solid accent square
 - Language switcher is a custom dropdown (same height as the theme button) with country flags
 
 ### Added
 
 - Language switch: CSS animation blurs text `filter: blur(0 → 6px → 0)`; locale swaps at the peak
-
-### Planned
-
-- (none yet)
 
 ## [1.40.0] — 2026-07-13
 

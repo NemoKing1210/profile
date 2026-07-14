@@ -11,7 +11,7 @@ export default defineConfig({
   publicDir: "public",
   plugins: [
     handlebars({
-      partialDirectory: resolve(rootDir, "src/partials"),
+      partialDirectory: resolve(rootDir, "src/components"),
       compileOptions: {
         preventIndent: true,
       },

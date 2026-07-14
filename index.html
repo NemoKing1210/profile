@@ -24,18 +24,18 @@
   >
     <a class="skip-link" href="#main" x-text="t.ui.skipToContent"></a>
 
-    {{> topbar }}
+    {{> topbar/topbar }}
 
     <main id="main">
-      {{> hero }}
+      {{> hero/hero }}
 
       <div class="store-shell" data-infinite-source>
-        {{> about }}
-        {{> stack }}
-        {{> projects }}
-        {{> interests }}
-        {{> links }}
-        {{> comments }}
+        {{> about/about }}
+        {{> stack/stack }}
+        {{> projects/projects }}
+        {{> interests/interests }}
+        {{> links/links }}
+        {{> comments/comments }}
       </div>
 
       <div
@@ -50,8 +50,8 @@
       ></div>
     </main>
 
-    {{> footer }}
-    {{> scroll-top }}
+    {{> footer/footer }}
+    {{> scroll-top/scroll-top }}
 
     <script type="module" src="/src/main.js"></script>
   </body>

@@ -1,0 +1,127 @@
+{{!--
+  Shared media shelf (Letterboxd / Backloggd).
+  Params: source, localeKey, cta, coversClass, itemVar, tastesKey, tastesLabelKey,
+  avatarW, avatarH, coverW, coverH, withTips (truthy for backloggd tips / minecraft egg).
+--}}
+<div class="media-shelf">
+  <div class="media-shelf__head">
+    <div class="media-shelf__identity">
+      <img
+        class="media-shelf__avatar"
+        :src="{{source}}.avatar"
+        :alt="{{source}}.name"
+        width="{{avatarW}}"
+        height="{{avatarH}}"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="media-shelf__titles">
+        <h3 class="media-shelf__title" x-text="t.{{localeKey}}.title"></h3>
+        <p class="media-shelf__name" x-text="{{source}}.name"></p>
+      </div>
+    </div>
+    <a
+      class="media-shelf__cta"
+      :href="{{source}}.href"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <span x-text="{{cta}}"></span>
+      <span
+        class="media-shelf__cta-icon"
+        aria-hidden="true"
+        x-html="icons.arrowTopRightOnSquare"
+      ></span>
+    </a>
+  </div>
+
+  <p class="media-shelf__about" x-text="{{source}}.about"></p>
+  <p class="media-shelf__label" x-text="t.{{localeKey}}.favoritesLabel"></p>
+
+  <ul class="media-covers{{#if coversClass}} {{coversClass}}{{/if}}" role="list">
+    <template x-for="{{itemVar}} in {{source}}.favorites" :key="{{itemVar}}.id">
+      <li>
+        {{#if withTips}}
+        <a
+          class="media-cover"
+          :class="{ 'media-cover--has-tip': {{itemVar}}.tip }"
+          :href="{{itemVar}}.href"
+          rel="noopener noreferrer"
+          target="_blank"
+          :aria-label="{{itemVar}}.year ? ({{itemVar}}.title + ' (' + {{itemVar}}.year + ')') : {{itemVar}}.title"
+          :aria-describedby="{{itemVar}}.tip ? ('game-tip-' + {{itemVar}}.id) : null"
+          :data-mc-activate="{{itemVar}}.id === 'minecraft' || null"
+          @click="{{itemVar}}.id === 'minecraft' && onMinecraftCoverClick($event)"
+        >
+          <span class="media-cover__frame">
+            <img
+              class="media-cover__img"
+              :src="{{itemVar}}.cover"
+              :alt="{{itemVar}}.title"
+              width="{{coverW}}"
+              height="{{coverH}}"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="media-cover__shade" aria-hidden="true"></span>
+            <span class="media-cover__meta">
+              <span class="media-cover__year" x-show="{{itemVar}}.year" x-text="{{itemVar}}.year"></span>
+              <span class="media-cover__name" x-text="{{itemVar}}.title"></span>
+            </span>
+          </span>
+          <span
+            class="media-cover__tip"
+            x-show="{{itemVar}}.tip"
+            :id="{{itemVar}}.tip ? ('game-tip-' + {{itemVar}}.id) : null"
+            role="tooltip"
+            x-text="{{itemVar}}.tip"
+          ></span>
+        </a>
+        {{else}}
+        <a
+          class="media-cover"
+          :href="{{itemVar}}.href"
+          rel="noopener noreferrer"
+          target="_blank"
+          :aria-label="{{itemVar}}.year ? ({{itemVar}}.title + ' (' + {{itemVar}}.year + ')') : {{itemVar}}.title"
+        >
+          <span class="media-cover__frame">
+            <img
+              class="media-cover__img"
+              :src="{{itemVar}}.cover"
+              :alt="{{itemVar}}.title"
+              width="{{coverW}}"
+              height="{{coverH}}"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="media-cover__shade" aria-hidden="true"></span>
+            <span class="media-cover__meta">
+              <span class="media-cover__year" x-show="{{itemVar}}.year" x-text="{{itemVar}}.year"></span>
+              <span class="media-cover__name" x-text="{{itemVar}}.title"></span>
+            </span>
+          </span>
+        </a>
+        {{/if}}
+      </li>
+    </template>
+  </ul>
+
+  <div class="media-tastes" x-show="{{source}}.{{tastesKey}}.length">
+    <div class="media-tastes__row">
+      <p
+        class="media-tastes__label"
+        x-text="t.{{localeKey}}.{{tastesLabelKey}}"
+      ></p>
+      <ul class="interest-badges" role="list">
+        <template x-for="tag in {{source}}.{{tastesKey}}" :key="tag.id">
+          <li
+            class="interest-badge"
+            :class="`interest-badge--${tag.tone}`"
+            x-text="tag.label"
+          ></li>
+        </template>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@ Thanks for helping improve this profile site.
 
 - Keep the site **static** (Vite build → `dist/`) and GitHub Pages–friendly.
 - Discuss large visual or structural shifts against [`DESIGN.md`](DESIGN.md).
-- Prefer content changes in `src/data/profile.js` over hardcoding strings in HTML.
+- Prefer content changes in `src/shared/data/profile.js` over hardcoding strings in HTML.
 
 ## Workflow
 
