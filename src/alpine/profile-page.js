@@ -32,6 +32,9 @@ const SOCIAL_CREDIT_COMMENT_ID = "social-credit";
 const FARM_RAID_COMMENT_ID = "farm-raid";
 const FARM_RAID_AUTHOR = "kalerkin_dust";
 const FARM_RAID_REPLY_DELAY_MS = 3_000;
+/** Match `--locale-blur-duration` — full 0→6px→0 cycle; swap copy at the midpoint. */
+const LOCALE_BLUR_MS = 1600;
+const LOCALE_BLUR_MID_MS = LOCALE_BLUR_MS / 2;
 const FARM_RAID_REPLY_FALLBACKS = [
   "Пошел пить кофе, буду через 3 часа",
   "Отошел покормить кошек, прийду минимум через 12 часов 20 минут",
@@ -113,6 +116,7 @@ export function createProfilePage() {
       liveCommentReplies: [],
       navOpen: false,
       langMenuOpen: false,
+      localeBlurring: false,
       themeJokeOpen: false,
       themeJokeFlash: false,
       themeSith: false,
@@ -536,10 +540,28 @@ export function createProfilePage() {
       );
     },
 
-    setLocale(code, { celebrate = false } = {}) {
+    setLocale(code, { celebrate = false, instant = false } = {}) {
       if (!locales[code]) return;
 
       const changed = this.locale !== code;
+      if (!changed) return;
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (instant || reduceMotion) {
+        this._clearLocaleBlur();
+        this._commitLocale(code, { celebrate });
+        return;
+      }
+
+      this._startLocaleBlur(() => {
+        this._commitLocale(code, { celebrate });
+      });
+    },
+
+    _commitLocale(code, { celebrate = false } = {}) {
       this.locale = code;
 
       try {
@@ -562,9 +584,57 @@ export function createProfilePage() {
 
       this.refreshActivityLocale?.();
 
-      if (celebrate && changed) {
-        this.spawnFlagSquare(code);
+      if (celebrate) {
+        this.spawnFlagSquare(code, { scroll: false });
       }
+    },
+
+    _startLocaleBlur(onBlurred) {
+      const gen = (this._localeBlurGen = (this._localeBlurGen || 0) + 1);
+      this._clearLocaleBlurTimers();
+
+      const armTimers = () => {
+        if (gen !== this._localeBlurGen) return;
+        this.localeBlurring = true;
+
+        this._localeBlurMidTimer = window.setTimeout(() => {
+          this._localeBlurMidTimer = null;
+          if (gen !== this._localeBlurGen) return;
+          onBlurred?.();
+        }, LOCALE_BLUR_MID_MS);
+
+        this._localeBlurEndTimer = window.setTimeout(() => {
+          this._localeBlurEndTimer = null;
+          if (gen !== this._localeBlurGen) return;
+          this.localeBlurring = false;
+        }, LOCALE_BLUR_MS);
+      };
+
+      // Re-toggle class so the CSS animation restarts on rapid switches.
+      if (this.localeBlurring) {
+        this.localeBlurring = false;
+        this.$nextTick(armTimers);
+        return;
+      }
+
+      armTimers();
+    },
+
+    _clearLocaleBlurTimers() {
+      if (this._localeBlurMidTimer != null) {
+        window.clearTimeout(this._localeBlurMidTimer);
+        this._localeBlurMidTimer = null;
+      }
+      if (this._localeBlurEndTimer != null) {
+        window.clearTimeout(this._localeBlurEndTimer);
+        this._localeBlurEndTimer = null;
+      }
+    },
+
+    _clearLocaleBlur() {
+      this._localeBlurGen = (this._localeBlurGen || 0) + 1;
+      this._clearLocaleBlurTimers();
+      this.localeBlurring = false;
     },
 
     toggleLangMenu() {
@@ -583,13 +653,13 @@ export function createProfilePage() {
       this.setLocale(code, { celebrate: true });
     },
 
-    spawnFlagSquare(code) {
+    spawnFlagSquare(code, { scroll = true } = {}) {
       const option = this.localeList.find((item) => item.code === code);
       this._heroPhysics?.spawnFlagSquare?.({
         locale: code,
         label: option?.nativeName || code,
       });
-      this.scrollToHero();
+      if (scroll) this.scrollToHero();
     },
 
     spawnAiTool(tool) {
@@ -1225,7 +1295,7 @@ export function createProfilePage() {
     },
 
     init() {
-      this.setLocale(resolveInitialLocale());
+      this.setLocale(resolveInitialLocale(), { instant: true });
       this._onNavResize = () => {
         if (window.matchMedia("(min-width: 860px)").matches) {
           this.closeNav();
@@ -1256,6 +1326,7 @@ export function createProfilePage() {
       this._unbindScrollTop();
       this.closeNav();
       this.closeLangMenu();
+      this._clearLocaleBlur();
       if (this._themeJokeTimer != null) {
         window.clearTimeout(this._themeJokeTimer);
         this._themeJokeTimer = null;

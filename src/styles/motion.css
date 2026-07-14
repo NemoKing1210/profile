@@ -31,9 +31,102 @@
   }
 }
 
+/* Animatable blur radius — var() inside filter keyframes does not interpolate. */
+@property --locale-text-blur {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* Locale swap: one CSS pass — blur 0 → 6px → 0 on text only. */
+body.is-locale-blurring {
+  pointer-events: none;
+  animation: locale-text-blur var(--locale-blur-duration) ease-in-out both;
+}
+
+body.is-locale-blurring :where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  label,
+  figcaption,
+  legend,
+  dt,
+  dd,
+  th,
+  td,
+  span,
+  a:not(:has(img)),
+  button:not(:has(img)):not(.theme-joke__btn):not(.topbar__burger):not(.scroll-top)
+) {
+  filter: blur(var(--locale-text-blur));
+}
+
+/* Avoid stacking blur on nested text nodes (parent already filters the ink). */
+body.is-locale-blurring
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    li,
+    label,
+    a:not(:has(img)),
+    button:not(:has(img)):not(.theme-joke__btn):not(.topbar__burger):not(.scroll-top)
+  )
+  :where(span, strong, em, small, b, i, code, a, p, label) {
+  filter: none;
+}
+
+@keyframes locale-text-blur {
+  0%,
+  100% {
+    --locale-text-blur: 0px;
+  }
+  50% {
+    --locale-text-blur: 6px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  body.is-locale-blurring {
+    animation: none;
+    pointer-events: auto;
+  }
+
+  body.is-locale-blurring :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    li,
+    label,
+    figcaption,
+    legend,
+    dt,
+    dd,
+    th,
+    td,
+    span,
+    a,
+    button
+  ) {
+    filter: none;
   }
 
   .hero__banner,

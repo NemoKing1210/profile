@@ -136,6 +136,8 @@
   --topbar-h: 52px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --theme-duration: 1.35s;
+  --locale-blur-duration: 1.6s;
+  --locale-blur: 6px;
 }
 
 /* Temporary Sith / dark-red joke theme (toggled from the topbar sun button). */

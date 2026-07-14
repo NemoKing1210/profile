@@ -15,6 +15,10 @@ Update **both** when cutting a release.
 - Topbar brand mark uses site favicon instead of a solid accent square
 - Language switcher is a custom dropdown (same height as the theme button) with country flags
 
+### Added
+
+- Language switch: CSS animation blurs text `filter: blur(0 → 6px → 0)`; locale swaps at the peak
+
 ### Planned
 
 - (none yet)
