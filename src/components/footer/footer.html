@@ -1,10 +1,26 @@
-<footer class="footer">
-  <div class="footer__inner">
+<footer
+  class="footer"
+  x-ref="siteFooter"
+  x-show="!footerGone"
+  x-cloak
+  :class="{
+    'footer--caught': footerCaught,
+    'footer--leaving': footerLeaving,
+  }"
+  :aria-live="footerCaught ? 'polite' : null"
+>
+  <div class="footer__inner" x-show="!footerCaught">
     <p class="footer__copy">
       <span x-text="name"></span>
       <span aria-hidden="true"> · </span>
       <span x-text="t.ui.footerNote"></span>
     </p>
     <a class="footer__top" href="#top" x-text="t.ui.backToTop"></a>
+  </div>
+  <div class="footer__inner footer__inner--joke" x-show="footerCaught" x-cloak>
+    <p class="footer__joke">
+      <span class="footer__joke-lead" x-text="t.ui.footerFoundLead"></span>
+      <span class="footer__joke-punch" x-text="t.ui.footerFoundPunch"></span>
+    </p>
   </div>
 </footer>

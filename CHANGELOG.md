@@ -26,6 +26,7 @@ Update **both** when cutting a release.
 - Topbar Online badge flips to Offline after 30s (not on hover); separate speech tip while still online
 - Achievement «Wall Moderator» / «Модератор стены»: upvote every comment, then downvote deletes (toggleable effect)
 - Achievement «Broke Everything» / «Всё сломал»: mine every major UI shell with the Minecraft pickaxe (infinite echo feed ignored / hidden while mining)
+- Achievement «There Is a Bottom» / «Дно всё-таки есть»: catch the footer despite infinite scroll — it panics, jokes, then vanishes
 - Comment wall enter / leave motion (staggered appear, red wipe on mod-delete)
 - Comment reactions use like / dislike (thumbs + separate counts) instead of score voting
 - Shared Steam-style achievement unlock toast + `window.achievement` console debug API

@@ -42,6 +42,9 @@ export default {
       "I don’t like it — it burns my eyes at night. Come to the dark side of the Force: Sith UX stays dark too.",
     backToTop: "Back to top",
     footerNote: "Static profile · GitHub Pages",
+    footerFoundLead: "Hey… how did you find me?",
+    footerFoundPunch:
+      "There’s supposed to be infinite scroll here. Fine — you win. I’m out.",
     birthPrefix: "b.",
     bannerAlt: "banner",
     avatarAlt: "avatar",
@@ -130,6 +133,11 @@ export default {
         title: "Broke Everything",
         how: "Grab the diamond pickaxe from the Minecraft cover and mine the header, hero, and every section.",
         effect: "Honorary title. The designer is crying; you're having fun.",
+      },
+      foundFooter: {
+        title: "There Is a Bottom",
+        how: "Reach the footer despite the infinite feed.",
+        effect: "Honorary title. The footer panicked and bailed.",
       },
     },
   },

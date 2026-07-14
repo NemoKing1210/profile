@@ -42,6 +42,9 @@ export default {
       "Mag ich nicht — es brennt mir nachts die Augen aus. Komm zur dunklen Seite der Macht: Sith-UX bleibt dunkel.",
     backToTop: "Nach oben",
     footerNote: "Static profile · GitHub Pages",
+    footerFoundLead: "Hey… wie hast du mich gefunden?",
+    footerFoundPunch:
+      "Hier soll Endlos-Scroll sein. Gut, erwischt — ich bin weg.",
     birthPrefix: "geb.",
     bannerAlt: "Banner",
     avatarAlt: "Avatar",
@@ -130,6 +133,11 @@ export default {
         title: "Alles kaputt",
         how: "Nimm die Diamantspitzhacke vom Minecraft-Cover und baue Header, Hero und alle Sektionen ab.",
         effect: "Ehrenhaft. Der Designer weint — du hast Spaß.",
+      },
+      foundFooter: {
+        title: "Es gibt doch einen Boden",
+        how: "Erreiche den Footer trotz der endlosen Feed-Schleife.",
+        effect: "Ehrenhaft. Der Footer bekam Panik und ist abgehauen.",
       },
     },
   },

@@ -42,6 +42,9 @@ export default {
       "No me gusta: me quema los ojos por la noche. Únete al lado oscuro de la Fuerza: el UX sith también es oscuro.",
     backToTop: "Volver arriba",
     footerNote: "Static profile · GitHub Pages",
+    footerFoundLead: "Eh… ¿cómo me encontraste?",
+    footerFoundPunch:
+      "Aquí se supone que hay scroll infinito. Vale, me pillaste — me largo.",
     birthPrefix: "n.",
     bannerAlt: "banner",
     avatarAlt: "avatar",
@@ -130,6 +133,11 @@ export default {
         title: "Todo roto",
         how: "Coge el pico de diamante de la portada de Minecraft y mina el header, el hero y todas las secciones.",
         effect: "Título honorífico. El diseñador llora; tú te diviertes.",
+      },
+      foundFooter: {
+        title: "Hay un final",
+        how: "Llega al pie de página a pesar del feed infinito.",
+        effect: "Título honorífico. El footer entró en pánico y huyó.",
       },
     },
   },

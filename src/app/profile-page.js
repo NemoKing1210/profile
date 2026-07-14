@@ -27,6 +27,7 @@ import {
   echoFinaleMethods,
   echoFinaleState,
 } from "../components/echo-finale/index.js";
+import { footerMethods, footerState } from "../components/footer/index.js";
 import {
   achievementsMethods,
   achievementsState,
@@ -64,6 +65,7 @@ export function createProfilePage() {
       ...topbarState(),
       ...scrollTopState(),
       ...echoFinaleState(),
+      ...footerState(),
       ...achievementsState(),
       ...stackFlipState(),
       ...heroSpeechState(),
@@ -124,6 +126,7 @@ export function createProfilePage() {
           this.bindStatusOfflineTimer?.();
           this.bindLongStayAchievement?.();
           this.bindAchievementDebugApi?.();
+          this.bindFooterEaster?.();
         });
       },
 
@@ -145,6 +148,7 @@ export function createProfilePage() {
         this._infiniteScroll?.destroy?.();
         this._infiniteScroll = null;
         this.destroyEchoFinale();
+        this.destroyFooterEaster();
         this.destroyAboutActivity();
         this.destroyMinecraftMine();
         this.destroyAchievements?.();
@@ -158,6 +162,7 @@ export function createProfilePage() {
       ...Object.getOwnPropertyDescriptors(topbarMethods()),
       ...Object.getOwnPropertyDescriptors(scrollTopMethods()),
       ...Object.getOwnPropertyDescriptors(echoFinaleMethods()),
+      ...Object.getOwnPropertyDescriptors(footerMethods()),
       ...Object.getOwnPropertyDescriptors(achievementsMethods()),
       ...Object.getOwnPropertyDescriptors(stackFlipMethods()),
       ...Object.getOwnPropertyDescriptors(stackViewMethods()),

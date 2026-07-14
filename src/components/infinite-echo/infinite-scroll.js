@@ -34,6 +34,7 @@ export function initInfiniteScroll({
 
   let loop = 0;
   let ticking = false;
+  let paused = false;
   let glitchTimer = null;
   let lastGlitchAt = 0;
   const markObservers = new Set();
@@ -47,6 +48,7 @@ export function initInfiniteScroll({
   }
 
   function needsMore() {
+    if (paused) return false;
     return sentinel.getBoundingClientRect().top < window.innerHeight + bufferPx();
   }
 
@@ -185,10 +187,11 @@ export function initInfiniteScroll({
   }
 
   function onScrollOrResize() {
-    if (ticking) return;
+    if (paused || ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
       ticking = false;
+      if (paused) return;
       fillBuffer();
       glitchVisibleEchoes(false);
     });
@@ -196,7 +199,7 @@ export function initInfiniteScroll({
 
   const observer = new IntersectionObserver(
     () => {
-      fillBuffer();
+      if (!paused) fillBuffer();
     },
     {
       root: null,
@@ -225,15 +228,26 @@ export function initInfiniteScroll({
     markObservers.clear();
   }
 
+  function pause() {
+    paused = true;
+  }
+
+  function resume() {
+    if (!paused) return;
+    paused = false;
+    fillBuffer();
+  }
+
   function reset() {
     clearMarkObservers();
     spokenLoops.clear();
     loop = 0;
     echoes.replaceChildren();
-    fillBuffer();
+    if (!paused) fillBuffer();
   }
 
   function destroy() {
+    paused = true;
     observer.disconnect();
     clearMarkObservers();
     window.removeEventListener("scroll", onScrollOrResize);
@@ -247,7 +261,7 @@ export function initInfiniteScroll({
     echoes.replaceChildren();
   }
 
-  return { reset, destroy };
+  return { reset, destroy, pause, resume };
 }
 
 /**

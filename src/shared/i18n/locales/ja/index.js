@@ -41,6 +41,9 @@ export default {
       "好きじゃない — 夜に目が痛い。フォースの闇の側へ来い：シスの UX もダークのままだ。",
     backToTop: "トップへ戻る",
     footerNote: "Static profile · GitHub Pages",
+    footerFoundLead: "ねえ…どうやって見つけたの？",
+    footerFoundPunch:
+      "ここ、無限スクロールのはずなんだけど。はいはい、負けた——帰るね。",
     birthPrefix: "生",
     bannerAlt: "バナー",
     avatarAlt: "アバター",
@@ -129,6 +132,11 @@ export default {
         title: "全部壊した",
         how: "Minecraft のカバーからダイヤのツルハシを取って、ヘッダー・ヒーロー・全セクションを掘り起こせ。",
         effect: "名誉称号。デザイナーは泣いている。君は楽しんでいる。",
+      },
+      foundFooter: {
+        title: "やっぱり底がある",
+        how: "無限フィードなのにフッターまでたどり着く。",
+        effect: "名誉称号。フッターは慌てて逃げ出した。",
       },
     },
   },
