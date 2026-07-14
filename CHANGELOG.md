@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.48.0] — 2026-07-14
+
+### Added
+
+- Hover/focus on the AI & agents stack block shows moderated-AI avatar speech (`stack.aiSpeech`)
+
+## [1.47.0] — 2026-07-14
+
+### Changed
+
+- Hero name tip and meta-chip tips (location, languages, birth) use avatar speech instead of CSS tooltips
+
 ## [1.46.0] — 2026-07-14
 
 ### Added

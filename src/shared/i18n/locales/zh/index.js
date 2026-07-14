@@ -199,6 +199,7 @@ export default {
     spawnTech: "将 {name} 添加到 Hero",
     toolkitLabel: "AI 与智能体",
     toolkitBlurb: "日常工具栈，用神经网络加速开发、审查与设计。",
+    aiSpeech: "是的，我用 AI——但适度：加速思路，而不是替代思考。",
     spawnTool: "将 {name} 添加到 Hero",
     growLabel: "持续前进",
     growBlurb:

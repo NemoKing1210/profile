@@ -202,6 +202,8 @@ export default {
     toolkitLabel: "KI & Agenten",
     toolkitBlurb:
       "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
+    aiSpeech:
+      "Ja, ich nutze KI — aber mit Maß: als Tempo-Boost, nicht als Ersatz fürs Denken.",
     spawnTool: "{name} im Hero hinzufügen",
     growLabel: "In Bewegung",
     growBlurb:

@@ -37,15 +37,12 @@
         <div
           class="hero__name-wrap"
           tabindex="0"
-          aria-describedby="hero-name-tip"
+          @mouseenter="showSpeechI18n('hero.nameTip', { holdMs: null })"
+          @mouseleave="hideSpeech()"
+          @focusin="showSpeechI18n('hero.nameTip', { holdMs: null })"
+          @focusout="hideSpeech()"
         >
           <h1 class="hero__name" id="hero-name" x-text="name"></h1>
-          <span
-            class="hero__name-tip"
-            id="hero-name-tip"
-            role="tooltip"
-            x-text="t.hero.nameTip"
-          ></span>
         </div>
         <p class="hero__handle" x-text="handle"></p>
         <p class="hero__tagline" x-text="tagline"></p>
@@ -53,13 +50,16 @@
           <template x-for="chip in metaChips" :key="chip.id">
             <span
               class="meta-chip"
-              :class="`meta-chip--${chip.kind}${chip.tip ? ' meta-chip--has-tip' : ''}${chip.kind === 'birth' ? ' meta-chip--party' : ''}`"
-              :tabindex="chip.tip || chip.kind === 'birth' ? 0 : null"
+              :class="`meta-chip--${chip.kind}${chipHasSpeech(chip) ? ' meta-chip--has-tip' : ''}${chip.kind === 'birth' ? ' meta-chip--party' : ''}`"
+              :tabindex="chipHasSpeech(chip) || chip.kind === 'birth' ? 0 : null"
               :role="chip.kind === 'birth' ? 'button' : null"
-              :aria-describedby="chip.tip ? `meta-tip-${chip.id}` : null"
               @click="onMetaChipActivate(chip, $event)"
               @keydown.enter.prevent="onMetaChipActivate(chip, $event)"
               @keydown.space.prevent="onMetaChipActivate(chip, $event)"
+              @mouseenter="showMetaChipSpeech(chip)"
+              @mouseleave="chipHasSpeech(chip) && hideSpeech()"
+              @focusin="showMetaChipSpeech(chip)"
+              @focusout="chipHasSpeech(chip) && hideSpeech()"
             >
               <span
                 class="meta-chip__icon"
@@ -67,13 +67,6 @@
                 x-html="icons[chip.icon]"
               ></span>
               <span class="meta-chip__label" x-text="chip.label"></span>
-              <span
-                class="meta-chip__tip"
-                x-show="chip.tip"
-                :id="chip.tip ? `meta-tip-${chip.id}` : null"
-                role="tooltip"
-                x-text="chip.tip"
-              ></span>
             </span>
           </template>
         </div>

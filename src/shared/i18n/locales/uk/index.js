@@ -202,6 +202,8 @@ export default {
     toolkitLabel: "AI та агенти",
     toolkitBlurb:
       "Щоденний стек для прискорення розробки, рев'ю та проєктування разом із нейромережами.",
+    aiSpeech:
+      "Так, я використовую AI — але в міру: прискорювач, а не заміна мисленню.",
     spawnTool: "Додати {name} у hero",
     growLabel: "У русі",
     growBlurb:

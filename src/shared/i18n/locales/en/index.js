@@ -202,6 +202,8 @@ export default {
     toolkitLabel: "AI & agents",
     toolkitBlurb:
       "Everyday stack for speeding up development, review, and design with neural networks.",
+    aiSpeech:
+      "Yes, I use AI — but in moderation: a boost for speed, not a substitute for thinking.",
     spawnTool: "Add {name} to hero",
     growLabel: "Still learning",
     growBlurb:

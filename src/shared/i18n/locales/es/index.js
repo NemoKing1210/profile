@@ -202,6 +202,8 @@ export default {
     toolkitLabel: "IA y agentes",
     toolkitBlurb:
       "Stack diario para acelerar desarrollo, revisión y diseño junto a redes neuronales.",
+    aiSpeech:
+      "Sí, uso IA — pero con mesura: un impulso de velocidad, no un sustituto del pensamiento.",
     spawnTool: "Añadir {name} al hero",
     growLabel: "En movimiento",
     growBlurb:

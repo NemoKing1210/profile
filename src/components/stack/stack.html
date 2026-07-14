@@ -102,7 +102,14 @@
     </div>
   </aside>
 
-  <aside class="ai-kit" :aria-label="stack.toolkitLabel">
+  <aside
+    class="ai-kit"
+    :aria-label="stack.toolkitLabel"
+    @mouseenter="showSpeechI18n('stack.aiSpeech', { holdMs: null })"
+    @mouseleave="hideSpeech()"
+    @focusin="showSpeechI18n('stack.aiSpeech', { holdMs: null })"
+    @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
+  >
     <div class="ai-kit__intro">
       <span
         class="ai-kit__mark"

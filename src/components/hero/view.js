@@ -21,14 +21,14 @@ export function heroViewMethods() {
           kind: "location",
           icon: "mapPin",
           label: this.t.hero.location,
-          tip: this.t.hero.locationTip,
+          speechI18n: "hero.locationTip",
         },
         ...(profile.spokenLanguages || []).map((code) => ({
           id: `lang-${code}`,
           kind: "lang",
           icon: "language",
           label: this.t.spoken[code] || code,
-          tip: profile.spokenHellos?.[code] || null,
+          speechText: profile.spokenHellos?.[code] || null,
         })),
       ];
 
@@ -38,7 +38,7 @@ export function heroViewMethods() {
           kind: "birth",
           icon: "cake",
           label: `${this.t.ui.birthPrefix} ${this.birthYear}`,
-          tip: this.t.hero.birthTip,
+          speechI18n: "hero.birthTip",
         });
       }
 

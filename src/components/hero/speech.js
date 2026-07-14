@@ -115,6 +115,20 @@ export function heroSpeechMethods() {
       this.hideSpeech();
     },
 
+    chipHasSpeech(chip) {
+      return Boolean(chip?.speechI18n || chip?.speechText);
+    },
+
+    showMetaChipSpeech(chip) {
+      if (chip?.speechI18n) {
+        this.showSpeechI18n(chip.speechI18n, { holdMs: null });
+        return;
+      }
+      if (chip?.speechText) {
+        this.showSpeech(chip.speechText, { holdMs: null });
+      }
+    },
+
     _beginSpeech(full, holdMs, { identity } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();

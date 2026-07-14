@@ -202,6 +202,8 @@ export default {
     toolkitLabel: "AI とエージェント",
     toolkitBlurb:
       "開発・レビュー・設計をニューラルネットと一緒に加速する、日常のスタック。",
+    aiSpeech:
+      "はい、AI は使います——でもほどほどに。思考の代わりではなく、スピードの助けとして。",
     spawnTool: "ヒーローに {name} を追加",
     growLabel: "学び続けています",
     growBlurb:
