@@ -137,6 +137,12 @@
     class="topbar__backdrop"
     x-show="navOpen"
     x-cloak
+    x-transition:enter="topbar-menu-fade"
+    x-transition:enter-start="topbar-menu-fade--from"
+    x-transition:enter-end="topbar-menu-fade--to"
+    x-transition:leave="topbar-menu-fade"
+    x-transition:leave-start="topbar-menu-fade--to"
+    x-transition:leave-end="topbar-menu-fade--from"
     @click="closeNav()"
     aria-hidden="true"
   ></div>
@@ -146,8 +152,15 @@
     class="topbar__panel"
     x-show="navOpen"
     x-cloak
+    x-transition:enter="topbar-menu-slide"
+    x-transition:enter-start="topbar-menu-slide--from"
+    x-transition:enter-end="topbar-menu-slide--to"
+    x-transition:leave="topbar-menu-slide"
+    x-transition:leave-start="topbar-menu-slide--to"
+    x-transition:leave-end="topbar-menu-slide--from"
     @keydown.escape.window="closeNav()"
   >
+    <div class="topbar__panel-handle" aria-hidden="true"></div>
     <nav class="nav nav--mobile" x-ref="navMobile" :aria-label="t.ui.navLabel">
       <span
         class="nav__indicator"

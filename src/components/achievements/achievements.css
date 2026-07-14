@@ -173,6 +173,20 @@ html.achievements-drawer-lock body {
   box-shadow: -18px 0 48px color-mix(in srgb, var(--bg-deep) 28%, transparent);
 }
 
+@media (max-width: 859px) {
+  .achievements-drawer__sheet {
+    left: 0;
+    width: 100%;
+    padding:
+      max(1rem, env(safe-area-inset-top, 0px))
+      max(1rem, env(safe-area-inset-right, 0px))
+      max(1rem, env(safe-area-inset-bottom, 0px))
+      max(1rem, env(safe-area-inset-left, 0px));
+    border-left: none;
+    box-shadow: none;
+  }
+}
+
 .achievements-drawer-fade {
   transition: opacity 0.28s var(--ease);
 }
@@ -590,6 +604,12 @@ body.theme-light .achievements-drawer__progress-praise {
   animation:
     achievement-toast-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) both,
     achievement-toast-glow 2.6s ease-in-out infinite;
+}
+
+@media (max-width: 859px) {
+  .achievement-toast {
+    bottom: calc(var(--topbar-dock) + 1.15rem);
+  }
 }
 
 .achievement-toast::before {

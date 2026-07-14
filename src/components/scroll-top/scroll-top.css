@@ -28,6 +28,12 @@
     background 0.2s var(--ease);
 }
 
+@media (max-width: 859px) {
+  .scroll-top {
+    bottom: calc(var(--topbar-dock) + 1.15rem);
+  }
+}
+
 .scroll-top.is-visible {
   opacity: 1;
   visibility: visible;

@@ -182,6 +182,23 @@ body.theme-light .hero__banner::before {
   border-bottom-color: color-mix(in srgb, var(--bg-store) 70%, var(--accent));
 }
 
+/* Bottom-docked topbar: tip must open upward into the page. */
+@media (max-width: 859px) {
+  .avatar-speech--brand {
+    top: auto;
+    bottom: calc(100% + 0.55rem);
+    border-radius: 12px 12px 12px 4px;
+    transform-origin: 0.85rem bottom;
+  }
+
+  .avatar-speech--brand::after {
+    top: 100%;
+    bottom: auto;
+    border-bottom-color: transparent;
+    border-top-color: color-mix(in srgb, var(--bg-store) 70%, var(--accent));
+  }
+}
+
 .avatar-speech__text {
   margin: 0;
   font-family: var(--font-body);
@@ -508,6 +525,12 @@ body.theme-light .hero__avatar-btn:focus-visible .hero__avatar {
   align-items: center;
   gap: 0.65rem;
   margin-top: 1.25rem;
+}
+
+@media (max-width: 859px) {
+  .hero {
+    min-height: min(78vh, 520px);
+  }
 }
 
 @media (max-width: 560px) {

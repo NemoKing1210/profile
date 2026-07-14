@@ -265,6 +265,12 @@ html.echo-finale-lock body {
   animation: echo-ach-fly 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@media (max-width: 859px) {
+  .echo-finale__ach {
+    bottom: calc(var(--topbar-dock) + 1.15rem);
+  }
+}
+
 .echo-finale__ach-icon {
   display: grid;
   place-items: center;

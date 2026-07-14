@@ -242,7 +242,11 @@ export function localeChromeMethods() {
 
     updateActiveNav({ layout = false } = {}) {
       const topbar = this.$root?.querySelector?.(".topbar");
-      const offset = (topbar?.offsetHeight ?? 52) + 12;
+      const bottomDocked = window.matchMedia("(max-width: 859px)").matches;
+      // Bottom dock does not cover the top of the viewport — use a small edge inset.
+      const offset = bottomDocked
+        ? 12
+        : (topbar?.offsetHeight ?? 52) + 12;
       let current = "";
 
       for (const item of this.nav) {

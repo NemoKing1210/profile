@@ -326,6 +326,12 @@ body.theme-light .about-activity__cell--0 {
   }
 }
 
+@media (max-width: 859px) {
+  .about-activity {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .about-activity__summary {
     width: 100%;

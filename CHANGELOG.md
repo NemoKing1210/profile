@@ -36,6 +36,11 @@ Update **both** when cutting a release.
 - Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 - Per-achievement effect panel (slide-down tip + switch; hover on desktop, tap on mobile); disabling White Theme locks the theme toggle again
 
+### Changed
+
+- Mobile topbar docks to the bottom (thumb reach); menu / tips open upward; scroll-top and toasts sit above the bar
+- Mobile topbar menu: Steam-style sheet, fade/slide open, staggered nav links
+
 ### Removed
 
 - Avatar speech tips on project cards
