@@ -24,6 +24,9 @@ Update **both** when cutting a release.
 - Achievement «Still Here» / «Засиделся» after five minutes of visible time on the site
 - Achievements drawer swaps progress for praise when the full set is unlocked
 - Topbar Online badge flips to Offline after 30s (not on hover); separate speech tip while still online
+- Achievement «Wall Moderator» / «Модератор стены»: upvote every comment, then downvote deletes (toggleable effect)
+- Comment wall enter / leave motion (staggered appear, red wipe on mod-delete)
+- Comment reactions use like / dislike (thumbs + separate counts) instead of score voting
 - Shared Steam-style achievement unlock toast + `window.achievement` console debug API
 - Achievement toast animated gold glow / sheen on unlock (icon stays blue)
 - Achievements topbar button gold pulse / trophy bounce on unlock

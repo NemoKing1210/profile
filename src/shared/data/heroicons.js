@@ -15,6 +15,8 @@ import cake from "heroicons/24/outline/cake.svg?raw";
 import clock from "heroicons/24/outline/clock.svg?raw";
 import faceSmile from "heroicons/24/outline/face-smile.svg?raw";
 import film from "heroicons/24/outline/film.svg?raw";
+import handThumbDown from "heroicons/24/outline/hand-thumb-down.svg?raw";
+import handThumbUp from "heroicons/24/outline/hand-thumb-up.svg?raw";
 import language from "heroicons/24/outline/language.svg?raw";
 import mapPin from "heroicons/24/outline/map-pin.svg?raw";
 import puzzlePiece from "heroicons/24/outline/puzzle-piece.svg?raw";
@@ -37,6 +39,8 @@ export const heroicons = {
   clock,
   faceSmile,
   film,
+  handThumbDown,
+  handThumbUp,
   language,
   mapPin,
   moon,

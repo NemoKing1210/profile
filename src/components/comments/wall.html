@@ -38,46 +38,11 @@
         `steam-comment--${item.tone}`,
         item.live && 'steam-comment--live',
         item.depth === 1 && 'steam-comment--reply',
+        item.leaving && 'steam-comment--leaving',
       ]"
+      :style="`--comment-i: ${item.feedIndex}`"
+      :aria-hidden="item.leaving || undefined"
     >
-      <div class="steam-comment__vote">
-        <button
-          type="button"
-          class="steam-comment__vote-btn"
-          :class="item.userVote === 'up' && 'steam-comment__vote-btn--active-up'"
-          :aria-label="t.comments.voteUp"
-          :aria-pressed="item.userVote === 'up'"
-          @click="voteComment(item.id, 'up')"
-        >
-          <span
-            class="steam-comment__vote-icon"
-            aria-hidden="true"
-            x-html="icons.chevronUp"
-          ></span>
-        </button>
-        <span
-          class="steam-comment__score"
-          :class="{
-            'steam-comment__score--up': item.score > 0,
-            'steam-comment__score--down': item.score < 0,
-          }"
-          x-text="formatCommentScore(item.score)"
-        ></span>
-        <button
-          type="button"
-          class="steam-comment__vote-btn"
-          :class="item.userVote === 'down' && 'steam-comment__vote-btn--active-down'"
-          :aria-label="t.comments.voteDown"
-          :aria-pressed="item.userVote === 'down'"
-          @click="voteComment(item.id, 'down')"
-        >
-          <span
-            class="steam-comment__vote-icon"
-            aria-hidden="true"
-            x-html="icons.chevronDown"
-          ></span>
-        </button>
-      </div>
       <div
         class="steam-comment__avatar"
         :class="item.depth === 1 && 'steam-comment__avatar--reply'"
@@ -99,6 +64,49 @@
               x-text="seg.text"
             ></span>
           </template>
+        </div>
+        <div class="steam-comment__react" role="group" :aria-label="t.comments.reactLabel">
+          <button
+            type="button"
+            class="steam-comment__react-btn steam-comment__react-btn--like"
+            :class="item.userVote === 'up' && 'is-active'"
+            :aria-label="t.comments.voteUp"
+            :aria-pressed="item.userVote === 'up'"
+            @click="voteComment(item.id, 'up')"
+          >
+            <span
+              class="steam-comment__react-icon"
+              aria-hidden="true"
+              x-html="icons.handThumbUp"
+            ></span>
+            <span
+              class="steam-comment__react-count"
+              x-show="item.likes > 0"
+              x-text="formatCommentScore(item.likes)"
+            ></span>
+          </button>
+          <button
+            type="button"
+            class="steam-comment__react-btn steam-comment__react-btn--dislike"
+            :class="{
+              'is-active': item.userVote === 'down',
+              'steam-comment__react-btn--delete': canDeleteCommentsViaDownvote,
+            }"
+            :aria-label="canDeleteCommentsViaDownvote ? t.comments.voteDelete : t.comments.voteDown"
+            :aria-pressed="canDeleteCommentsViaDownvote ? undefined : item.userVote === 'down'"
+            @click="voteComment(item.id, 'down')"
+          >
+            <span
+              class="steam-comment__react-icon"
+              aria-hidden="true"
+              x-html="icons.handThumbDown"
+            ></span>
+            <span
+              class="steam-comment__react-count"
+              x-show="!canDeleteCommentsViaDownvote && item.dislikes > 0"
+              x-text="formatCommentScore(item.dislikes)"
+            ></span>
+          </button>
         </div>
       </div>
     </li>

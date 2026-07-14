@@ -1,9 +1,15 @@
+import {
+  isAchievementEffectEnabled,
+  isAchievementUnlocked,
+} from "../../shared/data/achievements.js";
 import { celebrateConfetti } from "../../shared/lib/confetti.js";
 
 const SOCIAL_CREDIT_COMMENT_ID = "social-credit";
 const FARM_RAID_COMMENT_ID = "farm-raid";
 const FARM_RAID_AUTHOR = "kalerkin_dust";
 const FARM_RAID_REPLY_DELAY_MS = 3_000;
+/** Match `comment-leave` CSS (+ reply stagger). */
+const COMMENT_LEAVE_MS = 480;
 const FARM_RAID_REPLY_FALLBACKS = [
   "РџРѕС€РµР» РїРёС‚СЊ РєРѕС„Рµ, Р±СѓРґСѓ С‡РµСЂРµР· 3 С‡Р°СЃР°",
   "РћС‚РѕС€РµР» РїРѕРєРѕСЂРјРёС‚СЊ РєРѕС€РµРє, РїСЂРёР№РґСѓ РјРёРЅРёРјСѓРј С‡РµСЂРµР· 12 С‡Р°СЃРѕРІ 20 РјРёРЅСѓС‚",
@@ -59,6 +65,8 @@ export function commentsState() {
     commentRepLockLeft: 0,
     commentRepStrikes: 0,
     commentUserVotes: {},
+    commentHiddenIds: {},
+    commentLeavingIds: {},
     commentSort: "top",
     socialCreditToastOpen: false,
     socialCreditToastMessage: "",
@@ -69,6 +77,7 @@ export function commentsState() {
     _spoofInjected: false,
     _farmRaidRepliesStarted: false,
     _farmRaidReplyTimers: [],
+    _commentLeaveTimers: [],
     _commentTimer: null,
     _commentWaitTimer: null,
     _commentStartedAt: 0,
@@ -107,8 +116,11 @@ export function commentsMethods() {
         avatarColor: commentAvatarColor(item.author),
         bodySegments: parseCommentBody(item.body),
         spoilerHint,
+        likes: this.commentLikes(item.id),
+        dislikes: this.commentDislikes(item.id),
         score: this.commentDisplayScore(item.id),
         userVote: this.commentUserVotes[item.id] || null,
+        leaving: Boolean(this.commentLeavingIds?.[item.id]),
       });
 
       const live = (this.liveComments || []).map((item) =>
@@ -139,19 +151,28 @@ export function commentsMethods() {
 
       const sortedParents = this.sortCommentItems(parents, this.commentSort);
       const flat = [];
+      const hidden = this.commentHiddenIds || {};
 
       for (const parent of live) {
-        flat.push(parent);
+        if (!hidden[parent.id]) flat.push(parent);
       }
 
       for (const parent of sortedParents) {
+        if (hidden[parent.id]) continue;
         flat.push(parent);
         for (const reply of parent.replies || []) {
-          flat.push(reply);
+          if (!hidden[reply.id]) flat.push(reply);
         }
       }
 
-      return flat;
+      return flat.map((item, feedIndex) => ({ ...item, feedIndex }));
+    },
+
+    get canDeleteCommentsViaDownvote() {
+      return isAchievementEffectEnabled(
+        "commentMod",
+        this.achievementUnlocks
+      );
     },
 
     get commentsCountLabel() {
@@ -200,24 +221,42 @@ export function commentsMethods() {
       return id.startsWith("spoof-") ? 1 : 0;
     },
 
-    commentDisplayScore(id) {
+    commentLikes(id) {
       const base = this.commentBaseScore(id);
-      const vote = this.commentUserVotes[id];
-      if (vote === "up") return base + 1;
-      if (vote === "down") return base - 1;
-      return base;
+      const likes = Math.max(0, base);
+      return likes + (this.commentUserVotes[id] === "up" ? 1 : 0);
+    },
+
+    commentDislikes(id) {
+      const base = this.commentBaseScore(id);
+      const dislikes = Math.max(0, -base);
+      return dislikes + (this.commentUserVotes[id] === "down" ? 1 : 0);
+    },
+
+    commentDisplayScore(id) {
+      return this.commentLikes(id) - this.commentDislikes(id);
     },
 
     formatCommentScore(score) {
       const abs = Math.abs(score);
       if (abs >= 10000) {
         const compact = (abs / 1000).toFixed(1).replace(/\.0$/, "");
-        return score < 0 ? `-${compact}k` : `${compact}k`;
+        return `${compact}k`;
       }
       return String(score);
     },
 
     voteComment(id, direction) {
+      if (
+        direction === "down" &&
+        this.canDeleteCommentsViaDownvote &&
+        !this.commentHiddenIds?.[id] &&
+        !this.commentLeavingIds?.[id]
+      ) {
+        this.deleteComment(id);
+        return;
+      }
+
       const current = this.commentUserVotes[id] || null;
       let next = current;
 
@@ -236,6 +275,10 @@ export function commentsMethods() {
 
       this.commentUserVotes = { ...this.commentUserVotes, [id]: next };
 
+      if (next === "up") {
+        this._maybeUnlockCommentMod();
+      }
+
       if (id === FARM_RAID_COMMENT_ID) {
         this._triggerFarmRaidReplies();
         return;
@@ -248,6 +291,90 @@ export function commentsMethods() {
       } else if (direction === "down" && next === "down") {
         this._triggerSocialCreditPenalty();
       }
+    },
+
+    deleteComment(id) {
+      if (
+        !id ||
+        this.commentHiddenIds?.[id] ||
+        this.commentLeavingIds?.[id]
+      ) {
+        return;
+      }
+
+      const feed = this.commentFeed;
+      const item = feed.find((entry) => entry.id === id);
+      if (!item) return;
+
+      const targets = [id];
+      if (item.depth === 0) {
+        for (const entry of feed) {
+          if (entry.parentId === id) targets.push(entry.id);
+        }
+      }
+
+      const leaving = { ...(this.commentLeavingIds || {}) };
+      for (const tid of targets) leaving[tid] = true;
+      this.commentLeavingIds = leaving;
+
+      if (prefersReducedMotion()) {
+        this._commitCommentDelete(targets);
+        return;
+      }
+
+      const timer = window.setTimeout(() => {
+        this._commentLeaveTimers = (this._commentLeaveTimers || []).filter(
+          (t) => t !== timer
+        );
+        this._commitCommentDelete(targets);
+      }, COMMENT_LEAVE_MS);
+      this._commentLeaveTimers = [...(this._commentLeaveTimers || []), timer];
+    },
+
+    _commitCommentDelete(ids) {
+      const targets = (ids || []).filter(Boolean);
+      if (!targets.length) return;
+
+      const hide = { ...(this.commentHiddenIds || {}) };
+      const leaving = { ...(this.commentLeavingIds || {}) };
+      for (const tid of targets) {
+        hide[tid] = true;
+        delete leaving[tid];
+      }
+      this.commentHiddenIds = hide;
+      this.commentLeavingIds = leaving;
+
+      const hiddenIds = new Set(Object.keys(hide));
+      this.liveComments = (this.liveComments || []).filter(
+        (entry) => !hiddenIds.has(entry.id)
+      );
+      this.liveCommentReplies = (this.liveCommentReplies || []).filter(
+        (entry) =>
+          !hiddenIds.has(entry.id) && !hiddenIds.has(entry.parentId)
+      );
+
+      const votes = { ...this.commentUserVotes };
+      for (const tid of targets) delete votes[tid];
+      this.commentUserVotes = votes;
+    },
+
+    _clearCommentLeaveTimers() {
+      for (const timer of this._commentLeaveTimers || []) {
+        window.clearTimeout(timer);
+      }
+      this._commentLeaveTimers = [];
+    },
+
+    _maybeUnlockCommentMod() {
+      if (isAchievementUnlocked("commentMod")) return;
+
+      const feed = this.commentFeed;
+      if (!feed.length) return;
+      if (!feed.every((item) => this.commentUserVotes[item.id] === "up")) {
+        return;
+      }
+
+      this.unlockAchievementRecord?.("commentMod");
     },
 
     _triggerFarmRaidReplies() {
@@ -505,6 +632,7 @@ export function commentsMethods() {
     destroyComments() {
       this._stopCommentProgress();
       this._clearMinusRepLock();
+      this._clearCommentLeaveTimers();
       if (this._socialCreditToastTimer != null) {
         window.clearTimeout(this._socialCreditToastTimer);
         this._socialCreditToastTimer = null;

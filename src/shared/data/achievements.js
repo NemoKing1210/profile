@@ -12,6 +12,7 @@ export const ACHIEVEMENT_IDS = Object.freeze([
   "lightTheme",
   "activitySnake",
   "longStay",
+  "commentMod",
 ]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
@@ -19,13 +20,16 @@ export const ACHIEVEMENT_ICONS = Object.freeze({
   lightTheme: "sun",
   activitySnake: "puzzlePiece",
   longStay: "clock",
+  commentMod: "handThumbUp",
 });
 
 /** Active dwell time on the page required to unlock `longStay`. */
 export const LONG_STAY_MS = 5 * 60 * 1000;
 
 /** Achievements with a toggleable gameplay effect in the drawer. */
-export const ACHIEVEMENT_EFFECT_IDS = Object.freeze(new Set(["lightTheme"]));
+export const ACHIEVEMENT_EFFECT_IDS = Object.freeze(
+  new Set(["lightTheme", "commentMod"])
+);
 
 /**
  * @typedef {{ unlockedAt: number, effectEnabled?: boolean }} AchievementUnlock
