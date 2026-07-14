@@ -245,6 +245,10 @@ export default {
       more: "More",
       chartAria: "Activity map for the last year: {count} contributions",
       tipTemplate: "{date}: {tip}",
+      hoverTip:
+        "Contribution map. Don’t ask what’s in those commits — half are “fix fix”.",
+      startSpeech:
+        "Whoa, the squares woke up! Someone’s shipping “fix fix” again…",
       days: { mon: "Mon", wed: "Wed", fri: "Fri" },
       tips: [
         "Fixed a typo in the README",

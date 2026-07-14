@@ -245,6 +245,10 @@ export default {
       more: "Больше",
       chartAria: "Карта активности за год: {count} вкладов",
       tipTemplate: "{date}: {tip}",
+      hoverTip:
+        "Карта «вкладов». Не спрашивай, что именно внесено — там половина fix fix.",
+      startSpeech:
+        "Ого, клетки ожили! Кто-то снова коммитит «fix fix»…",
       days: { mon: "Пн", wed: "Ср", fri: "Пт" },
       tips: [
         "Поправил опечатку в README",

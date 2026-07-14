@@ -237,6 +237,8 @@ export default {
       more: "多",
       chartAria: "年度活跃度图：{count} 次贡献",
       tipTemplate: "{date}：{tip}",
+      hoverTip: "贡献图。别问里面写了啥——一半都是 fix fix。",
+      startSpeech: "哇，格子醒了！又有人在 commit「fix fix」……",
       days: { mon: "一", wed: "三", fri: "五" },
       tips: [
         "修了 README 里的错别字",

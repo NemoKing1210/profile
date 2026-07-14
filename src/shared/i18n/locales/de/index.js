@@ -245,6 +245,10 @@ export default {
       more: "Mehr",
       chartAria: "Aktivitätskarte für das letzte Jahr: {count} Beiträge",
       tipTemplate: "{date}: {tip}",
+      hoverTip:
+        "Beitrags-Karte. Frag nicht, was drin steckt — die Hälfte heißt „fix fix“.",
+      startSpeech:
+        "Hoppla, die Kästchen sind wach! Irgendwer committed wieder „fix fix“…",
       days: { mon: "Mo", wed: "Mi", fri: "Fr" },
       tips: [
         "Tippfehler in der README gefixt",

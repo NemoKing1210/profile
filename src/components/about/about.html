@@ -25,6 +25,14 @@
     class="about-activity"
     x-ref="aboutActivity"
     :class="{ 'about-activity--done': activityComplete }"
+    @mouseenter="showSpeechI18n('about.activity.hoverTip', { holdMs: null })"
+    @mouseleave="_avatarSpeechI18nPath === 'about.activity.hoverTip' && hideSpeech()"
+    @focusin="showSpeechI18n('about.activity.hoverTip', { holdMs: null })"
+    @focusout="
+      (!$event.relatedTarget || !$el.contains($event.relatedTarget)) &&
+        _avatarSpeechI18nPath === 'about.activity.hoverTip' &&
+        hideSpeech()
+    "
   >
     <header class="about-activity__head">
       <div class="about-activity__titles">
@@ -82,7 +90,7 @@
               class="about-activity__cell"
               :class="[
                 `about-activity__cell--${cell.level}`,
-                { 'about-activity__cell--pulse': activityRunning && cell.level === ACTIVITY_MAX },
+                { 'about-activity__cell--bounce': cell.bounce },
               ]"
               :data-level="cell.level"
               :aria-label="activityCellTip(cell)"

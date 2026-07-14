@@ -4,6 +4,7 @@ export const ACTIVITY_MAX = 4;
 const ACTIVITY_START_DELAY_MS = 20_000;
 const ACTIVITY_TICK_MIN_MS = 1_000;
 const ACTIVITY_TICK_MAX_MS = 5_000;
+const ACTIVITY_BOUNCE_MS = 520;
 
 export function aboutActivityState() {
   return {
@@ -19,8 +20,10 @@ export function aboutActivityState() {
     _activityTipCellId: null,
     _activityTimer: null,
     _activityStartTimer: null,
+    _activityBounceTimer: null,
     _activityObserver: null,
     _activityInView: false,
+    _activityStartSpeechDone: false,
   };
 }
 
@@ -149,6 +152,7 @@ export function aboutActivityMethods() {
     _resetActivityGrid() {
       this.activityComplete = false;
       this.activityRunning = false;
+      this._activityStartSpeechDone = false;
       this.activityCells = buildActivityCells();
       this.activityMonths = buildActivityMonths(this.activityCells, this.locale);
     },
@@ -198,6 +202,29 @@ export function aboutActivityMethods() {
       this._activityInView = false;
       this._stopActivityStartTimer();
       this._stopActivityTimer();
+      this._hideActivityAvatarSpeech();
+    },
+
+    _hideActivityAvatarSpeech() {
+      const path = this._avatarSpeechI18nPath;
+      if (
+        path === "about.activity.startSpeech" ||
+        path === "about.activity.hoverTip"
+      ) {
+        this.hideSpeech?.();
+      }
+    },
+
+    _speakActivityStartedIfVisible() {
+      if (
+        !this._activityInView ||
+        this._activityStartSpeechDone ||
+        this.activityComplete
+      ) {
+        return;
+      }
+      this._activityStartSpeechDone = true;
+      this.showSpeechI18n("about.activity.startSpeech");
     },
 
     _queueActivityAnimation() {
@@ -252,10 +279,12 @@ export function aboutActivityMethods() {
       if (!upgradable.length) {
         this.activityComplete = true;
         this.activityRunning = false;
+        this._clearActivityBounces();
         return;
       }
 
       // Bump a random chunk of cells each interval (1–5s).
+      const bumped = new Set();
       const chunkSize = Math.min(
         upgradable.length,
         12 + Math.floor(Math.random() * 29)
@@ -268,11 +297,23 @@ export function aboutActivityMethods() {
         if (!remaining.length) break;
         const idx = remaining[Math.floor(Math.random() * remaining.length)];
         const cell = cells[idx];
-        cells[idx] = { ...cell, level: cell.level + 1 };
+        cells[idx] = { ...cell, level: cell.level + 1, bounce: true };
+        bumped.add(idx);
+      }
+
+      for (let i = 0; i < cells.length; i += 1) {
+        if (!bumped.has(i) && cells[i].bounce) {
+          cells[i] = { ...cells[i], bounce: false };
+        }
       }
 
       // Reassign so Alpine reliably refreshes the grid.
       this.activityCells = cells.slice();
+      this._scheduleActivityBounceClear();
+
+      if (bumped.size > 0) {
+        this._speakActivityStartedIfVisible();
+      }
 
       if (this.activityCells.every((cell) => cell.level >= ACTIVITY_MAX)) {
         this.activityComplete = true;
@@ -283,10 +324,26 @@ export function aboutActivityMethods() {
       this._scheduleActivityTick();
     },
 
+    _scheduleActivityBounceClear() {
+      this._stopActivityBounceTimer();
+      this._activityBounceTimer = window.setTimeout(() => {
+        this._activityBounceTimer = null;
+        this._clearActivityBounces();
+      }, ACTIVITY_BOUNCE_MS);
+    },
+
+    _clearActivityBounces() {
+      if (!this.activityCells?.some((cell) => cell.bounce)) return;
+      this.activityCells = this.activityCells.map((cell) =>
+        cell.bounce ? { ...cell, bounce: false } : cell
+      );
+    },
+
     _fillActivityToMax() {
       this.activityCells = this.activityCells.map((cell) => ({
         ...cell,
         level: ACTIVITY_MAX,
+        bounce: false,
       }));
       this.activityComplete = true;
       this.activityRunning = false;
@@ -295,6 +352,7 @@ export function aboutActivityMethods() {
     _stopActivityAnimation() {
       this._stopActivityTimer();
       this._stopActivityStartTimer();
+      this._stopActivityBounceTimer();
       this.activityRunning = false;
     },
 
@@ -309,6 +367,13 @@ export function aboutActivityMethods() {
       if (this._activityStartTimer != null) {
         window.clearTimeout(this._activityStartTimer);
         this._activityStartTimer = null;
+      }
+    },
+
+    _stopActivityBounceTimer() {
+      if (this._activityBounceTimer != null) {
+        window.clearTimeout(this._activityBounceTimer);
+        this._activityBounceTimer = null;
       }
     },
   };

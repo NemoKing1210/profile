@@ -245,6 +245,10 @@ export default {
       more: "Más",
       chartAria: "Mapa de actividad del último año: {count} contribuciones",
       tipTemplate: "{date}: {tip}",
+      hoverTip:
+        "Mapa de contribuciones. No preguntes qué hay dentro: la mitad son “fix fix”.",
+      startSpeech:
+        "¡Ups, las celdas despertaron! Alguien vuelve a hacer commit de “fix fix”…",
       days: { mon: "Lun", wed: "Mié", fri: "Vie" },
       tips: [
         "Arreglé un typo en el README",

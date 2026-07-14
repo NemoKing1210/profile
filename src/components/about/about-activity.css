@@ -166,8 +166,9 @@ body.theme-light .about-activity__cell--0 {
   box-shadow: 0 0 0 1px rgba(164, 208, 7, 0.18);
 }
 
-.about-activity__cell--pulse {
-  animation: about-activity-pop 420ms ease;
+.about-activity__cell--bounce {
+  animation: about-activity-bounce 520ms cubic-bezier(0.34, 1.45, 0.64, 1);
+  z-index: 1;
 }
 
 .about-activity__foot {
@@ -245,15 +246,21 @@ body.theme-light .about-activity__cell--0 {
   color: var(--text-bright);
 }
 
-@keyframes about-activity-pop {
+@keyframes about-activity-bounce {
   0% {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
-  45% {
-    transform: scale(1.18);
+  28% {
+    transform: translateY(-3px) scale(1.28);
+  }
+  48% {
+    transform: translateY(1px) scale(0.9);
+  }
+  68% {
+    transform: translateY(-2px) scale(1.12);
   }
   100% {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -273,7 +280,7 @@ body.theme-light .about-activity__cell--0 {
     transition: none;
   }
 
-  .about-activity__cell--pulse {
+  .about-activity__cell--bounce {
     animation: none;
   }
 }

@@ -244,6 +244,10 @@ export default {
       more: "多",
       chartAria: "年間アクティビティ: {count} 件",
       tipTemplate: "{date}: {tip}",
+      hoverTip:
+        "コントリビューション地図。中身は聞くもんじゃない——半分は fix fix だよ。",
+      startSpeech:
+        "おっと、マスが動いた！また誰かが「fix fix」をコミットしてる…",
       days: { mon: "月", wed: "水", fri: "金" },
       tips: [
         "README の typo を修正",
