@@ -10,6 +10,9 @@ export function interestsViewMethods() {
         ...hobby,
         label: hobbyLabels[hobby.id] || hobby.id,
         icon: this.icons[hobby.icon] || "",
+        speechI18n: copy.hobbySpeech?.[hobby.id]
+          ? `interests.hobbySpeech.${hobby.id}`
+          : null,
       }));
       return {
         title: copy.title || "",

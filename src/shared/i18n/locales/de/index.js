@@ -117,6 +117,9 @@ export default {
       pickaxe: "Psst — klick mal. Ich habe eine Spitzhacke für dich bereit.",
       atmosphere:
         "Beeindruckende Atmosphäre und Geschichte — Postapokalypse, die noch menschlich wirkt.",
+      nightParkour:
+        "Nachts auf Dächern mit Taschenlampe — mein liebster Feierabend.",
+      pixelsDig: "Noch eine Sandbox. Pixel gräbt man auch.",
     },
     genres: {
       storyShooters: "Story-Shooter",
@@ -126,11 +129,11 @@ export default {
   },
   steam: {
     title: "Steam",
-    inviteTitle: "Zocken?",
+    inviteTitle: "Mein Steam",
     about:
       "Steam ist Valves Spieleplattform: Bibliothek, Freunde, Multiplayer und Community.",
     invite:
-      "Wenn du zusammen spielen willst — Coop, Casual oder einfach online abhängen — willkommen auf meinem Profil. Add mich gern.",
+      "Ich spiele viel und gern. Auf Steam — Bibliothek, Freunde und das, wozu ich wirklich zurückkomme.",
     cta: "Steam-Profil öffnen",
   },
   about: {
@@ -214,10 +217,13 @@ export default {
       "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
     aiSpeech:
       "Ja, ich nutze KI — aber mit Maß: als Tempo-Boost, nicht als Ersatz fürs Denken.",
+    flipSpeech:
+      "React dreht sich schön… leben tue ich lieber auf Vue.",
     spawnTool: "{name} im Hero hinzufügen",
     growLabel: "In Bewegung",
     growBlurb:
       "Ich bleibe nicht stehen: neue Ansätze ausprobieren, lesen, Pet-Projekte bauen und Bewährtes in Produktion bringen — der Stack bleibt lebendig, keine feste Liste.",
+    growSpeech: "Ich lerne laut: Experimente, Docs, Pet-Projekte.",
     growTagsLabel: "So lerne ich",
     growTags: ["Experimente", "Docs", "Pet-Projekte", "Code review"],
     items: [
@@ -313,6 +319,10 @@ export default {
       series: "Serien",
       manga: "Manga",
     },
+    hobbySpeech: {
+      anime: "Ja, ich schaue. Nein, die Handlung ist nicht „gezogen“ — so ist das Leben.",
+      manga: "Panels statt Frames. Dieselbe Liebe zu guter Story.",
+    },
   },
   links: {
     title: "Links",
@@ -322,6 +332,9 @@ export default {
       linktree: "Alle Socials an einem Ort",
       letterboxd: "Filme & Listen",
       orcid: "Wissenschaftliches Profil",
+    },
+    speechTips: {
+      orcid: "Wissenschaftliches Profil — noch ohne Papers über Minecraft-Raids.",
     },
   },
   comments: {

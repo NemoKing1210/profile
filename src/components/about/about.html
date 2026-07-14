@@ -127,24 +127,26 @@
   <aside class="about-status" :aria-label="about.statusLabel">
     <p class="about-status__eyebrow" x-text="about.statusLabel"></p>
     <div class="about-status__pair">
-      <div class="about-status__card about-status__card--closed">
-        <div class="about-status__card-body">
+      <div
+        class="about-status__card about-status__card--closed"
+        tabindex="0"
+        @mouseenter="showSpeechI18n('about.statusWorkDenied', { holdMs: null })"
+        @mouseleave="hideSpeech()"
+        @focusin="showSpeechI18n('about.statusWorkDenied', { holdMs: null })"
+        @focusout="hideSpeech()"
+      >
+        <span
+          class="about-status__icon"
+          aria-hidden="true"
+          x-html="icons.briefcase"
+        ></span>
+        <div class="about-status__copy">
           <span
-            class="about-status__icon"
-            aria-hidden="true"
-            x-html="icons.briefcase"
+            class="about-status__badge"
+            x-text="about.statusWorkBadge"
           ></span>
-          <div class="about-status__copy">
-            <span
-              class="about-status__badge"
-              x-text="about.statusWorkBadge"
-            ></span>
-            <p class="about-status__line" x-text="about.statusWork"></p>
-            <p class="about-status__note" x-text="about.statusWorkNote"></p>
-          </div>
-        </div>
-        <div class="about-status__denial" aria-hidden="true">
-          <p class="about-status__denial-text" x-text="about.statusWorkDenied"></p>
+          <p class="about-status__line" x-text="about.statusWork"></p>
+          <p class="about-status__note" x-text="about.statusWorkNote"></p>
         </div>
       </div>
       <div class="about-status__card about-status__card--open">

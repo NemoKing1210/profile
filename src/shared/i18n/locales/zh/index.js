@@ -112,6 +112,9 @@ export default {
       programming: "正是这款游戏让我爱上了编程",
       pickaxe: "嘘——试着点一下。我有镐在等你。",
       atmosphere: "惊人的氛围与故事——末世里依然能感到人性。",
+      nightParkour:
+        "夜里屋顶上手电筒——我最爱的放松方式。",
+      pixelsDig: "又一个沙盒。像素也能挖。",
     },
     genres: {
       storyShooters: "剧情射击",
@@ -121,11 +124,11 @@ export default {
   },
   steam: {
     title: "Steam",
-    inviteTitle: "一起玩？",
+    inviteTitle: "我的 Steam",
     about:
       "Steam 是 Valve 的游戏平台：库、好友、联机与社区。",
     invite:
-      "想一起玩的话——合作、休闲，或只是线上挂着——欢迎来我的主页。加好友就好，很高兴认识你。",
+      "我玩得多，也很开心。Steam 上是库存、好友，还有那些会反复打开的游戏。",
     cta: "打开 Steam 主页",
   },
   about: {
@@ -207,10 +210,13 @@ export default {
     toolkitLabel: "AI 与智能体",
     toolkitBlurb: "日常工具栈，用神经网络加速开发、审查与设计。",
     aiSpeech: "是的，我用 AI——但适度：加速思路，而不是替代思考。",
+    flipSpeech:
+      "React 转得漂亮……但我更想活在 Vue 上。",
     spawnTool: "将 {name} 添加到 Hero",
     growLabel: "持续前进",
     growBlurb:
       "不满足于已有成果：尝试新方法、阅读、做 pet 项目，并把验证过的东西带到生产——技术栈是活的，不是一份冻结清单。",
+    growSpeech: "大声学习：实验、文档、pet 项目。",
     growTagsLabel: "学习方式",
     growTags: ["实验", "文档", "Pet 项目", "Code review"],
     items: [
@@ -301,6 +307,10 @@ export default {
       series: "剧集",
       manga: "漫画",
     },
+    hobbySpeech: {
+      anime: "对，我看。不，剧情没有“注水”，生活就是这样。",
+      manga: "格子代替帧。一样热爱好故事。",
+    },
   },
   links: {
     title: "链接",
@@ -310,6 +320,9 @@ export default {
       linktree: "所有社交一站到达",
       letterboxd: "电影与片单",
       orcid: "科研主页",
+    },
+    speechTips: {
+      orcid: "学术档案——还没有关于 Minecraft 突袭的论文。",
     },
   },
   comments: {

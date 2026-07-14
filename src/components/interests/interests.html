@@ -14,6 +14,11 @@
         <li
           class="interest-chip"
           :class="`interest-chip--${hobby.tone}`"
+          :tabindex="hobby.speechI18n ? 0 : null"
+          @mouseenter="hobby.speechI18n && showSpeechI18n(hobby.speechI18n, { holdMs: null })"
+          @mouseleave="hobby.speechI18n && hideSpeech()"
+          @focusin="hobby.speechI18n && showSpeechI18n(hobby.speechI18n, { holdMs: null })"
+          @focusout="hobby.speechI18n && hideSpeech()"
         >
           <span
             class="interest-chip__icon"

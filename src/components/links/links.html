@@ -81,6 +81,10 @@
             :href="link.href"
             rel="noopener noreferrer"
             target="_blank"
+            @mouseenter="link.speechI18n && showSpeechI18n(link.speechI18n, { holdMs: null })"
+            @mouseleave="link.speechI18n && hideSpeech()"
+            @focusin="link.speechI18n && showSpeechI18n(link.speechI18n, { holdMs: null })"
+            @focusout="link.speechI18n && hideSpeech()"
           >
             <span
               class="link-card__icon"

@@ -10,6 +10,9 @@ export function linksViewMethods() {
         hint: this.t.links.hints[link.id] || "",
         mark: linkMarks[link.id] || linkMarks.linktree,
         lightTile: link.id === "github" || link.id === "letterboxd",
+        speechI18n: this.t.links.speechTips?.[link.id]
+          ? `links.speechTips.${link.id}`
+          : null,
       }));
     },
 

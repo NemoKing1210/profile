@@ -50,6 +50,10 @@
     class="stack-flip"
     x-ref="stackFlip"
     :aria-label="stack.favoriteFlip.ariaLabel"
+    @mouseenter="showSpeechI18n('stack.flipSpeech', { holdMs: null })"
+    @mouseleave="hideSpeech()"
+    @focusin="showSpeechI18n('stack.flipSpeech', { holdMs: null })"
+    @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
   >
     <div class="stack-flip__perspective">
       <div
@@ -161,7 +165,14 @@
     </ul>
   </aside>
 
-  <aside class="stack-grow" :aria-label="stack.growLabel">
+  <aside
+    class="stack-grow"
+    :aria-label="stack.growLabel"
+    @mouseenter="showSpeechI18n('stack.growSpeech', { holdMs: null })"
+    @mouseleave="hideSpeech()"
+    @focusin="showSpeechI18n('stack.growSpeech', { holdMs: null })"
+    @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
+  >
     <div class="stack-grow__row">
       <span
         class="stack-grow__mark"

@@ -117,6 +117,9 @@ export default {
       pickaxe: "こっそりクリックしてみて。ツルハシを用意してあるよ。",
       atmosphere:
         "圧倒的な雰囲気と物語——人間らしさが残るポストアポカリプス。",
+      nightParkour:
+        "夜の屋上に懐中電灯——いちばんのお休みスタイル。",
+      pixelsDig: "もうひとつのサンドボックス。ピクセルも掘れる。",
     },
     genres: {
       storyShooters: "ストーリー重視のシューター",
@@ -126,11 +129,11 @@ export default {
   },
   steam: {
     title: "Steam",
-    inviteTitle: "一緒に遊ぼう？",
+    inviteTitle: "My Steam",
     about:
       "Steam は Valve のゲームプラットフォーム。ライブラリ、フレンド、マルチプレイ、コミュニティ。",
     invite:
-      "一緒に遊びたいなら — 協力、カジュアル、オンラインで雑談でも — プロフィールへどうぞ。フレンド追加歓迎です。",
+      "たくさん、楽しく遊んでいます。Steam にはライブラリ、フレンド、本当に戻ってくるゲーム。",
     cta: "Steam プロフィールを開く",
   },
   about: {
@@ -214,10 +217,13 @@ export default {
       "開発・レビュー・設計をニューラルネットと一緒に加速する、日常のスタック。",
     aiSpeech:
       "はい、AI は使います——でもほどほどに。思考の代わりではなく、スピードの助けとして。",
+    flipSpeech:
+      "React は綺麗に回る……でも暮らすなら Vue。",
     spawnTool: "ヒーローに {name} を追加",
     growLabel: "学び続けています",
     growBlurb:
       "うまくいっているところで止まらない：新しいアプローチを試し、読み、ペットプロジェクトを出し、効いたものを本番へ — スタックは凍ったリストではなく、生き続けます。",
+    growSpeech: "声に出して学ぶ：実験、ドキュメント、ペットプロジェクト。",
     growTagsLabel: "学び方",
     growTags: ["実験", "ドキュメント", "ペットプロジェクト", "コードレビュー"],
     items: [
@@ -313,6 +319,10 @@ export default {
       series: "TV シリーズ",
       manga: "マンガ",
     },
+    hobbySpeech: {
+      anime: "見てるよ。ネタバレで「引き延ばし」じゃない、人生がそういうもの。",
+      manga: "コマで語る物語。同じくらい好き。",
+    },
   },
   links: {
     title: "リンク",
@@ -322,6 +332,9 @@ export default {
       linktree: "ソーシャルを一箇所に",
       letterboxd: "映画とリスト",
       orcid: "研究プロフィール",
+    },
+    speechTips: {
+      orcid: "学術プロフィール——Minecraft レイド論文はまだなし。",
     },
   },
   comments: {

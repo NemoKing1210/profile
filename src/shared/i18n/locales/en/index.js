@@ -117,6 +117,9 @@ export default {
       pickaxe: "Psst — try clicking. I've got a pickaxe waiting for you.",
       atmosphere:
         "Stunning atmosphere and story — post-apocalypse that still feels human.",
+      nightParkour:
+        "Night rooftops with a flashlight — my favorite kind of downtime.",
+      pixelsDig: "Another sandbox. Pixels dig too.",
     },
     genres: {
       storyShooters: "Story-driven shooters",
@@ -126,11 +129,11 @@ export default {
   },
   steam: {
     title: "Steam",
-    inviteTitle: "Want to play?",
+    inviteTitle: "My Steam",
     about:
       "Steam is Valve’s game platform: library, friends, multiplayer, and community.",
     invite:
-      "If you want to play together — co-op, casual, or just hang out online — you’re welcome on my profile. Add me as a friend; I’d be glad.",
+      "I play a lot, and I enjoy it. On Steam — the library, friends, and the games I actually come back to.",
     cta: "Open Steam profile",
   },
   about: {
@@ -214,10 +217,13 @@ export default {
       "Everyday stack for speeding up development, review, and design with neural networks.",
     aiSpeech:
       "Yes, I use AI — but in moderation: a boost for speed, not a substitute for thinking.",
+    flipSpeech:
+      "React spins nicely… but I prefer living on Vue.",
     spawnTool: "Add {name} to hero",
     growLabel: "Still learning",
     growBlurb:
       "I don’t stop at what’s already working: I try new approaches, read, ship pet projects, and carry what proves useful into production — the stack stays alive, not a frozen list.",
+    growSpeech: "Learning out loud: experiments, docs, pet projects.",
     growTagsLabel: "How I learn",
     growTags: ["Experiments", "Docs", "Pet projects", "Code review"],
     items: [
@@ -276,6 +282,11 @@ export default {
         "YouTube userscript: flags spam bots by nickname pattern and hides or blurs comments. Hide/blur toggle sits in the comments header — no separate settings page.",
     },
     speechTips: {
+      "steam-gamestatus":
+        "Why leave the game page when the badges come to you?",
+      "steam-region-block-bypass":
+        "Region said no — the guest card still shows the store.",
+      ProxyChecker: "When proxies lie, this app catches them.",
       "youtube-bot-comments-filter":
         "Tidied up the comments under my favorite videos a bit — just for myself.",
     },
@@ -313,6 +324,10 @@ export default {
       series: "TV series",
       manga: "Manga",
     },
+    hobbySpeech: {
+      anime: "Yes, I watch. No, the plot isn’t “padded” — life just is.",
+      manga: "Panels instead of frames. Same love for a good story.",
+    },
   },
   links: {
     title: "Links",
@@ -322,6 +337,9 @@ export default {
       linktree: "All socials in one place",
       letterboxd: "Films & lists",
       orcid: "Research profile",
+    },
+    speechTips: {
+      orcid: "Academic profile — no Minecraft raid papers. Yet.",
     },
   },
   comments: {

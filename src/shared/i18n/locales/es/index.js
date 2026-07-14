@@ -117,6 +117,9 @@ export default {
       pickaxe: "Psst — prueba a hacer clic. Tengo un pico esperándote.",
       atmosphere:
         "Atmósfera e historia impresionantes — un apocalipsis que sigue sintiéndose humano.",
+      nightParkour:
+        "De noche en los tejados con linterna — mi forma favorita de desconectar.",
+      pixelsDig: "Otro sandbox. Los píxeles también se cavan.",
     },
     genres: {
       storyShooters: "Shooters con historia",
@@ -126,11 +129,11 @@ export default {
   },
   steam: {
     title: "Steam",
-    inviteTitle: "¿Jugamos?",
+    inviteTitle: "Mi Steam",
     about:
       "Steam es la plataforma de Valve para juegos: biblioteca, amigos, multijugador y comunidad.",
     invite:
-      "Si quieres jugar juntos — coop, casual o simplemente pasar el rato online — bienvenido a mi perfil. Añádeme; estaré encantado.",
+      "Juego mucho y con ganas. En Steam — la biblioteca, amigos y lo que de verdad vuelvo a abrir.",
     cta: "Abrir perfil de Steam",
   },
   about: {
@@ -214,10 +217,13 @@ export default {
       "Stack diario para acelerar desarrollo, revisión y diseño junto a redes neuronales.",
     aiSpeech:
       "Sí, uso IA — pero con mesura: un impulso de velocidad, no un sustituto del pensamiento.",
+    flipSpeech:
+      "React gira bonito… pero prefiero vivir en Vue.",
     spawnTool: "Añadir {name} al hero",
     growLabel: "En movimiento",
     growBlurb:
       "No me quedo en lo ya logrado: pruebo enfoques nuevos, leo, hago pet projects y llevo lo útil a producción — el stack está vivo, no es una lista congelada.",
+    growSpeech: "Aprendo en voz alta: experimentos, docs, pet projects.",
     growTagsLabel: "Cómo aprendo",
     growTags: ["Experimentos", "Docs", "Pet projects", "Code review"],
     items: [
@@ -313,6 +319,10 @@ export default {
       series: "Series",
       manga: "Manga",
     },
+    hobbySpeech: {
+      anime: "Sí, veo anime. No, la trama no está «alargada»: la vida es así.",
+      manga: "Viñetas en vez de fotogramas. Misma pasión por una buena historia.",
+    },
   },
   links: {
     title: "Enlaces",
@@ -322,6 +332,9 @@ export default {
       linktree: "Todas las redes en un solo lugar",
       letterboxd: "Películas y listas",
       orcid: "Perfil científico",
+    },
+    speechTips: {
+      orcid: "Perfil académico — todavía sin papers sobre raids de Minecraft.",
     },
   },
   comments: {

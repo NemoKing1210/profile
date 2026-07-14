@@ -64,6 +64,10 @@
         x-cloak
         tabindex="0"
         :aria-label="`${status}. ${t.hero.statusLastSeen}`"
+        @mouseenter="showSpeechI18n('hero.statusLastSeen', { holdMs: null })"
+        @mouseleave="hideSpeech()"
+        @focusin="showSpeechI18n('hero.statusLastSeen', { holdMs: null })"
+        @focusout="hideSpeech()"
       >
         <span class="status-dot" aria-hidden="true"></span>
         <span class="status-text status-text--online" x-text="status"></span>
@@ -71,11 +75,6 @@
           class="status-text status-text--offline"
           x-text="t.hero.statusOffline"
           aria-hidden="true"
-        ></span>
-        <span
-          class="topbar__status-tip"
-          role="tooltip"
-          x-text="t.hero.statusLastSeen"
         ></span>
       </div>
     </div>
