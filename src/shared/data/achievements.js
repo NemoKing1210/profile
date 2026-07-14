@@ -13,6 +13,7 @@ export const ACHIEVEMENT_IDS = Object.freeze([
   "activitySnake",
   "longStay",
   "commentMod",
+  "interfaceMine",
 ]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
@@ -21,6 +22,7 @@ export const ACHIEVEMENT_ICONS = Object.freeze({
   activitySnake: "puzzlePiece",
   longStay: "clock",
   commentMod: "handThumbUp",
+  interfaceMine: "cube",
 });
 
 /** Active dwell time on the page required to unlock `longStay`. */

@@ -4,10 +4,14 @@ const HITS_TO_BREAK = 10;
 const STAGE_ATTR = "data-mc-stage";
 const MINE_TICK_MS = 85;
 const BLOCKED =
-  ".mc-pickaxe, .mc-mine-toast, .mc-crack, .skip-link, .scroll-top, [data-mc-immune], script, style, noscript";
+  ".mc-pickaxe, .mc-mine-toast, .mc-crack, .skip-link, .scroll-top, [data-mc-immune], .infinite-echoes, .infinite-sentinel, script, style, noscript";
 
 const PREFERRED =
   ".media-cover, .interest-chip, .interest-badge, .btn, .capsule, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .topbar, .footer, .brand, .interest-intro";
+
+/** Major shells that must all fall for the `interfaceMine` achievement. */
+const ACHIEVEMENT_SHELLS =
+  ".topbar, .hero, [data-infinite-source] > .panel";
 
 const DIRT = ["#6b5537", "#8a7148", "#5a4630", "#a08050", "#3d2f1f", "#7a6340"];
 
@@ -29,6 +33,8 @@ export const minecraftMineState = () => ({
   _mcOnClick: null,
   _mcOnKey: null,
   _mcBroken: new WeakSet(),
+  /** @type {Element[] | null} */
+  _mcAchievementShells: null,
 });
 
 export const minecraftMineMethods = () => ({
@@ -46,6 +52,7 @@ export const minecraftMineMethods = () => ({
     if (this.mineMode) return;
     this.mineMode = true;
     document.documentElement.classList.add("mc-mine-mode");
+    this._mcAchievementShells = collectAchievementShells();
     this._ensurePickaxe();
     if (event && Number.isFinite(event.clientX)) {
       this._mcPickaxeEl.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
@@ -263,6 +270,7 @@ export const minecraftMineMethods = () => ({
 
     const rect = block.getBoundingClientRect();
     spawnDebris(block, rect);
+    this._tryUnlockInterfaceMineAchievement();
 
     const finish = () => {
       block.style.display = "none";
@@ -277,10 +285,30 @@ export const minecraftMineMethods = () => ({
     window.setTimeout(finish, 420);
   },
 
+  _tryUnlockInterfaceMineAchievement() {
+    const shells = this._mcAchievementShells?.length
+      ? this._mcAchievementShells
+      : collectAchievementShells();
+    if (!shells.length) return;
+
+    const allBroken = shells.every(
+      (el) => el.classList.contains("mc-mined") || this._mcBroken.has(el)
+    );
+    if (!allBroken) return;
+
+    this.unlockAchievementRecord?.("interfaceMine");
+  },
+
   destroyMinecraftMine() {
     this.exitMineMode();
   },
 });
+
+function collectAchievementShells() {
+  return [...document.querySelectorAll(ACHIEVEMENT_SHELLS)].filter(
+    (el) => !el.closest(".infinite-echoes, .infinite-sentinel")
+  );
+}
 
 function applyCrackStage(block, stage) {
   block.classList.add("mc-cracking");
@@ -303,6 +331,13 @@ function applyCrackStage(block, stage) {
 function resolveBlock(start) {
   if (!(start instanceof Element)) return null;
   if (start.closest(BLOCKED)) return null;
+
+  // Prefer major profile shells so nested chips/cards don't steal the hit —
+  // otherwise sections look wrecked while achievement targets stay intact.
+  const shell = start.closest(ACHIEVEMENT_SHELLS);
+  if (shell && isMineableShell(shell)) {
+    return shell;
+  }
 
   const preferred = start.closest(PREFERRED);
   if (
@@ -339,6 +374,14 @@ function resolveBlock(start) {
     node = node.parentElement;
   }
   return null;
+}
+
+function isMineableShell(shell) {
+  return (
+    !shell.classList.contains("mc-mined") &&
+    shell.getAttribute("data-mc-activate") == null &&
+    !shell.closest(".infinite-echoes, .infinite-sentinel")
+  );
 }
 
 function sampleBlockColors(block) {

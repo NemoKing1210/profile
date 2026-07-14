@@ -126,6 +126,11 @@ export default {
         how: "Like jeden Kommentar an der Wand.",
         effect: "Dislike entfernt den Kommentar von der Wand",
       },
+      interfaceMine: {
+        title: "Alles kaputt",
+        how: "Nimm die Diamantspitzhacke vom Minecraft-Cover und baue Header, Hero und alle Sektionen ab.",
+        effect: "Ehrenhaft. Der Designer weint — du hast Spaß.",
+      },
     },
   },
   spoken: {

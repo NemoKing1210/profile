@@ -5,6 +5,13 @@ html.mc-mine-mode * {
   cursor: none !important;
 }
 
+/* Keep mining focused on the real profile — hide the echo feed without layout shift. */
+html.mc-mine-mode .infinite-echoes,
+html.mc-mine-mode .infinite-sentinel {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .mc-pickaxe {
   position: fixed;
   top: 0;

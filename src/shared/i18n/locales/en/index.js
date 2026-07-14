@@ -126,6 +126,11 @@ export default {
         how: "Like every comment on the wall.",
         effect: "Disliking a comment removes it from the wall",
       },
+      interfaceMine: {
+        title: "Broke Everything",
+        how: "Grab the diamond pickaxe from the Minecraft cover and mine the header, hero, and every section.",
+        effect: "Honorary title. The designer is crying; you're having fun.",
+      },
     },
   },
   spoken: {

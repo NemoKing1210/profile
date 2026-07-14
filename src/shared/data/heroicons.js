@@ -13,6 +13,7 @@ import bookOpen from "heroicons/24/outline/book-open.svg?raw";
 import briefcase from "heroicons/24/outline/briefcase.svg?raw";
 import cake from "heroicons/24/outline/cake.svg?raw";
 import clock from "heroicons/24/outline/clock.svg?raw";
+import cube from "heroicons/24/outline/cube.svg?raw";
 import faceSmile from "heroicons/24/outline/face-smile.svg?raw";
 import film from "heroicons/24/outline/film.svg?raw";
 import handThumbDown from "heroicons/24/outline/hand-thumb-down.svg?raw";
@@ -37,6 +38,7 @@ export const heroicons = {
   briefcase,
   cake,
   clock,
+  cube,
   faceSmile,
   film,
   handThumbDown,

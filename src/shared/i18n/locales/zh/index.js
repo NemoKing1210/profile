@@ -123,6 +123,11 @@ export default {
         how: "给墙上每条评论点赞。",
         effect: "点踩会从墙上删除该评论",
       },
+      interfaceMine: {
+        title: "全拆光了",
+        how: "从 Minecraft 封面拿起钻石镐，挖掉顶栏、英雄区和所有区块。",
+        effect: "荣誉称号。设计师在哭，你玩得很开心。",
+      },
     },
   },
   spoken: {

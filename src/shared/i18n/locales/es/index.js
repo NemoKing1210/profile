@@ -126,6 +126,11 @@ export default {
         how: "Dale like a cada comentario del muro.",
         effect: "Un dislike elimina el comentario del muro",
       },
+      interfaceMine: {
+        title: "Todo roto",
+        how: "Coge el pico de diamante de la portada de Minecraft y mina el header, el hero y todas las secciones.",
+        effect: "Título honorífico. El diseñador llora; tú te diviertes.",
+      },
     },
   },
   spoken: {
