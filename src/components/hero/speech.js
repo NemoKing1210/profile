@@ -1,7 +1,17 @@
+import { isAchievementEffectEnabled } from "../../shared/data/achievements.js";
+import {
+  SPAWN_COLLECTOR_ACHIEVEMENT_ID,
+  buildPhysicsCatalogSpawnJobs,
+  markPhysicsSpawned,
+  resolveTechBall,
+} from "../../shared/data/physics-spawns.js";
+
 const DEFAULT_HOLD_MS = 5000;
 const WORD_INTERVAL_MS = 118;
 /** After the last scroll event, wait this long before allowing hover tips again. */
 const SCROLL_IDLE_MS = 160;
+/** Stagger between catalog drops when the spawnCollector effect runs. */
+const CATALOG_SPAWN_STAGGER_MS = 48;
 
 /** Interaction count → speech beat while flinging hero physics bodies. */
 const PHYSICS_SPEECH_AT = {
@@ -34,35 +44,104 @@ export function heroSpeechState() {
     _pageScrolling: false,
     _speechScrollIdleTimer: null,
     _onSpeechPageScroll: null,
+    _physicsCatalogSpawnTimers: null,
   };
 }
 
 export function heroSpeechMethods() {
   return {
-    spawnFlagSquare(code, { scroll = true } = {}) {
+    spawnFlagSquare(code, { scroll = true, track = true } = {}) {
       const option = this.localeList.find((item) => item.code === code);
       this._heroPhysics?.spawnFlagSquare?.({
         locale: code,
         label: option?.nativeName || code,
       });
       if (scroll) this.scrollToHero();
+      if (track && code) this._notePhysicsSpawn(`flag:${code}`);
     },
 
-    spawnAiTool(tool) {
+    spawnAiTool(tool, { scroll = true, track = true } = {}) {
       this._heroPhysics?.spawnAiSquare?.(tool);
-      this.scrollToHero();
+      if (scroll) this.scrollToHero();
+      if (track && tool?.id) this._notePhysicsSpawn(`ai:${tool.id}`);
     },
 
-    spawnTechBall(tech, opts) {
-      this._heroPhysics?.spawnTechBall?.(tech, opts);
-      this.scrollToHero();
+    spawnTechBall(tech, opts = {}) {
+      const { scroll = true, track = true, ...spawnOpts } = opts;
+      const ball = resolveTechBall(tech);
+      this._heroPhysics?.spawnTechBall?.(ball, spawnOpts);
+      if (scroll) this.scrollToHero();
+      if (track && ball?.id) this._notePhysicsSpawn(`tech:${ball.id}`);
     },
 
-    spawnAvatarSquare() {
+    spawnAvatarSquare({ track = true } = {}) {
       this._heroPhysics?.spawnAvatarSquare?.({
         src: this.avatar,
         label: this.name,
       });
+      if (track) this._notePhysicsSpawn("avatar");
+    },
+
+    /**
+     * Persist discovery progress; unlock spawnCollector when the catalog is full.
+     * @param {string} key
+     */
+    _notePhysicsSpawn(key) {
+      const { complete } = markPhysicsSpawned(key);
+      if (!complete) return;
+      this.unlockAchievementRecord?.(SPAWN_COLLECTOR_ACHIEVEMENT_ID);
+    },
+
+    /**
+     * Drop every catalog body into the hero (spawnCollector effect).
+     * Skips tracking so auto-drops don't re-toast; no scroll spam.
+     */
+    applyPhysicsSpawnCollectorEffect() {
+      if (
+        !isAchievementEffectEnabled(
+          SPAWN_COLLECTOR_ACHIEVEMENT_ID,
+          this.achievementUnlocks
+        )
+      ) {
+        return;
+      }
+      if (!this._heroPhysics) return;
+
+      this._clearPhysicsCatalogSpawnTimers();
+
+      const physics = this._heroPhysics;
+      const jobs = buildPhysicsCatalogSpawnJobs({
+        spawnFlag: (opts) =>
+          physics.spawnFlagSquare?.({ ...opts, unique: true }),
+        spawnAvatar: () =>
+          physics.spawnAvatarSquare?.({
+            src: this.avatar,
+            label: this.name,
+            unique: true,
+          }),
+        spawnTech: (ball, spawnOpts) =>
+          physics.spawnTechBall?.(ball, { ...spawnOpts, unique: true }),
+        spawnAi: (tool) => physics.spawnAiSquare?.(tool, { unique: true }),
+        aiTools: this.aiTools || [],
+      });
+
+      this._physicsCatalogSpawnTimers = jobs.map((job, index) =>
+        window.setTimeout(() => {
+          try {
+            job();
+          } catch {
+            /* ignore spawn errors */
+          }
+        }, 80 + index * CATALOG_SPAWN_STAGGER_MS)
+      );
+    },
+
+    _clearPhysicsCatalogSpawnTimers() {
+      if (!this._physicsCatalogSpawnTimers?.length) return;
+      for (const id of this._physicsCatalogSpawnTimers) {
+        window.clearTimeout(id);
+      }
+      this._physicsCatalogSpawnTimers = null;
     },
 
     onPhysicsInteract() {
@@ -275,6 +354,7 @@ export function heroSpeechMethods() {
 
     destroyHeroSpeech() {
       this._clearSpeech();
+      this._clearPhysicsCatalogSpawnTimers();
       this._avatarSpeechObserver?.disconnect();
       this._avatarSpeechObserver = null;
       if (this._onSpeechPageScroll) {

@@ -17,6 +17,8 @@ export default {
     langHoverTip: "想用另一种语言跟我聊聊吗？",
     langSwitched: "好！看看我这次翻译会不会翻车……",
     achievementsHoverTip: "奖杯柜？来看看——可别吹太大声。",
+    achievementsDiscoverTip:
+      "你知道这个站点有隐藏成就吗？四处挖挖——第一个奖杯会打开收藏柜。",
     themeHoverTip: "浅色还是深色——选边站。我准备好了。",
     themeHoverTipLocked: "主题按钮很诱人……但秘密还没解锁。",
     themeToLightTips: [
@@ -134,6 +136,11 @@ export default {
         title: "原来有底",
         how: "无视无限信息流，找到页脚。",
         effect: "荣誉称号。页脚慌了，跑路了。",
+      },
+      spawnCollector: {
+        title: "全部生成",
+        how: "在 hero 中生成每面语言旗、头像、技术栈里的每项技术，以及每个 AI 工具。",
+        effect: "每次进入页面时，这些物体会立刻全部掉进 hero",
       },
     },
   },

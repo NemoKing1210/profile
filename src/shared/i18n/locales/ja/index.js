@@ -18,6 +18,8 @@ export default {
     langSwitched: "いいね！さて、翻訳を間違えずに済むかな…",
     achievementsHoverTip:
       "トロフィー棚？ちょっと見ていって——でも自慢しすぎないで。",
+    achievementsDiscoverTip:
+      "このサイトに隠し実績があるって知ってた？探してみて——最初のトロフィーでコレクションが開くよ。",
     themeHoverTip: "ライトかダークか——陣営を選べ。準備はいい。",
     themeHoverTipLocked:
       "テーマボタンが誘ってくる…でも秘密はまだ解放されてない。",
@@ -137,6 +139,11 @@ export default {
         title: "やっぱり底がある",
         how: "無限フィードなのにフッターまでたどり着く。",
         effect: "名誉称号。フッターは慌てて逃げ出した。",
+      },
+      spawnCollector: {
+        title: "フルスポーン",
+        how: "ヒーローに言語フラグ全部、アバター、スタックの全テック、全AIツールをスポーンする。",
+        effect: "ページを開くたびに、それらがまとめてヒーローに落ちてくる",
       },
     },
   },

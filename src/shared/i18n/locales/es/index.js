@@ -19,6 +19,8 @@ export default {
       "¡Genial! Ahora a ver si no lío las traducciones…",
     achievementsHoverTip:
       "¿Colección de trofeos? Echa un vistazo — pero sin fanfarronear demasiado.",
+    achievementsDiscoverTip:
+      "¿Sabías que el sitio tiene logros ocultos? Explora — el primer trofeo abre la colección.",
     themeHoverTip: "Claro u oscuro — elige un bando. Estoy listo.",
     themeHoverTipLocked:
       "Ese botón de tema invita… pero el secreto aún no está desbloqueado.",
@@ -138,6 +140,11 @@ export default {
         title: "Hay un final",
         how: "Llega al pie de página a pesar del feed infinito.",
         effect: "Título honorífico. El footer entró en pánico y huyó.",
+      },
+      spawnCollector: {
+        title: "Spawn completo",
+        how: "Haz spawn de cada bandera de idioma, el avatar, cada tech del stack y cada herramienta de IA en el hero.",
+        effect: "Al entrar en la página, todos esos objetos caen de golpe en el hero",
       },
     },
   },

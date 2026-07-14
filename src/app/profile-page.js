@@ -112,6 +112,7 @@ export function createProfilePage() {
             onInteract: () => this.onPhysicsInteract(),
           });
           this.bindAvatarSpeech();
+          this.applyPhysicsSpawnCollectorEffect?.();
           this._infiniteScroll = initInfiniteScroll({
             source: this.$root.querySelector("[data-infinite-source]"),
             echoes: this.$refs.infiniteEchoes,
@@ -125,6 +126,7 @@ export function createProfilePage() {
           this.initAboutActivity();
           this.bindStatusOfflineTimer?.();
           this.bindLongStayAchievement?.();
+          this.bindAchievementsDiscoverHint?.();
           this.bindAchievementDebugApi?.();
           this.bindFooterEaster?.();
         });

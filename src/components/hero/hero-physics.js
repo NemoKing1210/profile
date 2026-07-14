@@ -19,12 +19,12 @@ const RESTITUTION = 0.78;
 const FRICTION = 0.05;
 const FRICTION_AIR = 0.01;
 const AI_DENSITY = 0.0022;
-const MAX_AI_SQUARES = 16;
-const MAX_AVATAR_SQUARES = 8;
-const MAX_FLAG_SQUARES = 12;
+const MAX_AI_SQUARES = 32;
+const MAX_AVATAR_SQUARES = 16;
+const MAX_FLAG_SQUARES = 24;
 const AVATAR_SIZE_GROWTH = 1.5;
 const AVATAR_BASE_DENSITY = AI_DENSITY * 2.5;
-const MAX_BALLS = 28;
+const MAX_BALLS = 56;
 /** Scroll px РІвЂ вЂ™ Matter velocity scale (down scroll pushes bodies down). */
 const SCROLL_IMPULSE = 0.055;
 const SCROLL_MAX_VY = 14;
@@ -123,7 +123,27 @@ function makeWalls(width, height) {
   ];
 }
 
-function placeStatic(container, items, radius) {
+function techSpawnKey(id) {
+  return `tech:${id}`;
+}
+
+function aiSpawnKey(id) {
+  return `ai:${id}`;
+}
+
+function flagSpawnKey(locale) {
+  return `flag:${locale}`;
+}
+
+const AVATAR_SPAWN_KEY = "avatar";
+
+/**
+ * @param {HTMLElement} container
+ * @param {object[]} items
+ * @param {number} radius
+ * @param {{ el: HTMLElement, half: number, kind: string, spawnKey?: string }[]} actors
+ */
+function placeStatic(container, items, radius, actors) {
   const { width, height } = container.getBoundingClientRect();
   const cols = Math.max(3, Math.floor(width / (radius * 2.6)));
   items.forEach((ball, i) => {
@@ -135,6 +155,12 @@ function placeStatic(container, items, radius) {
     const y = height - radius - 16 - row * (radius * 2.2);
     el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     container.appendChild(el);
+    actors.push({
+      el,
+      half: radius,
+      kind: "ball",
+      spawnKey: techSpawnKey(ball.id),
+    });
   });
 }
 
@@ -143,10 +169,10 @@ function placeStatic(container, items, radius) {
  * @param {HTMLElement} container
  * @param {{ onInteract?: () => void }} [options]
  * @returns {{
- *   spawnAiSquare: (tool: object) => void,
- *   spawnTechBall: (ball: object, opts?: { scale?: number }) => void,
- *   spawnAvatarSquare: (opts: { src: string, label?: string }) => void,
- *   spawnFlagSquare: (opts: { locale: string, label?: string }) => void,
+ *   spawnAiSquare: (tool: object, opts?: { unique?: boolean }) => void,
+ *   spawnTechBall: (ball: object, opts?: { scale?: number, unique?: boolean }) => void,
+ *   spawnAvatarSquare: (opts: { src: string, label?: string, unique?: boolean }) => void,
+ *   spawnFlagSquare: (opts: { locale: string, label?: string, unique?: boolean }) => void,
  *   destroy: () => void
  * }}
  */
@@ -188,10 +214,12 @@ export function initHeroPhysics(container, options = {}) {
   let avatarGeneration = 0;
   const items = techBalls.slice(0, narrow ? 9 : techBalls.length);
 
-  /** @type {{ body?: import("matter-js").Body, el: HTMLElement, half: number, kind: string }[]} */
+  /** @type {{ body?: import("matter-js").Body, el: HTMLElement, half: number, kind: string, spawnKey?: string }[]} */
   const actors = [];
   /** @type {number[]} */
   const spawnTimers = [];
+
+  const hasSpawnKey = (key) => actors.some((actor) => actor.spawnKey === key);
 
   const nextAvatarStats = () => {
     const scale = AVATAR_SIZE_GROWTH ** avatarGeneration;
@@ -202,7 +230,10 @@ export function initHeroPhysics(container, options = {}) {
     };
   };
 
-  const placeStaticAi = (tool) => {
+  const placeStaticAi = (tool, { unique = false } = {}) => {
+    const spawnKey = aiSpawnKey(tool.id);
+    if (unique && hasSpawnKey(spawnKey)) return;
+
     const el = createAiSquareEl(tool, aiSize);
     el.classList.add("hero-ai--static");
     const half = aiSize / 2;
@@ -210,10 +241,12 @@ export function initHeroPhysics(container, options = {}) {
     const y = height - aiSize - 20 - Math.random() * 40;
     el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     container.appendChild(el);
-    actors.push({ el, half, kind: "ai" });
+    actors.push({ el, half, kind: "ai", spawnKey });
   };
 
-  const placeStaticAvatar = ({ src, label }) => {
+  const placeStaticAvatar = ({ src, label, unique = false } = {}) => {
+    if (unique && hasSpawnKey(AVATAR_SPAWN_KEY)) return;
+
     const { size } = nextAvatarStats();
     const el = createAvatarSquareEl(src, size, label);
     el.classList.add("hero-ai--static");
@@ -222,10 +255,13 @@ export function initHeroPhysics(container, options = {}) {
     const y = height - size - 16 - Math.random() * 24;
     el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     container.appendChild(el);
-    actors.push({ el, half, kind: "avatar" });
+    actors.push({ el, half, kind: "avatar", spawnKey: AVATAR_SPAWN_KEY });
   };
 
-  const placeStaticFlag = ({ locale, label }) => {
+  const placeStaticFlag = ({ locale, label, unique = false } = {}) => {
+    const spawnKey = flagSpawnKey(locale);
+    if (unique && hasSpawnKey(spawnKey)) return;
+
     const el = createFlagSquareEl(locale, aiSize, label);
     el.classList.add("hero-ai--static");
     const half = aiSize / 2;
@@ -233,21 +269,24 @@ export function initHeroPhysics(container, options = {}) {
     const y = height - aiSize - 20 - Math.random() * 40;
     el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     container.appendChild(el);
-    actors.push({ el, half, kind: "flag" });
+    actors.push({ el, half, kind: "flag", spawnKey });
   };
 
   if (prefersReducedMotion()) {
     const onStaticPointer = () => notifyInteract();
     container.addEventListener("pointerdown", onStaticPointer);
 
-    placeStatic(container, items, radius);
+    placeStatic(container, items, radius, actors);
     return {
-      spawnAiSquare(tool) {
+      spawnAiSquare(tool, { unique = false } = {}) {
         if (!tool?.icon) return;
-        placeStaticAi(tool);
+        placeStaticAi(tool, { unique });
       },
-      spawnTechBall(ball, { scale = 1 } = {}) {
+      spawnTechBall(ball, { scale = 1, unique = false } = {}) {
         if (!ball?.path) return;
+        const spawnKey = techSpawnKey(ball.id);
+        if (unique && hasSpawnKey(spawnKey)) return;
+
         const r = radius * scale;
         const el = createBallEl(ball, r);
         el.classList.add("hero-ball--static");
@@ -256,7 +295,7 @@ export function initHeroPhysics(container, options = {}) {
         const y = height - r * 2 - 20 - Math.random() * 36;
         el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         container.appendChild(el);
-        actors.push({ el, half: r, kind: "ball" });
+        actors.push({ el, half: r, kind: "ball", spawnKey });
       },
       spawnAvatarSquare(opts) {
         if (!opts?.src) return;
@@ -376,8 +415,11 @@ export function initHeroPhysics(container, options = {}) {
     if (idx >= 0) actors.splice(idx, 1);
   };
 
-  const spawnBall = (ball, i = 0, { scale = 1 } = {}) => {
+  const spawnBall = (ball, i = 0, { scale = 1, unique = false } = {}) => {
     if (!ball?.path) return;
+
+    const spawnKey = techSpawnKey(ball.id);
+    if (unique && hasSpawnKey(spawnKey)) return;
 
     const existing = actors.filter((a) => a.kind === "ball");
     if (existing.length >= MAX_BALLS) {
@@ -406,19 +448,25 @@ export function initHeroPhysics(container, options = {}) {
       y: Math.random() * 1.5,
     });
     World.add(world, body);
-    actors.push({ body, el, half: r, kind: "ball" });
+    actors.push({ body, el, half: r, kind: "ball", spawnKey });
     syncActorEl(el, body, r);
   };
 
   items.forEach((ball, i) => {
-    const timer = window.setTimeout(() => spawnBall(ball, i), 60 + i * 95);
+    const timer = window.setTimeout(
+      () => spawnBall(ball, i, { unique: true }),
+      60 + i * 95
+    );
     spawnTimers.push(timer);
   });
 
   const spawnTechBall = (ball, opts) => spawnBall(ball, 0, opts);
 
-  const spawnAiSquare = (tool) => {
+  const spawnAiSquare = (tool, { unique = false } = {}) => {
     if (!tool?.icon) return;
+
+    const spawnKey = aiSpawnKey(tool.id);
+    if (unique && hasSpawnKey(spawnKey)) return;
 
     const existing = actors.filter((a) => a.kind === "ai");
     if (existing.length >= MAX_AI_SQUARES) {
@@ -448,13 +496,14 @@ export function initHeroPhysics(container, options = {}) {
       y: 2 + Math.random() * 2,
     });
     World.add(world, body);
-    actors.push({ body, el, half, kind: "ai" });
+    actors.push({ body, el, half, kind: "ai", spawnKey });
     syncActorEl(el, body, half);
   };
 
-  /** Starts at 2Р“вЂ” AI square size; each click grows size & density Р“вЂ”1.5. */
-  const spawnAvatarSquare = ({ src, label } = {}) => {
+  /** Starts at 2× AI square size; each click grows size & density ×1.5. */
+  const spawnAvatarSquare = ({ src, label, unique = false } = {}) => {
     if (!src) return;
+    if (unique && hasSpawnKey(AVATAR_SPAWN_KEY)) return;
 
     const existing = actors.filter((a) => a.kind === "avatar");
     if (existing.length >= MAX_AVATAR_SQUARES) {
@@ -485,12 +534,15 @@ export function initHeroPhysics(container, options = {}) {
       y: 1.5 + Math.random() * 1.5,
     });
     World.add(world, body);
-    actors.push({ body, el, half, kind: "avatar" });
+    actors.push({ body, el, half, kind: "avatar", spawnKey: AVATAR_SPAWN_KEY });
     syncActorEl(el, body, half);
   };
 
-  const spawnFlagSquare = ({ locale, label } = {}) => {
+  const spawnFlagSquare = ({ locale, label, unique = false } = {}) => {
     if (!locale) return;
+
+    const spawnKey = flagSpawnKey(locale);
+    if (unique && hasSpawnKey(spawnKey)) return;
 
     const existing = actors.filter((a) => a.kind === "flag");
     if (existing.length >= MAX_FLAG_SQUARES) {
@@ -520,7 +572,7 @@ export function initHeroPhysics(container, options = {}) {
       y: 2 + Math.random() * 2,
     });
     World.add(world, body);
-    actors.push({ body, el, half, kind: "flag" });
+    actors.push({ body, el, half, kind: "flag", spawnKey });
     syncActorEl(el, body, half);
   };
 

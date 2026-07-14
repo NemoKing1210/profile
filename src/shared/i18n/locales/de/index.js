@@ -19,6 +19,8 @@ export default {
       "Super! Mal schauen, ob ich die Übersetzungen nicht verkorkse…",
     achievementsHoverTip:
       "Trophäensammlung? Schau rein — aber prahl nicht zu laut.",
+    achievementsDiscoverTip:
+      "Wusstest du, dass es auf der Seite versteckte Erfolge gibt? Stobere herum — die erste Trophäe öffnet die Sammlung.",
     themeHoverTip: "Hell oder dunkel — wähl eine Seite. Ich bin bereit.",
     themeHoverTipLocked:
       "Der Theme-Button lockt… aber das Geheimnis ist noch gesperrt.",
@@ -138,6 +140,11 @@ export default {
         title: "Es gibt doch einen Boden",
         how: "Erreiche den Footer trotz der endlosen Feed-Schleife.",
         effect: "Ehrenhaft. Der Footer bekam Panik und ist abgehauen.",
+      },
+      spawnCollector: {
+        title: "Vollständiger Spawn",
+        how: "Spawne jede Sprachflagge, den Avatar, jeden Stack-Tech und jedes AI-Tool im Hero.",
+        effect: "Beim Seitenaufruf fallen all diese Objekte sofort in den Hero",
       },
     },
   },

@@ -15,6 +15,7 @@ export const ACHIEVEMENT_IDS = Object.freeze([
   "commentMod",
   "interfaceMine",
   "foundFooter",
+  "spawnCollector",
 ]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
@@ -25,14 +26,21 @@ export const ACHIEVEMENT_ICONS = Object.freeze({
   commentMod: "handThumbUp",
   interfaceMine: "cube",
   foundFooter: "mapPin",
+  spawnCollector: "sparkles",
 });
 
 /** Active dwell time on the page required to unlock `longStay`. */
 export const LONG_STAY_MS = 5 * 60 * 1000;
 
+/** Visible dwell before avatar mentions achievements (if none unlocked yet). */
+export const ACHIEVEMENTS_HINT_MS = 90_000;
+
+/** Shown-once flag for the empty-achievements avatar tip. */
+export const ACHIEVEMENTS_HINT_STORAGE_KEY = "profile:achievements-hint-shown";
+
 /** Achievements with a toggleable gameplay effect in the drawer. */
 export const ACHIEVEMENT_EFFECT_IDS = Object.freeze(
-  new Set(["lightTheme", "commentMod"])
+  new Set(["lightTheme", "commentMod", "spawnCollector"])
 );
 
 /**

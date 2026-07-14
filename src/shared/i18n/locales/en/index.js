@@ -19,6 +19,8 @@ export default {
       "Nice! Now let's see if I don't tangle up the translations…",
     achievementsHoverTip:
       "Trophy cabinet? Take a peek — just don’t brag too loud.",
+    achievementsDiscoverTip:
+      "Did you know this site has hidden achievements? Dig around — the first trophy unlocks the cabinet.",
     themeHoverTip: "Light or dark — pick a side. I’m ready.",
     themeHoverTipLocked:
       "That theme button looks tempting… but the secret isn’t unlocked yet.",
@@ -138,6 +140,11 @@ export default {
         title: "There Is a Bottom",
         how: "Reach the footer despite the infinite feed.",
         effect: "Honorary title. The footer panicked and bailed.",
+      },
+      spawnCollector: {
+        title: "Full Spawn",
+        how: "Spawn every language flag, the avatar, every stack tech, and every AI tool into the hero.",
+        effect: "On each visit, all of those objects drop into the hero at once",
       },
     },
   },

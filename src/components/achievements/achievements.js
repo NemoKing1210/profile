@@ -2,6 +2,8 @@ import {
   ACHIEVEMENT_EFFECT_IDS,
   ACHIEVEMENT_ICONS,
   ACHIEVEMENT_IDS,
+  ACHIEVEMENTS_HINT_MS,
+  ACHIEVEMENTS_HINT_STORAGE_KEY,
   LONG_STAY_MS,
   achievementsTotalCount,
   achievementsUnlockedCount,
@@ -14,6 +16,12 @@ import {
   setAchievementEffectEnabled,
   unlockAchievement,
 } from "../../shared/data/achievements.js";
+import {
+  SPAWN_COLLECTOR_ACHIEVEMENT_ID,
+  clearPhysicsSpawnProgress,
+  listPhysicsSpawnKeys,
+  readPhysicsSpawnProgress,
+} from "../../shared/data/physics-spawns.js";
 
 const ACHIEVEMENT_TOAST_HOLD_MS = 4_800;
 
@@ -32,6 +40,10 @@ export function achievementsState() {
     _longStayStartedAt: null,
     _longStayTimer: null,
     _onLongStayVisibility: null,
+    _achievementsHintAccumMs: 0,
+    _achievementsHintStartedAt: null,
+    _achievementsHintTimer: null,
+    _onAchievementsHintVisibility: null,
   };
 }
 
@@ -176,6 +188,9 @@ export function achievementsMethods() {
       if (id === "lightTheme") {
         this._syncLightThemeEffect(next);
       }
+      if (id === SPAWN_COLLECTOR_ACHIEVEMENT_ID && next) {
+        this.applyPhysicsSpawnCollectorEffect?.();
+      }
     },
 
     /**
@@ -263,6 +278,12 @@ export function achievementsMethods() {
 
     clearAchievementRecords() {
       clearAllAchievements();
+      clearPhysicsSpawnProgress();
+      try {
+        localStorage.removeItem(ACHIEVEMENTS_HINT_STORAGE_KEY);
+      } catch {
+        /* ignore */
+      }
       this.achievementUnlocks = readAchievementUnlocks();
       this.hideAchievementToast({ advance: false });
       this._achievementToastQueue = [];
@@ -395,6 +416,109 @@ export function achievementsMethods() {
       }
     },
 
+    /**
+     * After ACHIEVEMENTS_HINT_MS of visible time with zero unlocks,
+     * avatar tips that achievements exist (once per browser).
+     */
+    bindAchievementsDiscoverHint() {
+      if (this.hasAchievements) return;
+      if (this._wasAchievementsHintShown()) return;
+      if (this._onAchievementsHintVisibility) return;
+
+      this._achievementsHintAccumMs = 0;
+      this._achievementsHintStartedAt = null;
+      this._achievementsHintTimer = null;
+
+      this._onAchievementsHintVisibility = () => {
+        if (document.hidden) {
+          this._pauseAchievementsHintClock();
+        } else {
+          this._resumeAchievementsHintClock();
+        }
+      };
+      document.addEventListener(
+        "visibilitychange",
+        this._onAchievementsHintVisibility
+      );
+
+      if (!document.hidden) {
+        this._resumeAchievementsHintClock();
+      }
+    },
+
+    _resumeAchievementsHintClock() {
+      if (this.hasAchievements || this._wasAchievementsHintShown()) {
+        this._teardownAchievementsDiscoverHint();
+        return;
+      }
+      if (this._achievementsHintStartedAt != null) return;
+
+      this._achievementsHintStartedAt = performance.now();
+      const remaining = Math.max(
+        0,
+        ACHIEVEMENTS_HINT_MS - this._achievementsHintAccumMs
+      );
+
+      if (this._achievementsHintTimer != null) {
+        window.clearTimeout(this._achievementsHintTimer);
+      }
+      this._achievementsHintTimer = window.setTimeout(() => {
+        this._achievementsHintTimer = null;
+        this._achievementsHintStartedAt = null;
+        this._achievementsHintAccumMs = ACHIEVEMENTS_HINT_MS;
+        this._speakAchievementsDiscoverHint();
+        this._teardownAchievementsDiscoverHint();
+      }, remaining);
+    },
+
+    _pauseAchievementsHintClock() {
+      if (this._achievementsHintStartedAt == null) return;
+
+      this._achievementsHintAccumMs +=
+        performance.now() - this._achievementsHintStartedAt;
+      this._achievementsHintStartedAt = null;
+
+      if (this._achievementsHintTimer != null) {
+        window.clearTimeout(this._achievementsHintTimer);
+        this._achievementsHintTimer = null;
+      }
+    },
+
+    _speakAchievementsDiscoverHint() {
+      if (this.hasAchievements) return;
+      if (this._wasAchievementsHintShown()) return;
+
+      this._markAchievementsHintShown();
+      this.showSpeechI18n?.("ui.achievementsDiscoverTip");
+    },
+
+    _wasAchievementsHintShown() {
+      try {
+        return localStorage.getItem(ACHIEVEMENTS_HINT_STORAGE_KEY) === "1";
+      } catch {
+        return false;
+      }
+    },
+
+    _markAchievementsHintShown() {
+      try {
+        localStorage.setItem(ACHIEVEMENTS_HINT_STORAGE_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+    },
+
+    _teardownAchievementsDiscoverHint() {
+      this._pauseAchievementsHintClock();
+      if (this._onAchievementsHintVisibility) {
+        document.removeEventListener(
+          "visibilitychange",
+          this._onAchievementsHintVisibility
+        );
+        this._onAchievementsHintVisibility = null;
+      }
+    },
+
     bindAchievementDebugApi() {
       const resolve = (ref) => resolveAchievementRef(ref);
 
@@ -406,6 +530,16 @@ export function achievementsMethods() {
             unlocked: Boolean(this.achievementUnlocks?.[id]),
           })),
         list: () => ({ ...this.achievementUnlocks }),
+        spawns: () => {
+          const found = [...readPhysicsSpawnProgress()].sort();
+          const total = listPhysicsSpawnKeys();
+          return {
+            found: found.length,
+            total: total.length,
+            keys: found,
+            missing: total.filter((key) => !found.includes(key)),
+          };
+        },
         add: (ref) => {
           const id = resolve(ref);
           if (!id) {
@@ -445,6 +579,7 @@ export function achievementsMethods() {
               "achievement API",
               "  achievement.ids()           — catalog with 1-based numbers",
               "  achievement.list()          — unlocked map",
+              "  achievement.spawns()        — physics spawn collector progress",
               "  achievement.add(1|id)       — grant + toast",
               "  achievement.remove(1|id)    — revoke",
               "  achievement.clear()         — wipe all",
@@ -468,6 +603,7 @@ export function achievementsMethods() {
       }
       this.achievementBtnPulse = false;
       this._teardownLongStayAchievement();
+      this._teardownAchievementsDiscoverHint();
       this.closeAchievementsPanel();
       if (window.achievement) {
         delete window.achievement;
