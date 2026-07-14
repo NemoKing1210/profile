@@ -5,6 +5,7 @@ import {
   resolveInitialLocale,
 } from "../shared/i18n/index.js";
 import { celebrateConfetti, burstConfettiAt } from "../shared/lib/confetti.js";
+import { initImageFade } from "../shared/lib/image-fade.js";
 import { initReveal } from "../shared/lib/reveal.js";
 import {
   ACTIVITY_DAYS,
@@ -66,6 +67,7 @@ export function createProfilePage() {
       icons: heroicons,
       _stopConfetti: null,
       _infiniteScroll: null,
+      _stopImageFade: null,
 
       onMetaChipActivate(chip, event) {
         if (chip?.kind !== "birth") return;
@@ -91,6 +93,7 @@ export function createProfilePage() {
         window.addEventListener("resize", this._onNavResize);
         this.$nextTick(() => {
           initReveal(this.$root);
+          this._stopImageFade = initImageFade(this.$root);
           this._heroPhysics = initHeroPhysics(this.$refs.heroPhysics, {
             onInteract: () => this.onPhysicsInteract(),
           });
@@ -116,6 +119,8 @@ export function createProfilePage() {
         this.destroyComments();
         this._stopConfetti?.();
         this._stopConfetti = null;
+        this._stopImageFade?.();
+        this._stopImageFade = null;
         this._heroPhysics?.destroy?.();
         this._heroPhysics = null;
         this._infiniteScroll?.destroy?.();

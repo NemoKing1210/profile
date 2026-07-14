@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.42.1] — 2026-07-14
+
+### Changed
+
+- Favorite framework card flips on the vertical axis (`rotateX`) instead of horizontal
+
+## [1.42.0] — 2026-07-14
+
+### Added
+
+- Smooth fade-in for all images when they finish loading (avatars, covers, icons, dynamically spawned media)
+
 ## [1.41.0] — 2026-07-14
 
 ### Changed

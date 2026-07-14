@@ -9,6 +9,21 @@
   transform: none;
 }
 
+/* Image decode fade — class is added by shared/lib/image-fade.js */
+img.img-fade {
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+}
+
+img.img-fade.is-img-loaded {
+  opacity: 1;
+}
+
+/* Keep cover zoom transition alongside the load fade */
+img.media-cover__img.img-fade {
+  transition: transform 320ms ease, opacity 0.45s var(--ease);
+}
+
 @keyframes banner-in {
   from {
     opacity: 0.4;
@@ -132,7 +147,8 @@ body.is-locale-blurring
   .hero__banner,
   .hero__identity,
   .hero__physics,
-  .reveal {
+  .reveal,
+  img.img-fade {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;

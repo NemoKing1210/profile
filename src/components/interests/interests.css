@@ -311,7 +311,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 320ms ease;
+  transition: transform 320ms ease, opacity 0.45s var(--ease);
 }
 
 .media-cover:hover .media-cover__img,

@@ -124,7 +124,7 @@
 
 .stack-flip__perspective {
   perspective: 1100px;
-  perspective-origin: 50% 40%;
+  perspective-origin: 50% 50%;
 }
 
 .stack-flip__inner {
@@ -175,7 +175,7 @@
     ),
     linear-gradient(145deg, #1a2830 0%, #0f1c18 55%, #152820 100%);
   border-color: rgba(66, 184, 131, 0.3);
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
 }
 
 .stack-flip__face--react::before,
