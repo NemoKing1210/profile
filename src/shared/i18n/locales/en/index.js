@@ -79,6 +79,7 @@ export default {
     panelTitle: "Achievements",
     listLabel: "Unlocked achievements",
     closeLabel: "Close",
+    unlockedAt: "Unlocked: {date}",
     progressCaption: "Progress",
     progressLabel: "{done} / {total}",
     items: {

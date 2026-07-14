@@ -79,6 +79,7 @@ export default {
     panelTitle: "成就",
     listLabel: "已解锁成就",
     closeLabel: "关闭",
+    unlockedAt: "解锁于：{date}",
     progressCaption: "进度",
     progressLabel: "{done} / {total}",
     items: {

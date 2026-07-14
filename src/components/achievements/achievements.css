@@ -266,6 +266,14 @@ html.achievements-drawer-lock body {
   color: var(--text-muted);
 }
 
+.achievements-drawer__item-date {
+  margin: 0.1rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
 .achievements-drawer__progress {
   display: grid;
   gap: 0.45rem;

@@ -79,6 +79,7 @@ export default {
     panelTitle: "Достижения",
     listLabel: "Полученные достижения",
     closeLabel: "Закрыть",
+    unlockedAt: "Получено: {date}",
     progressCaption: "Прогресс",
     progressLabel: "{done} / {total}",
     items: {

@@ -50,10 +50,27 @@ export function achievementsMethods() {
             title: copy.title || id,
             how: copy.how || "",
             unlockedAt,
+            unlockedAtLabel: this.formatAchievementUnlockedAt(unlockedAt),
             icon: this.icons?.[iconKey] || this.icons?.trophy || "",
           };
         }
       );
+    },
+
+    /**
+     * @param {number | undefined} timestamp
+     */
+    formatAchievementUnlockedAt(timestamp) {
+      if (typeof timestamp !== "number" || !Number.isFinite(timestamp)) {
+        return "";
+      }
+      const date = new Intl.DateTimeFormat(this.locale || "en", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }).format(new Date(timestamp));
+      const template = this.t.achievements?.unlockedAt || "{date}";
+      return template.replace("{date}", date);
     },
 
     toggleAchievementsPanel() {

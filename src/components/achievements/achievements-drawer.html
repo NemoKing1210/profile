@@ -60,6 +60,11 @@
           <div class="achievements-drawer__copy">
             <p class="achievements-drawer__item-title" x-text="item.title"></p>
             <p class="achievements-drawer__item-how" x-text="item.how"></p>
+            <p
+              class="achievements-drawer__item-date"
+              x-show="item.unlockedAtLabel"
+              x-text="item.unlockedAtLabel"
+            ></p>
           </div>
         </li>
       </template>

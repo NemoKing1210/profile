@@ -79,6 +79,7 @@ export default {
     panelTitle: "Logros",
     listLabel: "Logros desbloqueados",
     closeLabel: "Cerrar",
+    unlockedAt: "Desbloqueado: {date}",
     progressCaption: "Progreso",
     progressLabel: "{done} / {total}",
     items: {

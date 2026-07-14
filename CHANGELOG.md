@@ -10,6 +10,10 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+### Added
+
+- Achievement unlock date shown in the achievements drawer (localized)
+
 ### Fixed
 
 - Avatar speech bubble follows light theme tokens (no hard-coded Steam-dark fill)

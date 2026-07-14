@@ -79,6 +79,7 @@ export default {
     panelTitle: "Erfolge",
     listLabel: "Freigeschaltete Erfolge",
     closeLabel: "Schließen",
+    unlockedAt: "Freigeschaltet: {date}",
     progressCaption: "Fortschritt",
     progressLabel: "{done} / {total}",
     items: {

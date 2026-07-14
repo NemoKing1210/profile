@@ -79,6 +79,7 @@ export default {
     panelTitle: "実績",
     listLabel: "解除済みの実績",
     closeLabel: "閉じる",
+    unlockedAt: "解除日：{date}",
     progressCaption: "進捗",
     progressLabel: "{done} / {total}",
     items: {
