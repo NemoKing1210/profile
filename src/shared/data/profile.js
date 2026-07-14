@@ -20,6 +20,7 @@ const profile = {
   },
   avatar: "https://github.com/NemoKing1210.png",
   banner: `${base}assets/images/banner.svg`,
+  bannerLight: `${base}assets/images/banner-light.svg`,
   favicon: `${base}assets/images/favicon.svg`,
 
   /** Featured social hub (Linktree). */

@@ -9,33 +9,77 @@ body.theme-light .hero__veil {
     linear-gradient(
       90deg,
       var(--hero-veil) 0%,
-      color-mix(in srgb, var(--hero-veil) 78%, transparent) 45%,
-      color-mix(in srgb, var(--hero-veil) 52%, transparent) 100%
+      color-mix(in srgb, var(--hero-veil) 55%, transparent) 40%,
+      color-mix(in srgb, var(--hero-veil) 18%, transparent) 100%
     ),
     linear-gradient(
       0deg,
-      color-mix(in srgb, var(--hero-veil) 94%, transparent) 0%,
-      color-mix(in srgb, var(--hero-veil) 48%, transparent) 48%,
-      color-mix(in srgb, var(--hero-veil) 28%, transparent) 100%
+      color-mix(in srgb, var(--hero-veil) 88%, transparent) 0%,
+      color-mix(in srgb, var(--hero-veil) 28%, transparent) 52%,
+      transparent 78%
     );
+}
+
+body.theme-light .hero__name {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65), 0 2px 18px rgba(15, 30, 45, 0.08);
+}
+
+body.theme-light .hero__avatar {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.72),
+    0 14px 28px rgba(15, 30, 45, 0.14);
+}
+
+body.theme-light .meta-chip {
+  background: color-mix(in srgb, var(--bg-panel) 92%, var(--accent) 8%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 4px 12px rgba(15, 30, 45, 0.06);
+}
+
+body.theme-light .hero-ball {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 8px 18px rgba(15, 30, 45, 0.14),
+    inset 0 -6px 12px rgba(15, 30, 45, 0.08);
 }
 
 body.theme-light .hero-ai {
   background:
     radial-gradient(
       circle at 30% 24%,
-      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.7) 0%,
       transparent 45%
     ),
-    var(--bg-elevated);
+    var(--bg-panel);
   border-color: color-mix(in srgb, var(--accent) 40%, transparent);
   box-shadow:
     0 10px 22px rgba(15, 30, 45, 0.12),
-    inset 0 -5px 12px rgba(15, 30, 45, 0.06);
+    inset 0 -5px 12px rgba(15, 30, 45, 0.05);
 }
 
 body.theme-light .hero-ai--mono .hero-ai__img {
-  filter: drop-shadow(0 1px 1px rgba(15, 30, 45, 0.2));
+  filter: drop-shadow(0 1px 1px rgba(15, 30, 45, 0.18));
+}
+
+body.theme-light .hero-ai--avatar {
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 45%
+    ),
+    var(--bg-elevated);
+  box-shadow:
+    0 14px 28px rgba(15, 30, 45, 0.14),
+    inset 0 -6px 14px rgba(15, 30, 45, 0.06);
+}
+
+body.theme-light .hero-flag {
+  box-shadow:
+    0 10px 22px rgba(15, 30, 45, 0.12),
+    inset 0 0 0 1px rgba(15, 30, 45, 0.08),
+    inset 0 -5px 12px rgba(15, 30, 45, 0.05);
 }
 
 body.theme-light .about-badge {

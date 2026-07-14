@@ -112,12 +112,16 @@
       rgba(255, 255, 255, 0.14) 0%,
       transparent 45%
     ),
-    var(--bg-store);
+    var(--bg-elevated);
   border-color: color-mix(in srgb, var(--accent) 40%, transparent);
   box-shadow:
-    0 10px 22px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    inset 0 -5px 12px rgba(0, 0, 0, 0.22);
+    0 10px 22px color-mix(in srgb, var(--bg-deep) 35%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, #ffffff 12%, transparent),
+    inset 0 -5px 12px color-mix(in srgb, var(--bg-deep) 18%, transparent);
+  transition:
+    background var(--theme-duration) var(--ease),
+    border-color var(--theme-duration) var(--ease),
+    box-shadow var(--theme-duration) var(--ease);
 }
 
 .hero-flag__img {

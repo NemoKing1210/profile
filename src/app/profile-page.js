@@ -73,6 +73,7 @@ export function createProfilePage() {
       birthYear: profile.birthYear,
       avatar: profile.avatar,
       banner: profile.banner,
+      bannerLight: profile.bannerLight,
       favicon: profile.favicon,
       icons: heroicons,
       _stopConfetti: null,
