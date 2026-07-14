@@ -51,6 +51,7 @@ Update **both** when cutting a release.
 
 ### Fixed
 
+- Scroll reveal for panels fires earlier (lower threshold, positive bottom rootMargin)
 - Avatar hover tips no longer flash while scrolling (cursor passes over tipped elements)
 - Hero scroll blocked by Matter.js: remove `wheel` preventDefault; allow touch pan unless a body is grabbed
 - Hero physics simulation pauses when `hero__physics` is off-screen

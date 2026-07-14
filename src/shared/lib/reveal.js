@@ -23,7 +23,8 @@ export function initReveal(root, { immediate = false } = {}) {
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    // Expand below the fold so panels start fading in before they feel "late"
+    { threshold: 0, rootMargin: "0px 0px 120px 0px" }
   );
 
   targets.forEach((el) => {
