@@ -10,6 +10,10 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Avatar hover speech waits for the typewriter to finish, then holds ~1s before dismissing on mouseleave
+
 ### Added
 
 - Avatar tip after 90s on the site if no achievements yet («А ты знал, что на сайте есть достижения?» / i18n)

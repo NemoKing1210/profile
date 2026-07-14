@@ -8,6 +8,8 @@ import {
 
 const DEFAULT_HOLD_MS = 5000;
 const WORD_INTERVAL_MS = 118;
+/** Extra hold after typewriter finishes when hide was requested early (hover leave). */
+const HOVER_HIDE_DELAY_MS = 1000;
 /** After the last scroll event, wait this long before allowing hover tips again. */
 const SCROLL_IDLE_MS = 160;
 /** Stagger between catalog drops when the spawnCollector effect runs. */
@@ -40,6 +42,8 @@ export function heroSpeechState() {
     _physicsPlayTipCursor: 0,
     _avatarSpeechTimer: null,
     _avatarSpeechHideTimer: null,
+    /** Set when hide is requested while words are still typing out. */
+    _avatarSpeechHidePending: false,
     _avatarSpeechObserver: null,
     _pageScrolling: false,
     _speechScrollIdleTimer: null,
@@ -213,7 +217,7 @@ export function heroSpeechMethods() {
       // Scroll moves the cursor across tipped nodes → mouseleave. Don't let that
       // dismiss timed / event speeches (only sticky hover tips use holdMs: null).
       if (this._pageScrolling && this._avatarSpeechHoldMs != null) return;
-      this._clearSpeech();
+      this._requestSpeechHide();
     },
 
     /** @deprecated Prefer showSpeechI18n("hero.<key>") */
@@ -242,6 +246,7 @@ export function heroSpeechMethods() {
     _beginSpeech(full, holdMs, { identity } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
+      this._avatarSpeechHidePending = false;
       this._avatarSpeechHoldMs = holdMs;
       this.avatarSpeechAnchor = this.avatarInView ? "hero" : "brand";
       this.avatarSpeechOpen = true;
@@ -273,9 +278,34 @@ export function heroSpeechMethods() {
           this._stopAvatarSpeechTimer();
           this.avatarSpeechTyping = false;
           if (identity) this._speechHeard().add(identity);
+          if (this._avatarSpeechHidePending) {
+            this._scheduleHoverSpeechHide();
+            return;
+          }
           this._scheduleAvatarSpeechHide();
         }
       }, WORD_INTERVAL_MS);
+    },
+
+    /**
+     * Hide after the typewriter finishes (if still typing), then a short hold.
+     * Lets hover tips finish reading out when the pointer leaves early.
+     */
+    _requestSpeechHide() {
+      if (this.avatarSpeechTyping) {
+        this._avatarSpeechHidePending = true;
+        return;
+      }
+      this._scheduleHoverSpeechHide();
+    },
+
+    _scheduleHoverSpeechHide() {
+      this._avatarSpeechHidePending = false;
+      this._stopAvatarSpeechHideTimer();
+      this._avatarSpeechHideTimer = window.setTimeout(() => {
+        this._avatarSpeechHideTimer = null;
+        this._clearSpeech();
+      }, HOVER_HIDE_DELAY_MS);
     },
 
     _speechHeard() {
@@ -295,6 +325,7 @@ export function heroSpeechMethods() {
     _clearSpeech() {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
+      this._avatarSpeechHidePending = false;
       this.avatarSpeechOpen = false;
       this.avatarSpeechTyping = false;
       this._avatarSpeechI18nPath = null;
@@ -334,7 +365,7 @@ export function heroSpeechMethods() {
         if (!this._pageScrolling) {
           this._pageScrolling = true;
           if (this.avatarSpeechOpen && this._avatarSpeechHoldMs == null) {
-            this._clearSpeech();
+            this._requestSpeechHide();
           }
         }
 
