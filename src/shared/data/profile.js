@@ -63,6 +63,13 @@ const profile = {
     },
   ],
 
+  /** Technologies on the horizon — want to learn & try (copy in locales). */
+  stackExplore: [
+    { id: "svelte", tone: "hot", mark: "svelte" },
+    { id: "solid", tone: "accent", mark: "solid" },
+    { id: "go", tone: "green", mark: "go" },
+  ],
+
   /** Highlight badges in About (labels live in locales). */
   aboutBadges: [
     { id: "frontend", tone: "accent" },

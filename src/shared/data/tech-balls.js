@@ -6,6 +6,7 @@ import {
   siAlpinedotjs,
   siCss,
   siDotnet,
+  siGo,
   siHtml5,
   siJavascript,
   siLaravel,
@@ -14,6 +15,8 @@ import {
   siNuxt,
   siPhp,
   siReact,
+  siSolid,
+  siSvelte,
   siTypescript,
   siVite,
   siVuedotjs,
@@ -54,8 +57,13 @@ export const techBalls = [
   ball("alpine", siAlpinedotjs),
 ];
 
-/** Extra marks (not in hero spawn set) for stack UI. */
-const stackOnlyBalls = [ball("react", siReact)];
+/** Extra marks (not in hero spawn set) for stack UI / explore. */
+const stackOnlyBalls = [
+  ball("react", siReact),
+  ball("svelte", siSvelte),
+  ball("solid", siSolid, "SolidJS"),
+  ball("go", siGo, "Go"),
+];
 
 /** Lookup by id for stack chip spawns. */
 export const techBallById = Object.fromEntries(

@@ -27,6 +27,21 @@ export function stackViewMethods() {
         growBlurb: copy.growBlurb,
         growTagsLabel: copy.growTagsLabel,
         growTags: copy.growTags || [],
+        exploreLabel: copy.exploreLabel,
+        exploreBlurb: copy.exploreBlurb,
+        explore: (profile.stackExplore || []).map((item) => {
+          const local =
+            (copy.exploreItems || []).find((entry) => entry.id === item.id) || {};
+          const mark = techBallById[item.mark] || { path: "", fill: "#66c0f4" };
+          return {
+            id: item.id,
+            tone: item.tone || "accent",
+            badge: local.badge || "",
+            label: local.label || mark.label || item.id,
+            detail: local.detail || "",
+            mark,
+          };
+        }),
         favoriteFlip: {
           ariaLabel: flip.ariaLabel || "",
           front: {

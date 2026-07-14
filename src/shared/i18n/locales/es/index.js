@@ -220,6 +220,33 @@ export default {
     flipSpeech:
       "React gira bonito… pero prefiero vivir en Vue.",
     spawnTool: "Añadir {name} al hero",
+    exploreLabel: "Quiero aprender",
+    exploreBlurb:
+      "El stack no termina en lo que ya está en producción. Abajo: direcciones que me pican las manos probar: compararlas con el Vue familiar, sentir otro modelo de reactividad y mirar más allá del frontend.",
+    exploreSpeech: "En el horizonte: Svelte, Solid y Go. Las manos pican.",
+    exploreItems: [
+      {
+        id: "svelte",
+        badge: "Compilación, no runtime",
+        label: "Svelte & SvelteKit",
+        detail:
+          "Quiero probar un framework donde la reactividad nace en el build: menos magia en el navegador, markup más limpio, esa sensación de «lo escribes y simplemente funciona». SvelteKit junto a él — para montar una app de verdad, no solo componentes en el vacío.",
+      },
+      {
+        id: "solid",
+        badge: "Reactividad precisa",
+        label: "SolidJS",
+        detail:
+          "Intriga como alternativa al «virtual DOM para todo»: actualizaciones granulares, cercanas a signals. Merece entender en qué se diferencia de Vue — y qué de esa precisión conviene llevar al día a día.",
+      },
+      {
+        id: "go",
+        badge: "Simplicidad en producción",
+        label: "Go",
+        detail:
+          "Un lenguaje con sintaxis clara y una fuerte cultura de servicios: binarios rápidos, goroutines, concurrencia honesta. Quiero escribir backends que se despliegan «en un archivo» sin un runtime pesado — contraste con Node y PHP.",
+      },
+    ],
     growLabel: "En movimiento",
     growBlurb:
       "No me quedo en lo ya logrado: pruebo enfoques nuevos, leo, hago pet projects y llevo lo útil a producción — el stack está vivo, no es una lista congelada.",

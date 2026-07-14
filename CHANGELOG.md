@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.53.0] — 2026-07-14
+
+### Added
+
+- Stack “want to learn” subsection: Svelte & SvelteKit, SolidJS, and Go (with why-copy in all locales)
+
 ## [1.52.5] — 2026-07-14
 
 ### Added

@@ -213,6 +213,33 @@ export default {
     flipSpeech:
       "React 转得漂亮……但我更想活在 Vue 上。",
     spawnTool: "将 {name} 添加到 Hero",
+    exploreLabel: "想学想试",
+    exploreBlurb:
+      "技术栈不止于已经上线的部分。下面是想亲手摸一摸的方向：和熟悉的 Vue 对照，感受另一种响应式模型，并把视野伸到前端之外。",
+    exploreSpeech: "地平线上——Svelte、Solid 和 Go。手痒了。",
+    exploreItems: [
+      {
+        id: "svelte",
+        badge: "编译期，而非运行时",
+        label: "Svelte & SvelteKit",
+        detail:
+          "想亲手感受：响应式在构建期就「写死」的框架——浏览器里少些魔法、模板更干净、有种「写完就能跑」的顺畅。SvelteKit 跟着一起上：直接做完整应用，而不只是真空里的组件。",
+      },
+      {
+        id: "solid",
+        badge: "细粒度响应式",
+        label: "SolidJS",
+        detail:
+          "作为「凡事都靠虚拟 DOM」的对照很有意思：细粒度更新、贴近 signals。值得弄清 Solid 和 Vue 差在哪里——以及这种精确感有哪些能带回日常开发。",
+      },
+      {
+        id: "go",
+        badge: "生产里的简洁",
+        label: "Go",
+        detail:
+          "语法清晰、服务文化扎实：快的二进制、goroutine、坦诚的并发。想写能「一个文件」部署、不背沉重运行时的后端——相对 Node 与 PHP 的另一种味道。",
+      },
+    ],
     growLabel: "持续前进",
     growBlurb:
       "不满足于已有成果：尝试新方法、阅读、做 pet 项目，并把验证过的东西带到生产——技术栈是活的，不是一份冻结清单。",

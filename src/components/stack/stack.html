@@ -166,6 +166,51 @@
   </aside>
 
   <aside
+    class="stack-explore"
+    :aria-label="stack.exploreLabel"
+    @mouseenter="showSpeechI18n('stack.exploreSpeech', { holdMs: null })"
+    @mouseleave="hideSpeech()"
+    @focusin="showSpeechI18n('stack.exploreSpeech', { holdMs: null })"
+    @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
+  >
+    <header class="stack-explore__head">
+      <span
+        class="stack-explore__mark"
+        aria-hidden="true"
+        x-html="icons.sparkles"
+      ></span>
+      <div class="stack-explore__intro">
+        <p class="stack-explore__label" x-text="stack.exploreLabel"></p>
+        <p class="stack-explore__blurb" x-text="stack.exploreBlurb"></p>
+      </div>
+    </header>
+    <ul class="stack-explore__grid">
+      <template x-for="item in stack.explore" :key="item.id">
+        <li class="stack-explore-card" :class="`stack-explore-card--${item.tone}`">
+          <div class="stack-explore-card__top">
+            <button
+              type="button"
+              class="stack-explore-card__mark"
+              :style="`--mark-fill: ${item.mark.fill}; --mark-ink: ${item.mark.ink || '#fff'}`"
+              :aria-label="spawnTechLabel(item.mark)"
+              @click="spawnTechBall(item.mark)"
+            >
+              <svg class="stack-explore-card__mark-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path :d="item.mark.path" fill="currentColor"></path>
+              </svg>
+            </button>
+            <div class="stack-explore-card__titles">
+              <p class="stack-explore-card__badge" x-text="item.badge"></p>
+              <h3 class="stack-explore-card__label" x-text="item.label"></h3>
+            </div>
+          </div>
+          <p class="stack-explore-card__detail" x-text="item.detail"></p>
+        </li>
+      </template>
+    </ul>
+  </aside>
+
+  <aside
     class="stack-grow"
     :aria-label="stack.growLabel"
     @mouseenter="showSpeechI18n('stack.growSpeech', { holdMs: null })"
