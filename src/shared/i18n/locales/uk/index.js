@@ -88,6 +88,14 @@ export default {
     favoritesLabel: "Обране",
     openProfile: "Профіль",
     subgenresLabel: "Улюблені піджанри",
+    tips: {
+      fellowship:
+        "«Усе, що нам треба вирішити — що робити з тим часом, що нам відпущено.» — Гендальф",
+      twoTowers:
+        "«Я не можу нести це за тебе, але я можу нести тебе!» — Сем",
+      returnKing: "«Друзі мої, ви не вклоняєтеся нікому.» — Арагорн",
+      avengers: "«Месники… до бою!» — Капітан Америка",
+    },
     subgenres: {
       epicFantasy: "Епічне фентезі",
       superhero: "Супергероїка",
@@ -107,6 +115,8 @@ export default {
     tips: {
       programming: "Завдяки цій грі я полюбив програмування",
       pickaxe: "Пс — спробуй клікнути. У мене є для тебе кирка.",
+      atmosphere:
+        "Приголомшлива атмосфера і історія — постапокаліпсис, у якому все ще є люди.",
     },
     genres: {
       storyShooters: "Сюжетні шутери",
@@ -264,6 +274,10 @@ export default {
         "Десктопний застосунок на Electron + React для перевірки HTTP/SOCKS/MTProto проксі: батчі, групи, гео, експорт і синхронізація через GitHub Gist / Google Drive.",
       "youtube-bot-comments-filter":
         "Userscript для YouTube: ловить спам-ботів за патерном ніка й ховає або блюрить коментарі. Перемикач hide/blur прямо в шапці коментарів, без окремої сторінки налаштувань.",
+    },
+    speechTips: {
+      "youtube-bot-comments-filter":
+        "Трохи почистив для себе коментарі під улюбленими відео.",
     },
     highlights: {
       "steam-gamestatus": [

@@ -14,6 +14,42 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.51.0] — 2026-07-14
+
+### Added
+
+- Hover/focus on the youtube-bot-comments-filter project capsule shows avatar speech
+
+## [1.50.1] — 2026-07-14
+
+### Added
+
+- Avengers cover shows avatar speech on hover (“Avengers… assemble!”)
+
+## [1.50.0] — 2026-07-14
+
+### Added
+
+- LOTR Letterboxd covers show avatar speech on hover with a signature quote per film
+
+## [1.49.0] — 2026-07-14
+
+### Added
+
+- Metro Exodus cover shows avatar speech on hover/focus (atmosphere & story)
+
+## [1.48.2] — 2026-07-14
+
+### Removed
+
+- Left accent bar on avatar speech bubbles
+
+## [1.48.1] — 2026-07-14
+
+### Changed
+
+- Avatar speech bubble is more prominent (brighter copy, accent edge bar, stronger cyan rim light)
+
 ## [1.48.0] — 2026-07-14
 
 ### Added

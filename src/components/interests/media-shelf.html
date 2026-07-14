@@ -55,9 +55,9 @@
           :aria-describedby="{{itemVar}}.tip && {{itemVar}}.tipMode !== 'speech' ? ('game-tip-' + {{itemVar}}.id) : null"
           :data-mc-activate="{{itemVar}}.id === 'minecraft' || null"
           @click="{{itemVar}}.id === 'minecraft' && onMinecraftCoverClick($event)"
-          @mouseenter="{{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey && showSpeechI18n('backloggd.tips.' + {{itemVar}}.tipKey, { holdMs: null })"
+          @mouseenter="{{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey && showSpeechI18n('{{localeKey}}.tips.' + {{itemVar}}.tipKey, { holdMs: null })"
           @mouseleave="{{itemVar}}.tipMode === 'speech' && hideSpeech()"
-          @focusin="{{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey && showSpeechI18n('backloggd.tips.' + {{itemVar}}.tipKey, { holdMs: null })"
+          @focusin="{{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey && showSpeechI18n('{{localeKey}}.tips.' + {{itemVar}}.tipKey, { holdMs: null })"
           @focusout="{{itemVar}}.tipMode === 'speech' && hideSpeech()"
         >
           <span class="media-cover__frame">

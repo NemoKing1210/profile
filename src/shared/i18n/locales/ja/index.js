@@ -88,6 +88,14 @@ export default {
     favoritesLabel: "お気に入り",
     openProfile: "プロフィール",
     subgenresLabel: "好きなサブジャンル",
+    tips: {
+      fellowship:
+        "「私たちが決めるべきことは、与えられた時間をどう使うかだけだ」—— Gandalf",
+      twoTowers:
+        "「代わりに持つことはできない。でも、あなたを運ぶことはできる！」—— Sam",
+      returnKing: "「友よ、君たちは誰にも頭を下げなくていい」—— Aragorn",
+      avengers: "「アベンジャーズ……集結！」—— Captain America",
+    },
     subgenres: {
       epicFantasy: "叙事ファンタジー",
       superhero: "スーパーヒーロー",
@@ -107,6 +115,8 @@ export default {
     tips: {
       programming: "このゲームのおかげでプログラミングが好きになった",
       pickaxe: "こっそりクリックしてみて。ツルハシを用意してあるよ。",
+      atmosphere:
+        "圧倒的な雰囲気と物語——人間らしさが残るポストアポカリプス。",
     },
     genres: {
       storyShooters: "ストーリー重視のシューター",
@@ -264,6 +274,10 @@ export default {
         "Electron + React のデスクトップアプリ。HTTP/SOCKS/MTProto プロキシの一括チェック、グループ、地理情報、エクスポート、GitHub Gist / Google Drive 同期に対応。",
       "youtube-bot-comments-filter":
         "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
+    },
+    speechTips: {
+      "youtube-bot-comments-filter":
+        "好きな動画のコメントを自分用に少し整理しただけ。",
     },
     highlights: {
       "steam-gamestatus": [

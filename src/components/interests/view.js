@@ -22,6 +22,7 @@ export function interestsViewMethods() {
       const media = profile.media?.letterboxd || {};
       const copy = this.t.letterboxd || {};
       const subgenreLabels = copy.subgenres || {};
+      const tipCopy = copy.tips || {};
       return {
         href: media.href || "",
         name: media.name || "",
@@ -35,6 +36,9 @@ export function interestsViewMethods() {
                 year: null,
                 cover: "",
                 href: media.href || "",
+                tip: "",
+                tipKey: "",
+                tipMode: "tooltip",
               }
             : {
                 id: film.id,
@@ -42,6 +46,9 @@ export function interestsViewMethods() {
                 year: film.year || null,
                 cover: film.banner || film.cover || "",
                 href: film.href || media.href || "",
+                tip: film.tip ? tipCopy[film.tip] || "" : "",
+                tipKey: film.tip || "",
+                tipMode: film.tipMode === "speech" ? "speech" : "tooltip",
               }
         ),
         subgenres: (media.subgenres || []).map((item) => ({

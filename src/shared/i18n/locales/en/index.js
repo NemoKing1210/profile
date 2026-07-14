@@ -88,6 +88,14 @@ export default {
     favoritesLabel: "Favorites",
     openProfile: "Profile",
     subgenresLabel: "Favorite subgenres",
+    tips: {
+      fellowship:
+        "“All we have to decide is what to do with the time that is given to us.” — Gandalf",
+      twoTowers:
+        "“I can't carry it for you, but I can carry you!” — Sam",
+      returnKing: "“My friends, you bow to no one.” — Aragorn",
+      avengers: "“Avengers… assemble!” — Captain America",
+    },
     subgenres: {
       epicFantasy: "Epic fantasy",
       superhero: "Superhero",
@@ -107,6 +115,8 @@ export default {
     tips: {
       programming: "This game is why I fell in love with programming",
       pickaxe: "Psst — try clicking. I've got a pickaxe waiting for you.",
+      atmosphere:
+        "Stunning atmosphere and story — post-apocalypse that still feels human.",
     },
     genres: {
       storyShooters: "Story-driven shooters",
@@ -264,6 +274,10 @@ export default {
         "Electron + React desktop app for checking HTTP/SOCKS/MTProto proxies: batches, groups, geo hints, export, and sync via GitHub Gist / Google Drive.",
       "youtube-bot-comments-filter":
         "YouTube userscript: flags spam bots by nickname pattern and hides or blurs comments. Hide/blur toggle sits in the comments header — no separate settings page.",
+    },
+    speechTips: {
+      "youtube-bot-comments-filter":
+        "Tidied up the comments under my favorite videos a bit — just for myself.",
     },
     highlights: {
       "steam-gamestatus": [

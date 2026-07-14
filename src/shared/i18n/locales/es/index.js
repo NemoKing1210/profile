@@ -88,6 +88,14 @@ export default {
     favoritesLabel: "Favoritos",
     openProfile: "Perfil",
     subgenresLabel: "Subgéneros favoritos",
+    tips: {
+      fellowship:
+        "«Todo lo que debemos decidir es qué hacer con el tiempo que se nos ha dado.» — Gandalf",
+      twoTowers:
+        "«¡No puedo llevarlo por ti, pero puedo llevarte a ti!» — Sam",
+      returnKing: "«Amigos míos, no os inclináis ante nadie.» — Aragorn",
+      avengers: "«¡Vengadores… unidos!» — Capitán América",
+    },
     subgenres: {
       epicFantasy: "Fantasía épica",
       superhero: "Superhéroes",
@@ -107,6 +115,8 @@ export default {
     tips: {
       programming: "Gracias a este juego me enamoré de la programación",
       pickaxe: "Psst — prueba a hacer clic. Tengo un pico esperándote.",
+      atmosphere:
+        "Atmósfera e historia impresionantes — un apocalipsis que sigue sintiéndose humano.",
     },
     genres: {
       storyShooters: "Shooters con historia",
@@ -264,6 +274,10 @@ export default {
         "App de escritorio Electron + React para comprobar proxies HTTP/SOCKS/MTProto: lotes, grupos, geo, exportación y sync vía GitHub Gist / Google Drive.",
       "youtube-bot-comments-filter":
         "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios. Interruptor hide/blur en la cabecera de comentarios, sin página de ajustes aparte.",
+    },
+    speechTips: {
+      "youtube-bot-comments-filter":
+        "Limpié un poco los comentarios bajo mis vídeos favoritos — para mí.",
     },
     highlights: {
       "steam-gamestatus": [

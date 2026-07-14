@@ -86,6 +86,12 @@ export default {
     favoritesLabel: "最爱",
     openProfile: "主页",
     subgenresLabel: "喜欢的子类型",
+    tips: {
+      fellowship: "“我们要决定的，只是如何使用我们所得到的时间。”——甘道夫",
+      twoTowers: "“我不能替你扛起它，但我可以扛起你！”——山姆",
+      returnKing: "“我的朋友们，你们不必向任何人屈膝。”——阿拉贡",
+      avengers: "“复仇者……集合！”——美国队长",
+    },
     subgenres: {
       epicFantasy: "史诗奇幻",
       superhero: "超级英雄",
@@ -105,6 +111,7 @@ export default {
     tips: {
       programming: "正是这款游戏让我爱上了编程",
       pickaxe: "嘘——试着点一下。我有镐在等你。",
+      atmosphere: "惊人的氛围与故事——末世里依然能感到人性。",
     },
     genres: {
       storyShooters: "剧情射击",
@@ -255,6 +262,10 @@ export default {
         "基于 Electron + React 的桌面应用，用于检测 HTTP/SOCKS/MTProto 代理：批量、分组、地理信息、导出，以及通过 GitHub Gist / Google Drive 同步。",
       "youtube-bot-comments-filter":
         "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。hide/blur 切换就在评论区标题栏，无需单独设置页。",
+    },
+    speechTips: {
+      "youtube-bot-comments-filter":
+        "稍微给自己清理了一下喜欢视频下的评论。",
     },
     highlights: {
       "steam-gamestatus": [

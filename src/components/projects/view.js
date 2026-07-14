@@ -12,6 +12,9 @@ export function projectsViewMethods() {
         kindLabel: copy.kinds?.[project.kind] || project.kind,
         statusLabel: copy.status?.[project.status] || project.status,
         mark: projectMarks[project.mark] || projectMarks.steam,
+        speechI18n: copy.speechTips?.[project.id]
+          ? `projects.speechTips.${project.id}`
+          : null,
       }));
     },
 
