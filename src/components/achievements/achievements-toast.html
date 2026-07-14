@@ -1,0 +1,20 @@
+<div
+  class="achievement-toast"
+  x-show="achievementToastOpen && achievementToast"
+  x-cloak
+  role="status"
+  aria-live="polite"
+  @click="openAchievementsFromToast()"
+>
+  <div class="achievement-toast__icon" aria-hidden="true">
+    <span x-html="achievementToast?.icon"></span>
+  </div>
+  <div class="achievement-toast__copy">
+    <p
+      class="achievement-toast__eyebrow"
+      x-text="t.achievements.toastEyebrow"
+    ></p>
+    <p class="achievement-toast__title" x-text="achievementToast?.title"></p>
+    <p class="achievement-toast__body" x-text="achievementToast?.how"></p>
+  </div>
+</div>

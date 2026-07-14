@@ -103,11 +103,17 @@ export default {
     progressCaption: "Progreso",
     progressLabel: "{done} / {total}",
     effectToggleLabel: "Efecto del logro",
+    toastEyebrow: "Logro desbloqueado",
     items: {
       lightTheme: {
         title: "Tema blanco",
         how: "Llega al ciclo 99 del feed infinito y abre el regalo.",
         effect: "Permite cambiar el perfil al tema claro",
+      },
+      activitySnake: {
+        title: "Cazador de commits",
+        how: "Llena la cuadrícula de actividad y cómete todas las celdas con la serpiente.",
+        effect: "Título honorífico. El gráfico de GitHub está nervioso.",
       },
     },
   },
@@ -240,7 +246,7 @@ export default {
       label: "Actividad",
       eyebrow: "del último año",
       summary: "{count} «contribuciones» en el último año",
-      summaryDone: "Todo al máximo. Hora de respirar hasta el lunes.",
+      summaryDone: "Uf… Otra vez a currar noches enteras…",
       less: "Menos",
       more: "Más",
       chartAria: "Mapa de actividad del último año: {count} contribuciones",
@@ -249,6 +255,13 @@ export default {
         "Mapa de contribuciones. No preguntes qué hay dentro: la mitad son “fix fix”.",
       startSpeech:
         "¡Ups, las celdas despertaron! Alguien vuelve a hacer commit de “fix fix”…",
+      playHoverTip: "¿Me ayudas a actualizar la actividad?",
+      playStartSpeech:
+        "Serpiente en la cuadrícula. Flechas / WASD / swipe — Esc para salir.",
+      playWinSpeech:
+        "Actividad actualizada… bueno, técnicamente comida. GitHub no sabe hacer eso.",
+      playSummary: "Serpiente · cómete todas las celdas",
+      playHint: "Flechas / WASD / swipe · Esc",
       days: { mon: "Lun", wed: "Mié", fri: "Vie" },
       tips: [
         "Arreglé un typo en el README",

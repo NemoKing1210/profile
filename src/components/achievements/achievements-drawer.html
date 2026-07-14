@@ -83,13 +83,15 @@
               <div class="achievements-drawer__item-extra">
                 <p
                   class="achievements-drawer__tip"
+                  x-show="item.effect"
                   x-text="item.effect"
                 ></p>
                 <button
                   type="button"
                   class="achievements-drawer__switch"
                   role="switch"
-                  :tabindex="achievementTipId === item.id ? 0 : -1"
+                  x-show="item.hasEffect"
+                  :tabindex="achievementTipId === item.id && item.hasEffect ? 0 : -1"
                   :aria-checked="item.effectEnabled"
                   :aria-label="t.achievements.effectToggleLabel"
                   :title="t.achievements.effectToggleLabel"

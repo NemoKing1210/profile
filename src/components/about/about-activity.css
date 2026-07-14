@@ -10,7 +10,29 @@
   max-width: 100%;
   transition:
     background var(--theme-duration) var(--ease),
-    border-color var(--theme-duration) var(--ease);
+    border-color var(--theme-duration) var(--ease),
+    box-shadow var(--theme-duration) var(--ease);
+}
+
+.about-activity--playable {
+  cursor: pointer;
+}
+
+.about-activity--playing {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border-subtle));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent-green) 18%, transparent);
+}
+
+.about-activity--playing .about-activity__chart {
+  touch-action: none;
+  outline: none;
+}
+
+.about-activity--playing .about-activity__cell {
+  cursor: default;
+  pointer-events: none;
 }
 
 .about-activity__head {
@@ -167,6 +189,21 @@ body.theme-light .about-activity__cell--0 {
   background: var(--accent-green);
   border-color: rgba(198, 232, 64, 0.85);
   box-shadow: 0 0 0 1px rgba(164, 208, 7, 0.18);
+}
+
+.about-activity__cell--snake {
+  background: color-mix(in srgb, var(--accent) 55%, var(--accent-green));
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.about-activity__cell--snake-head {
+  background: var(--accent);
+  border-color: color-mix(in srgb, var(--accent-hot) 80%, var(--accent));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent),
+    0 0 10px 2px color-mix(in srgb, var(--accent) 55%, transparent);
+  z-index: 3;
 }
 
 .about-activity__cell--bounce {

@@ -8,12 +8,16 @@ export const ACHIEVEMENTS_STORAGE_KEY = "profile:achievements";
 const LEGACY_LIGHT_THEME_KEY = "profile:light-theme-unlocked";
 
 /** Stable ids — keep in sync with locale `achievements.items`. */
-export const ACHIEVEMENT_IDS = Object.freeze(["lightTheme"]);
+export const ACHIEVEMENT_IDS = Object.freeze(["lightTheme", "activitySnake"]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
 export const ACHIEVEMENT_ICONS = Object.freeze({
   lightTheme: "sun",
+  activitySnake: "puzzlePiece",
 });
+
+/** Achievements with a toggleable gameplay effect in the drawer. */
+export const ACHIEVEMENT_EFFECT_IDS = Object.freeze(new Set(["lightTheme"]));
 
 /**
  * @typedef {{ unlockedAt: number, effectEnabled?: boolean }} AchievementUnlock
@@ -96,6 +100,50 @@ export function unlockAchievement(id) {
   map[id] = { unlockedAt: Date.now(), effectEnabled: true };
   writeAchievementUnlocks(map);
   return true;
+}
+
+/**
+ * @param {string} id
+ * @returns {boolean} true when it was unlocked and is now locked
+ */
+export function lockAchievement(id) {
+  if (!ACHIEVEMENT_IDS.includes(id)) return false;
+
+  const map = readAchievementUnlocks();
+  if (!map[id]) return false;
+
+  delete map[id];
+  writeAchievementUnlocks(map);
+  return true;
+}
+
+/** Wipe all persisted unlocks. */
+export function clearAllAchievements() {
+  writeAchievementUnlocks({});
+}
+
+/**
+ * Resolve catalog id from 1-based index, 0-based index, or id string.
+ * @param {string | number} ref
+ * @returns {string | null}
+ */
+export function resolveAchievementRef(ref) {
+  if (typeof ref === "number" && Number.isFinite(ref)) {
+    const asOneBased = ACHIEVEMENT_IDS[ref - 1];
+    if (asOneBased) return asOneBased;
+    const asZeroBased = ACHIEVEMENT_IDS[ref];
+    if (asZeroBased && ref >= 0) return asZeroBased;
+    return null;
+  }
+
+  const raw = String(ref ?? "").trim();
+  if (!raw) return null;
+  if (ACHIEVEMENT_IDS.includes(raw)) return raw;
+
+  const asNum = Number(raw);
+  if (Number.isInteger(asNum)) return resolveAchievementRef(asNum);
+
+  return null;
 }
 
 /**

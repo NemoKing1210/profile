@@ -103,11 +103,17 @@ export default {
     progressCaption: "Fortschritt",
     progressLabel: "{done} / {total}",
     effectToggleLabel: "Erfolgseffekt",
+    toastEyebrow: "Erfolg freigeschaltet",
     items: {
       lightTheme: {
         title: "Weißes Theme",
         how: "Erreiche Schleife 99 des endlosen Feeds und öffne das Geschenk.",
         effect: "Ermöglicht das Umschalten auf das helle Profil-Theme",
+      },
+      activitySnake: {
+        title: "Commit-Jäger",
+        how: "Fülle das Aktivitätsraster und friss jede Zelle mit der Schlange.",
+        effect: "Ehrenhaft. Der GitHub-Beitragsgraph ist nervös.",
       },
     },
   },
@@ -240,7 +246,7 @@ export default {
       label: "Aktivität",
       eyebrow: "im letzten Jahr",
       summary: "{count} «Beiträge» im letzten Jahr",
-      summaryDone: "Überall Maximum. Durchatmen bis Montag.",
+      summaryDone: "Sehuf… Wieder Nächte durchackern…",
       less: "Weniger",
       more: "Mehr",
       chartAria: "Aktivitätskarte für das letzte Jahr: {count} Beiträge",
@@ -249,6 +255,13 @@ export default {
         "Beitrags-Karte. Frag nicht, was drin steckt — die Hälfte heißt „fix fix“.",
       startSpeech:
         "Hoppla, die Kästchen sind wach! Irgendwer committed wieder „fix fix“…",
+      playHoverTip: "Hilfst du, die Aktivität zu aktualisieren?",
+      playStartSpeech:
+        "Schlange auf dem Raster. Pfeile / WASD / Swipe — Esc zum Beenden.",
+      playWinSpeech:
+        "Aktivität aktualisiert… naja, technisch aufgegessen. GitHub kann das nicht.",
+      playSummary: "Schlange · friss alle Zellen",
+      playHint: "Pfeile / WASD / Swipe · Esc",
       days: { mon: "Mo", wed: "Mi", fri: "Fr" },
       tips: [
         "Tippfehler in der README gefixt",

@@ -103,11 +103,17 @@ export default {
     progressCaption: "Progress",
     progressLabel: "{done} / {total}",
     effectToggleLabel: "Achievement effect",
+    toastEyebrow: "Achievement unlocked",
     items: {
       lightTheme: {
         title: "White Theme",
         how: "Reach loop 99 of the infinite feed and open the gift.",
         effect: "Lets you switch the profile to the light theme",
+      },
+      activitySnake: {
+        title: "Commit Hunter",
+        how: "Fill the activity grid, then eat every square with the snake.",
+        effect: "Honorary title. The GitHub contribution graph is nervous.",
       },
     },
   },
@@ -240,7 +246,7 @@ export default {
       label: "Activity",
       eyebrow: "over the last year",
       summary: "{count} contributions in the last year",
-      summaryDone: "Every square maxed out. Touch grass until Monday.",
+      summaryDone: "Sigh… Back to grinding through the nights again…",
       less: "Less",
       more: "More",
       chartAria: "Activity map for the last year: {count} contributions",
@@ -249,6 +255,12 @@ export default {
         "Contribution map. Don’t ask what’s in those commits — half are “fix fix”.",
       startSpeech:
         "Whoa, the squares woke up! Someone’s shipping “fix fix” again…",
+      playHoverTip: "Want to help refresh the activity?",
+      playStartSpeech: "Snake’s on the grid. Arrows / WASD / swipe — Esc to quit.",
+      playWinSpeech:
+        "Activity refreshed… well, technically eaten. GitHub can’t do that.",
+      playSummary: "Snake · eat every square",
+      playHint: "Arrows / WASD / swipe · Esc",
       days: { mon: "Mon", wed: "Wed", fri: "Fri" },
       tips: [
         "Fixed a typo in the README",

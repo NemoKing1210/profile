@@ -17,6 +17,12 @@ Update **both** when cutting a release.
 - Avatar speech on Activity block hover and when the grid starts rising
 - Bounce + green/cyan glow flash on Activity cells when their level updates (WAAPI + visible overflow)
 - Activity grid fill accelerates over time (shorter gaps + larger batches)
+- Activity snake mini-game after the grid is maxed (hover prompt, WASD/arrows/swipe, win speech)
+- Activity “all maxed” summary copy reframed as another overnight grind
+- Overnight-grind activity summary only after beating the snake mini-game
+- Achievement «Commit Hunter» for clearing the activity snake mini-game
+- Shared Steam-style achievement unlock toast + `window.achievement` console debug API
+- Achievement toast animated gold glow / sheen on unlock (icon stays blue)
 - Achievement unlock date shown in the achievements drawer (localized)
 - Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 - Per-achievement effect panel (slide-down tip + switch; hover on desktop, tap on mobile); disabling White Theme locks the theme toggle again

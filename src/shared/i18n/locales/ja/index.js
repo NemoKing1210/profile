@@ -102,11 +102,17 @@ export default {
     progressCaption: "進捗",
     progressLabel: "{done} / {total}",
     effectToggleLabel: "実績効果",
+    toastEyebrow: "実績解除",
     items: {
       lightTheme: {
         title: "ホワイトテーマ",
         how: "無限フィードの 99 周目に到達し、ギフトを開ける。",
         effect: "プロフィールのライトテーマを切り替えられる",
+      },
+      activitySnake: {
+        title: "コミットハンター",
+        how: "アクティビティを埋め尽くし、スネークですべてのマスを食べる。",
+        effect: "名誉称号。GitHub の草が動揺している。",
       },
     },
   },
@@ -239,7 +245,7 @@ export default {
       label: "アクティビティ",
       eyebrow: "過去1年",
       summary: "過去1年で {count} 件の「コントリビューション」",
-      summaryDone: "全部マックス。月曜まで息を整えよう。",
+      summaryDone: "はぁ…また夜通し作業か…",
       less: "少",
       more: "多",
       chartAria: "年間アクティビティ: {count} 件",
@@ -248,6 +254,13 @@ export default {
         "コントリビューション地図。中身は聞くもんじゃない——半分は fix fix だよ。",
       startSpeech:
         "おっと、マスが動いた！また誰かが「fix fix」をコミットしてる…",
+      playHoverTip: "アクティビティの更新、手伝ってくれる？",
+      playStartSpeech:
+        "スネーク登場。矢印 / WASD / スワイプ — Esc で終了。",
+      playWinSpeech:
+        "アクティビティ更新完了…正確には全部食べた。GitHub には無理だね。",
+      playSummary: "スネーク · マスを全部食べよう",
+      playHint: "矢印 / WASD / スワイプ · Esc",
       days: { mon: "月", wed: "水", fri: "金" },
       tips: [
         "README の typo を修正",

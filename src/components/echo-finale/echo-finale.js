@@ -10,7 +10,6 @@ export function echoFinaleState() {
   return {
     echoFinaleOpen: false,
     echoFinaleGiftOpened: false,
-    echoFinaleAchievementOpen: false,
     echoFinaleJokeVisible: false,
     echoFinaleRestartVisible: false,
     lightThemeUnlocked: isLightThemeUnlocked(),
@@ -30,7 +29,6 @@ export function echoFinaleMethods() {
       if (this.echoFinaleOpen) return;
       this.echoFinaleOpen = true;
       this.echoFinaleGiftOpened = false;
-      this.echoFinaleAchievementOpen = false;
       this.echoFinaleJokeVisible = false;
       this.echoFinaleRestartVisible = false;
       document.documentElement.classList.add("echo-finale-lock");
@@ -42,11 +40,6 @@ export function echoFinaleMethods() {
       this.echoFinaleGiftOpened = true;
       this.unlockAchievementRecord?.("lightTheme");
       this.lightThemeUnlocked = true;
-
-      // Let the gift “open” settle, then launch the Steam-style toast.
-      window.requestAnimationFrame(() => {
-        this.echoFinaleAchievementOpen = true;
-      });
 
       this._clearEchoFinaleTimers();
 

@@ -103,11 +103,17 @@ export default {
     progressCaption: "Прогресс",
     progressLabel: "{done} / {total}",
     effectToggleLabel: "Эффект достижения",
+    toastEyebrow: "Достижение получено",
     items: {
       lightTheme: {
         title: "Белая тема",
         how: "Дойди до 99-го круга бесконечной ленты и открой подарок.",
         effect: "Позволяет переключать светлую тему профиля",
+      },
+      activitySnake: {
+        title: "Охотник за коммитами",
+        how: "Заполни сетку активности и съешь все клетки змейкой.",
+        effect: "Почётное звание. GitHub contribution graph в тревоге.",
       },
     },
   },
@@ -240,7 +246,7 @@ export default {
       label: "Активность",
       eyebrow: "за последний год",
       summary: "{count} «вкладов» за последний год",
-      summaryDone: "Везде максимум. Можно выдохнуть до понедельника.",
+      summaryDone: "Эх… Теперь опять работать ночами напролёт…",
       less: "Меньше",
       more: "Больше",
       chartAria: "Карта активности за год: {count} вкладов",
@@ -249,6 +255,12 @@ export default {
         "Карта «вкладов». Не спрашивай, что именно внесено — там половина fix fix.",
       startSpeech:
         "Ого, клетки ожили! Кто-то снова коммитит «fix fix»…",
+      playHoverTip: "Поможешь обновить активность?",
+      playStartSpeech: "Ок, змейка на поле. Стрелки / WASD / свайп — Esc выход.",
+      playWinSpeech:
+        "Активность обновлена… ну, технически съедена. GitHub так не умеет.",
+      playSummary: "Змейка · съешь все клетки",
+      playHint: "Стрелки / WASD / свайп · Esc",
       days: { mon: "Пн", wed: "Ср", fri: "Пт" },
       tips: [
         "Поправил опечатку в README",

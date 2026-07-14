@@ -121,6 +121,7 @@ export function createProfilePage() {
           this._bindScrollTop();
           this._bindNavSpy();
           this.initAboutActivity();
+          this.bindAchievementDebugApi?.();
         });
       },
 
@@ -144,6 +145,7 @@ export function createProfilePage() {
         this.destroyEchoFinale();
         this.destroyAboutActivity();
         this.destroyMinecraftMine();
+        this.destroyAchievements?.();
       },
     },
     {

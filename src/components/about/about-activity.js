@@ -7,6 +7,24 @@ const ACTIVITY_TICK_START_MS = 2_400;
 const ACTIVITY_TICK_FLOOR_MS = 90;
 const ACTIVITY_TICK_DECAY = 0.86;
 const ACTIVITY_BOUNCE_MS = 520;
+const ACTIVITY_SNAKE_LENGTH = 4;
+const ACTIVITY_SNAKE_TICK_MS = 130;
+const ACTIVITY_SNAKE_TICK_SLOW_MS = 200;
+const ACTIVITY_SWIPE_THRESHOLD_PX = 24;
+
+const ACTIVITY_DIR = {
+  right: { week: 1, day: 0 },
+  left: { week: -1, day: 0 },
+  down: { week: 0, day: 1 },
+  up: { week: 0, day: -1 },
+};
+
+const ACTIVITY_DIR_OPPOSITE = {
+  right: "left",
+  left: "right",
+  up: "down",
+  down: "up",
+};
 
 const ACTIVITY_BOUNCE_KEYFRAMES = [
   {
@@ -48,6 +66,11 @@ export function aboutActivityState() {
     activityMonths: [],
     activityRunning: false,
     activityComplete: false,
+    activityPlaying: false,
+    activitySnakeWon: false,
+    activitySnake: [],
+    activitySnakeDir: "right",
+    activitySnakeNextDir: "right",
     activityTipOpen: false,
     activityTipDate: "",
     activityTipText: "",
@@ -56,10 +79,16 @@ export function aboutActivityState() {
     _activityTipCellId: null,
     _activityTimer: null,
     _activityStartTimer: null,
+    _activitySnakeTimer: null,
     _activityObserver: null,
     _activityInView: false,
     _activityStartSpeechDone: false,
     _activityPace: 0,
+    _activitySwipe: null,
+    _onActivitySnakeKey: null,
+    _onActivitySwipeStart: null,
+    _onActivitySwipeMove: null,
+    _onActivitySwipeEnd: null,
   };
 }
 
@@ -74,21 +103,41 @@ export function aboutActivityMethods() {
 
     get activitySummary() {
       const copy = this.t.about?.activity || {};
-      const template = this.activityComplete
-        ? copy.summaryDone || copy.summary || "{count}"
-        : copy.summary || "{count}";
+      if (this.activityPlaying) {
+        return copy.playSummary || copy.playHint || "";
+      }
+      if (this.activitySnakeWon) {
+        return copy.summaryDone || copy.summary || "{count}";
+      }
+      const template = copy.summary || "{count}";
       return template.replace(
         "{count}",
         String(this.activityContributionCount)
       );
     },
 
+    get activityHoverSpeechPath() {
+      if (this.activityPlaying) return null;
+      if (this.activityComplete) return "about.activity.playHoverTip";
+      return "about.activity.hoverTip";
+    },
+
     get activityChartAria() {
       const copy = this.t.about?.activity || {};
+      if (this.activityPlaying) {
+        return copy.playHint || copy.playSummary || "";
+      }
       return (copy.chartAria || "").replace(
         "{count}",
         String(this.activityContributionCount)
       );
+    },
+
+    activitySnakeRole(cellId) {
+      if (!this.activityPlaying || !this.activitySnake?.length) return null;
+      if (this.activitySnake[0] === cellId) return "head";
+      if (this.activitySnake.includes(cellId)) return "body";
+      return null;
     },
 
     activityCellTip(cell) {
@@ -110,8 +159,29 @@ export function aboutActivityMethods() {
       };
     },
 
+    showActivityHoverSpeech() {
+      const path = this.activityHoverSpeechPath;
+      if (!path) return;
+      this.showSpeechI18n(path, { holdMs: null });
+    },
+
+    hideActivityHoverSpeech() {
+      const path = this._avatarSpeechI18nPath;
+      if (
+        path === "about.activity.hoverTip" ||
+        path === "about.activity.playHoverTip"
+      ) {
+        this.hideSpeech?.();
+      }
+    },
+
+    onActivityBlockClick() {
+      if (!this.activityComplete || this.activityPlaying) return;
+      this.startActivitySnake();
+    },
+
     showActivityTip(event, cell) {
-      if (!cell || !event?.currentTarget) return;
+      if (this.activityPlaying || !cell || !event?.currentTarget) return;
 
       const anchor = event.currentTarget;
       const parts = this.activityCellTipParts(cell);
@@ -173,6 +243,7 @@ export function aboutActivityMethods() {
 
     destroyAboutActivity() {
       this.hideActivityTip();
+      this.stopActivitySnake({ won: false });
       this._stopActivityAnimation();
       this._activityInView = false;
       if (this._onActivityScroll) {
@@ -186,8 +257,10 @@ export function aboutActivityMethods() {
     },
 
     _resetActivityGrid() {
+      this.stopActivitySnake({ won: false });
       this.activityComplete = false;
       this.activityRunning = false;
+      this.activitySnakeWon = false;
       this._activityStartSpeechDone = false;
       this._activityPace = 0;
       this.activityCells = buildActivityCells();
@@ -239,6 +312,9 @@ export function aboutActivityMethods() {
       this._activityInView = false;
       this._stopActivityStartTimer();
       this._stopActivityTimer();
+      if (this.activityPlaying) {
+        this.stopActivitySnake({ won: false });
+      }
       this._hideActivityAvatarSpeech();
     },
 
@@ -246,7 +322,9 @@ export function aboutActivityMethods() {
       const path = this._avatarSpeechI18nPath;
       if (
         path === "about.activity.startSpeech" ||
-        path === "about.activity.hoverTip"
+        path === "about.activity.hoverTip" ||
+        path === "about.activity.playHoverTip" ||
+        path === "about.activity.playStartSpeech"
       ) {
         this.hideSpeech?.();
       }
@@ -425,7 +503,253 @@ export function aboutActivityMethods() {
         this._activityStartTimer = null;
       }
     },
+
+    startActivitySnake() {
+      if (!this.activityComplete || this.activityPlaying) return;
+      if (!this.activityCells.some((cell) => cell.level > 0)) return;
+
+      this.hideActivityTip();
+      this.hideActivityHoverSpeech();
+      this._stopActivityAnimation();
+
+      const centerWeek = Math.floor(ACTIVITY_WEEKS / 2);
+      const centerDay = Math.floor(ACTIVITY_DAYS / 2);
+      const snake = [];
+      for (let i = 0; i < ACTIVITY_SNAKE_LENGTH; i += 1) {
+        const week = wrapIndex(centerWeek - i, ACTIVITY_WEEKS);
+        snake.push(cellIdFromWeekDay(week, centerDay));
+      }
+
+      this.activitySnake = snake;
+      this.activitySnakeDir = "right";
+      this.activitySnakeNextDir = "right";
+      this.activityPlaying = true;
+
+      this._bindActivitySnakeControls();
+      this.showSpeechI18n("about.activity.playStartSpeech");
+      this._scheduleActivitySnakeTick();
+
+      this.$nextTick(() => {
+        const chart =
+          this.$refs.aboutActivity?.querySelector?.(".about-activity__chart");
+        chart?.focus?.({ preventScroll: true });
+      });
+    },
+
+    stopActivitySnake({ won = false } = {}) {
+      this._stopActivitySnakeTimer();
+      this._unbindActivitySnakeControls();
+      this.activityPlaying = false;
+      this.activitySnake = [];
+      this.activitySnakeDir = "right";
+      this.activitySnakeNextDir = "right";
+      this._activitySwipe = null;
+
+      if (won) {
+        this.activitySnakeWon = true;
+        this.unlockAchievementRecord?.("activitySnake");
+        this.showSpeechI18n("about.activity.playWinSpeech");
+      }
+    },
+
+    _scheduleActivitySnakeTick() {
+      if (!this.activityPlaying) return;
+      this._stopActivitySnakeTimer();
+      const delay = prefersReducedMotion()
+        ? ACTIVITY_SNAKE_TICK_SLOW_MS
+        : ACTIVITY_SNAKE_TICK_MS;
+      this._activitySnakeTimer = window.setTimeout(() => {
+        this._activitySnakeTimer = null;
+        this._tickActivitySnake();
+      }, delay);
+    },
+
+    _stopActivitySnakeTimer() {
+      if (this._activitySnakeTimer != null) {
+        window.clearTimeout(this._activitySnakeTimer);
+        this._activitySnakeTimer = null;
+      }
+    },
+
+    _tickActivitySnake() {
+      if (!this.activityPlaying) return;
+
+      const nextDir = this.activitySnakeNextDir;
+      if (ACTIVITY_DIR_OPPOSITE[this.activitySnakeDir] !== nextDir) {
+        this.activitySnakeDir = nextDir;
+      }
+
+      const dir = ACTIVITY_DIR[this.activitySnakeDir];
+      const headId = this.activitySnake[0];
+      const headWeek = Math.floor(headId / ACTIVITY_DAYS);
+      const headDay = headId % ACTIVITY_DAYS;
+      const week = wrapIndex(headWeek + dir.week, ACTIVITY_WEEKS);
+      const day = wrapIndex(headDay + dir.day, ACTIVITY_DAYS);
+      const newHeadId = cellIdFromWeekDay(week, day);
+
+      const nextSnake = [newHeadId, ...this.activitySnake];
+      if (nextSnake.length > ACTIVITY_SNAKE_LENGTH) {
+        nextSnake.length = ACTIVITY_SNAKE_LENGTH;
+      }
+      this.activitySnake = nextSnake;
+
+      const cells = this.activityCells;
+      const cellIndex = cells.findIndex((cell) => cell.id === newHeadId);
+      let ate = false;
+      if (cellIndex >= 0 && cells[cellIndex].level > 0) {
+        const next = cells.slice();
+        next[cellIndex] = { ...next[cellIndex], level: 0 };
+        this.activityCells = next;
+        ate = true;
+        this.$nextTick(() => this._bounceActivityCells([newHeadId]));
+      }
+
+      const remaining = this.activityCells.some((cell) => cell.level > 0);
+      if (!remaining) {
+        this.stopActivitySnake({ won: true });
+        return;
+      }
+
+      this._scheduleActivitySnakeTick();
+    },
+
+    _queueActivitySnakeDir(dir) {
+      if (!this.activityPlaying || !ACTIVITY_DIR[dir]) return;
+      if (ACTIVITY_DIR_OPPOSITE[this.activitySnakeDir] === dir) return;
+      this.activitySnakeNextDir = dir;
+    },
+
+    _bindActivitySnakeControls() {
+      this._unbindActivitySnakeControls();
+
+      this._onActivitySnakeKey = (event) => {
+        if (!this.activityPlaying) return;
+        const tag = event.target?.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || event.target?.isContentEditable) {
+          return;
+        }
+
+        const key = event.key;
+        if (key === "Escape") {
+          event.preventDefault();
+          this.stopActivitySnake({ won: false });
+          return;
+        }
+
+        const dir = dirFromKey(key);
+        if (!dir) return;
+        event.preventDefault();
+        this._queueActivitySnakeDir(dir);
+      };
+
+      window.addEventListener("keydown", this._onActivitySnakeKey);
+
+      const chart =
+        this.$refs.aboutActivity?.querySelector?.(".about-activity__chart");
+      if (!chart) return;
+
+      this._onActivitySwipeStart = (event) => {
+        if (!this.activityPlaying || event.touches?.length !== 1) return;
+        const touch = event.touches[0];
+        this._activitySwipe = {
+          x: touch.clientX,
+          y: touch.clientY,
+          handled: false,
+        };
+      };
+
+      this._onActivitySwipeMove = (event) => {
+        if (!this.activityPlaying || !this._activitySwipe || this._activitySwipe.handled) {
+          return;
+        }
+        if (event.touches?.length !== 1) return;
+        const touch = event.touches[0];
+        const dx = touch.clientX - this._activitySwipe.x;
+        const dy = touch.clientY - this._activitySwipe.y;
+        if (
+          Math.abs(dx) < ACTIVITY_SWIPE_THRESHOLD_PX &&
+          Math.abs(dy) < ACTIVITY_SWIPE_THRESHOLD_PX
+        ) {
+          return;
+        }
+        event.preventDefault();
+        this._activitySwipe.handled = true;
+        if (Math.abs(dx) >= Math.abs(dy)) {
+          this._queueActivitySnakeDir(dx > 0 ? "right" : "left");
+        } else {
+          this._queueActivitySnakeDir(dy > 0 ? "down" : "up");
+        }
+      };
+
+      this._onActivitySwipeEnd = () => {
+        this._activitySwipe = null;
+      };
+
+      chart.addEventListener("touchstart", this._onActivitySwipeStart, {
+        passive: true,
+      });
+      chart.addEventListener("touchmove", this._onActivitySwipeMove, {
+        passive: false,
+      });
+      chart.addEventListener("touchend", this._onActivitySwipeEnd, {
+        passive: true,
+      });
+      chart.addEventListener("touchcancel", this._onActivitySwipeEnd, {
+        passive: true,
+      });
+    },
+
+    _unbindActivitySnakeControls() {
+      if (this._onActivitySnakeKey) {
+        window.removeEventListener("keydown", this._onActivitySnakeKey);
+        this._onActivitySnakeKey = null;
+      }
+
+      const chart =
+        this.$refs.aboutActivity?.querySelector?.(".about-activity__chart");
+      if (chart && this._onActivitySwipeStart) {
+        chart.removeEventListener("touchstart", this._onActivitySwipeStart);
+        chart.removeEventListener("touchmove", this._onActivitySwipeMove);
+        chart.removeEventListener("touchend", this._onActivitySwipeEnd);
+        chart.removeEventListener("touchcancel", this._onActivitySwipeEnd);
+      }
+      this._onActivitySwipeStart = null;
+      this._onActivitySwipeMove = null;
+      this._onActivitySwipeEnd = null;
+      this._activitySwipe = null;
+    },
   };
+}
+
+function cellIdFromWeekDay(week, day) {
+  return week * ACTIVITY_DAYS + day;
+}
+
+function wrapIndex(value, size) {
+  return ((value % size) + size) % size;
+}
+
+function dirFromKey(key) {
+  switch (key) {
+    case "ArrowRight":
+    case "d":
+    case "D":
+      return "right";
+    case "ArrowLeft":
+    case "a":
+    case "A":
+      return "left";
+    case "ArrowUp":
+    case "w":
+    case "W":
+      return "up";
+    case "ArrowDown":
+    case "s":
+    case "S":
+      return "down";
+    default:
+      return null;
+  }
 }
 
 function buildActivityCells() {

@@ -24,22 +24,26 @@
   <div
     class="about-activity"
     x-ref="aboutActivity"
-    :class="{ 'about-activity--done': activityComplete }"
-    @mouseenter="showSpeechI18n('about.activity.hoverTip', { holdMs: null })"
-    @mouseleave="_avatarSpeechI18nPath === 'about.activity.hoverTip' && hideSpeech()"
-    @focusin="showSpeechI18n('about.activity.hoverTip', { holdMs: null })"
+    :class="{
+      'about-activity--done': activityComplete,
+      'about-activity--playing': activityPlaying,
+      'about-activity--playable': activityComplete && !activityPlaying,
+    }"
+    @mouseenter="showActivityHoverSpeech()"
+    @mouseleave="hideActivityHoverSpeech()"
+    @focusin="showActivityHoverSpeech()"
     @focusout="
       (!$event.relatedTarget || !$el.contains($event.relatedTarget)) &&
-        _avatarSpeechI18nPath === 'about.activity.hoverTip' &&
-        hideSpeech()
+        hideActivityHoverSpeech()
     "
+    @click="onActivityBlockClick()"
   >
     <header class="about-activity__head">
       <div class="about-activity__titles">
         <p class="about-activity__label" x-text="about.activity?.label"></p>
         <p
           class="about-activity__eyebrow"
-          x-text="about.activity?.eyebrow"
+          x-text="activityPlaying ? (about.activity?.playHint || about.activity?.eyebrow) : about.activity?.eyebrow"
         ></p>
       </div>
       <p
@@ -51,9 +55,11 @@
 
     <div
       class="about-activity__chart"
-      role="img"
+      :role="activityPlaying ? 'application' : 'img'"
       :aria-label="activityChartAria"
+      :tabindex="activityPlaying ? 0 : null"
       @scroll="hideActivityTip()"
+      @click.stop="activityComplete && !activityPlaying && startActivitySnake()"
     >
       <div
         class="about-activity__months"
@@ -88,13 +94,18 @@
             <button
               type="button"
               class="about-activity__cell"
-              :class="`about-activity__cell--${cell.level}`"
+              :class="[
+                `about-activity__cell--${cell.level}`,
+                activitySnakeRole(cell.id) === 'head' && 'about-activity__cell--snake-head',
+                activitySnakeRole(cell.id) === 'body' && 'about-activity__cell--snake',
+              ]"
               :data-cell-id="cell.id"
               :data-level="cell.level"
-              :aria-label="activityCellTip(cell)"
-              @mouseenter="showActivityTip($event, cell)"
+              :tabindex="activityPlaying ? -1 : 0"
+              :aria-label="activityPlaying ? null : activityCellTip(cell)"
+              @mouseenter="!activityPlaying && showActivityTip($event, cell)"
               @mouseleave="hideActivityTip()"
-              @focus="showActivityTip($event, cell)"
+              @focus="!activityPlaying && showActivityTip($event, cell)"
               @blur="hideActivityTip()"
             ></button>
           </template>
