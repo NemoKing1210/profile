@@ -14,7 +14,10 @@
   <button
     type="button"
     class="achievements__btn"
-    :class="achievementsOpen && 'achievements__btn--open'"
+    :class="{
+      'achievements__btn--open': achievementsOpen,
+      'achievements__btn--pulse': achievementBtnPulse,
+    }"
     :aria-label="t.achievements.buttonLabel"
     :aria-expanded="achievementsOpen"
     aria-controls="achievements-drawer"

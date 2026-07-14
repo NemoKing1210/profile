@@ -23,6 +23,7 @@ Update **both** when cutting a release.
 - Achievement «Commit Hunter» for clearing the activity snake mini-game
 - Shared Steam-style achievement unlock toast + `window.achievement` console debug API
 - Achievement toast animated gold glow / sheen on unlock (icon stays blue)
+- Achievements topbar button gold pulse / trophy bounce on unlock
 - Achievement unlock date shown in the achievements drawer (localized)
 - Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 - Per-achievement effect panel (slide-down tip + switch; hover on desktop, tap on mobile); disabling White Theme locks the theme toggle again

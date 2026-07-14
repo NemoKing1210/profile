@@ -40,6 +40,82 @@ html.achievements-drawer-lock body {
   outline-offset: 2px;
 }
 
+.achievements__btn--pulse {
+  color: var(--accent);
+  animation: achievements-btn-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.achievements__btn--pulse .achievements__btn-icon {
+  animation: achievements-btn-icon-bounce 2.4s cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+
+@keyframes achievements-btn-pulse {
+  0% {
+    transform: scale(1);
+    border-color: var(--border-subtle);
+    box-shadow: none;
+  }
+  12% {
+    transform: scale(1.18);
+    border-color: rgba(255, 215, 110, 0.85);
+    box-shadow:
+      0 0 0 2px rgba(212, 175, 55, 0.35),
+      0 0 18px rgba(255, 196, 77, 0.55),
+      0 0 32px rgba(218, 165, 32, 0.3);
+  }
+  28% {
+    transform: scale(1.06);
+    border-color: rgba(255, 220, 140, 0.7);
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 55, 0.4),
+      0 0 14px rgba(255, 196, 77, 0.4);
+  }
+  45% {
+    transform: scale(1.14);
+    border-color: rgba(255, 215, 110, 0.9);
+    box-shadow:
+      0 0 0 2px rgba(255, 215, 110, 0.3),
+      0 0 22px rgba(255, 196, 77, 0.5),
+      0 0 36px rgba(218, 165, 32, 0.22);
+  }
+  100% {
+    transform: scale(1);
+    border-color: var(--border-subtle);
+    box-shadow: none;
+  }
+}
+
+@keyframes achievements-btn-icon-bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  12% {
+    transform: translateY(-2px) scale(1.2) rotate(-8deg);
+  }
+  24% {
+    transform: translateY(1px) scale(0.94) rotate(6deg);
+  }
+  40% {
+    transform: translateY(-1px) scale(1.12) rotate(-4deg);
+  }
+  55% {
+    transform: translateY(0) scale(1.04) rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievements__btn--pulse,
+  .achievements__btn--pulse .achievements__btn-icon {
+    animation: none;
+  }
+
+  .achievements__btn--pulse {
+    border-color: rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 12px rgba(218, 165, 32, 0.35);
+  }
+}
+
 .achievements__btn-icon {
   display: grid;
   place-items: center;

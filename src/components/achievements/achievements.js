@@ -22,8 +22,10 @@ export function achievementsState() {
     achievementTipId: null,
     achievementToastOpen: false,
     achievementToast: null,
+    achievementBtnPulse: false,
     _achievementToastQueue: [],
     _achievementToastTimer: null,
+    _achievementBtnPulseTimer: null,
   };
 }
 
@@ -209,10 +211,30 @@ export function achievementsMethods() {
         if (id === "lightTheme") {
           this.lightThemeUnlocked = true;
         }
-        if (notify) this.enqueueAchievementToast(id);
+        if (notify) {
+          this.enqueueAchievementToast(id);
+          this.pulseAchievementButton();
+        }
       }
 
       return wasNew;
+    },
+
+    pulseAchievementButton() {
+      if (this._achievementBtnPulseTimer != null) {
+        window.clearTimeout(this._achievementBtnPulseTimer);
+        this._achievementBtnPulseTimer = null;
+      }
+
+      // Retrigger CSS animation even if already pulsing.
+      this.achievementBtnPulse = false;
+      this.$nextTick(() => {
+        this.achievementBtnPulse = true;
+        this._achievementBtnPulseTimer = window.setTimeout(() => {
+          this._achievementBtnPulseTimer = null;
+          this.achievementBtnPulse = false;
+        }, 2_400);
+      });
     },
 
     /**
@@ -358,6 +380,11 @@ export function achievementsMethods() {
     destroyAchievements() {
       this.hideAchievementToast({ advance: false });
       this._achievementToastQueue = [];
+      if (this._achievementBtnPulseTimer != null) {
+        window.clearTimeout(this._achievementBtnPulseTimer);
+        this._achievementBtnPulseTimer = null;
+      }
+      this.achievementBtnPulse = false;
       this.closeAchievementsPanel();
       if (window.achievement) {
         delete window.achievement;
