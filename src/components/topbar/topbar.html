@@ -15,9 +15,20 @@
       </a>
       {{> hero/speech-bubble modifier="brand" }}
     </div>
-    <nav class="nav nav--desktop" :aria-label="t.ui.navLabel">
+    <nav class="nav nav--desktop" x-ref="navDesktop" :aria-label="t.ui.navLabel">
+      <span
+        class="nav__indicator"
+        x-ref="navDesktopPill"
+        aria-hidden="true"
+      ></span>
       <template x-for="item in nav" :key="item.href">
-        <a class="nav__link" :href="item.href">
+        <a
+          class="nav__link"
+          :class="activeNavId === item.id && 'nav__link--active'"
+          :href="item.href"
+          :data-nav-id="item.id"
+          :aria-current="activeNavId === item.id ? 'true' : null"
+        >
           <span x-text="item.label"></span>
           <span
             class="nav__badge"
@@ -109,11 +120,19 @@
     x-cloak
     @keydown.escape.window="closeNav()"
   >
-    <nav class="nav nav--mobile" :aria-label="t.ui.navLabel">
+    <nav class="nav nav--mobile" x-ref="navMobile" :aria-label="t.ui.navLabel">
+      <span
+        class="nav__indicator"
+        x-ref="navMobilePill"
+        aria-hidden="true"
+      ></span>
       <template x-for="item in nav" :key="`m-${item.href}`">
         <a
           class="nav__link nav__link--mobile"
+          :class="activeNavId === item.id && 'nav__link--active'"
           :href="item.href"
+          :data-nav-id="item.id"
+          :aria-current="activeNavId === item.id ? 'true' : null"
           @click="closeNav()"
         >
           <span x-text="item.label"></span>

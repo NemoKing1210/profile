@@ -14,6 +14,18 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.54.1] — 2026-07-14
+
+### Changed
+
+- Active topbar nav highlight slides between items instead of jumping
+
+## [1.54.0] — 2026-07-14
+
+### Added
+
+- Topbar nav highlights the section currently in view while scrolling
+
 ## [1.53.1] — 2026-07-14
 
 ### Changed

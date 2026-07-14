@@ -17,12 +17,17 @@ export function localeChromeState() {
     themeJokeFlash: false,
     themeSith: false,
     navOpen: false,
+    activeNavId: "",
     _localeBlurGen: 0,
     _localeBlurMidTimer: null,
     _localeBlurEndTimer: null,
     _themeJokeTimer: null,
     _themeFlashTimer: null,
     _themeSithTimer: null,
+    _navSpyRaf: 0,
+    _navSpyLayout: false,
+    _onNavSpyScroll: null,
+    _onNavSpyResize: null,
   };
 }
 
@@ -84,6 +89,8 @@ export function localeChromeMethods() {
       this._infiniteScroll?.reset?.();
 
       this.refreshActivityLocale?.();
+
+      this.$nextTick(() => this._syncNavIndicator?.());
 
       if (celebrate) {
         this.spawnFlagSquare(code, { scroll: false });
@@ -156,11 +163,130 @@ export function localeChromeMethods() {
 
     toggleNav() {
       this.navOpen = !this.navOpen;
-      if (this.navOpen) this.closeLangMenu();
+      if (this.navOpen) {
+        this.closeLangMenu();
+        this.$nextTick(() => this._syncNavIndicator());
+      }
     },
 
     closeNav() {
       this.navOpen = false;
+    },
+
+    updateActiveNav({ layout = false } = {}) {
+      const topbar = this.$root?.querySelector?.(".topbar");
+      const offset = (topbar?.offsetHeight ?? 52) + 12;
+      let current = "";
+
+      for (const item of this.nav) {
+        const el = document.getElementById(item.id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= offset) {
+          current = item.id;
+        }
+      }
+
+      if (this.activeNavId !== current) {
+        this.activeNavId = current;
+        this.$nextTick(() => this._syncNavIndicator());
+        return;
+      }
+
+      if (layout) {
+        this._syncNavIndicator();
+      }
+    },
+
+    _syncNavIndicatorIn(nav, pill) {
+      if (!nav || !pill) return;
+
+      const link = this.activeNavId
+        ? nav.querySelector(`[data-nav-id="${CSS.escape(this.activeNavId)}"]`)
+        : null;
+
+      if (!link) {
+        pill.classList.remove("nav__indicator--visible");
+        return;
+      }
+
+      const x = link.offsetLeft;
+      const y = link.offsetTop;
+      const w = link.offsetWidth;
+      const h = link.offsetHeight;
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      const wasHidden = !pill.classList.contains("nav__indicator--visible");
+
+      if (wasHidden || reduceMotion) {
+        pill.classList.add("nav__indicator--instant");
+      }
+
+      pill.style.width = `${w}px`;
+      pill.style.height = `${h}px`;
+      pill.style.transform = `translate(${x}px, ${y}px)`;
+      pill.classList.add("nav__indicator--visible");
+
+      if (wasHidden || reduceMotion) {
+        void pill.offsetWidth;
+        pill.classList.remove("nav__indicator--instant");
+      }
+    },
+
+    _syncNavIndicator() {
+      this._syncNavIndicatorIn(this.$refs.navDesktop, this.$refs.navDesktopPill);
+      if (this.navOpen) {
+        this._syncNavIndicatorIn(this.$refs.navMobile, this.$refs.navMobilePill);
+      }
+    },
+
+    _scheduleNavSpy(layout = false) {
+      if (layout) this._navSpyLayout = true;
+      if (this._navSpyRaf) return;
+      this._navSpyRaf = requestAnimationFrame(() => {
+        this._navSpyRaf = 0;
+        const layoutPass = this._navSpyLayout;
+        this._navSpyLayout = false;
+        this.updateActiveNav({ layout: layoutPass });
+      });
+    },
+
+    _bindNavSpy() {
+      this._unbindNavSpy();
+      this._onNavSpyScroll = () => this._scheduleNavSpy(false);
+      this._onNavSpyResize = () => this._scheduleNavSpy(true);
+      window.addEventListener("scroll", this._onNavSpyScroll, { passive: true });
+      window.addEventListener("resize", this._onNavSpyResize, { passive: true });
+      this.$nextTick(() => this.updateActiveNav({ layout: true }));
+    },
+
+    _unbindNavSpy() {
+      if (this._onNavSpyScroll) {
+        window.removeEventListener("scroll", this._onNavSpyScroll);
+        this._onNavSpyScroll = null;
+      }
+      if (this._onNavSpyResize) {
+        window.removeEventListener("resize", this._onNavSpyResize);
+        this._onNavSpyResize = null;
+      }
+      if (this._navSpyRaf) {
+        cancelAnimationFrame(this._navSpyRaf);
+        this._navSpyRaf = 0;
+      }
+      this._navSpyLayout = false;
+    },
+
+    destroyNavSpy() {
+      this._unbindNavSpy();
+      this.activeNavId = "";
+      const pills = [this.$refs.navDesktopPill, this.$refs.navMobilePill];
+      for (const pill of pills) {
+        if (!pill) continue;
+        pill.classList.remove("nav__indicator--visible", "nav__indicator--instant");
+        pill.style.width = "";
+        pill.style.height = "";
+        pill.style.transform = "";
+      }
     },
 
     pokeThemeJoke() {

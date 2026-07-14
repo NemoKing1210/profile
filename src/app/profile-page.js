@@ -106,6 +106,7 @@ export function createProfilePage() {
           });
           this._bindStackFlip();
           this._bindScrollTop();
+          this._bindNavSpy();
           this.initAboutActivity();
         });
       },
@@ -115,6 +116,7 @@ export function createProfilePage() {
         this._onNavResize = null;
         this.destroyStackFlip();
         this.destroyScrollTop();
+        this.destroyNavSpy();
         this.destroyLocaleChrome();
         this.destroyHeroSpeech();
         this.destroyComments();
