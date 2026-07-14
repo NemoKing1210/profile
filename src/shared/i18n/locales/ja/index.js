@@ -52,7 +52,7 @@ export default {
     statusLastSeen: "最終オンライン：1970年1月1日 00:00:00",
     nameTip: "これが私の名前です。念のため",
     locationTip: "マトリックスの中にいるので、オフィスには行けません",
-    birthTip: "私はズーマーです",
+    birthTip: "そう、ズーマーだけど何か？",
     playEnough:
       "まだ遊び足りない？プロフィールの続きも見てみない？",
     playAlong: "楽しそうだね——一緒に遊ばせて！",

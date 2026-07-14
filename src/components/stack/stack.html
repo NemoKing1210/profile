@@ -193,7 +193,7 @@
               class="stack-explore-card__mark"
               :style="`--mark-fill: ${item.mark.fill}; --mark-ink: ${item.mark.ink || '#fff'}`"
               :aria-label="spawnTechLabel(item.mark)"
-              @click="spawnTechBall(item.mark)"
+              @click="spawnTechBall(item.mark, { scale: 0.5 })"
             >
               <svg class="stack-explore-card__mark-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
                 <path :d="item.mark.path" fill="currentColor"></path>

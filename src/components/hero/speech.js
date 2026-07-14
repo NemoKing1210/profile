@@ -38,8 +38,8 @@ export function heroSpeechMethods() {
       this.scrollToHero();
     },
 
-    spawnTechBall(tech) {
-      this._heroPhysics?.spawnTechBall?.(tech);
+    spawnTechBall(tech, opts) {
+      this._heroPhysics?.spawnTechBall?.(tech, opts);
       this.scrollToHero();
     },
 

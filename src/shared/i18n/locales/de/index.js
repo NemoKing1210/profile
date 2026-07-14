@@ -52,7 +52,7 @@ export default {
     statusLastSeen: "Zuletzt online: 1. Jan 1970, 00:00:00",
     nameTip: "Das ist mein Name, falls das unklar war",
     locationTip: "Ich bin in der Matrix und kann nicht ins Büro kommen",
-    birthTip: "Ich bin Zoomer",
+    birthTip: "Ja, ich bin Zoomer — und?",
     playEnough:
       "Immer noch nicht genug gespielt? Schau dir doch den Rest meines Profils an.",
     playAlong: "Sieht lustig aus — ich spiele mit!",

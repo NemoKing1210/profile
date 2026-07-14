@@ -144,7 +144,7 @@ function placeStatic(container, items, radius) {
  * @param {{ onInteract?: () => void }} [options]
  * @returns {{
  *   spawnAiSquare: (tool: object) => void,
- *   spawnTechBall: (ball: object) => void,
+ *   spawnTechBall: (ball: object, opts?: { scale?: number }) => void,
  *   spawnAvatarSquare: (opts: { src: string, label?: string }) => void,
  *   spawnFlagSquare: (opts: { locale: string, label?: string }) => void,
  *   destroy: () => void
@@ -246,16 +246,17 @@ export function initHeroPhysics(container, options = {}) {
         if (!tool?.icon) return;
         placeStaticAi(tool);
       },
-      spawnTechBall(ball) {
+      spawnTechBall(ball, { scale = 1 } = {}) {
         if (!ball?.path) return;
-        const el = createBallEl(ball, radius);
+        const r = radius * scale;
+        const el = createBallEl(ball, r);
         el.classList.add("hero-ball--static");
         const x =
-          width * 0.45 + Math.random() * Math.max(20, width * 0.4 - radius * 2);
-        const y = height - radius * 2 - 20 - Math.random() * 36;
+          width * 0.45 + Math.random() * Math.max(20, width * 0.4 - r * 2);
+        const y = height - r * 2 - 20 - Math.random() * 36;
         el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         container.appendChild(el);
-        actors.push({ el, half: radius, kind: "ball" });
+        actors.push({ el, half: r, kind: "ball" });
       },
       spawnAvatarSquare(opts) {
         if (!opts?.src) return;
@@ -324,7 +325,7 @@ export function initHeroPhysics(container, options = {}) {
     if (idx >= 0) actors.splice(idx, 1);
   };
 
-  const spawnBall = (ball, i = 0) => {
+  const spawnBall = (ball, i = 0, { scale = 1 } = {}) => {
     if (!ball?.path) return;
 
     const existing = actors.filter((a) => a.kind === "ball");
@@ -332,14 +333,15 @@ export function initHeroPhysics(container, options = {}) {
       removeActor(existing[0]);
     }
 
-    const el = createBallEl(ball, radius);
+    const r = radius * scale;
+    const el = createBallEl(ball, r);
     container.appendChild(el);
 
-    const leftPad = narrow ? radius + 16 : width * 0.28;
-    const span = Math.max(40, width - leftPad - radius - 24);
+    const leftPad = narrow ? r + 16 : width * 0.28;
+    const span = Math.max(40, width - leftPad - r - 24);
     const x = leftPad + Math.random() * span;
-    const y = -radius - 40 - Math.random() * 160 - i * 28;
-    const body = Bodies.circle(x, y, radius, {
+    const y = -r - 40 - Math.random() * 160 - i * 28;
+    const body = Bodies.circle(x, y, r, {
       restitution: RESTITUTION,
       friction: FRICTION,
       frictionAir: FRICTION_AIR,
@@ -353,8 +355,8 @@ export function initHeroPhysics(container, options = {}) {
       y: Math.random() * 1.5,
     });
     World.add(world, body);
-    actors.push({ body, el, half: radius, kind: "ball" });
-    syncActorEl(el, body, radius);
+    actors.push({ body, el, half: r, kind: "ball" });
+    syncActorEl(el, body, r);
   };
 
   items.forEach((ball, i) => {
@@ -362,7 +364,7 @@ export function initHeroPhysics(container, options = {}) {
     spawnTimers.push(timer);
   });
 
-  const spawnTechBall = (ball) => spawnBall(ball, 0);
+  const spawnTechBall = (ball, opts) => spawnBall(ball, 0, opts);
 
   const spawnAiSquare = (tool) => {
     if (!tool?.icon) return;

@@ -14,6 +14,12 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.53.1] — 2026-07-14
+
+### Changed
+
+- Explore-stack tech balls spawn at half the normal hero ball size
+
 ## [1.53.0] — 2026-07-14
 
 ### Added
