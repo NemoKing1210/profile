@@ -42,7 +42,32 @@
     <div class="topbar__tools">
       {{> topbar/lang }}
       {{> achievements/achievements }}
-      <div class="theme-joke">
+      <div
+        class="theme-joke"
+        @mouseenter="
+          showSpeechI18n(
+            canUseLightTheme ? 'ui.themeHoverTip' : 'ui.themeHoverTipLocked',
+            { holdMs: null }
+          )
+        "
+        @mouseleave="
+          (_avatarSpeechI18nPath === 'ui.themeHoverTip' ||
+            _avatarSpeechI18nPath === 'ui.themeHoverTipLocked') &&
+            hideSpeech()
+        "
+        @focusin="
+          showSpeechI18n(
+            canUseLightTheme ? 'ui.themeHoverTip' : 'ui.themeHoverTipLocked',
+            { holdMs: null }
+          )
+        "
+        @focusout="
+          (!$event.relatedTarget || !$el.contains($event.relatedTarget)) &&
+            (_avatarSpeechI18nPath === 'ui.themeHoverTip' ||
+              _avatarSpeechI18nPath === 'ui.themeHoverTipLocked') &&
+            hideSpeech()
+        "
+      >
         <button
           type="button"
           class="theme-joke__btn"

@@ -14,6 +14,26 @@ export default {
     menuOpen: "Menü öffnen",
     menuClose: "Menü schließen",
     langLabel: "Sprache",
+    langHoverTip: "Willst du in einer anderen Sprache mit mir sprechen?",
+    langSwitched:
+      "Super! Mal schauen, ob ich die Übersetzungen nicht verkorkse…",
+    achievementsHoverTip:
+      "Trophäensammlung? Schau rein — aber prahl nicht zu laut.",
+    themeHoverTip: "Hell oder dunkel — wähl eine Seite. Ich bin bereit.",
+    themeHoverTipLocked:
+      "Der Theme-Button lockt… aber das Geheimnis ist noch gesperrt.",
+    themeToLightTips: [
+      "Ahh, meine Augen! Schon gut, ich gewöhne mich… hoffentlich.",
+      "Weißer Hintergrund an. Vampire sind unzufrieden.",
+      "Sonne in der UI? Mutig. Sonnenbrille nicht inklusive.",
+      "Helles Theme. Jetzt sieht man den Staub am Design.",
+    ],
+    themeToDarkTips: [
+      "Dunkle Seite ist zurück. Nachts angenehmer zu lesen.",
+      "Zurück zur Norm. Steam mag das auch so.",
+      "Lichter aus. Die Netzhaut sagt danke.",
+      "Wieder dunkel. Als hätte das Profil ausgeatmet.",
+    ],
     themeToggle: "Theme wechseln",
     themeToLight: "Zum hellen Theme wechseln",
     themeToDark: "Zum dunklen Theme wechseln",

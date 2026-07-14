@@ -125,6 +125,7 @@ export function localeChromeMethods() {
 
       if (celebrate) {
         this.spawnFlagSquare(code, { scroll: false });
+        this.showSpeechI18n("ui.langSwitched");
       }
     },
 
@@ -372,6 +373,16 @@ export function localeChromeMethods() {
       this.themeLight = !this.themeLight;
       this._persistThemePreference();
       this._syncThemeColorMeta();
+      this._speakThemeSwitched();
+    },
+
+    _speakThemeSwitched() {
+      const tips = this.themeLight
+        ? this.t.ui.themeToLightTips
+        : this.t.ui.themeToDarkTips;
+      if (!Array.isArray(tips) || tips.length === 0) return;
+      const text = tips[Math.floor(Math.random() * tips.length)];
+      if (text) this.showSpeech(text);
     },
 
     applyStoredTheme() {

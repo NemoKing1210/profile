@@ -1,4 +1,16 @@
-<div class="achievements" x-show="hasAchievements" x-cloak>
+<div
+  class="achievements"
+  x-show="hasAchievements"
+  x-cloak
+  @mouseenter="showSpeechI18n('ui.achievementsHoverTip', { holdMs: null })"
+  @mouseleave="_avatarSpeechI18nPath === 'ui.achievementsHoverTip' && hideSpeech()"
+  @focusin="showSpeechI18n('ui.achievementsHoverTip', { holdMs: null })"
+  @focusout="
+    (!$event.relatedTarget || !$el.contains($event.relatedTarget)) &&
+      _avatarSpeechI18nPath === 'ui.achievementsHoverTip' &&
+      hideSpeech()
+  "
+>
   <button
     type="button"
     class="achievements__btn"

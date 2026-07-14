@@ -14,6 +14,25 @@ export default {
     menuOpen: "メニューを開く",
     menuClose: "メニューを閉じる",
     langLabel: "言語",
+    langHoverTip: "別の言語で話してみる？",
+    langSwitched: "いいね！さて、翻訳を間違えずに済むかな…",
+    achievementsHoverTip:
+      "トロフィー棚？ちょっと見ていって——でも自慢しすぎないで。",
+    themeHoverTip: "ライトかダークか——陣営を選べ。準備はいい。",
+    themeHoverTipLocked:
+      "テーマボタンが誘ってくる…でも秘密はまだ解放されてない。",
+    themeToLightTips: [
+      "あっ、目が！まあ慣れる…たぶん。",
+      "白背景オン。吸血鬼は不満げ。",
+      "UIに太陽？大胆だね。サングラスは付属しません。",
+      "ライトテーマ。デザインのホコリが見えるようになった。",
+    ],
+    themeToDarkTips: [
+      "闇の側が戻ってきた。夜は読みやすい。",
+      "通常運転に戻った。Steamもこういうのが好き。",
+      "消灯。網膜が礼を言う。",
+      "またダーク。プロフィールが息を吐いた感じ。",
+    ],
     themeToggle: "テーマを切り替え",
     themeToLight: "ライトテーマに切り替え",
     themeToDark: "ダークテーマに切り替え",

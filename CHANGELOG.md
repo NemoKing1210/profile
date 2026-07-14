@@ -12,6 +12,8 @@ Update **both** when cutting a release.
 
 ### Added
 
+- Avatar speech on language switcher hover and after changing locale
+- Avatar speech on achievements / theme button hover; random quips when toggling light/dark theme
 - Achievement unlock date shown in the achievements drawer (localized)
 - Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 - Per-achievement effect panel (slide-down tip + switch; hover on desktop, tap on mobile); disabling White Theme locks the theme toggle again

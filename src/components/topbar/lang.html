@@ -2,6 +2,14 @@
   class="lang-switch"
   @keydown.escape.window="closeLangMenu()"
   @click.outside="closeLangMenu()"
+  @mouseenter="showSpeechI18n('ui.langHoverTip', { holdMs: null })"
+  @mouseleave="_avatarSpeechI18nPath === 'ui.langHoverTip' && hideSpeech()"
+  @focusin="showSpeechI18n('ui.langHoverTip', { holdMs: null })"
+  @focusout="
+    (!$event.relatedTarget || !$el.contains($event.relatedTarget)) &&
+      _avatarSpeechI18nPath === 'ui.langHoverTip' &&
+      hideSpeech()
+  "
 >
   <button
     type="button"

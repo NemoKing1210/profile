@@ -14,6 +14,26 @@ export default {
     menuOpen: "Abrir menú",
     menuClose: "Cerrar menú",
     langLabel: "Idioma",
+    langHoverTip: "¿Quieres hablar conmigo en otro idioma?",
+    langSwitched:
+      "¡Genial! Ahora a ver si no lío las traducciones…",
+    achievementsHoverTip:
+      "¿Colección de trofeos? Echa un vistazo — pero sin fanfarronear demasiado.",
+    themeHoverTip: "Claro u oscuro — elige un bando. Estoy listo.",
+    themeHoverTipLocked:
+      "Ese botón de tema invita… pero el secreto aún no está desbloqueado.",
+    themeToLightTips: [
+      "¡Ay, mis ojos! Bueno, me adapto… creo.",
+      "Fondo blanco activado. Los vampiros protestan.",
+      "¿Sol en la UI? Valiente. Gafas de sol no incluidas.",
+      "Tema claro. Ahora se ve el polvo del diseño.",
+    ],
+    themeToDarkTips: [
+      "El lado oscuro vuelve. Mejor para leer de noche.",
+      "De vuelta a lo normal. Steam también lo prefiere así.",
+      "Luces apagadas. Tus retinas dan las gracias.",
+      "Otra vez oscuro. El perfil parece haber exhalado.",
+    ],
     themeToggle: "Cambiar tema",
     themeToLight: "Cambiar a tema claro",
     themeToDark: "Cambiar a tema oscuro",

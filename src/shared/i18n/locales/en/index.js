@@ -14,6 +14,26 @@ export default {
     menuOpen: "Open menu",
     menuClose: "Close menu",
     langLabel: "Language",
+    langHoverTip: "Want to talk to me in another language?",
+    langSwitched:
+      "Nice! Now let's see if I don't tangle up the translations…",
+    achievementsHoverTip:
+      "Trophy cabinet? Take a peek — just don’t brag too loud.",
+    themeHoverTip: "Light or dark — pick a side. I’m ready.",
+    themeHoverTipLocked:
+      "That theme button looks tempting… but the secret isn’t unlocked yet.",
+    themeToLightTips: [
+      "Ahh, my eyes! Fine, I’ll adapt… probably.",
+      "White background on. Vampires disapprove.",
+      "Sunlight in the UI? Bold. Sunglasses not included.",
+      "Light theme. Now you can see the dust on the design.",
+    ],
+    themeToDarkTips: [
+      "Dark side’s back. Easier to read at night.",
+      "Back to normal. Steam likes it this way too.",
+      "Lights out. Your retinas say thanks.",
+      "Dark again. Feels like the profile exhaled.",
+    ],
     themeToggle: "Toggle theme",
     themeToLight: "Switch to light theme",
     themeToDark: "Switch to dark theme",
