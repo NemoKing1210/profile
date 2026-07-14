@@ -17,9 +17,9 @@
 
 .comments-sort__btn {
   padding: 0.35rem 0.7rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--hairline);
   border-radius: 2px;
-  background: rgba(0, 0, 0, 0.28);
+  background: var(--inset-well);
   color: var(--text-muted);
   font-family: var(--font-display);
   font-size: 0.72rem;
@@ -35,7 +35,7 @@
 
 .comments-sort__btn:hover {
   color: var(--text);
-  border-color: rgba(102, 192, 244, 0.35);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .comments-sort__btn:focus-visible {
@@ -44,8 +44,8 @@
 }
 
 .comments-sort__btn--active {
-  border-color: rgba(102, 192, 244, 0.45);
-  background: rgba(102, 192, 244, 0.12);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
   color: var(--accent);
 }
 
@@ -62,23 +62,26 @@
   grid-template-columns: 2.1rem 2.5rem 1fr;
   gap: 0.55rem 0.7rem;
   padding: 0.7rem 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--hairline);
   border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.28);
+  background: var(--inset-well);
+  transition:
+    background var(--theme-duration) var(--ease),
+    border-color var(--theme-duration) var(--ease);
 }
 
 .steam-comment--plus {
-  border-color: rgba(164, 208, 7, 0.18);
+  border-color: color-mix(in srgb, var(--accent-green) 28%, transparent);
 }
 
 .steam-comment--minus {
-  border-color: rgba(229, 94, 94, 0.22);
+  border-color: color-mix(in srgb, #e55e5e 32%, transparent);
 }
 
 .steam-comment--reply {
   margin-left: 1.35rem;
-  border-left: 2px solid rgba(102, 192, 244, 0.18);
-  background: rgba(0, 0, 0, 0.2);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  background: color-mix(in srgb, var(--inset-well) 70%, transparent);
 }
 
 .steam-comment__vote {
@@ -106,7 +109,7 @@
 }
 
 .steam-comment__vote-btn:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--chrome-fill-hover);
   color: var(--text);
 }
 
@@ -161,13 +164,14 @@
   height: 2.5rem;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--hairline);
   border-radius: 2px;
   font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--text-bright);
+  background: var(--bg-elevated);
   user-select: none;
 }
 
@@ -217,11 +221,19 @@
   color: #f09595;
 }
 
+body.theme-light .steam-comment--plus .steam-comment__body {
+  color: #5f7a00;
+}
+
+body.theme-light .steam-comment--minus .steam-comment__body {
+  color: #b73a3a;
+}
+
 .comment-spoiler {
   display: inline;
   padding: 0 0.12em;
   border-radius: 2px;
-  background: rgba(0, 0, 0, 0.45);
+  background: color-mix(in srgb, var(--bg-deep) 45%, transparent);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   color: transparent;
@@ -268,9 +280,9 @@
 .comments-invite {
   margin: 0 0 1.15rem;
   padding: 1rem 1.05rem;
-  border: 1px dashed rgba(102, 192, 244, 0.28);
+  border: 1px dashed color-mix(in srgb, var(--accent) 35%, transparent);
   border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.22);
+  background: var(--inset-well);
 }
 
 .comments-invite__title {
@@ -324,7 +336,7 @@
   padding: 0.55rem 0.75rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--bg-elevated);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -368,10 +380,8 @@
   border: 1px solid rgba(229, 94, 94, 0.35);
   background:
     radial-gradient(120% 90% at 0% 0%, rgba(229, 94, 94, 0.16), transparent 55%),
-    linear-gradient(160deg, rgba(42, 22, 24, 0.98) 0%, rgba(14, 20, 25, 0.98) 100%);
-  box-shadow:
-    0 12px 24px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    linear-gradient(160deg, var(--bg-elevated) 0%, var(--bg-panel) 100%);
+  box-shadow: var(--shadow-panel);
   pointer-events: none;
 }
 
@@ -436,7 +446,7 @@
   height: 0.55rem;
   border-radius: 999px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--inset-well);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 

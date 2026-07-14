@@ -13,6 +13,10 @@ Update **both** when cutting a release.
 ### Fixed
 
 - Avatar speech bubble follows light theme tokens (no hard-coded Steam-dark fill)
+- About activity chart / tip adopt light theme tokens
+- Stack flip / explore / grow blocks adopt light theme tokens
+- Interests intro, media shelves, and Steam invite adopt light theme tokens
+- Comments wall / form adopt light theme tokens (plus / minus tones keep readable contrast)
 
 ## [1.57.1] — 2026-07-14
 

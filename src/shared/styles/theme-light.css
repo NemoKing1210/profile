@@ -86,19 +86,9 @@ body.theme-light .ai-tool__icon--mono .ai-tool__img {
   opacity: 0.9;
 }
 
-body.theme-light .comments-sort__btn,
-body.theme-light .steam-comment,
-body.theme-light .steam-comment--reply,
-body.theme-light .comments-invite,
 body.theme-light .hub-pill {
   background: var(--inset-well);
   border-color: var(--hairline);
-}
-
-body.theme-light .comments-field__input {
-  background: var(--bg-elevated);
-  border-color: var(--border-subtle);
-  color: var(--text);
 }
 
 body.theme-light .hub-card,
@@ -107,10 +97,13 @@ body.theme-light .link-card {
   border-color: var(--border-subtle);
 }
 
-body.theme-light .stack-card,
-body.theme-light .interest-card,
 body.theme-light .capsule {
   background: var(--bg-elevated);
+}
+
+body.theme-light .interest-chip--hot,
+body.theme-light .interest-badge--hot {
+  color: var(--accent-hot);
 }
 
 body.theme-light .lang-switch__flag {
