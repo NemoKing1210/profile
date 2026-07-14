@@ -10,6 +10,11 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+### Changed
+
+- Topbar brand mark uses site favicon instead of a solid accent square
+- Language switcher is a custom dropdown (same height as the theme button) with country flags
+
 ### Planned
 
 - (none yet)

@@ -93,6 +93,7 @@ export function createProfilePage() {
       birthYear: profile.birthYear,
       avatar: profile.avatar,
       banner: profile.banner,
+      favicon: profile.favicon,
       icons: heroicons,
       commentDraft: { name: "", message: "" },
       commentSubmitting: false,
@@ -111,6 +112,7 @@ export function createProfilePage() {
       liveComments: [],
       liveCommentReplies: [],
       navOpen: false,
+      langMenuOpen: false,
       themeJokeOpen: false,
       themeJokeFlash: false,
       themeSith: false,
@@ -527,6 +529,13 @@ export function createProfilePage() {
       return chips;
     },
 
+    get currentLocaleOption() {
+      return (
+        this.localeList.find((item) => item.code === this.locale) ||
+        this.localeList[0]
+      );
+    },
+
     setLocale(code, { celebrate = false } = {}) {
       if (!locales[code]) return;
 
@@ -556,6 +565,22 @@ export function createProfilePage() {
       if (celebrate && changed) {
         this.spawnFlagSquare(code);
       }
+    },
+
+    toggleLangMenu() {
+      this.langMenuOpen = !this.langMenuOpen;
+      if (this.langMenuOpen) {
+        this.themeJokeOpen = false;
+      }
+    },
+
+    closeLangMenu() {
+      this.langMenuOpen = false;
+    },
+
+    pickLocale(code) {
+      this.closeLangMenu();
+      this.setLocale(code, { celebrate: true });
     },
 
     spawnFlagSquare(code) {
@@ -662,6 +687,7 @@ export function createProfilePage() {
 
     toggleNav() {
       this.navOpen = !this.navOpen;
+      if (this.navOpen) this.closeLangMenu();
     },
 
     closeNav() {
@@ -669,6 +695,7 @@ export function createProfilePage() {
     },
 
     pokeThemeJoke() {
+      this.closeLangMenu();
       this.themeJokeFlash = true;
       if (this._themeFlashTimer != null) {
         window.clearTimeout(this._themeFlashTimer);
@@ -1228,6 +1255,7 @@ export function createProfilePage() {
       this._unbindStackFlip();
       this._unbindScrollTop();
       this.closeNav();
+      this.closeLangMenu();
       if (this._themeJokeTimer != null) {
         window.clearTimeout(this._themeJokeTimer);
         this._themeJokeTimer = null;

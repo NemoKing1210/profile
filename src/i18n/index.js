@@ -1,3 +1,4 @@
+import { localeFlagDataUrl } from "../data/locale-flags.js";
 import ru from "./locales/ru.js";
 import uk from "./locales/uk.js";
 import en from "./locales/en.js";
@@ -14,6 +15,7 @@ export const locales = { ru, uk, en, es, de, zh, ja };
 export const localeList = [ru, uk, en, es, de, zh, ja].map((locale) => ({
   code: locale.code,
   nativeName: locale.nativeName,
+  flag: localeFlagDataUrl(locale.code),
 }));
 
 export function resolveInitialLocale() {

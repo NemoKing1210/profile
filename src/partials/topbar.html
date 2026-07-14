@@ -1,7 +1,15 @@
 <header class="topbar" :class="navOpen && 'topbar--open'">
   <div class="topbar__inner">
     <a class="brand" href="#top" @click="closeNav()">
-      <span class="brand__mark" aria-hidden="true"></span>
+      <img
+        class="brand__mark"
+        :src="favicon"
+        alt=""
+        width="18"
+        height="18"
+        decoding="async"
+        aria-hidden="true"
+      />
       <span class="brand__text" x-text="name"></span>
     </a>
     <nav class="nav nav--desktop" :aria-label="t.ui.navLabel">
@@ -18,19 +26,76 @@
       </template>
     </nav>
     <div class="topbar__tools">
-      <label class="lang-switch">
-        <span class="visually-hidden" x-text="t.ui.langLabel"></span>
-        <select
-          class="lang-switch__select"
+      <div
+        class="lang-switch"
+        @keydown.escape.window="closeLangMenu()"
+        @click.outside="closeLangMenu()"
+      >
+        <button
+          type="button"
+          class="lang-switch__btn"
+          :class="langMenuOpen && 'lang-switch__btn--open'"
           :aria-label="t.ui.langLabel"
-          :value="locale"
-          @change="setLocale($event.target.value, { celebrate: true })"
+          :aria-expanded="langMenuOpen"
+          aria-haspopup="listbox"
+          aria-controls="lang-switch-menu"
+          @click="toggleLangMenu()"
+        >
+          <img
+            class="lang-switch__flag"
+            :src="currentLocaleOption.flag"
+            alt=""
+            width="18"
+            height="12"
+            decoding="async"
+            aria-hidden="true"
+          />
+          <span
+            class="lang-switch__code"
+            x-text="currentLocaleOption.code"
+          ></span>
+          <span
+            class="lang-switch__chevron"
+            aria-hidden="true"
+            x-html="langMenuOpen ? icons.chevronUp : icons.chevronDown"
+          ></span>
+        </button>
+        <ul
+          id="lang-switch-menu"
+          class="lang-switch__menu"
+          role="listbox"
+          :aria-label="t.ui.langLabel"
+          x-show="langMenuOpen"
+          x-cloak
         >
           <template x-for="option in localeList" :key="option.code">
-            <option :value="option.code" x-text="option.nativeName"></option>
+            <li role="presentation">
+              <button
+                type="button"
+                class="lang-switch__option lang-option"
+                role="option"
+                :aria-selected="locale === option.code"
+                :class="locale === option.code && 'lang-switch__option--active'"
+                @click="pickLocale(option.code)"
+              >
+                <img
+                  class="lang-switch__flag"
+                  :src="option.flag"
+                  alt=""
+                  width="18"
+                  height="12"
+                  decoding="async"
+                  aria-hidden="true"
+                />
+                <span
+                  class="lang-switch__name"
+                  x-text="option.nativeName"
+                ></span>
+              </button>
+            </li>
           </template>
-        </select>
-      </label>
+        </ul>
+      </div>
       <div class="theme-joke">
         <button
           type="button"
