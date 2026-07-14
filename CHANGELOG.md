@@ -14,6 +14,30 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.46.0] — 2026-07-14
+
+### Added
+
+- Avatar speech remembers messages already fully shown in the session and reopens them instantly (no word cascade)
+
+## [1.45.2] — 2026-07-14
+
+### Fixed
+
+- Restored spaces between avatar speech words (`white-space: pre-wrap` on word spans)
+
+## [1.45.1] — 2026-07-14
+
+### Changed
+
+- Smoother avatar speech word cascade (softer easing, light blur, overlapping timing) and bubble enter/leave
+
+## [1.45.0] — 2026-07-14
+
+### Changed
+
+- Avatar speech reveals word-by-word with a short fade/rise per word instead of character typing
+
 ## [1.44.0] — 2026-07-14
 
 ### Added

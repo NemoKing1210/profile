@@ -16,7 +16,13 @@
   aria-live="polite"
 >
   <p class="avatar-speech__text">
-    <span x-text="avatarSpeechText"></span><span
+    <template x-for="(word, wordIndex) in avatarSpeechWords" :key="`${wordIndex}-${word}`">
+      <span
+        class="avatar-speech__word"
+        :class="!avatarSpeechAnimateWords && 'avatar-speech__word--instant'"
+        x-text="word"
+      ></span>
+    </template><span
       class="avatar-speech__caret"
       x-show="avatarSpeechTyping"
       aria-hidden="true"

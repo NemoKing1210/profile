@@ -1,16 +1,19 @@
 const DEFAULT_HOLD_MS = 5000;
-const TYPE_INTERVAL_MS = 32;
+const WORD_INTERVAL_MS = 118;
 
 export function heroSpeechState() {
   return {
     physicsPlayCount: 0,
     avatarSpeechOpen: false,
     avatarSpeechText: "",
+    avatarSpeechWords: [],
     avatarSpeechTyping: false,
+    avatarSpeechAnimateWords: true,
     avatarSpeechAnchor: "hero",
     avatarInView: true,
     _avatarSpeechI18nPath: null,
     _avatarSpeechHoldMs: DEFAULT_HOLD_MS,
+    _avatarSpeechHeard: null,
     _speechPlayEnoughDone: false,
     _speechPlayAlongDone: false,
     _avatarSpeechTimer: null,
@@ -82,13 +85,16 @@ export function heroSpeechMethods() {
     },
 
     showSpeech(text, { holdMs = DEFAULT_HOLD_MS } = {}) {
+      const full = String(text ?? "");
       this._avatarSpeechI18nPath = null;
-      this._beginSpeech(String(text ?? ""), holdMs);
+      this._beginSpeech(full, holdMs, { identity: `text:${full}` });
     },
 
     showSpeechI18n(path, { holdMs = DEFAULT_HOLD_MS } = {}) {
       this._avatarSpeechI18nPath = path;
-      this._beginSpeech(resolveI18nPath(this.t, path), holdMs);
+      this._beginSpeech(resolveI18nPath(this.t, path), holdMs, {
+        identity: `i18n:${path}`,
+      });
     },
 
     hideSpeech() {
@@ -109,32 +115,48 @@ export function heroSpeechMethods() {
       this.hideSpeech();
     },
 
-    _beginSpeech(full, holdMs) {
+    _beginSpeech(full, holdMs, { identity } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
       this._avatarSpeechHoldMs = holdMs;
       this.avatarSpeechAnchor = this.avatarInView ? "hero" : "brand";
       this.avatarSpeechOpen = true;
-      this.avatarSpeechText = "";
-      this.avatarSpeechTyping = true;
 
-      if (!full || prefersReducedMotion()) {
+      const words = splitSpeechWords(full);
+      const heard = Boolean(identity && this._speechHeard().has(identity));
+
+      if (!words.length || prefersReducedMotion() || heard) {
+        this.avatarSpeechAnimateWords = false;
+        this.avatarSpeechWords = words.length ? words : full ? [full] : [];
         this.avatarSpeechText = full;
         this.avatarSpeechTyping = false;
+        if (identity) this._speechHeard().add(identity);
         this._scheduleAvatarSpeechHide();
         return;
       }
 
+      this.avatarSpeechAnimateWords = true;
+      this.avatarSpeechWords = [];
+      this.avatarSpeechText = "";
+      this.avatarSpeechTyping = true;
+
       let i = 0;
       this._avatarSpeechTimer = window.setInterval(() => {
+        this.avatarSpeechWords.push(words[i]);
+        this.avatarSpeechText = this.avatarSpeechWords.join("");
         i += 1;
-        this.avatarSpeechText = full.slice(0, i);
-        if (i >= full.length) {
+        if (i >= words.length) {
           this._stopAvatarSpeechTimer();
           this.avatarSpeechTyping = false;
+          if (identity) this._speechHeard().add(identity);
           this._scheduleAvatarSpeechHide();
         }
-      }, TYPE_INTERVAL_MS);
+      }, WORD_INTERVAL_MS);
+    },
+
+    _speechHeard() {
+      if (!this._avatarSpeechHeard) this._avatarSpeechHeard = new Set();
+      return this._avatarSpeechHeard;
     },
 
     _scheduleAvatarSpeechHide() {
@@ -174,6 +196,31 @@ export function heroSpeechMethods() {
       this._avatarSpeechObserver = null;
     },
   };
+}
+
+/** Split into display tokens; trailing whitespace stays on the previous word. */
+function splitSpeechWords(text) {
+  const source = String(text ?? "");
+  if (!source) return [];
+
+  if (typeof Intl !== "undefined" && typeof Intl.Segmenter === "function") {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: "word" });
+    const words = [];
+    for (const { segment } of segmenter.segment(source)) {
+      if (/^\s+$/.test(segment)) {
+        if (words.length) words[words.length - 1] += segment;
+        else words.push(segment);
+      } else {
+        words.push(segment);
+      }
+    }
+    return words.filter((word) => word.length > 0);
+  }
+
+  const parts = source.trim().split(/\s+/);
+  return parts.map((word, index) =>
+    index < parts.length - 1 ? `${word} ` : word
+  );
 }
 
 function resolveI18nPath(tree, path) {
