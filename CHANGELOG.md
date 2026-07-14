@@ -47,6 +47,7 @@ Update **both** when cutting a release.
 
 ### Fixed
 
+- Avatar hover tips no longer flash while scrolling (cursor passes over tipped elements)
 - Hero scroll blocked by Matter.js: remove `wheel` preventDefault; allow touch pan unless a body is grabbed
 - Hero physics simulation pauses when `hero__physics` is off-screen
 - About activity grid ticks only while the chart is in view

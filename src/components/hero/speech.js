@@ -1,5 +1,7 @@
 const DEFAULT_HOLD_MS = 5000;
 const WORD_INTERVAL_MS = 118;
+/** After the last scroll event, wait this long before allowing hover tips again. */
+const SCROLL_IDLE_MS = 160;
 
 export function heroSpeechState() {
   return {
@@ -19,6 +21,9 @@ export function heroSpeechState() {
     _avatarSpeechTimer: null,
     _avatarSpeechHideTimer: null,
     _avatarSpeechObserver: null,
+    _pageScrolling: false,
+    _speechScrollIdleTimer: null,
+    _onSpeechPageScroll: null,
   };
 }
 
@@ -82,15 +87,18 @@ export function heroSpeechMethods() {
         { threshold: 0.35 }
       );
       this._avatarSpeechObserver.observe(avatar);
+      this._bindSpeechScrollGuard();
     },
 
     showSpeech(text, { holdMs = DEFAULT_HOLD_MS } = {}) {
+      if (this._shouldSuppressHoverSpeech(holdMs)) return;
       const full = String(text ?? "");
       this._avatarSpeechI18nPath = null;
       this._beginSpeech(full, holdMs, { identity: `text:${full}` });
     },
 
     showSpeechI18n(path, { holdMs = DEFAULT_HOLD_MS } = {}) {
+      if (this._shouldSuppressHoverSpeech(holdMs)) return;
       this._avatarSpeechI18nPath = path;
       this._beginSpeech(resolveI18nPath(this.t, path), holdMs, {
         identity: `i18n:${path}`,
@@ -98,12 +106,10 @@ export function heroSpeechMethods() {
     },
 
     hideSpeech() {
-      this._stopAvatarSpeechTimer();
-      this._stopAvatarSpeechHideTimer();
-      this.avatarSpeechOpen = false;
-      this.avatarSpeechTyping = false;
-      this._avatarSpeechI18nPath = null;
-      this._avatarSpeechHoldMs = DEFAULT_HOLD_MS;
+      // Scroll moves the cursor across tipped nodes → mouseleave. Don't let that
+      // dismiss timed / event speeches (only sticky hover tips use holdMs: null).
+      if (this._pageScrolling && this._avatarSpeechHoldMs != null) return;
+      this._clearSpeech();
     },
 
     /** @deprecated Prefer showSpeechI18n("hero.<key>") */
@@ -178,8 +184,17 @@ export function heroSpeechMethods() {
       if (this._avatarSpeechHoldMs == null) return;
       this._avatarSpeechHideTimer = window.setTimeout(() => {
         this._avatarSpeechHideTimer = null;
-        this.hideSpeech();
+        this._clearSpeech();
       }, this._avatarSpeechHoldMs);
+    },
+
+    _clearSpeech() {
+      this._stopAvatarSpeechTimer();
+      this._stopAvatarSpeechHideTimer();
+      this.avatarSpeechOpen = false;
+      this.avatarSpeechTyping = false;
+      this._avatarSpeechI18nPath = null;
+      this._avatarSpeechHoldMs = DEFAULT_HOLD_MS;
     },
 
     _stopAvatarSpeechTimer() {
@@ -203,11 +218,49 @@ export function heroSpeechMethods() {
       });
     },
 
+    /** Hover tips use `holdMs: null`; suppress those while the page is scrolling. */
+    _shouldSuppressHoverSpeech(holdMs) {
+      return this._pageScrolling && holdMs == null;
+    },
+
+    _bindSpeechScrollGuard() {
+      if (this._onSpeechPageScroll) return;
+
+      this._onSpeechPageScroll = () => {
+        if (!this._pageScrolling) {
+          this._pageScrolling = true;
+          if (this.avatarSpeechOpen && this._avatarSpeechHoldMs == null) {
+            this._clearSpeech();
+          }
+        }
+
+        if (this._speechScrollIdleTimer != null) {
+          window.clearTimeout(this._speechScrollIdleTimer);
+        }
+        this._speechScrollIdleTimer = window.setTimeout(() => {
+          this._speechScrollIdleTimer = null;
+          this._pageScrolling = false;
+        }, SCROLL_IDLE_MS);
+      };
+
+      window.addEventListener("scroll", this._onSpeechPageScroll, {
+        passive: true,
+      });
+    },
+
     destroyHeroSpeech() {
-      this._stopAvatarSpeechTimer();
-      this._stopAvatarSpeechHideTimer();
+      this._clearSpeech();
       this._avatarSpeechObserver?.disconnect();
       this._avatarSpeechObserver = null;
+      if (this._onSpeechPageScroll) {
+        window.removeEventListener("scroll", this._onSpeechPageScroll);
+        this._onSpeechPageScroll = null;
+      }
+      if (this._speechScrollIdleTimer != null) {
+        window.clearTimeout(this._speechScrollIdleTimer);
+        this._speechScrollIdleTimer = null;
+      }
+      this._pageScrolling = false;
     },
   };
 }
