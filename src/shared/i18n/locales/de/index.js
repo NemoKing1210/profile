@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "Der würde hier nicht reinpassen… und suchen ist ohnehin zu spät.",
     restart: "Die Reise neu beginnen",
   },
+  achievements: {
+    buttonLabel: "Erfolge",
+    panelTitle: "Erfolge",
+    listLabel: "Freigeschaltete Erfolge",
+    closeLabel: "Schließen",
+    progressCaption: "Fortschritt",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "Weißes Theme",
+        how: "Erreiche Schleife 99 des endlosen Feeds und öffne das Geschenk.",
+      },
+    },
+  },
   spoken: {
     ru: "Russisch",
     uk: "Ukrainisch",

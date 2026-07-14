@@ -1,7 +1,4 @@
-import {
-  isLightThemeUnlocked,
-  unlockLightTheme,
-} from "../../shared/data/theme-unlock.js";
+import { isLightThemeUnlocked } from "../../shared/data/theme-unlock.js";
 
 /** Echo loop that triggers the white-screen finale. */
 export const ECHO_FINALE_LOOP = 99;
@@ -43,7 +40,7 @@ export function echoFinaleMethods() {
       if (!this.echoFinaleOpen || this.echoFinaleGiftOpened) return;
 
       this.echoFinaleGiftOpened = true;
-      unlockLightTheme();
+      this.unlockAchievementRecord?.("lightTheme");
       this.lightThemeUnlocked = true;
 
       // Let the gift “open” settle, then launch the Steam-style toast.

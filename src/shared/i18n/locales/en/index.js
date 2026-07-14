@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "It wouldn’t fit in here… and it’s too late to go looking.",
     restart: "Start the journey again",
   },
+  achievements: {
+    buttonLabel: "Achievements",
+    panelTitle: "Achievements",
+    listLabel: "Unlocked achievements",
+    closeLabel: "Close",
+    progressCaption: "Progress",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "White Theme",
+        how: "Reach loop 99 of the infinite feed and open the gift.",
+      },
+    },
+  },
   spoken: {
     ru: "Russian",
     uk: "Ukrainian",

@@ -27,6 +27,10 @@ import {
   echoFinaleMethods,
   echoFinaleState,
 } from "../components/echo-finale/index.js";
+import {
+  achievementsMethods,
+  achievementsState,
+} from "../components/achievements/index.js";
 import { interestsViewMethods } from "../components/interests/index.js";
 import { linksViewMethods } from "../components/links/index.js";
 import {
@@ -60,6 +64,7 @@ export function createProfilePage() {
       ...topbarState(),
       ...scrollTopState(),
       ...echoFinaleState(),
+      ...achievementsState(),
       ...stackFlipState(),
       ...heroSpeechState(),
       localeList,
@@ -147,6 +152,7 @@ export function createProfilePage() {
       ...Object.getOwnPropertyDescriptors(topbarMethods()),
       ...Object.getOwnPropertyDescriptors(scrollTopMethods()),
       ...Object.getOwnPropertyDescriptors(echoFinaleMethods()),
+      ...Object.getOwnPropertyDescriptors(achievementsMethods()),
       ...Object.getOwnPropertyDescriptors(stackFlipMethods()),
       ...Object.getOwnPropertyDescriptors(stackViewMethods()),
       ...Object.getOwnPropertyDescriptors(heroSpeechMethods()),

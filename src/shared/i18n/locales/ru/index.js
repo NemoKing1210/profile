@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "Он бы сюда не влез… да и искать его уже поздно.",
     restart: "Начать путь заново",
   },
+  achievements: {
+    buttonLabel: "Достижения",
+    panelTitle: "Достижения",
+    listLabel: "Полученные достижения",
+    closeLabel: "Закрыть",
+    progressCaption: "Прогресс",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "Белая тема",
+        how: "Дойди до 99-го круга бесконечной ленты и открой подарок.",
+      },
+    },
+  },
   spoken: {
     ru: "Русский",
     uk: "Украинский",

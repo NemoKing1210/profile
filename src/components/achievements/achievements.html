@@ -1,0 +1,17 @@
+<div class="achievements" x-show="hasAchievements" x-cloak>
+  <button
+    type="button"
+    class="achievements__btn"
+    :class="achievementsOpen && 'achievements__btn--open'"
+    :aria-label="t.achievements.buttonLabel"
+    :aria-expanded="achievementsOpen"
+    aria-controls="achievements-drawer"
+    @click="toggleAchievementsPanel()"
+  >
+    <span
+      class="achievements__btn-icon"
+      aria-hidden="true"
+      x-html="icons.trophy"
+    ></span>
+  </button>
+</div>

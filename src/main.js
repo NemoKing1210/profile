@@ -4,6 +4,7 @@ import { createProfilePage } from "./app/profile-page.js";
 /* Cascade: foundation → section components (page order) → motion. */
 import "./app.css";
 import "./components/topbar/index.js";
+import "./components/achievements/index.js";
 import "./components/hero/index.js";
 import "./components/about/index.js";
 import "./components/stack/index.js";

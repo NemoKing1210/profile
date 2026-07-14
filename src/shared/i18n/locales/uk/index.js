@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "Він би сюди не вмістився… і шукати його вже пізно.",
     restart: "Почати шлях знову",
   },
+  achievements: {
+    buttonLabel: "Досягнення",
+    panelTitle: "Досягнення",
+    listLabel: "Отримані досягнення",
+    closeLabel: "Закрити",
+    progressCaption: "Прогрес",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "Біла тема",
+        how: "Дістанься 99-го кола нескінченної стрічки і відкрий подарунок.",
+      },
+    },
+  },
   spoken: {
     ru: "Російська",
     uk: "Українська",

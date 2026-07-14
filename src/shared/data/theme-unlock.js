@@ -1,18 +1,15 @@
-/** Persisted unlock for the future light theme (UI ships separately). */
+/** @deprecated Prefer achievements.js — kept as a thin adapter. */
+import {
+  isAchievementUnlocked,
+  unlockAchievement,
+} from "./achievements.js";
+
 export const LIGHT_THEME_UNLOCK_KEY = "profile:light-theme-unlocked";
 
 export function isLightThemeUnlocked() {
-  try {
-    return localStorage.getItem(LIGHT_THEME_UNLOCK_KEY) === "1";
-  } catch {
-    return false;
-  }
+  return isAchievementUnlocked("lightTheme");
 }
 
 export function unlockLightTheme() {
-  try {
-    localStorage.setItem(LIGHT_THEME_UNLOCK_KEY, "1");
-  } catch {
-    /* ignore quota / private mode */
-  }
+  unlockAchievement("lightTheme");
 }

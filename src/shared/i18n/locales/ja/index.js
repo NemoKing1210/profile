@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "ここには収まらないし……探すにはもう遅すぎる。",
     restart: "旅をはじめから",
   },
+  achievements: {
+    buttonLabel: "実績",
+    panelTitle: "実績",
+    listLabel: "解除済みの実績",
+    closeLabel: "閉じる",
+    progressCaption: "進捗",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "ホワイトテーマ",
+        how: "無限フィードの 99 周目に到達し、ギフトを開ける。",
+      },
+    },
+  },
   spoken: {
     ru: "ロシア語",
     uk: "ウクライナ語",

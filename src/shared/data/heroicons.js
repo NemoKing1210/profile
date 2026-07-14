@@ -19,6 +19,7 @@ import mapPin from "heroicons/24/outline/map-pin.svg?raw";
 import puzzlePiece from "heroicons/24/outline/puzzle-piece.svg?raw";
 import sparkles from "heroicons/24/outline/sparkles.svg?raw";
 import sun from "heroicons/24/outline/sun.svg?raw";
+import trophy from "heroicons/24/outline/trophy.svg?raw";
 import tv from "heroicons/24/outline/tv.svg?raw";
 import xMark from "heroicons/24/outline/x-mark.svg?raw";
 
@@ -38,6 +39,7 @@ export const heroicons = {
   puzzlePiece,
   sparkles,
   sun,
+  trophy,
   tv,
   xMark,
 };

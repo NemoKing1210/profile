@@ -149,6 +149,7 @@ export function localeChromeMethods() {
       this.langMenuOpen = !this.langMenuOpen;
       if (this.langMenuOpen) {
         this.themeJokeOpen = false;
+        this.closeAchievementsPanel?.();
       }
     },
 
@@ -291,6 +292,7 @@ export function localeChromeMethods() {
 
     pokeThemeJoke() {
       this.closeLangMenu();
+      this.closeAchievementsPanel?.();
       this.themeJokeFlash = true;
       if (this._themeFlashTimer != null) {
         window.clearTimeout(this._themeFlashTimer);
@@ -322,6 +324,7 @@ export function localeChromeMethods() {
     destroyLocaleChrome() {
       this.closeNav();
       this.closeLangMenu();
+      this.closeAchievementsPanel?.();
       this._clearLocaleBlur();
       if (this._themeJokeTimer != null) {
         window.clearTimeout(this._themeJokeTimer);

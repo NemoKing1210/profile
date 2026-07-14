@@ -12,7 +12,14 @@ Update **both** when cutting a release.
 
 ### Planned
 
-- Light theme UI (unlock already persists via `profile:light-theme-unlocked`)
+- Light theme UI (unlock already persists via achievements / `lightTheme`)
+
+## [1.56.0] — 2026-07-14
+
+### Added
+
+- Achievements system stored in `localStorage` (`profile:achievements`), with a topbar panel (list + progress) when at least one is unlocked
+- Migrated white-theme unlock into the `lightTheme` achievement
 
 ## [1.55.0] — 2026-07-14
 

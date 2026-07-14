@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "它塞不进来……而且现在找也晚了。",
     restart: "重新开始旅程",
   },
+  achievements: {
+    buttonLabel: "成就",
+    panelTitle: "成就",
+    listLabel: "已解锁成就",
+    closeLabel: "关闭",
+    progressCaption: "进度",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "白色主题",
+        how: "到达无限信息流的第 99 圈并打开礼物。",
+      },
+    },
+  },
   spoken: {
     ru: "俄语",
     uk: "乌克兰语",

@@ -72,6 +72,20 @@ export default {
     giftJokePunch: "No cabría aquí… y ya es tarde para ir a buscarlo.",
     restart: "Empezar el camino de nuevo",
   },
+  achievements: {
+    buttonLabel: "Logros",
+    panelTitle: "Logros",
+    listLabel: "Logros desbloqueados",
+    closeLabel: "Cerrar",
+    progressCaption: "Progreso",
+    progressLabel: "{done} / {total}",
+    items: {
+      lightTheme: {
+        title: "Tema blanco",
+        how: "Llega al ciclo 99 del feed infinito y abre el regalo.",
+      },
+    },
+  },
   spoken: {
     ru: "Ruso",
     uk: "Ucraniano",

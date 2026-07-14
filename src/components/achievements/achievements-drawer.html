@@ -1,0 +1,91 @@
+<div
+  class="achievements-drawer"
+  x-show="hasAchievements"
+  x-cloak
+  :class="achievementsOpen && 'is-open'"
+  @keydown.escape.window="achievementsOpen && closeAchievementsPanel()"
+>
+  <div
+    class="achievements-drawer__backdrop"
+    x-show="achievementsOpen"
+    x-transition:enter="achievements-drawer-fade"
+    x-transition:enter-start="achievements-drawer-fade--from"
+    x-transition:enter-end="achievements-drawer-fade--to"
+    x-transition:leave="achievements-drawer-fade"
+    x-transition:leave-start="achievements-drawer-fade--to"
+    x-transition:leave-end="achievements-drawer-fade--from"
+    @click="closeAchievementsPanel()"
+    aria-hidden="true"
+  ></div>
+
+  <aside
+    id="achievements-drawer"
+    class="achievements-drawer__sheet"
+    role="dialog"
+    aria-modal="true"
+    :aria-label="t.achievements.panelTitle"
+    x-show="achievementsOpen"
+    x-transition:enter="achievements-drawer-slide"
+    x-transition:enter-start="achievements-drawer-slide--from"
+    x-transition:enter-end="achievements-drawer-slide--to"
+    x-transition:leave="achievements-drawer-slide"
+    x-transition:leave-start="achievements-drawer-slide--to"
+    x-transition:leave-end="achievements-drawer-slide--from"
+  >
+    <div class="achievements-drawer__head">
+      <div class="achievements-drawer__head-copy">
+        <span
+          class="achievements-drawer__head-icon"
+          aria-hidden="true"
+          x-html="icons.trophy"
+        ></span>
+        <p class="achievements-drawer__title" x-text="t.achievements.panelTitle"></p>
+      </div>
+      <button
+        type="button"
+        class="achievements-drawer__close"
+        :aria-label="t.achievements.closeLabel"
+        @click="closeAchievementsPanel()"
+      >
+        <span aria-hidden="true" x-html="icons.xMark"></span>
+      </button>
+    </div>
+
+    <ul class="achievements-drawer__list" :aria-label="t.achievements.listLabel">
+      <template x-for="item in unlockedAchievements" :key="item.id">
+        <li class="achievements-drawer__item">
+          <div class="achievements-drawer__badge" aria-hidden="true">
+            <span x-html="item.icon"></span>
+          </div>
+          <div class="achievements-drawer__copy">
+            <p class="achievements-drawer__item-title" x-text="item.title"></p>
+            <p class="achievements-drawer__item-how" x-text="item.how"></p>
+          </div>
+        </li>
+      </template>
+    </ul>
+
+    <div
+      class="achievements-drawer__progress"
+      role="progressbar"
+      :aria-valuenow="achievementsProgress.done"
+      :aria-valuemin="0"
+      :aria-valuemax="achievementsProgress.total"
+      :aria-label="achievementsProgressLabel"
+    >
+      <div class="achievements-drawer__progress-meta">
+        <span x-text="t.achievements.progressCaption"></span>
+        <span
+          class="achievements-drawer__progress-count"
+          x-text="achievementsProgressLabel"
+        ></span>
+      </div>
+      <div class="achievements-drawer__progress-track">
+        <div
+          class="achievements-drawer__progress-fill"
+          :style="`width: ${achievementsProgress.ratio * 100}%`"
+        ></div>
+      </div>
+    </div>
+  </aside>
+</div>
