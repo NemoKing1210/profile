@@ -157,6 +157,13 @@ export default {
     avatarTip: "¡Venga, haz clic en mí!",
     locationTip: "Estoy en Matrix y no podré ir a vuestra oficina",
     birthTip: "Sí, soy zoomer — ¿y qué?",
+    playTips: [
+      "Suave — eso es mi stack, no una bolera.",
+      "La gravedad aprueba. El perfil también espera.",
+      "Sigue lanzando. Yo miro… en silencio. Por ahora.",
+      "Si cada tiro contara como un commit…",
+      "Cuidado: las bolas también tienen sentimientos. Creo.",
+    ],
     playEnough:
       "¿Todavía no te cansas de jugar? ¿Miramos el resto del perfil?",
     playAlong: "Parece divertido — ¡juego contigo!",

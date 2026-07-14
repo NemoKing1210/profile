@@ -12,6 +12,7 @@ Update **both** when cutting a release.
 
 ### Added
 
+- More avatar speech beats while playing with hero physics objects (tips at 5 / 10 / 15 / 25 interactions)
 - Avatar speech on language switcher hover and after changing locale
 - Avatar speech on achievements / theme button hover; random quips when toggling light/dark theme
 - Avatar speech on Activity block hover and when the grid starts rising

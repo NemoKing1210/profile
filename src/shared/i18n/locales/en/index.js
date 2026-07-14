@@ -157,6 +157,13 @@ export default {
     avatarTip: "Come on, click me!",
     locationTip: "I'm in the Matrix and can't come to your office",
     birthTip: "Yes, I'm a Zoomer — so what?",
+    playTips: [
+      "Easy there — that's my stack, not a bowling alley.",
+      "Gravity approves. The rest of the profile is waiting too.",
+      "Keep tossing. I'm watching… quietly. For now.",
+      "If every throw counted as a commit…",
+      "Careful: the balls have feelings. Probably.",
+    ],
     playEnough:
       "Still not done playing? Maybe check out the rest of my profile?",
     playAlong: "Looks fun — I'll jump in and play with you!",

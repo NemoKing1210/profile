@@ -3,6 +3,16 @@ const WORD_INTERVAL_MS = 118;
 /** After the last scroll event, wait this long before allowing hover tips again. */
 const SCROLL_IDLE_MS = 160;
 
+/** Interaction count → speech beat while flinging hero physics bodies. */
+const PHYSICS_SPEECH_AT = {
+  5: "tip",
+  10: "tip",
+  15: "tip",
+  20: "playEnough",
+  25: "tip",
+  30: "playAlong",
+};
+
 export function heroSpeechState() {
   return {
     physicsPlayCount: 0,
@@ -16,8 +26,8 @@ export function heroSpeechState() {
     _avatarSpeechI18nPath: null,
     _avatarSpeechHoldMs: DEFAULT_HOLD_MS,
     _avatarSpeechHeard: null,
-    _speechPlayEnoughDone: false,
     _speechPlayAlongDone: false,
+    _physicsPlayTipCursor: 0,
     _avatarSpeechTimer: null,
     _avatarSpeechHideTimer: null,
     _avatarSpeechObserver: null,
@@ -59,17 +69,32 @@ export function heroSpeechMethods() {
       if (this._speechPlayAlongDone) return;
       this.physicsPlayCount += 1;
 
-      if (this.physicsPlayCount === 20 && !this._speechPlayEnoughDone) {
-        this._speechPlayEnoughDone = true;
+      const beat = PHYSICS_SPEECH_AT[this.physicsPlayCount];
+      if (!beat) return;
+
+      if (beat === "tip") {
+        this._speakPhysicsPlayTip();
+        return;
+      }
+
+      if (beat === "playEnough") {
         this.showSpeechI18n("hero.playEnough");
         return;
       }
 
-      if (this.physicsPlayCount >= 30) {
+      if (beat === "playAlong") {
         this._speechPlayAlongDone = true;
         this.showSpeechI18n("hero.playAlong");
         this.spawnAvatarSquare();
       }
+    },
+
+    _speakPhysicsPlayTip() {
+      const tips = this.t?.hero?.playTips;
+      if (!Array.isArray(tips) || tips.length === 0) return;
+      const text = tips[this._physicsPlayTipCursor % tips.length];
+      this._physicsPlayTipCursor += 1;
+      if (text) this.showSpeech(text);
     },
 
     bindAvatarSpeech() {

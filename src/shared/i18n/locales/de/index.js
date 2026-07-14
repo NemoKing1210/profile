@@ -157,6 +157,13 @@ export default {
     avatarTip: "Na los, klick mich an!",
     locationTip: "Ich bin in der Matrix und kann nicht ins Büro kommen",
     birthTip: "Ja, ich bin Zoomer — und?",
+    playTips: [
+      "Vorsicht — das ist mein Stack, keine Bowlingbahn.",
+      "Die Schwerkraft nickt. Das Profil wartet auch.",
+      "Wirf ruhig weiter. Ich schaue zu… vorerst still.",
+      "Wenn jeder Wurf ein Commit wäre…",
+      "Vorsicht: Die Kugeln haben Gefühle. Vermutlich.",
+    ],
     playEnough:
       "Immer noch nicht genug gespielt? Schau dir doch den Rest meines Profils an.",
     playAlong: "Sieht lustig aus — ich spiele mit!",
