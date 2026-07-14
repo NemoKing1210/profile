@@ -161,6 +161,8 @@ html.achievements-drawer-lock body {
   display: flex;
   flex-direction: column;
   width: min(28rem, calc(100vw - 1.5rem));
+  max-height: 100%;
+  overflow: hidden;
   padding:
     max(1rem, env(safe-area-inset-top, 0px))
     max(1rem, env(safe-area-inset-right, 0px))
@@ -176,11 +178,12 @@ html.achievements-drawer-lock body {
 @media (max-width: 859px) {
   .achievements-drawer__sheet {
     left: 0;
+    bottom: var(--topbar-dock, 0px);
     width: 100%;
     padding:
       max(1rem, env(safe-area-inset-top, 0px))
       max(1rem, env(safe-area-inset-right, 0px))
-      max(1rem, env(safe-area-inset-bottom, 0px))
+      1rem
       max(1rem, env(safe-area-inset-left, 0px));
     border-left: none;
     box-shadow: none;
@@ -216,6 +219,7 @@ html.achievements-drawer-lock body {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  flex-shrink: 0;
   margin-bottom: 1rem;
   padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--hairline);
@@ -289,18 +293,26 @@ html.achievements-drawer-lock body {
 .achievements-drawer__list {
   list-style: none;
   margin: 0;
-  padding: 0 0.1rem 0.25rem;
-  display: grid;
-  align-content: start;
+  padding: 0 0.25rem 0.25rem 0.1rem;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
-  flex: 1 1 auto;
+  /* Occupy remaining sheet height and scroll — don't let cards shrink to fit. */
+  flex: 1 1 0%;
+  height: 0;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
 }
 
 .achievements-drawer__item {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
+  min-height: max-content;
   padding: 0;
   border-radius: var(--radius);
   border: 1px solid var(--border-subtle);
@@ -498,7 +510,8 @@ html.achievements-drawer-lock body {
 .achievements-drawer__progress {
   display: grid;
   gap: 0.45rem;
-  margin-top: auto;
+  flex-shrink: 0;
+  margin-top: 0.85rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }

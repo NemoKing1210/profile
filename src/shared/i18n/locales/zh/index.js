@@ -157,6 +157,7 @@ export default {
     statusOnlineTip: "我还在这儿，有事吗？",
     statusLastSeen: "上次在线：1970-01-01 00:00:00",
     nameTip: "这是我的名字，怕你没看懂",
+    roleTip: "不只是前端。没人看的时候还是全栈……火烧眉毛时还能当运维。",
     avatarTip: "来嘛，点我一下！",
     locationTip: "我在矩阵里，没法去你们办公室",
     birthTip: "对，我是Z世代，怎么了？",
@@ -262,6 +263,9 @@ export default {
       backend: "后端按需",
       ai: "AI 融入流程",
       remote: "远程协作",
+    },
+    badgeTips: {
+      backend: "灰色是因为机房把灯关了。后端本就该待在黑暗里。",
     },
     statusLabel: "状态",
     statusWorkBadge: "关闭",

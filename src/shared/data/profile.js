@@ -76,7 +76,7 @@ const profile = {
     { id: "frontend", tone: "accent" },
     { id: "details", tone: "accent" },
     { id: "ship", tone: "accent" },
-    { id: "backend", tone: "muted" },
+    { id: "backend", tone: "muted", speechI18n: "about.badgeTips.backend" },
     { id: "ai", tone: "hot" },
     { id: "remote", tone: "green" },
   ],
@@ -120,6 +120,7 @@ const profile = {
       tags: ["TypeScript", "Electron", "React", "Desktop"],
       url: "https://github.com/NemoKing1210/ProxyChecker",
       status: "public",
+      hidden: true,
     },
     {
       id: "youtube-bot-comments-filter",

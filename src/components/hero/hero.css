@@ -100,6 +100,7 @@ body.theme-light .hero__banner::before {
 
 .hero__inner a,
 .hero__inner button,
+.hero__inner .hero__role,
 .hero__inner .hero__name-wrap,
 .hero__inner .meta-chip--has-tip,
 .hero__inner .avatar-speech {
@@ -386,6 +387,9 @@ body.theme-light .hero__avatar-btn:focus-visible .hero__avatar {
 }
 
 .hero__role {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
   margin: 0 0 0.35rem;
   color: var(--accent);
   font-family: var(--font-display);
@@ -393,7 +397,14 @@ body.theme-light .hero__avatar-btn:focus-visible .hero__avatar {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  outline: none;
+  cursor: help;
   transition: color var(--theme-duration) var(--ease);
+}
+
+.hero__role:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .hero__name-wrap {

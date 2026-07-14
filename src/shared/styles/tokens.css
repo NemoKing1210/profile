@@ -133,6 +133,12 @@
   --chrome-fill-hover: color-mix(in srgb, var(--accent) 10%, transparent);
   --inset-well: color-mix(in srgb, #000000 28%, transparent);
   --hairline: rgba(255, 255, 255, 0.06);
+  /* Steam client / store scrollbar chrome */
+  --scroll-track: #0e1419;
+  --scroll-track-edge: rgba(0, 0, 0, 0.55);
+  --scroll-thumb: #3d4450;
+  --scroll-thumb-hover: #4e5661;
+  --scroll-thumb-edge: rgba(0, 0, 0, 0.65);
   --font-display: "Exo 2", "Segoe UI", sans-serif;
   --font-body: "Source Sans 3", "Segoe UI", sans-serif;
   --radius: 3px;
@@ -172,6 +178,11 @@ body.theme-sith {
   --hero-tint: rgba(140, 18, 18, 0.48);
   --hero-veil: rgba(28, 8, 8, 0.9);
   --shadow-panel: 0 0 0 1px rgba(0, 0, 0, 0.45), 0 12px 40px rgba(80, 0, 0, 0.35);
+  --scroll-track: #120808;
+  --scroll-track-edge: rgba(0, 0, 0, 0.65);
+  --scroll-thumb: #4a2828;
+  --scroll-thumb-hover: #5c3232;
+  --scroll-thumb-edge: rgba(0, 0, 0, 0.7);
 }
 
 /* White theme — gated behind the `lightTheme` achievement. */
@@ -202,4 +213,9 @@ body.theme-light {
   --chrome-fill-hover: color-mix(in srgb, var(--accent) 12%, transparent);
   --inset-well: color-mix(in srgb, var(--bg-capsule) 78%, transparent);
   --hairline: rgba(15, 30, 45, 0.08);
+  --scroll-track: #d9e2ec;
+  --scroll-track-edge: rgba(15, 30, 45, 0.12);
+  --scroll-thumb: #8fa0b0;
+  --scroll-thumb-hover: #6f8498;
+  --scroll-thumb-edge: rgba(15, 30, 45, 0.22);
 }

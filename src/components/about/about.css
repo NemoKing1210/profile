@@ -31,6 +31,12 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text);
+  transition:
+    color 0.22s var(--ease),
+    background 0.22s var(--ease),
+    border-color 0.22s var(--ease),
+    box-shadow 0.22s var(--ease),
+    filter 0.22s var(--ease);
 }
 
 .about-badge::before {
@@ -40,6 +46,10 @@
   border-radius: 1px;
   background: currentColor;
   opacity: 0.9;
+  transition:
+    opacity 0.22s var(--ease),
+    box-shadow 0.22s var(--ease),
+    filter 0.22s var(--ease);
 }
 
 .about-badge--accent {
@@ -63,6 +73,90 @@
 .about-badge--muted {
   color: var(--text-muted);
   border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Lit like bulbs — everything except muted (server lights are off). */
+.about-badge--accent:hover,
+.about-badge--accent:focus-visible,
+.about-badge--hot:hover,
+.about-badge--hot:focus-visible,
+.about-badge--green:hover,
+.about-badge--green:focus-visible {
+  filter: brightness(1.12);
+}
+
+.about-badge--accent:hover,
+.about-badge--accent:focus-visible {
+  background: rgba(102, 192, 244, 0.22);
+  border-color: rgba(102, 192, 244, 0.65);
+  box-shadow:
+    0 0 14px rgba(102, 192, 244, 0.42),
+    0 0 4px rgba(102, 192, 244, 0.55);
+}
+
+.about-badge--hot:hover,
+.about-badge--hot:focus-visible {
+  background: rgba(26, 159, 255, 0.24);
+  border-color: rgba(126, 200, 255, 0.7);
+  box-shadow:
+    0 0 14px rgba(26, 159, 255, 0.48),
+    0 0 4px rgba(126, 200, 255, 0.55);
+}
+
+.about-badge--green:hover,
+.about-badge--green:focus-visible {
+  background: rgba(164, 208, 7, 0.22);
+  border-color: rgba(164, 208, 7, 0.7);
+  box-shadow:
+    0 0 14px rgba(164, 208, 7, 0.42),
+    0 0 4px rgba(164, 208, 7, 0.55);
+}
+
+.about-badge--accent:hover::before,
+.about-badge--accent:focus-visible::before,
+.about-badge--hot:hover::before,
+.about-badge--hot:focus-visible::before,
+.about-badge--green:hover::before,
+.about-badge--green:focus-visible::before {
+  opacity: 1;
+  border-radius: 50%;
+  box-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 16px currentColor;
+  filter: brightness(1.45);
+}
+
+.about-badge--muted:hover,
+.about-badge--muted:focus-visible {
+  filter: none;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.28);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.about-badge--muted:hover::before,
+.about-badge--muted:focus-visible::before {
+  opacity: 0.55;
+  box-shadow: none;
+  filter: none;
+}
+
+.about-badge--has-tip {
+  cursor: help;
+  outline: none;
+}
+
+.about-badge--has-tip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-badge,
+  .about-badge::before {
+    transition: none;
+  }
 }
 
 .about-body {

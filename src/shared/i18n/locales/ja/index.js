@@ -160,6 +160,8 @@ export default {
     statusOnlineTip: "まだいるよ。何か用？",
     statusLastSeen: "最終オンライン：1970年1月1日 00:00:00",
     nameTip: "これが私の名前です。念のため",
+    roleTip:
+      "フロントエンドだけ？いいえ。誰も見てないときはフルスタック。炎上したら DevOps も。",
     avatarTip: "ほら、クリックしてよ！",
     locationTip: "マトリックスの中にいるので、オフィスには行けません",
     birthTip: "そう、ズーマーだけど何か？",
@@ -270,6 +272,10 @@ export default {
       backend: "Backend も対応",
       ai: "AI をワークフローに",
       remote: "Remote",
+    },
+    badgeTips: {
+      backend:
+        "灰色なのは、サーバーの電気が消されたから。Backend は暗がりで働くもの — 仕様です。",
     },
     statusLabel: "ステータス",
     statusWorkBadge: "クローズ",

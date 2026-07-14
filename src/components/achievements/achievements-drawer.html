@@ -25,6 +25,7 @@
     aria-modal="true"
     :aria-label="t.achievements.panelTitle"
     x-show="achievementsOpen"
+    x-bind:style="achievementsOpen && { display: 'flex' }"
     x-transition:enter="achievements-drawer-slide"
     x-transition:enter-start="achievements-drawer-slide--from"
     x-transition:enter-end="achievements-drawer-slide--to"

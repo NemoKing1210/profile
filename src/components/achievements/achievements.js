@@ -573,6 +573,19 @@ export function achievementsMethods() {
           console.info("[achievement] cleared all");
           return true;
         },
+        addAll: () => {
+          let granted = 0;
+          for (const id of ACHIEVEMENT_IDS) {
+            if (this.unlockAchievementRecord(id, { notify: false })) {
+              granted += 1;
+            }
+          }
+          if (granted > 0) this.pulseAchievementButton();
+          console.info(
+            `[achievement] unlocked all (${granted} new / ${ACHIEVEMENT_IDS.length} total)`
+          );
+          return api.ids();
+        },
         help: () => {
           console.info(
             [
@@ -581,6 +594,7 @@ export function achievementsMethods() {
               "  achievement.list()          — unlocked map",
               "  achievement.spawns()        — physics spawn collector progress",
               "  achievement.add(1|id)       — grant + toast",
+              "  achievement.addAll()        — grant every achievement (no toast spam)",
               "  achievement.remove(1|id)    — revoke",
               "  achievement.clear()         — wipe all",
               "  achievement.help()          — this text",

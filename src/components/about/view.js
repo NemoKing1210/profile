@@ -10,6 +10,7 @@ export function aboutViewMethods() {
           id: badge.id,
           tone: badge.tone || "muted",
           label: this.t.about.badges?.[badge.id] || badge.id,
+          speechI18n: badge.speechI18n || null,
         })),
       };
     },

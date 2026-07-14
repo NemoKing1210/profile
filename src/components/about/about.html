@@ -8,7 +8,12 @@
     <template x-for="badge in about.badges" :key="badge.id">
       <li
         class="about-badge"
-        :class="`about-badge--${badge.tone}`"
+        :class="`about-badge--${badge.tone}${badge.speechI18n ? ' about-badge--has-tip' : ''}`"
+        :tabindex="badge.speechI18n ? 0 : null"
+        @mouseenter="badge.speechI18n && showSpeechI18n(badge.speechI18n, { holdMs: null })"
+        @mouseleave="badge.speechI18n && hideSpeech()"
+        @focusin="badge.speechI18n && showSpeechI18n(badge.speechI18n, { holdMs: null })"
+        @focusout="badge.speechI18n && hideSpeech()"
         x-text="badge.label"
       ></li>
     </template>

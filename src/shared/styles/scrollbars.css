@@ -1,0 +1,61 @@
+/* Steam-style chrome scrollbars (store / client-like). */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+  border: 1px solid var(--scroll-track-edge);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
+*::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--scroll-thumb) 88%, #fff 12%) 0%,
+      var(--scroll-thumb) 45%,
+      color-mix(in srgb, var(--scroll-thumb) 82%, #000 18%) 100%
+    );
+  border: 1px solid var(--scroll-thumb-edge);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+*::-webkit-scrollbar-thumb:horizontal {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--scroll-thumb) 88%, #fff 12%) 0%,
+      var(--scroll-thumb) 45%,
+      color-mix(in srgb, var(--scroll-thumb) 82%, #000 18%) 100%
+    );
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--scroll-thumb-edge));
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: color-mix(in srgb, var(--accent) 28%, var(--scroll-thumb-hover));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--scroll-thumb-edge));
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--scroll-track);
+  border: 1px solid var(--scroll-track-edge);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}

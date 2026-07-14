@@ -80,8 +80,6 @@
   overflow-y: visible;
   max-width: 100%;
   padding: 0.35rem 0 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(102, 192, 244, 0.35) transparent;
 }
 
 .about-activity__months {

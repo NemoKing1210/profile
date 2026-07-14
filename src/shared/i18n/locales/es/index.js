@@ -161,6 +161,8 @@ export default {
     statusOnlineTip: "Sigo aquí — ¿querías algo?",
     statusLastSeen: "Última vez: 1 ene 1970, 00:00:00",
     nameTip: "Ese es mi nombre, por si no quedaba claro",
+    roleTip:
+      "No solo Frontend. También Fullstack… cuando nadie mira. Y DevOps cuando ya está todo en llamas.",
     avatarTip: "¡Venga, haz clic en mí!",
     locationTip: "Estoy en Matrix y no podré ir a vuestra oficina",
     birthTip: "Sí, soy zoomer — ¿y qué?",
@@ -271,6 +273,10 @@ export default {
       backend: "Backend cuando hace falta",
       ai: "AI en el flujo",
       remote: "Remote",
+    },
+    badgeTips: {
+      backend:
+        "Gris porque apagaron la luz del servidor. El Backend vive a oscuras — como debe ser.",
     },
     statusLabel: "Disponibilidad",
     statusWorkBadge: "Cerrado",

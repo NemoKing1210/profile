@@ -161,6 +161,8 @@ export default {
     statusOnlineTip: "Я всё ещё тут, ты что-то хотел?",
     statusLastSeen: "Был в сети: 1 янв 1970, 00:00:00",
     nameTip: "Это моё имя, если вы не поняли",
+    roleTip:
+      "Не только Frontend. Ещё Fullstack… когда никто не смотрит. И DevOps — когда всё уже горит.",
     avatarTip: "Ну давай кликни на меня!",
     locationTip: "Я в Матрице и не смогу приехать к вам в офис",
     birthTip: "Да, я Зумер, а что?",
@@ -271,6 +273,10 @@ export default {
       backend: "Backend по делу",
       ai: "AI в процессе",
       remote: "Remote",
+    },
+    badgeTips: {
+      backend:
+        "Серый, потому что на сервере свет отключили. Backend в темноте — как и положено.",
     },
     statusLabel: "Доступность",
     statusWorkBadge: "Закрыто",

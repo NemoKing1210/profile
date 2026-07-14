@@ -103,6 +103,41 @@ body.theme-light .about-badge--green {
   border-color: color-mix(in srgb, var(--accent-green) 30%, transparent);
 }
 
+body.theme-light .about-badge--accent:hover,
+body.theme-light .about-badge--accent:focus-visible {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent) 40%, transparent),
+    0 0 3px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+body.theme-light .about-badge--hot:hover,
+body.theme-light .about-badge--hot:focus-visible {
+  background: color-mix(in srgb, var(--accent-hot) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent-hot) 55%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent-hot) 40%, transparent),
+    0 0 3px color-mix(in srgb, var(--accent-hot) 50%, transparent);
+}
+
+body.theme-light .about-badge--green:hover,
+body.theme-light .about-badge--green:focus-visible {
+  background: color-mix(in srgb, var(--accent-green) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent-green) 55%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent-green) 40%, transparent),
+    0 0 3px color-mix(in srgb, var(--accent-green) 50%, transparent);
+}
+
+body.theme-light .about-badge--muted:hover,
+body.theme-light .about-badge--muted:focus-visible {
+  background: var(--inset-well);
+  border-color: var(--hairline);
+  box-shadow: none;
+  filter: none;
+}
+
 body.theme-light .about-status,
 body.theme-light .ai-kit {
   background:

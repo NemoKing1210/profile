@@ -37,7 +37,15 @@
         {{> hero/speech-bubble modifier="hero" }}
       </div>
       <div class="hero__copy">
-        <p class="hero__role" x-text="role"></p>
+        <p
+          class="hero__role"
+          tabindex="0"
+          @mouseenter="showSpeechI18n('hero.roleTip', { holdMs: null })"
+          @mouseleave="hideSpeech()"
+          @focusin="showSpeechI18n('hero.roleTip', { holdMs: null })"
+          @focusout="hideSpeech()"
+          x-text="role"
+        ></p>
         <div
           class="hero__name-wrap"
           tabindex="0"
