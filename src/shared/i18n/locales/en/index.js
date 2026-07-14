@@ -404,15 +404,6 @@ export default {
       "youtube-bot-comments-filter":
         "YouTube userscript: flags spam bots by nickname pattern and hides or blurs comments. Hide/blur toggle sits in the comments header — no separate settings page.",
     },
-    speechTips: {
-      "steam-gamestatus":
-        "Why leave the game page when the badges come to you?",
-      "steam-region-block-bypass":
-        "Region said no — the guest card still shows the store.",
-      ProxyChecker: "When proxies lie, this app catches them.",
-      "youtube-bot-comments-filter":
-        "Tidied up the comments under my favorite videos a bit — just for myself.",
-    },
     highlights: {
       "steam-gamestatus": [
         "Badges on listings and game pages",

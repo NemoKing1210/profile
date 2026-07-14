@@ -405,10 +405,6 @@ export default {
       "youtube-bot-comments-filter":
         "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios. Interruptor hide/blur en la cabecera de comentarios, sin página de ajustes aparte.",
     },
-    speechTips: {
-      "youtube-bot-comments-filter":
-        "Limpié un poco los comentarios bajo mis vídeos favoritos — para mí.",
-    },
     highlights: {
       "steam-gamestatus": [
         "Insignias en listados y en la página del juego",

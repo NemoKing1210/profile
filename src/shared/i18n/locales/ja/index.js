@@ -404,10 +404,6 @@ export default {
       "youtube-bot-comments-filter":
         "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
     },
-    speechTips: {
-      "youtube-bot-comments-filter":
-        "好きな動画のコメントを自分用に少し整理しただけ。",
-    },
     highlights: {
       "steam-gamestatus": [
         "一覧とゲームページにバッジ",

@@ -405,10 +405,6 @@ export default {
       "youtube-bot-comments-filter":
         "YouTube-Userscript: erkennt Spam-Bots am Nick-Muster und blendet Kommentare aus oder unscharf. Hide/Blur-Umschalter direkt in der Kommentar-Kopfzeile — ohne extra Einstellungsseite.",
     },
-    speechTips: {
-      "youtube-bot-comments-filter":
-        "Kommentare unter meinen Lieblingsvideos ein bisschen aufgeräumt — für mich selbst.",
-    },
     highlights: {
       "steam-gamestatus": [
         "Badges in Listen und auf der Spielseite",

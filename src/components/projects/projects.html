@@ -18,10 +18,6 @@
         :href="project.url"
         rel="noopener noreferrer"
         target="_blank"
-        @mouseenter="project.speechI18n && showSpeechI18n(project.speechI18n, { holdMs: null })"
-        @mouseleave="project.speechI18n && hideSpeech()"
-        @focusin="project.speechI18n && showSpeechI18n(project.speechI18n, { holdMs: null })"
-        @focusout="project.speechI18n && hideSpeech()"
       >
         <div
           class="capsule__art"

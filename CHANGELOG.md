@@ -31,6 +31,10 @@ Update **both** when cutting a release.
 - Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 - Per-achievement effect panel (slide-down tip + switch; hover on desktop, tap on mobile); disabling White Theme locks the theme toggle again
 
+### Removed
+
+- Avatar speech tips on project cards
+
 ### Fixed
 
 - Hero physics simulation pauses when `hero__physics` is off-screen

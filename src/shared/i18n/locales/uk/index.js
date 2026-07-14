@@ -404,10 +404,6 @@ export default {
       "youtube-bot-comments-filter":
         "Userscript для YouTube: ловить спам-ботів за патерном ніка й ховає або блюрить коментарі. Перемикач hide/blur прямо в шапці коментарів, без окремої сторінки налаштувань.",
     },
-    speechTips: {
-      "youtube-bot-comments-filter":
-        "Трохи почистив для себе коментарі під улюбленими відео.",
-    },
     highlights: {
       "steam-gamestatus": [
         "Бейджі на лістингах і на сторінці гри",

@@ -386,10 +386,6 @@ export default {
       "youtube-bot-comments-filter":
         "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。hide/blur 切换就在评论区标题栏，无需单独设置页。",
     },
-    speechTips: {
-      "youtube-bot-comments-filter":
-        "稍微给自己清理了一下喜欢视频下的评论。",
-    },
     highlights: {
       "steam-gamestatus": [
         "列表页与游戏页徽章",
