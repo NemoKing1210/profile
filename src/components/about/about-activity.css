@@ -6,7 +6,7 @@
   background:
     radial-gradient(90% 80% at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 52%),
     linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-capsule) 100%);
-  overflow: hidden;
+  overflow: visible;
   max-width: 100%;
   transition:
     background var(--theme-duration) var(--ease),
@@ -55,8 +55,9 @@
 
 .about-activity__chart {
   overflow-x: auto;
+  overflow-y: visible;
   max-width: 100%;
-  padding-bottom: 0.35rem;
+  padding: 0.35rem 0 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(102, 192, 244, 0.35) transparent;
 }
@@ -108,6 +109,8 @@
   grid-auto-flow: column;
   gap: 3px;
   flex: 0 0 auto;
+  padding: 4px 1px;
+  margin: -4px -1px;
 }
 
 .about-activity__cell {
@@ -122,10 +125,10 @@
   cursor: help;
   appearance: none;
   -webkit-appearance: none;
+  transform-origin: center center;
   transition:
     background-color 160ms ease,
     border-color 160ms ease,
-    transform 160ms ease,
     box-shadow 160ms ease;
 }
 
@@ -167,8 +170,13 @@ body.theme-light .about-activity__cell--0 {
 }
 
 .about-activity__cell--bounce {
-  animation: about-activity-bounce 520ms cubic-bezier(0.34, 1.45, 0.64, 1);
-  z-index: 1;
+  z-index: 2;
+  animation: about-activity-bounce 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.about-activity__cell--4.about-activity__cell--bounce {
+  /* keep max-level border readable under the flash */
+  border-color: rgba(198, 232, 64, 1);
 }
 
 .about-activity__foot {
@@ -249,18 +257,35 @@ body.theme-light .about-activity__cell--0 {
 @keyframes about-activity-bounce {
   0% {
     transform: translateY(0) scale(1);
+    filter: brightness(1);
+    box-shadow: 0 0 0 0 rgba(164, 208, 7, 0);
   }
-  28% {
-    transform: translateY(-3px) scale(1.28);
+  30% {
+    transform: translateY(-4px) scale(1.45);
+    filter: brightness(1.35);
+    box-shadow:
+      0 0 0 1px rgba(198, 232, 64, 0.95),
+      0 0 10px 2px rgba(164, 208, 7, 0.75),
+      0 0 18px 4px rgba(102, 192, 244, 0.35);
   }
-  48% {
-    transform: translateY(1px) scale(0.9);
+  52% {
+    transform: translateY(1px) scale(0.88);
+    filter: brightness(1.1);
+    box-shadow:
+      0 0 0 1px rgba(164, 208, 7, 0.55),
+      0 0 6px 1px rgba(164, 208, 7, 0.4);
   }
-  68% {
-    transform: translateY(-2px) scale(1.12);
+  72% {
+    transform: translateY(-2px) scale(1.18);
+    filter: brightness(1.22);
+    box-shadow:
+      0 0 0 1px rgba(198, 232, 64, 0.8),
+      0 0 12px 3px rgba(164, 208, 7, 0.55);
   }
   100% {
     transform: translateY(0) scale(1);
+    filter: brightness(1);
+    box-shadow: 0 0 0 0 rgba(164, 208, 7, 0);
   }
 }
 

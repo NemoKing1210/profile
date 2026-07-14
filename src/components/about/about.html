@@ -88,10 +88,8 @@
             <button
               type="button"
               class="about-activity__cell"
-              :class="[
-                `about-activity__cell--${cell.level}`,
-                { 'about-activity__cell--bounce': cell.bounce },
-              ]"
+              :class="`about-activity__cell--${cell.level}`"
+              :data-cell-id="cell.id"
               :data-level="cell.level"
               :aria-label="activityCellTip(cell)"
               @mouseenter="showActivityTip($event, cell)"

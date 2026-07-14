@@ -15,7 +15,8 @@ Update **both** when cutting a release.
 - Avatar speech on language switcher hover and after changing locale
 - Avatar speech on achievements / theme button hover; random quips when toggling light/dark theme
 - Avatar speech on Activity block hover and when the grid starts rising
-- Bounce animation on Activity cells when their level updates
+- Bounce + green/cyan glow flash on Activity cells when their level updates (WAAPI + visible overflow)
+- Activity grid fill accelerates over time (shorter gaps + larger batches)
 - Achievement unlock date shown in the achievements drawer (localized)
 - Hero avatar hover tip («Ну давай кликни на меня!» / i18n) with stronger accent glow
 - Per-achievement effect panel (slide-down tip + switch; hover on desktop, tap on mobile); disabling White Theme locks the theme toggle again

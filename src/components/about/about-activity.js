@@ -2,9 +2,45 @@ export const ACTIVITY_WEEKS = 53;
 export const ACTIVITY_DAYS = 7;
 export const ACTIVITY_MAX = 4;
 const ACTIVITY_START_DELAY_MS = 20_000;
-const ACTIVITY_TICK_MIN_MS = 1_000;
-const ACTIVITY_TICK_MAX_MS = 5_000;
+/** First gap between fills — then each tick multiplies by DECAY down to FLOOR. */
+const ACTIVITY_TICK_START_MS = 2_400;
+const ACTIVITY_TICK_FLOOR_MS = 90;
+const ACTIVITY_TICK_DECAY = 0.86;
 const ACTIVITY_BOUNCE_MS = 520;
+
+const ACTIVITY_BOUNCE_KEYFRAMES = [
+  {
+    transform: "translateY(0) scale(1)",
+    filter: "brightness(1)",
+    boxShadow: "0 0 0 0 rgba(164, 208, 7, 0)",
+  },
+  {
+    transform: "translateY(-4px) scale(1.45)",
+    filter: "brightness(1.35)",
+    boxShadow:
+      "0 0 0 1px rgba(198, 232, 64, 0.95), 0 0 10px 2px rgba(164, 208, 7, 0.75), 0 0 18px 4px rgba(102, 192, 244, 0.35)",
+    offset: 0.3,
+  },
+  {
+    transform: "translateY(1px) scale(0.88)",
+    filter: "brightness(1.1)",
+    boxShadow:
+      "0 0 0 1px rgba(164, 208, 7, 0.55), 0 0 6px 1px rgba(164, 208, 7, 0.4)",
+    offset: 0.52,
+  },
+  {
+    transform: "translateY(-2px) scale(1.18)",
+    filter: "brightness(1.22)",
+    boxShadow:
+      "0 0 0 1px rgba(198, 232, 64, 0.8), 0 0 12px 3px rgba(164, 208, 7, 0.55)",
+    offset: 0.72,
+  },
+  {
+    transform: "translateY(0) scale(1)",
+    filter: "brightness(1)",
+    boxShadow: "0 0 0 0 rgba(164, 208, 7, 0)",
+  },
+];
 
 export function aboutActivityState() {
   return {
@@ -20,10 +56,10 @@ export function aboutActivityState() {
     _activityTipCellId: null,
     _activityTimer: null,
     _activityStartTimer: null,
-    _activityBounceTimer: null,
     _activityObserver: null,
     _activityInView: false,
     _activityStartSpeechDone: false,
+    _activityPace: 0,
   };
 }
 
@@ -153,6 +189,7 @@ export function aboutActivityMethods() {
       this.activityComplete = false;
       this.activityRunning = false;
       this._activityStartSpeechDone = false;
+      this._activityPace = 0;
       this.activityCells = buildActivityCells();
       this.activityMonths = buildActivityMonths(this.activityCells, this.locale);
     },
@@ -258,9 +295,11 @@ export function aboutActivityMethods() {
     _scheduleActivityTick() {
       if (!this._activityInView || this.activityComplete) return;
       this._stopActivityTimer();
-      const span = ACTIVITY_TICK_MAX_MS - ACTIVITY_TICK_MIN_MS;
-      const delay =
-        ACTIVITY_TICK_MIN_MS + Math.floor(Math.random() * (span + 1));
+      const pace = this._activityPace || 0;
+      const delay = Math.max(
+        ACTIVITY_TICK_FLOOR_MS,
+        Math.round(ACTIVITY_TICK_START_MS * ACTIVITY_TICK_DECAY ** pace)
+      );
       this._activityTimer = window.setTimeout(() => {
         this._activityTimer = null;
         this._tickActivity();
@@ -270,49 +309,43 @@ export function aboutActivityMethods() {
     _tickActivity() {
       if (!this._activityInView) return;
 
-      const cells = this.activityCells;
+      const prev = this.activityCells;
+      const next = prev.map((cell) => ({ ...cell }));
       const upgradable = [];
-      for (let i = 0; i < cells.length; i += 1) {
-        if (cells[i].level < ACTIVITY_MAX) upgradable.push(i);
+      for (let i = 0; i < next.length; i += 1) {
+        if (next[i].level < ACTIVITY_MAX) upgradable.push(i);
       }
 
       if (!upgradable.length) {
         this.activityComplete = true;
         this.activityRunning = false;
-        this._clearActivityBounces();
         return;
       }
 
-      // Bump a random chunk of cells each interval (1–5s).
-      const bumped = new Set();
+      const pace = this._activityPace || 0;
+      // Base batch grows with pace so late fills feel like a rush.
       const chunkSize = Math.min(
         upgradable.length,
-        12 + Math.floor(Math.random() * 29)
+        10 + Math.floor(Math.random() * 16) + Math.floor(pace * 3.2)
       );
+      const bumpedIds = new Set();
       for (let n = 0; n < chunkSize; n += 1) {
         const remaining = [];
-        for (let i = 0; i < cells.length; i += 1) {
-          if (cells[i].level < ACTIVITY_MAX) remaining.push(i);
+        for (let i = 0; i < next.length; i += 1) {
+          if (next[i].level < ACTIVITY_MAX) remaining.push(i);
         }
         if (!remaining.length) break;
         const idx = remaining[Math.floor(Math.random() * remaining.length)];
-        const cell = cells[idx];
-        cells[idx] = { ...cell, level: cell.level + 1, bounce: true };
-        bumped.add(idx);
+        next[idx] = { ...next[idx], level: next[idx].level + 1 };
+        bumpedIds.add(next[idx].id);
       }
 
-      for (let i = 0; i < cells.length; i += 1) {
-        if (!bumped.has(i) && cells[i].bounce) {
-          cells[i] = { ...cells[i], bounce: false };
-        }
-      }
+      this.activityCells = next;
+      this._activityPace = pace + 1;
 
-      // Reassign so Alpine reliably refreshes the grid.
-      this.activityCells = cells.slice();
-      this._scheduleActivityBounceClear();
-
-      if (bumped.size > 0) {
+      if (bumpedIds.size > 0) {
         this._speakActivityStartedIfVisible();
+        this.$nextTick(() => this._bounceActivityCells([...bumpedIds]));
       }
 
       if (this.activityCells.every((cell) => cell.level >= ACTIVITY_MAX)) {
@@ -324,26 +357,50 @@ export function aboutActivityMethods() {
       this._scheduleActivityTick();
     },
 
-    _scheduleActivityBounceClear() {
-      this._stopActivityBounceTimer();
-      this._activityBounceTimer = window.setTimeout(() => {
-        this._activityBounceTimer = null;
-        this._clearActivityBounces();
-      }, ACTIVITY_BOUNCE_MS);
-    },
+    _bounceActivityCells(cellIds) {
+      if (prefersReducedMotion() || !cellIds?.length) return;
 
-    _clearActivityBounces() {
-      if (!this.activityCells?.some((cell) => cell.bounce)) return;
-      this.activityCells = this.activityCells.map((cell) =>
-        cell.bounce ? { ...cell, bounce: false } : cell
-      );
+      const root =
+        this.$refs.aboutActivity ||
+        document.querySelector(".about-activity");
+      if (!root) return;
+
+      for (const id of cellIds) {
+        const el = root.querySelector(`[data-cell-id="${CSS.escape(String(id))}"]`);
+        if (!el) continue;
+
+        el.getAnimations?.().forEach((animation) => animation.cancel());
+        el.classList.remove("about-activity__cell--bounce");
+
+        if (typeof el.animate === "function") {
+          el.classList.add("about-activity__cell--bounce");
+          const animation = el.animate(ACTIVITY_BOUNCE_KEYFRAMES, {
+            duration: ACTIVITY_BOUNCE_MS,
+            easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+            fill: "both",
+          });
+          animation.onfinish = () => {
+            el.classList.remove("about-activity__cell--bounce");
+          };
+          animation.oncancel = () => {
+            el.classList.remove("about-activity__cell--bounce");
+          };
+          continue;
+        }
+
+        // Fallback if WAAPI is unavailable.
+        void el.offsetWidth;
+        el.classList.add("about-activity__cell--bounce");
+        window.setTimeout(() => {
+          el.classList.remove("about-activity__cell--bounce");
+        }, ACTIVITY_BOUNCE_MS);
+      }
     },
 
     _fillActivityToMax() {
       this.activityCells = this.activityCells.map((cell) => ({
         ...cell,
         level: ACTIVITY_MAX,
-        bounce: false,
       }));
       this.activityComplete = true;
       this.activityRunning = false;
@@ -352,7 +409,6 @@ export function aboutActivityMethods() {
     _stopActivityAnimation() {
       this._stopActivityTimer();
       this._stopActivityStartTimer();
-      this._stopActivityBounceTimer();
       this.activityRunning = false;
     },
 
@@ -367,13 +423,6 @@ export function aboutActivityMethods() {
       if (this._activityStartTimer != null) {
         window.clearTimeout(this._activityStartTimer);
         this._activityStartTimer = null;
-      }
-    },
-
-    _stopActivityBounceTimer() {
-      if (this._activityBounceTimer != null) {
-        window.clearTimeout(this._activityBounceTimer);
-        this._activityBounceTimer = null;
       }
     },
   };
