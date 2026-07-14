@@ -106,6 +106,7 @@ export default {
     genresLabel: "好きなジャンル",
     tips: {
       programming: "このゲームのおかげでプログラミングが好きになった",
+      pickaxe: "こっそりクリックしてみて。ツルハシを用意してあるよ。",
     },
     genres: {
       storyShooters: "ストーリー重視のシューター",

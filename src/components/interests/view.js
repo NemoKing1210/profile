@@ -76,6 +76,8 @@ export function interestsViewMethods() {
                 cover: "",
                 href: media.href || "",
                 tip: "",
+                tipKey: "",
+                tipMode: "tooltip",
               }
             : {
                 id: game.id,
@@ -84,6 +86,8 @@ export function interestsViewMethods() {
                 cover: game.cover || "",
                 href: game.href || media.href || "",
                 tip: game.tip ? tipCopy[game.tip] || "" : "",
+                tipKey: game.tip || "",
+                tipMode: game.tipMode === "speech" ? "speech" : "tooltip",
               }
         ),
         genres: (media.genres || []).map((item) => ({

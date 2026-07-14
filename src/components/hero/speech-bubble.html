@@ -1,0 +1,25 @@
+{{!--
+  Shared avatar speech bubble.
+  Params: modifier — "hero" | "brand"
+--}}
+<div
+  class="avatar-speech avatar-speech--{{modifier}}"
+  x-show="avatarSpeechOpen && avatarSpeechAnchor === '{{modifier}}'"
+  x-cloak
+  x-transition:enter="avatar-speech-motion"
+  x-transition:enter-start="avatar-speech-motion--from"
+  x-transition:enter-end="avatar-speech-motion--to"
+  x-transition:leave="avatar-speech-motion avatar-speech-motion--leave"
+  x-transition:leave-start="avatar-speech-motion--to"
+  x-transition:leave-end="avatar-speech-motion--from"
+  role="status"
+  aria-live="polite"
+>
+  <p class="avatar-speech__text">
+    <span x-text="avatarSpeechText"></span><span
+      class="avatar-speech__caret"
+      x-show="avatarSpeechTyping"
+      aria-hidden="true"
+    ></span>
+  </p>
+</div>

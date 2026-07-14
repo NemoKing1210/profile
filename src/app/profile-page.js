@@ -97,6 +97,7 @@ export function createProfilePage() {
           this._heroPhysics = initHeroPhysics(this.$refs.heroPhysics, {
             onInteract: () => this.onPhysicsInteract(),
           });
+          this.bindAvatarSpeech();
           this._infiniteScroll = initInfiniteScroll({
             source: this.$root.querySelector("[data-infinite-source]"),
             echoes: this.$refs.infiniteEchoes,

@@ -22,6 +22,7 @@
         >
           <img
             class="hero__avatar"
+            x-ref="heroAvatar"
             :src="avatar"
             :alt="`${name} — ${t.ui.avatarAlt}`"
             width="128"
@@ -29,21 +30,7 @@
             draggable="false"
           />
         </button>
-        <div
-          class="hero__speech"
-          x-show="avatarSpeechOpen"
-          x-cloak
-          role="status"
-          aria-live="polite"
-        >
-          <p class="hero__speech-text">
-            <span x-text="avatarSpeechText"></span><span
-              class="hero__speech-caret"
-              x-show="avatarSpeechTyping"
-              aria-hidden="true"
-            ></span>
-          </p>
-        </div>
+        {{> hero/speech-bubble modifier="hero" }}
       </div>
       <div class="hero__copy">
         <p class="hero__role" x-text="role"></p>

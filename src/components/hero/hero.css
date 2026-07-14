@@ -85,7 +85,7 @@
 .hero__inner button,
 .hero__inner .hero__name-wrap,
 .hero__inner .meta-chip--has-tip,
-.hero__inner .hero__speech {
+.hero__inner .avatar-speech {
   pointer-events: auto;
 }
 
@@ -105,10 +105,8 @@
   transition: transform 0.2s var(--ease);
 }
 
-.hero__speech {
+.avatar-speech {
   position: absolute;
-  bottom: calc(100% + 0.75rem);
-  left: 0;
   z-index: 8;
   width: max-content;
   max-width: min(16.5rem, calc(100vw - 2.5rem));
@@ -121,10 +119,15 @@
     0 14px 32px rgba(0, 0, 0, 0.48),
     0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--text);
-  animation: hero-speech-in 0.35s var(--ease) both;
+  transform-origin: 1.35rem bottom;
 }
 
-.hero__speech::after {
+.avatar-speech--hero {
+  bottom: calc(100% + 0.75rem);
+  left: 0;
+}
+
+.avatar-speech--hero::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -133,7 +136,24 @@
   border-top-color: color-mix(in srgb, var(--bg-store) 92%, var(--accent));
 }
 
-.hero__speech-text {
+.avatar-speech--brand {
+  top: calc(100% + 0.55rem);
+  left: 0;
+  z-index: 60;
+  border-radius: 4px 12px 12px 12px;
+  transform-origin: 0.85rem top;
+}
+
+.avatar-speech--brand::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 0.85rem;
+  border: 6px solid transparent;
+  border-bottom-color: color-mix(in srgb, var(--bg-store) 92%, var(--accent));
+}
+
+.avatar-speech__text {
   margin: 0;
   font-family: var(--font-body);
   font-size: 0.84rem;
@@ -143,28 +163,41 @@
   text-wrap: pretty;
 }
 
-.hero__speech-caret {
+.avatar-speech__caret {
   display: inline-block;
   width: 0.08em;
   height: 1em;
   margin-left: 0.1em;
   vertical-align: -0.1em;
   background: var(--accent);
-  animation: hero-speech-caret 0.7s steps(1) infinite;
+  animation: avatar-speech-caret 0.7s steps(1) infinite;
 }
 
-@keyframes hero-speech-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.avatar-speech-motion {
+  transition:
+    opacity 0.36s var(--ease),
+    transform 0.36s var(--ease);
 }
 
-@keyframes hero-speech-caret {
+.avatar-speech-motion--leave {
+  transition-duration: 0.24s;
+}
+
+.avatar-speech-motion--from {
+  opacity: 0;
+  transform: translateY(10px) scale(0.94);
+}
+
+.avatar-speech--brand.avatar-speech-motion--from {
+  transform: translateY(-8px) scale(0.94);
+}
+
+.avatar-speech-motion--to {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes avatar-speech-caret {
   0%,
   45% {
     opacity: 1;
@@ -172,6 +205,17 @@
   55%,
   100% {
     opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-speech-motion,
+  .avatar-speech-motion--leave {
+    transition: none;
+  }
+
+  .avatar-speech__caret {
+    animation: none;
   }
 }
 
@@ -300,9 +344,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero__name-tip,
-  .meta-chip__tip,
-  .hero__speech,
-  .hero__speech-caret {
+  .meta-chip__tip {
     transition: none;
     transform: none;
     animation: none;

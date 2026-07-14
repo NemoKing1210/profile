@@ -75,8 +75,10 @@ export function localeChromeMethods() {
       const meta = document.querySelector('meta[name="description"]');
       if (meta) meta.setAttribute("content", this.t.meta.description);
 
-      if (this.avatarSpeechOpen && this._avatarSpeechKey) {
-        this.startAvatarSpeech(this._avatarSpeechKey);
+      if (this.avatarSpeechOpen && this._avatarSpeechI18nPath) {
+        this.showSpeechI18n(this._avatarSpeechI18nPath, {
+          holdMs: this._avatarSpeechHoldMs,
+        });
       }
 
       this._infiniteScroll?.reset?.();

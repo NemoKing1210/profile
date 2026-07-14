@@ -14,6 +14,30 @@ Update **both** when cutting a release.
 
 - (none yet)
 
+## [1.44.0] — 2026-07-14
+
+### Added
+
+- Minecraft cover shows avatar speech on hover/focus (pickaxe easter-egg tease), same pattern as Roblox
+
+## [1.43.1] — 2026-07-14
+
+### Fixed
+
+- Avatar speech bubble keeps its last text through the leave animation instead of collapsing empty
+
+## [1.43.0] — 2026-07-14
+
+### Added
+
+- Reusable avatar speech API (`showSpeech` / `showSpeechI18n` / `hideSpeech`) callable from any page component
+- Fallback speech bubble next to the topbar brand when the hero avatar is out of view
+- Enter/leave transitions for avatar speech bubbles
+
+### Changed
+
+- Roblox cover shows its tip as avatar speech on hover/focus instead of a CSS tooltip
+
 ## [1.42.1] — 2026-07-14
 
 ### Changed

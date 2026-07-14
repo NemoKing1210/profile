@@ -44,14 +44,21 @@
         {{#if withTips}}
         <a
           class="media-cover"
-          :class="{ 'media-cover--has-tip': {{itemVar}}.tip }"
+          :class="{
+            'media-cover--has-tip': {{itemVar}}.tip && {{itemVar}}.tipMode !== 'speech',
+            'media-cover--speech-tip': {{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey,
+          }"
           :href="{{itemVar}}.href"
           rel="noopener noreferrer"
           target="_blank"
           :aria-label="{{itemVar}}.year ? ({{itemVar}}.title + ' (' + {{itemVar}}.year + ')') : {{itemVar}}.title"
-          :aria-describedby="{{itemVar}}.tip ? ('game-tip-' + {{itemVar}}.id) : null"
+          :aria-describedby="{{itemVar}}.tip && {{itemVar}}.tipMode !== 'speech' ? ('game-tip-' + {{itemVar}}.id) : null"
           :data-mc-activate="{{itemVar}}.id === 'minecraft' || null"
           @click="{{itemVar}}.id === 'minecraft' && onMinecraftCoverClick($event)"
+          @mouseenter="{{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey && showSpeechI18n('backloggd.tips.' + {{itemVar}}.tipKey, { holdMs: null })"
+          @mouseleave="{{itemVar}}.tipMode === 'speech' && hideSpeech()"
+          @focusin="{{itemVar}}.tipMode === 'speech' && {{itemVar}}.tipKey && showSpeechI18n('backloggd.tips.' + {{itemVar}}.tipKey, { holdMs: null })"
+          @focusout="{{itemVar}}.tipMode === 'speech' && hideSpeech()"
         >
           <span class="media-cover__frame">
             <img
@@ -71,8 +78,8 @@
           </span>
           <span
             class="media-cover__tip"
-            x-show="{{itemVar}}.tip"
-            :id="{{itemVar}}.tip ? ('game-tip-' + {{itemVar}}.id) : null"
+            x-show="{{itemVar}}.tip && {{itemVar}}.tipMode !== 'speech'"
+            :id="{{itemVar}}.tip && {{itemVar}}.tipMode !== 'speech' ? ('game-tip-' + {{itemVar}}.id) : null"
             role="tooltip"
             x-text="{{itemVar}}.tip"
           ></span>

@@ -106,6 +106,7 @@ export default {
     genresLabel: "Улюблені жанри",
     tips: {
       programming: "Завдяки цій грі я полюбив програмування",
+      pickaxe: "Пс — спробуй клікнути. У мене є для тебе кирка.",
     },
     genres: {
       storyShooters: "Сюжетні шутери",

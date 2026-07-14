@@ -104,6 +104,7 @@ export default {
     genresLabel: "喜欢的类型",
     tips: {
       programming: "正是这款游戏让我爱上了编程",
+      pickaxe: "嘘——试着点一下。我有镐在等你。",
     },
     genres: {
       storyShooters: "剧情射击",

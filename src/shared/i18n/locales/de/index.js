@@ -106,6 +106,7 @@ export default {
     genresLabel: "Lieblingsgenres",
     tips: {
       programming: "Dank dieses Spiels habe ich das Programmieren lieben gelernt",
+      pickaxe: "Psst — klick mal. Ich habe eine Spitzhacke für dich bereit.",
     },
     genres: {
       storyShooters: "Story-Shooter",
