@@ -1,12 +1,17 @@
+import { isAchievementUnlocked } from "../../shared/data/achievements.js";
 import {
   DEFAULT_LOCALE,
   STORAGE_KEY,
   locales,
 } from "../../shared/i18n/index.js";
 
-/** Match `--locale-blur-duration` вЂ” full 0в†’6pxв†’0 cycle; swap copy at the midpoint. */
+/** Match `--locale-blur-duration` — full 0→6px→0 cycle; swap copy at the midpoint. */
 const LOCALE_BLUR_MS = 1600;
 const LOCALE_BLUR_MID_MS = LOCALE_BLUR_MS / 2;
+
+const THEME_STORAGE_KEY = "profile:theme";
+const THEME_COLOR_DARK = "#171a21";
+const THEME_COLOR_LIGHT = "#ffffff";
 
 export function localeChromeState() {
   return {
@@ -16,6 +21,7 @@ export function localeChromeState() {
     themeJokeOpen: false,
     themeJokeFlash: false,
     themeSith: false,
+    themeLight: false,
     navOpen: false,
     activeNavId: "",
     _localeBlurGen: 0,
@@ -34,7 +40,7 @@ export function localeChromeState() {
 export function localeChromeMethods() {
   return {
     get pageTitle() {
-      return `${this.name} В· ${this.t.ui.pageTitleSuffix}`;
+      return `${this.name} · ${this.t.ui.pageTitleSuffix}`;
     },
 
     get currentLocaleOption() {
@@ -42,6 +48,25 @@ export function localeChromeMethods() {
         this.localeList.find((item) => item.code === this.locale) ||
         this.localeList[0]
       );
+    },
+
+    get canUseLightTheme() {
+      return Boolean(
+        this.achievementUnlocks?.lightTheme ||
+          this.lightThemeUnlocked ||
+          isAchievementUnlocked("lightTheme")
+      );
+    },
+
+    get themeToggleLabel() {
+      if (!this.canUseLightTheme) return this.t.ui.themeToggle;
+      return this.themeLight ? this.t.ui.themeToDark : this.t.ui.themeToLight;
+    },
+
+    get themeToggleIcon() {
+      return this.canUseLightTheme && this.themeLight
+        ? this.icons.moon
+        : this.icons.sun;
     },
 
     setLocale(code, { celebrate = false, instant = false } = {}) {
@@ -293,6 +318,12 @@ export function localeChromeMethods() {
     pokeThemeJoke() {
       this.closeLangMenu();
       this.closeAchievementsPanel?.();
+
+      if (this.canUseLightTheme) {
+        this.toggleTheme();
+        return;
+      }
+
       this.themeJokeFlash = true;
       if (this._themeFlashTimer != null) {
         window.clearTimeout(this._themeFlashTimer);
@@ -321,11 +352,56 @@ export function localeChromeMethods() {
       }, 5000);
     },
 
-    destroyLocaleChrome() {
-      this.closeNav();
-      this.closeLangMenu();
-      this.closeAchievementsPanel?.();
-      this._clearLocaleBlur();
+    toggleTheme() {
+      if (!this.canUseLightTheme) return;
+
+      this._clearThemeJokeTimers();
+      this.themeJokeOpen = false;
+      this.themeJokeFlash = false;
+      this.themeSith = false;
+      this.themeLight = !this.themeLight;
+      this._persistThemePreference();
+      this._syncThemeColorMeta();
+    },
+
+    applyStoredTheme() {
+      const unlocked = isAchievementUnlocked("lightTheme");
+      if (!unlocked) {
+        this.themeLight = false;
+        this._syncThemeColorMeta();
+        return;
+      }
+
+      try {
+        this.themeLight = localStorage.getItem(THEME_STORAGE_KEY) === "light";
+      } catch {
+        this.themeLight = false;
+      }
+      this._syncThemeColorMeta();
+    },
+
+    _persistThemePreference() {
+      try {
+        localStorage.setItem(
+          THEME_STORAGE_KEY,
+          this.themeLight ? "light" : "dark"
+        );
+      } catch {
+        /* ignore */
+      }
+    },
+
+    _syncThemeColorMeta() {
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) {
+        meta.setAttribute(
+          "content",
+          this.themeLight ? THEME_COLOR_LIGHT : THEME_COLOR_DARK
+        );
+      }
+    },
+
+    _clearThemeJokeTimers() {
       if (this._themeJokeTimer != null) {
         window.clearTimeout(this._themeJokeTimer);
         this._themeJokeTimer = null;
@@ -338,7 +414,16 @@ export function localeChromeMethods() {
         window.clearTimeout(this._themeSithTimer);
         this._themeSithTimer = null;
       }
+    },
+
+    destroyLocaleChrome() {
+      this.closeNav();
+      this.closeLangMenu();
+      this.closeAchievementsPanel?.();
+      this._clearLocaleBlur();
+      this._clearThemeJokeTimers();
       this.themeJokeOpen = false;
+      this.themeJokeFlash = false;
       this.themeSith = false;
     },
   };

@@ -27,6 +27,22 @@ Visual contract for this landing page. Follow it when changing UI.
 
 Do **not** introduce purple/indigo gradients, cream paper backgrounds, or soft “AI portfolio” pastels. Stay in Steam’s blue-gray + cyan accent family.
 
+### Light palette (achievement unlock)
+
+Unlocked via the `lightTheme` achievement (echo finale gift). Applied as `body.theme-light` overriding the same CSS variables — not a separate design system.
+
+| Token | Hex / value | Role |
+|-------|-------------|------|
+| `--bg-deep` | `#e8eef4` | Page depth |
+| `--bg-header` / `--bg-panel` | `#ffffff` | Top bar, panels |
+| `--bg-store` | `#d9e2ec` | Midtone |
+| `--bg-capsule` | `#e3ebf3` | Project rows |
+| `--accent` | `#1a9fff` | Links / focus (stronger for light ground) |
+| `--accent-hot` | `#0078a8` | CTA |
+| `--text` / muted / bright | `#2a475e` / `#5c6f82` / `#0e1419` | Type |
+
+Default preference remains dark; light is opt-in after unlock and persists in `localStorage` (`profile:theme`).
+
 ## Typography
 
 | Role | Face | Notes |

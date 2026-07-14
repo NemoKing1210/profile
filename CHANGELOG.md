@@ -10,9 +10,26 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
-### Planned
+### Fixed
 
-- Light theme UI (unlock already persists via achievements / `lightTheme`)
+- Avatar speech bubble follows light theme tokens (no hard-coded Steam-dark fill)
+
+## [1.57.1] — 2026-07-14
+
+### Fixed
+
+- Light theme chrome: topbar tools (lang / achievements / theme / burger) share the same fill; dark wells on about, comments, links, and drawers adapted for `body.theme-light`
+
+## [1.57.0] — 2026-07-14
+
+### Added
+
+- White / light theme (`body.theme-light`) with Steam-inspired light tokens
+- Theme preference persistence (`profile:theme`) after the `lightTheme` achievement unlock
+
+### Changed
+
+- Topbar sun control: real light/dark toggle when `lightTheme` is unlocked; Sith deny-joke kept for locked visitors
 
 ## [1.56.0] — 2026-07-14
 

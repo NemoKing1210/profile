@@ -24,7 +24,7 @@
 }
 
 .btn--primary {
-  color: var(--text-bright);
+  color: #ffffff;
   background: linear-gradient(
     90deg,
     var(--btn-primary-start) 0%,
@@ -37,6 +37,15 @@
     background var(--theme-duration) var(--ease),
     filter 160ms ease,
     transform 160ms ease;
+}
+
+body.theme-light .btn--primary {
+  border-color: color-mix(in srgb, var(--accent-hot) 35%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 2px 8px rgba(15, 30, 45, 0.12);
+}
+
+body.theme-light .btn--primary:hover {
+  color: #ffffff;
 }
 
 .btn--primary:hover {

@@ -1,0 +1,118 @@
+/* Light-theme polish for hardcoded dark wells (on top of body.theme-light tokens). */
+
+body.theme-light .topbar__status {
+  background: var(--chrome-fill);
+}
+
+body.theme-light .hero__veil {
+  background:
+    linear-gradient(
+      90deg,
+      var(--hero-veil) 0%,
+      color-mix(in srgb, var(--hero-veil) 78%, transparent) 45%,
+      color-mix(in srgb, var(--hero-veil) 52%, transparent) 100%
+    ),
+    linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--hero-veil) 94%, transparent) 0%,
+      color-mix(in srgb, var(--hero-veil) 48%, transparent) 48%,
+      color-mix(in srgb, var(--hero-veil) 28%, transparent) 100%
+    );
+}
+
+body.theme-light .hero-ai {
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+      rgba(255, 255, 255, 0.55) 0%,
+      transparent 45%
+    ),
+    var(--bg-elevated);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow:
+    0 10px 22px rgba(15, 30, 45, 0.12),
+    inset 0 -5px 12px rgba(15, 30, 45, 0.06);
+}
+
+body.theme-light .hero-ai--mono .hero-ai__img {
+  filter: drop-shadow(0 1px 1px rgba(15, 30, 45, 0.2));
+}
+
+body.theme-light .about-badge {
+  background: var(--inset-well);
+  border-color: var(--hairline);
+}
+
+body.theme-light .about-badge--accent {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+body.theme-light .about-badge--hot {
+  color: var(--accent-hot);
+  background: color-mix(in srgb, var(--accent-hot) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent-hot) 28%, transparent);
+}
+
+body.theme-light .about-badge--green {
+  background: color-mix(in srgb, var(--accent-green) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent-green) 30%, transparent);
+}
+
+body.theme-light .about-status,
+body.theme-light .ai-kit {
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
+    linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-capsule) 100%);
+  box-shadow: none;
+  border-color: var(--border-subtle);
+}
+
+body.theme-light .about-status__card,
+body.theme-light .about-status__card--closed,
+body.theme-light .about-status__card--open {
+  background: var(--bg-panel);
+  border-color: var(--border-subtle);
+}
+
+body.theme-light .ai-tool {
+  background: var(--inset-well);
+  border-color: var(--hairline);
+}
+
+body.theme-light .ai-kit__mark--mono .ai-kit__mark-img,
+body.theme-light .ai-tool__icon--mono .ai-tool__img {
+  filter: none;
+  opacity: 0.9;
+}
+
+body.theme-light .comments-sort__btn,
+body.theme-light .steam-comment,
+body.theme-light .steam-comment--reply,
+body.theme-light .comments-invite,
+body.theme-light .hub-pill {
+  background: var(--inset-well);
+  border-color: var(--hairline);
+}
+
+body.theme-light .comments-field__input {
+  background: var(--bg-elevated);
+  border-color: var(--border-subtle);
+  color: var(--text);
+}
+
+body.theme-light .hub-card,
+body.theme-light .link-card {
+  background: var(--bg-elevated);
+  border-color: var(--border-subtle);
+}
+
+body.theme-light .stack-card,
+body.theme-light .interest-card,
+body.theme-light .capsule {
+  background: var(--bg-elevated);
+}
+
+body.theme-light .lang-switch__flag {
+  box-shadow: 0 0 0 1px rgba(15, 30, 45, 0.12);
+}

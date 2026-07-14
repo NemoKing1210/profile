@@ -15,6 +15,8 @@ export default {
     menuClose: "Закрити меню",
     langLabel: "Мова",
     themeToggle: "Перемкнути тему",
+    themeToLight: "Увімкнути світлу тему",
+    themeToDark: "Увімкнути темну тему",
     themeDeniedTitle: "Світлої теми не буде",
     themeDenied:
       "Я її не люблю — вона випалює очі вночі. Приєднуйся до темного боку Сили: у ситхів UX теж темний.",

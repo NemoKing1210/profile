@@ -15,6 +15,8 @@ export default {
     menuClose: "メニューを閉じる",
     langLabel: "言語",
     themeToggle: "テーマを切り替え",
+    themeToLight: "ライトテーマに切り替え",
+    themeToDark: "ダークテーマに切り替え",
     themeDeniedTitle: "ライトテーマはありません",
     themeDenied:
       "好きじゃない — 夜に目が痛い。フォースの闇の側へ来い：シスの UX もダークのままだ。",

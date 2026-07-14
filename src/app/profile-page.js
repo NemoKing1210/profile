@@ -95,6 +95,7 @@ export function createProfilePage() {
 
       init() {
         this.setLocale(resolveInitialLocale(), { instant: true });
+        this.applyStoredTheme?.();
         this._onNavResize = () => {
           if (window.matchMedia("(min-width: 860px)").matches) {
             this.closeNav();

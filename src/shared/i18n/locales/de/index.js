@@ -15,6 +15,8 @@ export default {
     menuClose: "Menü schließen",
     langLabel: "Sprache",
     themeToggle: "Theme wechseln",
+    themeToLight: "Zum hellen Theme wechseln",
+    themeToDark: "Zum dunklen Theme wechseln",
     themeDeniedTitle: "Kein helles Theme",
     themeDenied:
       "Mag ich nicht — es brennt mir nachts die Augen aus. Komm zur dunklen Seite der Macht: Sith-UX bleibt dunkel.",

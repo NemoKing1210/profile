@@ -47,15 +47,16 @@
           type="button"
           class="theme-joke__btn"
           :class="themeJokeFlash && 'theme-joke__btn--flash'"
-          :aria-label="t.ui.themeToggle"
-          :aria-expanded="themeJokeOpen"
-          aria-controls="theme-joke-toast"
+          :aria-label="themeToggleLabel"
+          :aria-pressed="canUseLightTheme ? themeLight : undefined"
+          :aria-expanded="canUseLightTheme ? undefined : themeJokeOpen"
+          :aria-controls="canUseLightTheme ? undefined : 'theme-joke-toast'"
           @click="pokeThemeJoke()"
         >
           <span
             class="theme-joke__icon"
             aria-hidden="true"
-            x-html="icons.sun"
+            x-html="themeToggleIcon"
           ></span>
         </button>
         <div
@@ -63,7 +64,7 @@
           class="theme-joke__toast"
           role="status"
           aria-live="polite"
-          x-show="themeJokeOpen"
+          x-show="!canUseLightTheme && themeJokeOpen"
           x-cloak
         >
           <p class="theme-joke__title" x-text="t.ui.themeDeniedTitle"></p>

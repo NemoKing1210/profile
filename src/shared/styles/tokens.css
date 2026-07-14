@@ -129,6 +129,10 @@
   --hero-tint: rgba(180, 30, 30, 0);
   --hero-veil: rgba(14, 20, 25, 0.9);
   --shadow-panel: 0 0 0 1px rgba(0, 0, 0, 0.35), 0 12px 40px rgba(0, 0, 0, 0.35);
+  --chrome-fill: color-mix(in srgb, var(--bg-deep) 75%, transparent);
+  --chrome-fill-hover: color-mix(in srgb, var(--accent) 10%, transparent);
+  --inset-well: color-mix(in srgb, #000000 28%, transparent);
+  --hairline: rgba(255, 255, 255, 0.06);
   --font-display: "Exo 2", "Segoe UI", sans-serif;
   --font-body: "Source Sans 3", "Segoe UI", sans-serif;
   --radius: 3px;
@@ -162,4 +166,34 @@ body.theme-sith {
   --hero-tint: rgba(140, 18, 18, 0.48);
   --hero-veil: rgba(28, 8, 8, 0.9);
   --shadow-panel: 0 0 0 1px rgba(0, 0, 0, 0.45), 0 12px 40px rgba(80, 0, 0, 0.35);
+}
+
+/* White theme — gated behind the `lightTheme` achievement. */
+body.theme-light {
+  --bg-deep: #e8eef4;
+  --bg-header: #ffffff;
+  --bg-store: #d9e2ec;
+  --bg-panel: #ffffff;
+  --bg-elevated: #f4f7fa;
+  --bg-capsule: #e3ebf3;
+  --panel-top: rgba(255, 255, 255, 0.96);
+  --border-subtle: color-mix(in srgb, #1a9fff 18%, transparent);
+  --border-strong: color-mix(in srgb, #0078a8 32%, transparent);
+  --accent: #1a9fff;
+  --accent-hot: #0078a8;
+  --accent-green: #6a9100;
+  --text: #2a475e;
+  --text-muted: #5c6f82;
+  --text-bright: #0e1419;
+  --glow-a: rgba(26, 159, 255, 0.1);
+  --glow-b: rgba(106, 145, 0, 0.06);
+  --btn-primary-start: #47bfff;
+  --btn-primary-end: #0078a8;
+  --hero-tint: rgba(180, 30, 30, 0);
+  --hero-veil: rgba(232, 238, 244, 0.88);
+  --shadow-panel: 0 0 0 1px rgba(15, 30, 45, 0.08), 0 12px 32px rgba(15, 30, 45, 0.1);
+  --chrome-fill: color-mix(in srgb, var(--bg-elevated) 96%, #c5d0dc 4%);
+  --chrome-fill-hover: color-mix(in srgb, var(--accent) 12%, transparent);
+  --inset-well: color-mix(in srgb, var(--bg-capsule) 78%, transparent);
+  --hairline: rgba(15, 30, 45, 0.08);
 }

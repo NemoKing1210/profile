@@ -27,6 +27,10 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+body.theme-light .panel__head {
+  border-bottom-color: rgba(15, 30, 45, 0.08);
+}
+
 .panel__head--row {
   display: flex;
   flex-wrap: wrap;

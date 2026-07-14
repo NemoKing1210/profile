@@ -18,6 +18,7 @@ import language from "heroicons/24/outline/language.svg?raw";
 import mapPin from "heroicons/24/outline/map-pin.svg?raw";
 import puzzlePiece from "heroicons/24/outline/puzzle-piece.svg?raw";
 import sparkles from "heroicons/24/outline/sparkles.svg?raw";
+import moon from "heroicons/24/outline/moon.svg?raw";
 import sun from "heroicons/24/outline/sun.svg?raw";
 import trophy from "heroicons/24/outline/trophy.svg?raw";
 import tv from "heroicons/24/outline/tv.svg?raw";
@@ -36,6 +37,7 @@ export const heroicons = {
   film,
   language,
   mapPin,
+  moon,
   puzzlePiece,
   sparkles,
   sun,
