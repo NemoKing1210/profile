@@ -16,6 +16,8 @@ const THEME_COLOR_LIGHT = "#ffffff";
 const THEME_FADE_MS = 320;
 /** Match `body.theme-sith { --theme-duration }` */
 const THEME_SITH_FADE_MS = 1350;
+/** Topbar Online badge flips to Offline after this dwell. */
+const STATUS_OFFLINE_AFTER_MS = 30_000;
 
 export function localeChromeState() {
   return {
@@ -30,6 +32,7 @@ export function localeChromeState() {
     themeSwitchSithPace: false,
     navOpen: false,
     activeNavId: "",
+    statusGoneOffline: false,
     _localeBlurGen: 0,
     _localeBlurMidTimer: null,
     _localeBlurEndTimer: null,
@@ -37,6 +40,7 @@ export function localeChromeState() {
     _themeFlashTimer: null,
     _themeSithTimer: null,
     _themeSwitchTimer: null,
+    _statusOfflineTimer: null,
     _navSpyRaf: 0,
     _navSpyLayout: false,
     _onNavSpyScroll: null,
@@ -73,6 +77,36 @@ export function localeChromeMethods() {
       return this.canUseLightTheme && this.themeLight
         ? this.icons.moon
         : this.icons.sun;
+    },
+
+    get statusSpeechPath() {
+      return this.statusGoneOffline
+        ? "hero.statusLastSeen"
+        : "hero.statusOnlineTip";
+    },
+
+    get statusAriaLabel() {
+      if (this.statusGoneOffline) {
+        return `${this.t.hero.statusOffline}. ${this.t.hero.statusLastSeen}`;
+      }
+      return `${this.status}. ${this.t.hero.statusOnlineTip}`;
+    },
+
+    bindStatusOfflineTimer() {
+      if (this._statusOfflineTimer != null) return;
+      if (this.statusGoneOffline) return;
+
+      this._statusOfflineTimer = window.setTimeout(() => {
+        this._statusOfflineTimer = null;
+        this.statusGoneOffline = true;
+      }, STATUS_OFFLINE_AFTER_MS);
+    },
+
+    _clearStatusOfflineTimer() {
+      if (this._statusOfflineTimer != null) {
+        window.clearTimeout(this._statusOfflineTimer);
+        this._statusOfflineTimer = null;
+      }
     },
 
     setLocale(code, { celebrate = false, instant = false } = {}) {
@@ -481,6 +515,7 @@ export function localeChromeMethods() {
       this._clearLocaleBlur();
       this._clearThemeJokeTimers();
       this._clearThemeSwitch();
+      this._clearStatusOfflineTimer();
       this.themeJokeOpen = false;
       this.themeJokeFlash = false;
       this.themeSith = false;

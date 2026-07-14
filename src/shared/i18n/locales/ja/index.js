@@ -132,6 +132,7 @@ export default {
     role: "フロントエンド開発者",
     status: "Online",
     statusOffline: "Offline",
+    statusOnlineTip: "まだいるよ。何か用？",
     statusLastSeen: "最終オンライン：1970年1月1日 00:00:00",
     nameTip: "これが私の名前です。念のため",
     avatarTip: "ほら、クリックしてよ！",

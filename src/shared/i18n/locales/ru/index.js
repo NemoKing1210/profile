@@ -133,6 +133,7 @@ export default {
     role: "Frontend-разработчик",
     status: "Online",
     statusOffline: "Offline",
+    statusOnlineTip: "Я всё ещё тут, ты что-то хотел?",
     statusLastSeen: "Был в сети: 1 янв 1970, 00:00:00",
     nameTip: "Это моё имя, если вы не поняли",
     avatarTip: "Ну давай кликни на меня!",

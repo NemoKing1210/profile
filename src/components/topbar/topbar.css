@@ -379,14 +379,27 @@ body.theme-light .topbar {
 
 .topbar__status:hover,
 .topbar__status:focus-visible {
-  color: #b8a0a0;
-  border-color: rgba(160, 120, 120, 0.35);
-  background: color-mix(in srgb, var(--text-muted) 14%, transparent);
+  border-color: color-mix(in srgb, var(--accent-green) 35%, transparent);
+  background: color-mix(in srgb, var(--accent-green) 10%, transparent);
   outline: none;
 }
 
-body.theme-light .topbar__status:hover,
-body.theme-light .topbar__status:focus-visible {
+.topbar__status.is-offline {
+  color: #b8a0a0;
+  border-color: rgba(160, 120, 120, 0.35);
+  background: color-mix(in srgb, var(--text-muted) 14%, transparent);
+}
+
+.topbar__status.is-offline:hover,
+.topbar__status.is-offline:focus-visible {
+  color: #b8a0a0;
+  border-color: rgba(160, 120, 120, 0.45);
+  background: color-mix(in srgb, var(--text-muted) 18%, transparent);
+}
+
+body.theme-light .topbar__status.is-offline,
+body.theme-light .topbar__status.is-offline:hover,
+body.theme-light .topbar__status.is-offline:focus-visible {
   color: var(--text-muted);
   border-color: color-mix(in srgb, var(--text-muted) 35%, transparent);
 }
@@ -402,8 +415,7 @@ body.theme-light .topbar__status:focus-visible {
     box-shadow 0.2s var(--ease);
 }
 
-.topbar__status:hover .status-dot,
-.topbar__status:focus-visible .status-dot {
+.topbar__status.is-offline .status-dot {
   background: #8f98a0;
   box-shadow: none;
 }
@@ -412,13 +424,11 @@ body.theme-light .topbar__status:focus-visible {
   display: none;
 }
 
-.topbar__status:hover .status-text--online,
-.topbar__status:focus-visible .status-text--online {
+.topbar__status.is-offline .status-text--online {
   display: none;
 }
 
-.topbar__status:hover .status-text--offline,
-.topbar__status:focus-visible .status-text--offline {
+.topbar__status.is-offline .status-text--offline {
   display: inline;
 }
 

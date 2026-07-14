@@ -100,11 +100,12 @@
         class="topbar__status"
         x-show="status"
         x-cloak
+        :class="statusGoneOffline && 'is-offline'"
         tabindex="0"
-        :aria-label="`${status}. ${t.hero.statusLastSeen}`"
-        @mouseenter="showSpeechI18n('hero.statusLastSeen', { holdMs: null })"
+        :aria-label="statusAriaLabel"
+        @mouseenter="showSpeechI18n(statusSpeechPath, { holdMs: null })"
         @mouseleave="hideSpeech()"
-        @focusin="showSpeechI18n('hero.statusLastSeen', { holdMs: null })"
+        @focusin="showSpeechI18n(statusSpeechPath, { holdMs: null })"
         @focusout="hideSpeech()"
       >
         <span class="status-dot" aria-hidden="true"></span>

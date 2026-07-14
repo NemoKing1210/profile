@@ -130,6 +130,7 @@ export default {
     role: "前端开发者",
     status: "Online",
     statusOffline: "Offline",
+    statusOnlineTip: "我还在这儿，有事吗？",
     statusLastSeen: "上次在线：1970-01-01 00:00:00",
     nameTip: "这是我的名字，怕你没看懂",
     avatarTip: "来嘛，点我一下！",
