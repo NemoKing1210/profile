@@ -52,8 +52,25 @@ export default {
       "進捗を保存？冗談だよ。",
       "まだ自己紹介読んでるの？",
       "帰る道はない——スクロールだけ",
+      "メモリ、足りてる？",
     ],
     mineToast: "ツルハシ装備 · 左クリック長押しで UI 破壊 · Esc でしまう",
+    scrollTopEchoTease:
+      "本当に、これ以上下を見なくていいの？フィードの果ては——もしかすると、まだギフトが待っているかも。",
+  },
+  echoFinale: {
+    dialogLabel: "無限スクロールのフィナーレ",
+    eyebrow: "レベル 99",
+    praiseTitle: "本当にたどり着いたね",
+    praiseBody:
+      "終わりなきフィードを耐えて進んだ長い道のりには、報酬がふさわしい。ギフトを開けて——中には特別なものがある。",
+    giftLabel: "ギフトを開ける",
+    achievementEyebrow: "実績解除",
+    achievementTitle: "ホワイトテーマ",
+    achievementBody: "プロフィールでライトテーマが使えるようになった。",
+    giftJokeLead: "ギフトの中身がフッターだと思った？",
+    giftJokePunch: "ここには収まらないし……探すにはもう遅すぎる。",
+    restart: "旅をはじめから",
   },
   spoken: {
     ru: "ロシア語",

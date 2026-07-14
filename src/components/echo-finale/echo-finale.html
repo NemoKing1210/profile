@@ -1,0 +1,80 @@
+<div
+  class="echo-finale"
+  x-show="echoFinaleOpen"
+  x-cloak
+  x-transition:enter="echo-finale-fade"
+  x-transition:enter-start="echo-finale-fade--from"
+  x-transition:enter-end="echo-finale-fade--to"
+  role="dialog"
+  aria-modal="true"
+  :aria-label="t.echoFinale.dialogLabel"
+>
+  <div class="echo-finale__stage">
+    <p class="echo-finale__eyebrow" x-text="echoFinaleEyebrow"></p>
+    <h2 class="echo-finale__title" x-text="t.echoFinale.praiseTitle"></h2>
+    <p class="echo-finale__body" x-text="t.echoFinale.praiseBody"></p>
+
+    <button
+      type="button"
+      class="echo-finale__gift"
+      :class="echoFinaleGiftOpened && 'echo-finale__gift--opened'"
+      :disabled="echoFinaleGiftOpened"
+      :aria-label="t.echoFinale.giftLabel"
+      @click="openEchoFinaleGift()"
+    >
+      <span class="echo-finale__gift-box" aria-hidden="true">
+        <span class="echo-finale__gift-lid"></span>
+        <span class="echo-finale__gift-body"></span>
+        <span class="echo-finale__gift-bow"></span>
+      </span>
+    </button>
+
+    <figure
+      class="echo-finale__joke"
+      x-show="echoFinaleJokeVisible"
+      x-cloak
+      x-transition:enter="echo-finale-joke-in"
+      x-transition:enter-start="echo-finale-joke-in--from"
+      x-transition:enter-end="echo-finale-joke-in--to"
+    >
+      <span class="echo-finale__joke-mark" aria-hidden="true">∞</span>
+      <blockquote class="echo-finale__joke-quote">
+        <p class="echo-finale__joke-lead" x-text="t.echoFinale.giftJokeLead"></p>
+        <p class="echo-finale__joke-punch" x-text="t.echoFinale.giftJokePunch"></p>
+      </blockquote>
+    </figure>
+
+    <div
+      class="echo-finale__restart-wrap"
+      x-show="echoFinaleRestartVisible"
+      x-cloak
+      x-transition:enter="echo-finale-fade"
+      x-transition:enter-start="echo-finale-fade--from"
+      x-transition:enter-end="echo-finale-fade--to"
+    >
+      <button
+        type="button"
+        class="btn btn--primary echo-finale__restart"
+        @click="restartEchoJourney()"
+        x-text="t.echoFinale.restart"
+      ></button>
+    </div>
+  </div>
+
+  <div
+    class="echo-finale__ach"
+    x-show="echoFinaleAchievementOpen"
+    x-cloak
+    role="status"
+    aria-live="polite"
+  >
+    <div class="echo-finale__ach-icon" aria-hidden="true">
+      <span x-html="icons.sparkles"></span>
+    </div>
+    <div class="echo-finale__ach-copy">
+      <p class="echo-finale__ach-eyebrow" x-text="t.echoFinale.achievementEyebrow"></p>
+      <p class="echo-finale__ach-title" x-text="t.echoFinale.achievementTitle"></p>
+      <p class="echo-finale__ach-body" x-text="t.echoFinale.achievementBody"></p>
+    </div>
+  </div>
+</div>

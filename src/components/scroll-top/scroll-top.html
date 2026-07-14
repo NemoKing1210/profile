@@ -2,11 +2,16 @@
   type="button"
   class="scroll-top"
   data-mc-immune
-  :class="{ 'is-visible': scrollTopVisible }"
-  :aria-label="t.ui.backToTop"
+  :class="{
+    'is-visible': scrollTopVisible,
+    'scroll-top--echo': scrollTopInfinite,
+    'scroll-top--wide': scrollEchoLoop >= 10,
+    'scroll-top--pulse': scrollTopLoopPulse,
+  }"
+  :aria-label="scrollTopInfinite ? `${t.ui.backToTop} · ${scrollEchoLoop}` : t.ui.backToTop"
   :aria-hidden="!scrollTopVisible"
   :tabindex="scrollTopVisible ? 0 : -1"
-  @click="scrollToHero()"
+  @click="onScrollTopClick()"
 >
   <svg class="scroll-top__ring" viewBox="0 0 56 56" aria-hidden="true">
     <circle class="scroll-top__track" cx="28" cy="28" r="24" />
@@ -20,5 +25,20 @@
       :stroke-dashoffset="100 - scrollProgress * 100"
     />
   </svg>
-  <span class="scroll-top__icon" x-html="icons.chevronUp"></span>
+  <span
+    class="scroll-top__icon"
+    x-show="!scrollTopInfinite"
+    x-cloak
+    x-html="icons.chevronUp"
+  ></span>
+  <span
+    class="scroll-top__loop"
+    x-show="scrollTopInfinite"
+    x-cloak
+    aria-hidden="true"
+  >
+    <template x-for="n in [scrollEchoLoop]" :key="n">
+      <span class="scroll-top__loop-digit" x-text="n"></span>
+    </template>
+  </span>
 </button>

@@ -52,8 +52,25 @@ export default {
       "Fortschritt speichern? Scherz.",
       "Liest du immer noch die Bio?",
       "Kein Weg nach Hause — nur Scroll",
+      "Reicht dir der Arbeitsspeicher noch?",
     ],
     mineToast: "Spitzhacke bereit · LMT halten zum Abbauen · Esc zum Weglegen",
+    scrollTopEchoTease:
+      "Willst du wirklich nicht noch tiefer schauen? Wer weiß — vielleicht wartet am Rand des Feeds doch noch ein Geschenk.",
+  },
+  echoFinale: {
+    dialogLabel: "Finale des Endlos-Scrolls",
+    eyebrow: "Level 99",
+    praiseTitle: "Du hast es wirklich geschafft",
+    praiseBody:
+      "Ein so langer, beharrlicher Weg durch den endlosen Feed verdient eine Belohnung. Öffne das Geschenk — darin steckt etwas Besonderes.",
+    giftLabel: "Geschenk öffnen",
+    achievementEyebrow: "Erfolg freigeschaltet",
+    achievementTitle: "Weißes Theme",
+    achievementBody: "Das helle Theme ist jetzt für dein Profil verfügbar.",
+    giftJokeLead: "Dachtest du, im Geschenk steckt ein Footer?",
+    giftJokePunch: "Der würde hier nicht reinpassen… und suchen ist ohnehin zu spät.",
+    restart: "Die Reise neu beginnen",
   },
   spoken: {
     ru: "Russisch",

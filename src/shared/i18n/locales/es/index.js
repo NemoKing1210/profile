@@ -52,8 +52,25 @@ export default {
       "¿Guardar progreso? Es broma.",
       "¿Sigues leyendo la bio?",
       "No hay camino a casa — solo scroll",
+      "¿Te alcanza la RAM para esto?",
     ],
     mineToast: "Pico listo · Mantén clic izq. para minar UI · Esc para guardar",
+    scrollTopEchoTease:
+      "¿De verdad no quieres mirar un poco más abajo? Quién sabe — tal vez al borde del feed aún espera un regalo.",
+  },
+  echoFinale: {
+    dialogLabel: "Final del scroll infinito",
+    eyebrow: "Nivel 99",
+    praiseTitle: "De verdad lo lograste",
+    praiseBody:
+      "Un camino tan largo y perseverante por el feed infinito merece recompensa. Abre el regalo: hay algo especial dentro.",
+    giftLabel: "Abrir regalo",
+    achievementEyebrow: "Logro desbloqueado",
+    achievementTitle: "Tema blanco",
+    achievementBody: "El tema claro ya está disponible en tu perfil.",
+    giftJokeLead: "¿Pensabas que el regalo traía un footer?",
+    giftJokePunch: "No cabría aquí… y ya es tarde para ir a buscarlo.",
+    restart: "Empezar el camino de nuevo",
   },
   spoken: {
     ru: "Ruso",

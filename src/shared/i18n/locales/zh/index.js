@@ -52,8 +52,25 @@ export default {
       "保存进度？开玩笑的。",
       "还在读简介？",
       "回不去了——只能继续滚",
+      "你的内存还够用吗？",
     ],
     mineToast: "镐已就绪 · 按住左键破坏界面 · Esc 收起",
+    scrollTopEchoTease:
+      "真的不想再往下看一点吗？谁知道——信息流的尽头，也许还藏着一份礼物。",
+  },
+  echoFinale: {
+    dialogLabel: "无限滚动终章",
+    eyebrow: "Level 99",
+    praiseTitle: "你真的走到了这里",
+    praiseBody:
+      "穿越无尽信息流的漫长坚持值得奖励。打开礼物——里面有特别的东西。",
+    giftLabel: "打开礼物",
+    achievementEyebrow: "成就已解锁",
+    achievementTitle: "白色主题",
+    achievementBody: "个人主页现已解锁浅色主题。",
+    giftJokeLead: "你以为礼物里会是页脚？",
+    giftJokePunch: "它塞不进来……而且现在找也晚了。",
+    restart: "重新开始旅程",
   },
   spoken: {
     ru: "俄语",

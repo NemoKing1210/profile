@@ -12,7 +12,14 @@ Update **both** when cutting a release.
 
 ### Planned
 
-- (none yet)
+- Light theme UI (unlock already persists via `profile:light-theme-unlocked`)
+
+## [1.55.0] — 2026-07-14
+
+### Added
+
+- Echo finale at loop 99: white screen, gift, Steam-style achievement unlocking light theme in `localStorage`, and a restart button
+- Echo finale gift joke about the missing footer (shown after the achievement)
 
 ## [1.54.3] — 2026-07-14
 
@@ -22,6 +29,7 @@ Update **both** when cutting a release.
 - Expanded `infiniteMarks` line pool (8 → 24) across all locales
 - Infinite-scroll text decay is stronger and ramps sooner (higher budgets, faster depth curve)
 - Infinite-scroll CSS warp / stage drift starts later (from loop 6; mid/deep stages delayed)
+- Scroll-top control: in the infinite zone the progress ring hides and the chevron becomes the current echo loop number (animated)
 
 ## [1.54.2] — 2026-07-14
 

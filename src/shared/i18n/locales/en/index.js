@@ -52,8 +52,25 @@ export default {
       "Save progress? Just kidding.",
       "Still reading the bio?",
       "No way home — only scroll",
+      "Got enough RAM for this?",
     ],
     mineToast: "Pickaxe ready · Hold LMB to mine UI · Esc to put away",
+    scrollTopEchoTease:
+      "Sure you don’t want to look a little deeper? Who knows — maybe a gift is waiting at the very edge of the feed.",
+  },
+  echoFinale: {
+    dialogLabel: "Infinite scroll finale",
+    eyebrow: "Level 99",
+    praiseTitle: "You actually made it",
+    praiseBody:
+      "Such a long, stubborn trek through the endless feed deserves a reward. Open the gift — there’s something special inside.",
+    giftLabel: "Open gift",
+    achievementEyebrow: "Achievement unlocked",
+    achievementTitle: "White Theme",
+    achievementBody: "The light theme is now available on your profile.",
+    giftJokeLead: "Thought there’d be a footer in the gift?",
+    giftJokePunch: "It wouldn’t fit in here… and it’s too late to go looking.",
+    restart: "Start the journey again",
   },
   spoken: {
     ru: "Russian",

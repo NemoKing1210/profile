@@ -23,6 +23,10 @@ import {
   initHeroPhysics,
 } from "../components/hero/index.js";
 import { initInfiniteScroll } from "../components/infinite-echo/index.js";
+import {
+  echoFinaleMethods,
+  echoFinaleState,
+} from "../components/echo-finale/index.js";
 import { interestsViewMethods } from "../components/interests/index.js";
 import { linksViewMethods } from "../components/links/index.js";
 import {
@@ -55,6 +59,7 @@ export function createProfilePage() {
       ...commentsState(),
       ...topbarState(),
       ...scrollTopState(),
+      ...echoFinaleState(),
       ...stackFlipState(),
       ...heroSpeechState(),
       localeList,
@@ -129,6 +134,7 @@ export function createProfilePage() {
         this._heroPhysics = null;
         this._infiniteScroll?.destroy?.();
         this._infiniteScroll = null;
+        this.destroyEchoFinale();
         this.destroyAboutActivity();
         this.destroyMinecraftMine();
       },
@@ -140,6 +146,7 @@ export function createProfilePage() {
       ...Object.getOwnPropertyDescriptors(commentsMethods()),
       ...Object.getOwnPropertyDescriptors(topbarMethods()),
       ...Object.getOwnPropertyDescriptors(scrollTopMethods()),
+      ...Object.getOwnPropertyDescriptors(echoFinaleMethods()),
       ...Object.getOwnPropertyDescriptors(stackFlipMethods()),
       ...Object.getOwnPropertyDescriptors(stackViewMethods()),
       ...Object.getOwnPropertyDescriptors(heroSpeechMethods()),

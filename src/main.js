@@ -13,6 +13,7 @@ import "./components/links/index.js";
 import "./components/comments/index.js";
 import "./components/footer/index.js";
 import "./components/scroll-top/index.js";
+import "./components/echo-finale/index.js";
 import "./components/infinite-echo/index.js";
 import "./components/minecraft-mine/index.js";
 import "./shared/styles/motion.css";
