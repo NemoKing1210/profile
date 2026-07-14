@@ -42,6 +42,7 @@ Update **both** when cutting a release.
 
 ### Fixed
 
+- Hero scroll blocked by Matter.js: remove `wheel` preventDefault; allow touch pan unless a body is grabbed
 - Hero physics simulation pauses when `hero__physics` is off-screen
 - About activity grid ticks only while the chart is in view
 - Avatar speech bubble follows light theme tokens (no hard-coded Steam-dark fill)

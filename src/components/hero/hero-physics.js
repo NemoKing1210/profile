@@ -285,8 +285,9 @@ export function initHeroPhysics(container, options = {}) {
   World.add(world, wallBodies);
 
   const mouse = Mouse.create(container);
-  mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-  mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+  // Matter 0.20 binds `wheel` (not legacy mousewheel) and calls preventDefault —
+  // that blocks page scroll over the full-bleed hero physics layer.
+  mouse.element.removeEventListener("wheel", mouse.mousewheel);
 
   const mouseConstraint = MouseConstraint.create(engine, {
     mouse,
@@ -298,13 +299,43 @@ export function initHeroPhysics(container, options = {}) {
   });
   World.add(world, mouseConstraint);
 
+  // Matter touch handlers use passive:false + preventDefault on every move.
+  // Allow page scroll unless a body is grabbed.
+  let touchDragging = false;
+  mouse.element.removeEventListener("touchmove", mouse.mousemove);
+  mouse.element.removeEventListener("touchstart", mouse.mousedown);
+  mouse.element.removeEventListener("touchend", mouse.mouseup);
+  const withOptionalTouchBlock = (handler) => (event) => {
+    if (event.changedTouches && !touchDragging) {
+      const blocked = event.preventDefault.bind(event);
+      event.preventDefault = () => {};
+      try {
+        handler(event);
+      } finally {
+        event.preventDefault = blocked;
+      }
+      return;
+    }
+    handler(event);
+  };
+  const onTouchMove = withOptionalTouchBlock(mouse.mousemove);
+  const onTouchStart = withOptionalTouchBlock(mouse.mousedown);
+  const onTouchEnd = withOptionalTouchBlock(mouse.mouseup);
+  mouse.element.addEventListener("touchmove", onTouchMove, { passive: false });
+  mouse.element.addEventListener("touchstart", onTouchStart, { passive: false });
+  mouse.element.addEventListener("touchend", onTouchEnd, { passive: false });
+
   container.classList.add("is-grab");
 
   const onStartDrag = () => {
+    touchDragging = true;
     container.classList.add("is-dragging");
     notifyInteract();
   };
-  const onEndDrag = () => container.classList.remove("is-dragging");
+  const onEndDrag = () => {
+    touchDragging = false;
+    container.classList.remove("is-dragging");
+  };
   Events.on(mouseConstraint, "startdrag", onStartDrag);
   Events.on(mouseConstraint, "enddrag", onEndDrag);
 
@@ -510,8 +541,6 @@ export function initHeroPhysics(container, options = {}) {
       const y = Math.min(Math.max(actor.body.position.y, h), height - h);
       Body.setPosition(actor.body, { x, y });
     }
-
-    Mouse.setElement(mouse, container);
   };
 
   const resizeObserver = new ResizeObserver(() => onResize());
@@ -583,6 +612,12 @@ export function initHeroPhysics(container, options = {}) {
       Events.off(engine, "afterUpdate", afterUpdate);
       Events.off(mouseConstraint, "startdrag", onStartDrag);
       Events.off(mouseConstraint, "enddrag", onEndDrag);
+      mouse.element.removeEventListener("mousemove", mouse.mousemove);
+      mouse.element.removeEventListener("mousedown", mouse.mousedown);
+      mouse.element.removeEventListener("mouseup", mouse.mouseup);
+      mouse.element.removeEventListener("touchmove", onTouchMove);
+      mouse.element.removeEventListener("touchstart", onTouchStart);
+      mouse.element.removeEventListener("touchend", onTouchEnd);
       setRunning(false);
       World.clear(world, false);
       Engine.clear(engine);
