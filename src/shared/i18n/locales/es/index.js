@@ -82,10 +82,12 @@ export default {
     unlockedAt: "Desbloqueado: {date}",
     progressCaption: "Progreso",
     progressLabel: "{done} / {total}",
+    effectToggleLabel: "Efecto del logro",
     items: {
       lightTheme: {
         title: "Tema blanco",
         how: "Llega al ciclo 99 del feed infinito y abre el regalo.",
+        effect: "Permite cambiar el perfil al tema claro",
       },
     },
   },

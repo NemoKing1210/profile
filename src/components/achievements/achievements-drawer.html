@@ -53,18 +53,54 @@
 
     <ul class="achievements-drawer__list" :aria-label="t.achievements.listLabel">
       <template x-for="item in unlockedAchievements" :key="item.id">
-        <li class="achievements-drawer__item">
-          <div class="achievements-drawer__badge" aria-hidden="true">
-            <span x-html="item.icon"></span>
+        <li
+          class="achievements-drawer__item"
+          :class="achievementTipId === item.id && 'is-tip-open'"
+          @mouseenter="onAchievementCardEnter(item.id)"
+          @mouseleave="onAchievementCardLeave(item.id)"
+          @click="onAchievementCardClick(item.id)"
+        >
+          <div class="achievements-drawer__item-main">
+            <div class="achievements-drawer__badge" aria-hidden="true">
+              <span x-html="item.icon"></span>
+            </div>
+            <div class="achievements-drawer__copy">
+              <p class="achievements-drawer__item-title" x-text="item.title"></p>
+              <p class="achievements-drawer__item-how" x-text="item.how"></p>
+              <p
+                class="achievements-drawer__item-date"
+                x-show="item.unlockedAtLabel"
+                x-text="item.unlockedAtLabel"
+              ></p>
+            </div>
           </div>
-          <div class="achievements-drawer__copy">
-            <p class="achievements-drawer__item-title" x-text="item.title"></p>
-            <p class="achievements-drawer__item-how" x-text="item.how"></p>
-            <p
-              class="achievements-drawer__item-date"
-              x-show="item.unlockedAtLabel"
-              x-text="item.unlockedAtLabel"
-            ></p>
+
+          <div
+            class="achievements-drawer__item-panel"
+            :aria-hidden="achievementTipId !== item.id"
+          >
+            <div class="achievements-drawer__item-panel-inner">
+              <div class="achievements-drawer__item-extra">
+                <p
+                  class="achievements-drawer__tip"
+                  x-text="item.effect"
+                ></p>
+                <button
+                  type="button"
+                  class="achievements-drawer__switch"
+                  role="switch"
+                  :tabindex="achievementTipId === item.id ? 0 : -1"
+                  :aria-checked="item.effectEnabled"
+                  :aria-label="t.achievements.effectToggleLabel"
+                  :title="t.achievements.effectToggleLabel"
+                  @click.stop="toggleAchievementEffect(item.id)"
+                >
+                  <span class="achievements-drawer__switch-track" aria-hidden="true">
+                    <span class="achievements-drawer__switch-thumb"></span>
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
         </li>
       </template>

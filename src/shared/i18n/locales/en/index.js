@@ -82,10 +82,12 @@ export default {
     unlockedAt: "Unlocked: {date}",
     progressCaption: "Progress",
     progressLabel: "{done} / {total}",
+    effectToggleLabel: "Achievement effect",
     items: {
       lightTheme: {
         title: "White Theme",
         how: "Reach loop 99 of the infinite feed and open the gift.",
+        effect: "Lets you switch the profile to the light theme",
       },
     },
   },

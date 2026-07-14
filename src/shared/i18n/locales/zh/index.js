@@ -82,10 +82,12 @@ export default {
     unlockedAt: "解锁于：{date}",
     progressCaption: "进度",
     progressLabel: "{done} / {total}",
+    effectToggleLabel: "成就效果",
     items: {
       lightTheme: {
         title: "白色主题",
         how: "到达无限信息流的第 99 圈并打开礼物。",
+        effect: "可切换个人主页的浅色主题",
       },
     },
   },

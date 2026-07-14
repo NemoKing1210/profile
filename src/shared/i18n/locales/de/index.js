@@ -82,10 +82,12 @@ export default {
     unlockedAt: "Freigeschaltet: {date}",
     progressCaption: "Fortschritt",
     progressLabel: "{done} / {total}",
+    effectToggleLabel: "Erfolgseffekt",
     items: {
       lightTheme: {
         title: "Weißes Theme",
         how: "Erreiche Schleife 99 des endlosen Feeds und öffne das Geschenk.",
+        effect: "Ermöglicht das Umschalten auf das helle Profil-Theme",
       },
     },
   },

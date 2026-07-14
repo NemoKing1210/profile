@@ -3,7 +3,9 @@ import {
   ACHIEVEMENT_IDS,
   achievementsTotalCount,
   achievementsUnlockedCount,
+  isAchievementEffectEnabled,
   readAchievementUnlocks,
+  setAchievementEffectEnabled,
   unlockAchievement,
 } from "../../shared/data/achievements.js";
 
@@ -11,6 +13,7 @@ export function achievementsState() {
   return {
     achievementsOpen: false,
     achievementUnlocks: readAchievementUnlocks(),
+    achievementTipId: null,
   };
 }
 
@@ -43,12 +46,15 @@ export function achievementsMethods() {
       return ACHIEVEMENT_IDS.filter((id) => this.achievementUnlocks[id]).map(
         (id) => {
           const copy = items[id] || {};
-          const unlockedAt = this.achievementUnlocks[id]?.unlockedAt;
+          const unlock = this.achievementUnlocks[id];
+          const unlockedAt = unlock?.unlockedAt;
           const iconKey = ACHIEVEMENT_ICONS[id] || "trophy";
           return {
             id,
             title: copy.title || id,
             how: copy.how || "",
+            effect: copy.effect || "",
+            effectEnabled: unlock?.effectEnabled !== false,
             unlockedAt,
             unlockedAtLabel: this.formatAchievementUnlockedAt(unlockedAt),
             icon: this.icons?.[iconKey] || this.icons?.trophy || "",
@@ -73,6 +79,34 @@ export function achievementsMethods() {
       return template.replace("{date}", date);
     },
 
+    showAchievementTip(id) {
+      this.achievementTipId = id;
+    },
+
+    hideAchievementTip(id) {
+      if (id != null && this.achievementTipId !== id) return;
+      this.achievementTipId = null;
+    },
+
+    prefersAchievementHover() {
+      return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    },
+
+    onAchievementCardEnter(id) {
+      if (!this.prefersAchievementHover()) return;
+      this.showAchievementTip(id);
+    },
+
+    onAchievementCardLeave(id) {
+      if (!this.prefersAchievementHover()) return;
+      this.hideAchievementTip(id);
+    },
+
+    onAchievementCardClick(id) {
+      if (this.prefersAchievementHover()) return;
+      this.achievementTipId = this.achievementTipId === id ? null : id;
+    },
+
     toggleAchievementsPanel() {
       this.achievementsOpen = !this.achievementsOpen;
       if (this.achievementsOpen) {
@@ -81,13 +115,47 @@ export function achievementsMethods() {
         this.closeNav?.();
         document.documentElement.classList.add("achievements-drawer-lock");
       } else {
+        this.achievementTipId = null;
         document.documentElement.classList.remove("achievements-drawer-lock");
       }
     },
 
     closeAchievementsPanel() {
       this.achievementsOpen = false;
+      this.achievementTipId = null;
       document.documentElement.classList.remove("achievements-drawer-lock");
+    },
+
+    /**
+     * Enable / disable the gameplay effect of an unlocked achievement.
+     * @param {string} id
+     */
+    toggleAchievementEffect(id) {
+      const currentlyOn = isAchievementEffectEnabled(id, this.achievementUnlocks);
+      const next = !currentlyOn;
+      setAchievementEffectEnabled(id, next);
+      this.achievementUnlocks = readAchievementUnlocks();
+
+      if (id === "lightTheme") {
+        this._syncLightThemeEffect(next);
+      }
+    },
+
+    /**
+     * @param {boolean} enabled
+     */
+    _syncLightThemeEffect(enabled) {
+      this.lightThemeUnlocked = enabled
+        ? true
+        : Boolean(this.achievementUnlocks?.lightTheme);
+
+      if (enabled) return;
+      if (!this.themeLight) return;
+
+      this._beginThemeSwitch?.(320);
+      this.themeLight = false;
+      this._persistThemePreference?.();
+      this._syncThemeColorMeta?.();
     },
 
     /**

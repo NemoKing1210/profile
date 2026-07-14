@@ -82,10 +82,12 @@ export default {
     unlockedAt: "Получено: {date}",
     progressCaption: "Прогресс",
     progressLabel: "{done} / {total}",
+    effectToggleLabel: "Эффект достижения",
     items: {
       lightTheme: {
         title: "Белая тема",
         how: "Дойди до 99-го круга бесконечной ленты и открой подарок.",
+        effect: "Позволяет переключать светлую тему профиля",
       },
     },
   },

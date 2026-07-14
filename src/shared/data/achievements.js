@@ -16,7 +16,7 @@ export const ACHIEVEMENT_ICONS = Object.freeze({
 });
 
 /**
- * @typedef {{ unlockedAt: number }} AchievementUnlock
+ * @typedef {{ unlockedAt: number, effectEnabled?: boolean }} AchievementUnlock
  * @typedef {Record<string, AchievementUnlock>} AchievementUnlockMap
  */
 
@@ -38,7 +38,10 @@ export function readAchievementUnlocks() {
             typeof value?.unlockedAt === "number"
               ? value.unlockedAt
               : Date.now();
-          map[id] = { unlockedAt };
+          map[id] = {
+            unlockedAt,
+            effectEnabled: value?.effectEnabled !== false,
+          };
         }
       }
     }
@@ -51,6 +54,36 @@ export function readAchievementUnlocks() {
 }
 
 /**
+ * Unlocked and its gameplay effect currently enabled (default on).
+ * @param {string} id
+ * @param {AchievementUnlockMap} [map]
+ */
+export function isAchievementEffectEnabled(id, map = readAchievementUnlocks()) {
+  const unlock = map[id];
+  if (!unlock) return false;
+  return unlock.effectEnabled !== false;
+}
+
+/**
+ * @param {string} id
+ * @param {boolean} enabled
+ * @returns {boolean} whether the record was updated
+ */
+export function setAchievementEffectEnabled(id, enabled) {
+  if (!ACHIEVEMENT_IDS.includes(id)) return false;
+
+  const map = readAchievementUnlocks();
+  if (!map[id]) return false;
+
+  map[id] = {
+    ...map[id],
+    effectEnabled: Boolean(enabled),
+  };
+  writeAchievementUnlocks(map);
+  return true;
+}
+
+/**
  * @param {string} id
  * @returns {boolean} true when newly unlocked
  */
@@ -60,7 +93,7 @@ export function unlockAchievement(id) {
   const map = readAchievementUnlocks();
   if (map[id]) return false;
 
-  map[id] = { unlockedAt: Date.now() };
+  map[id] = { unlockedAt: Date.now(), effectEnabled: true };
   writeAchievementUnlocks(map);
   return true;
 }
@@ -106,7 +139,10 @@ function migrateLegacyLightTheme(map) {
 
   try {
     if (localStorage.getItem(LEGACY_LIGHT_THEME_KEY) === "1") {
-      map = { ...map, lightTheme: { unlockedAt: Date.now() } };
+      map = {
+        ...map,
+        lightTheme: { unlockedAt: Date.now(), effectEnabled: true },
+      };
       writeAchievementUnlocks(map);
       localStorage.removeItem(LEGACY_LIGHT_THEME_KEY);
     }

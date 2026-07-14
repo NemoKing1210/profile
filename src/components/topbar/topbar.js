@@ -1,4 +1,4 @@
-import { isAchievementUnlocked } from "../../shared/data/achievements.js";
+import { isAchievementEffectEnabled } from "../../shared/data/achievements.js";
 import {
   DEFAULT_LOCALE,
   STORAGE_KEY,
@@ -58,10 +58,9 @@ export function localeChromeMethods() {
     },
 
     get canUseLightTheme() {
-      return Boolean(
-        this.achievementUnlocks?.lightTheme ||
-          this.lightThemeUnlocked ||
-          isAchievementUnlocked("lightTheme")
+      return isAchievementEffectEnabled(
+        "lightTheme",
+        this.achievementUnlocks
       );
     },
 
@@ -376,7 +375,7 @@ export function localeChromeMethods() {
     },
 
     applyStoredTheme() {
-      const unlocked = isAchievementUnlocked("lightTheme");
+      const unlocked = isAchievementEffectEnabled("lightTheme");
       if (!unlocked) {
         this.themeLight = false;
         this._syncThemeColorMeta();

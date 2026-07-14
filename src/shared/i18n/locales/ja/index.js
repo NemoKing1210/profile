@@ -82,10 +82,12 @@ export default {
     unlockedAt: "解除日：{date}",
     progressCaption: "進捗",
     progressLabel: "{done} / {total}",
+    effectToggleLabel: "実績効果",
     items: {
       lightTheme: {
         title: "ホワイトテーマ",
         how: "無限フィードの 99 周目に到達し、ギフトを開ける。",
+        effect: "プロフィールのライトテーマを切り替えられる",
       },
     },
   },
