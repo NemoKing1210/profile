@@ -16,6 +16,7 @@ export const ACHIEVEMENT_IDS = Object.freeze([
   "interfaceMine",
   "foundFooter",
   "spawnCollector",
+  "rickroll",
 ]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
@@ -27,7 +28,9 @@ export const ACHIEVEMENT_ICONS = Object.freeze({
   interfaceMine: "cube",
   foundFooter: "mapPin",
   spawnCollector: "sparkles",
+  rickroll: "faceSmile",
 });
+
 
 /** Active dwell time on the page required to unlock `longStay`. */
 export const LONG_STAY_MS = 5 * 60 * 1000;

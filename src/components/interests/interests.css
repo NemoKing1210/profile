@@ -42,6 +42,43 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  transition:
+    border-color 0.22s var(--ease),
+    background 0.22s var(--ease),
+    box-shadow 0.22s var(--ease),
+    transform 0.22s var(--ease),
+    color 0.22s var(--ease);
+}
+
+.interest-chip:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 0 22px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.interest-chip--accent:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent) 36%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.interest-chip--hot:hover {
+  border-color: color-mix(in srgb, var(--accent-hot) 55%, transparent);
+  background: color-mix(in srgb, var(--accent-hot) 16%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent-hot) 36%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent-hot) 18%, transparent);
+}
+
+.interest-chip--green:hover {
+  border-color: color-mix(in srgb, var(--accent-green) 55%, transparent);
+  background: color-mix(in srgb, var(--accent-green) 16%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent-green) 36%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent-green) 18%, transparent);
 }
 
 .interest-chip__icon {
@@ -98,6 +135,39 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text);
+  transition:
+    border-color 0.22s var(--ease),
+    background 0.22s var(--ease),
+    box-shadow 0.22s var(--ease),
+    transform 0.22s var(--ease);
+}
+
+.interest-badge:hover {
+  transform: translateY(-1px);
+}
+
+.interest-badge--accent:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent) 36%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.interest-badge--hot:hover {
+  border-color: color-mix(in srgb, var(--accent-hot) 55%, transparent);
+  background: color-mix(in srgb, var(--accent-hot) 16%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent-hot) 36%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent-hot) 18%, transparent);
+}
+
+.interest-badge--green:hover {
+  border-color: color-mix(in srgb, var(--accent-green) 55%, transparent);
+  background: color-mix(in srgb, var(--accent-green) 16%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent-green) 36%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent-green) 18%, transparent);
 }
 
 .interest-badge::before {
@@ -165,7 +235,29 @@
   border-radius: 0.35rem;
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   background: var(--bg-elevated);
+  transition:
+    border-color 0.22s var(--ease),
+    box-shadow 0.22s var(--ease);
 }
+
+.media-shelf__avatar--tip {
+  cursor: help;
+  outline: none;
+}
+
+.media-shelf__avatar--tip:hover,
+.media-shelf__avatar--tip:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent) 36%, transparent),
+    0 0 22px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.media-shelf__avatar--tip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 
 .media-shelf__titles {
   display: flex;
@@ -210,7 +302,8 @@
   transition:
     background 160ms ease,
     border-color 160ms ease,
-    color 160ms ease;
+    color 160ms ease,
+    box-shadow 0.22s var(--ease);
 }
 
 .media-shelf__cta:hover,
@@ -219,6 +312,9 @@
   border-color: rgba(102, 192, 244, 0.5);
   color: var(--text-bright);
   outline: none;
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent) 36%, transparent),
+    0 0 22px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .media-shelf__cta-icon {
@@ -291,9 +387,12 @@
 
 .media-cover:hover,
 .media-cover:focus-visible {
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--bg-deep) 35%, transparent);
+  box-shadow:
+    0 12px 28px color-mix(in srgb, var(--bg-deep) 35%, transparent),
+    0 0 16px color-mix(in srgb, var(--accent) 38%, transparent),
+    0 0 32px color-mix(in srgb, var(--accent) 20%, transparent);
   outline: none;
   z-index: 1;
 }
@@ -302,7 +401,9 @@
   box-shadow:
     0 0 0 2px var(--bg-panel),
     0 0 0 4px var(--accent),
-    0 12px 28px color-mix(in srgb, var(--bg-deep) 35%, transparent);
+    0 12px 28px color-mix(in srgb, var(--bg-deep) 35%, transparent),
+    0 0 16px color-mix(in srgb, var(--accent) 38%, transparent),
+    0 0 32px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .media-cover__frame {
@@ -613,12 +714,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .interest-chip,
+  .interest-badge,
   .media-cover,
   .media-cover__img,
   .media-cover__tip {
     transition: none;
   }
 
+  .interest-chip:hover,
+  .interest-badge:hover,
   .media-cover:hover,
   .media-cover:focus-visible {
     transform: none;

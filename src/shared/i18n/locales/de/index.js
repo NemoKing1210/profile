@@ -84,7 +84,9 @@ export default {
     mineToast: "Spitzhacke bereit · LMT halten zum Abbauen · Esc zum Weglegen",
     scrollTopEchoTease:
       "Willst du wirklich nicht noch tiefer schauen? Wer weiß — vielleicht wartet am Rand des Feeds doch noch ein Geschenk.",
+    bugReport: "Bug gefunden oder laggt’s? Sag Bescheid",
   },
+
   echoFinale: {
     dialogLabel: "Finale des Endlos-Scrolls",
     eyebrow: "Level 99",
@@ -146,8 +148,14 @@ export default {
         how: "Spawne jede Sprachflagge, den Avatar, jeden Stack-Tech und jedes AI-Tool im Hero.",
         effect: "Beim Seitenaufruf fallen all diese Objekte sofort in den Hero",
       },
+      rickroll: {
+        title: "Never Gonna…",
+        how: "Tippe den Bug-Button, folge dem „Support“ und komm zurück.",
+        effect: "Ehrentitel. You’re never gonna give this one up.",
+      },
     },
   },
+
   spoken: {
     ru: "Russisch",
     uk: "Ukrainisch",
@@ -177,7 +185,10 @@ export default {
     playEnough:
       "Immer noch nicht genug gespielt? Schau dir doch den Rest meines Profils an.",
     playAlong: "Sieht lustig aus — ich spiele mit!",
+    bugReportReturn:
+      "Sorry, konnte nicht widerstehen 😅 Beschwerden nehme ich nicht an 🚫",
     metaLabel: "Standort, Sprachen und Geburtsjahr",
+
     tagline:
       "Ich gestalte Interfaces, die gut aussehen und angenehm zu bedienen sind.",
     location: "Remote",
@@ -208,6 +219,8 @@ export default {
       "Letterboxd ist ein soziales Netzwerk für Filmfans: Sehtagebuch, Bewertungen, Listen und Diskussion.",
     favoritesLabel: "Favoriten",
     openProfile: "Profil",
+    avatarTip:
+      "Jetzt würde ich die Herr-der-Ringe-Trilogie zum tausendsten Mal schauen…",
     ctaTip:
       "Schau ins Tagebuch — dort gibt’s mehr Sterne als in meinen GitHub-Repos.",
     subgenresLabel: "Lieblings-Subgenres",
@@ -234,9 +247,11 @@ export default {
       "Backloggd ist Letterboxd für Spiele: Spieltagebuch, Bewertungen, Backlog und Listen.",
     favoritesLabel: "Favoriten",
     openProfile: "Profil",
+    avatarTip: "...",
     ctaTip:
       "Der Backlog ist endlos — wie der Scroll darunter. Schau rein, vielleicht finden wir ein Match.",
     genresLabel: "Lieblingsgenres",
+
     tips: {
       programming: "Dank dieses Spiels habe ich das Programmieren lieben gelernt",
       pickaxe: "Psst — klick mal. Ich habe eine Spitzhacke für dich bereit.",

@@ -80,7 +80,9 @@ export default {
     mineToast: "镐已就绪 · 按住左键破坏界面 · Esc 收起",
     scrollTopEchoTease:
       "真的不想再往下看一点吗？谁知道——信息流的尽头，也许还藏着一份礼物。",
+    bugReport: "发现 Bug 或卡顿？告诉我",
   },
+
   echoFinale: {
     dialogLabel: "无限滚动终章",
     eyebrow: "Level 99",
@@ -142,8 +144,14 @@ export default {
         how: "在 hero 中生成每面语言旗、头像、技术栈里的每项技术，以及每个 AI 工具。",
         effect: "每次进入页面时，这些物体会立刻全部掉进 hero",
       },
+      rickroll: {
+        title: "Never Gonna…",
+        how: "点「报 Bug」按钮，跟着「客服」走一趟，再回来。",
+        effect: "荣誉称号。You’re never gonna give this one up.",
+      },
     },
   },
+
   spoken: {
     ru: "俄语",
     uk: "乌克兰语",
@@ -171,7 +179,9 @@ export default {
     ],
     playEnough: "还没玩够吗？要不往下看看我的主页？",
     playAlong: "看起来挺好玩——我也来一起玩！",
+    bugReportReturn: "抱歉，没忍住 😅 不接受投诉 🚫",
     metaLabel: "地点、语言与出生年份",
+
     tagline: "我设计既好看又好用的界面。",
     location: "远程",
   },
@@ -201,10 +211,12 @@ export default {
       "Letterboxd 是影迷社交网络：观影日记、评分、片单与讨论。",
     favoritesLabel: "最爱",
     openProfile: "主页",
+    avatarTip: "现在真想把《指环王》三部曲再刷一千遍……",
     ctaTip: "瞅瞅观影日记——星比我 GitHub 仓库还多。",
     subgenresLabel: "喜欢的子类型",
     tips: {
       fellowship: "“我们要决定的，只是如何使用我们所得到的时间。”——甘道夫",
+
       twoTowers: "“我不能替你扛起它，但我可以扛起你！”——山姆",
       returnKing: "“我的朋友们，你们不必向任何人屈膝。”——阿拉贡",
       avengers: "“复仇者……集合！”——美国队长",
@@ -224,8 +236,10 @@ export default {
       "Backloggd 是游戏版 Letterboxd：游玩日记、评分、待玩列表与片单。",
     favoritesLabel: "最爱",
     openProfile: "主页",
+    avatarTip: "...",
     ctaTip: "待玩列表跟下面的无限滚动一样长。进来吧，说不定能开一局。",
     genresLabel: "喜欢的类型",
+
     tips: {
       programming: "正是这款游戏让我爱上了编程",
       pickaxe: "嘘——试着点一下。我有镐在等你。",

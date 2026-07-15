@@ -83,7 +83,9 @@ export default {
     mineToast: "ツルハシ装備 · 左クリック長押しで UI 破壊 · Esc でしまう",
     scrollTopEchoTease:
       "本当に、これ以上下を見なくていいの？フィードの果ては——もしかすると、まだギフトが待っているかも。",
+    bugReport: "バグやカクつき？知らせてね",
   },
+
   echoFinale: {
     dialogLabel: "無限スクロールのフィナーレ",
     eyebrow: "レベル 99",
@@ -145,8 +147,14 @@ export default {
         how: "ヒーローに言語フラグ全部、アバター、スタックの全テック、全AIツールをスポーンする。",
         effect: "ページを開くたびに、それらがまとめてヒーローに落ちてくる",
       },
+      rickroll: {
+        title: "Never Gonna…",
+        how: "バグ報告ボタンを押して「サポート」へ行き、戻ってくる。",
+        effect: "名誉称号。You’re never gonna give this one up.",
+      },
     },
   },
+
   spoken: {
     ru: "ロシア語",
     uk: "ウクライナ語",
@@ -176,7 +184,10 @@ export default {
     playEnough:
       "まだ遊び足りない？プロフィールの続きも見てみない？",
     playAlong: "楽しそうだね——一緒に遊ばせて！",
+    bugReportReturn:
+      "ごめん、我慢できなかった 😅 苦情は受け付けてないよ 🚫",
     metaLabel: "所在地、言語、生年",
+
     tagline:
       "見た目もよく、使い心地も軽いインターフェースを設計します。",
     location: "リモート",
@@ -207,6 +218,8 @@ export default {
       "Letterboxd は映画好き向けのSNS。視聴日記、評価、リスト、議論ができます。",
     favoritesLabel: "お気に入り",
     openProfile: "プロフィール",
+    avatarTip:
+      "今すぐ『ロード・オブ・ザ・リング』三部作を千回目くらい見直したい…",
     ctaTip:
       "観賞日記を見てみて——星の数は僕の GitHub リポジトリより多いよ。",
     subgenresLabel: "好きなサブジャンル",
@@ -233,9 +246,11 @@ export default {
       "Backloggd はゲーム版 Letterboxd。プレイ日記、評価、バックログ、リストができます。",
     favoritesLabel: "お気に入り",
     openProfile: "プロフィール",
+    avatarTip: "...",
     ctaTip:
       "バックログは下の無限スクロール並みに長い。覗いてみて——一緒に遊ぶゲームが見つかるかも。",
     genresLabel: "好きなジャンル",
+
     tips: {
       programming: "このゲームのおかげでプログラミングが好きになった",
       pickaxe: "こっそりクリックしてみて。ツルハシを用意してあるよ。",

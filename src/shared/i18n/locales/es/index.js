@@ -84,7 +84,9 @@ export default {
     mineToast: "Pico listo · Mantén clic izq. para minar UI · Esc para guardar",
     scrollTopEchoTease:
       "¿De verdad no quieres mirar un poco más abajo? Quién sabe — tal vez al borde del feed aún espera un regalo.",
+    bugReport: "¿Bug o va lento? Avísame",
   },
+
   echoFinale: {
     dialogLabel: "Final del scroll infinito",
     eyebrow: "Nivel 99",
@@ -146,8 +148,14 @@ export default {
         how: "Haz spawn de cada bandera de idioma, el avatar, cada tech del stack y cada herramienta de IA en el hero.",
         effect: "Al entrar en la página, todos esos objetos caen de golpe en el hero",
       },
+      rickroll: {
+        title: "Never Gonna…",
+        how: "Pulsa el botón de bugs, sigue el “soporte” y vuelve aquí.",
+        effect: "Título honorífico. You’re never gonna give this one up.",
+      },
     },
   },
+
   spoken: {
     ru: "Ruso",
     uk: "Ucraniano",
@@ -177,7 +185,10 @@ export default {
     playEnough:
       "¿Todavía no te cansas de jugar? ¿Miramos el resto del perfil?",
     playAlong: "Parece divertido — ¡juego contigo!",
+    bugReportReturn:
+      "Perdona, no pude resistirme 😅 No acepto quejas 🚫",
     metaLabel: "Ubicación, idiomas y año de nacimiento",
+
     tagline:
       "Diseño interfaces que se ven bien y son cómodas de usar.",
     location: "Remoto",
@@ -208,6 +219,8 @@ export default {
       "Letterboxd es una red social para cinéfilos: diario de visionados, valoraciones, listas y debate.",
     favoritesLabel: "Favoritos",
     openProfile: "Perfil",
+    avatarTip:
+      "Ahora mismo me vería la trilogía de El Señor de los Anillos por milésima vez…",
     ctaTip:
       "Mira el diario — ahí hay más estrellas que en mis repos de GitHub.",
     subgenresLabel: "Subgéneros favoritos",
@@ -234,9 +247,11 @@ export default {
       "Backloggd es Letterboxd para juegos: diario de partidas, valoraciones, backlog y listas.",
     favoritesLabel: "Favoritos",
     openProfile: "Perfil",
+    avatarTip: "...",
     ctaTip:
       "El backlog es infinito — como el scroll de abajo. Entra; a lo mejor encontramos partida.",
     genresLabel: "Géneros favoritos",
+
     tips: {
       programming: "Gracias a este juego me enamoré de la programación",
       pickaxe: "Psst — prueba a hacer clic. Tengo un pico esperándote.",

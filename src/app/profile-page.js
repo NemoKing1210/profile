@@ -39,10 +39,12 @@ import {
   minecraftMineState,
 } from "../components/minecraft-mine/index.js";
 import { projectsViewMethods } from "../components/projects/index.js";
+import { bugReportMethods } from "../components/bug-report/index.js";
 import {
   scrollTopMethods,
   scrollTopState,
 } from "../components/scroll-top/index.js";
+
 import {
   stackFlipMethods,
   stackFlipState,
@@ -129,6 +131,7 @@ export function createProfilePage() {
           this.bindAchievementsDiscoverHint?.();
           this.bindAchievementDebugApi?.();
           this.bindFooterEaster?.();
+          this.bindBugReportReturn?.();
         });
       },
 
@@ -140,7 +143,9 @@ export function createProfilePage() {
         this.destroyNavSpy();
         this.destroyLocaleChrome();
         this.destroyHeroSpeech();
+        this.destroyBugReportReturn?.();
         this.destroyComments();
+
         this._stopConfetti?.();
         this._stopConfetti = null;
         this._stopImageFade?.();
@@ -163,7 +168,9 @@ export function createProfilePage() {
       ...Object.getOwnPropertyDescriptors(commentsMethods()),
       ...Object.getOwnPropertyDescriptors(topbarMethods()),
       ...Object.getOwnPropertyDescriptors(scrollTopMethods()),
+      ...Object.getOwnPropertyDescriptors(bugReportMethods()),
       ...Object.getOwnPropertyDescriptors(echoFinaleMethods()),
+
       ...Object.getOwnPropertyDescriptors(footerMethods()),
       ...Object.getOwnPropertyDescriptors(achievementsMethods()),
       ...Object.getOwnPropertyDescriptors(stackFlipMethods()),
