@@ -97,6 +97,13 @@ export default {
     musicIdle: "アンビエントラジオ",
     musicError: "局に接続できません",
     musicCredit: "Radio Browser 経由",
+    musicGenreLabel: "ジャンル",
+    musicGenres: {
+      ambient: "Ambient",
+      chillout: "Chillout",
+      lofi: "Lo-fi",
+      classical: "クラシック",
+    },
   },
 
   echoFinale: {

@@ -98,6 +98,13 @@ export default {
     musicIdle: "Ambient radio",
     musicError: "Couldn’t reach a station",
     musicCredit: "via Radio Browser",
+    musicGenreLabel: "Genre",
+    musicGenres: {
+      ambient: "Ambient",
+      chillout: "Chillout",
+      lofi: "Lo-fi",
+      classical: "Classical",
+    },
   },
 
   echoFinale: {

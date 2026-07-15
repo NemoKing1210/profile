@@ -171,6 +171,26 @@
         </div>
       </div>
 
+      <div
+        class="music-player__genres"
+        role="listbox"
+        :aria-label="t.ui.musicGenreLabel"
+      >
+        <template x-for="genre in musicGenreOptions" :key="genre.id">
+          <button
+            type="button"
+            class="music-player__genre"
+            role="option"
+            :class="{ 'is-active': musicGenreId === genre.id }"
+            :aria-selected="musicGenreId === genre.id ? 'true' : 'false'"
+            :disabled="musicBusy && musicGenreId !== genre.id"
+            :tabindex="musicOpen ? 0 : -1"
+            @click="selectMusicGenre(genre.id)"
+            x-text="musicGenreName(genre.id)"
+          ></button>
+        </template>
+      </div>
+
       <div class="music-player__controls">
         <button
           type="button"

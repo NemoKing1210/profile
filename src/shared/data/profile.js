@@ -177,12 +177,18 @@ const profile = {
   media: profileMedia,
 
   /**
-   * Ambient radio via Radio Browser API (no API key).
-   * Tags are OR’d across requests; stations cached in localStorage for 24h.
+   * Radio Browser music player.
+   * `genres[].tags` are Radio Browser tags; `fallback: true` keeps laut.fm streams.
    */
   musicPlayer: {
-    tags: ["ambient", "chillout", "lofi"],
+    defaultGenre: "lofi",
     limit: 18,
+    genres: [
+      { id: "ambient", tags: ["ambient"], fallback: true },
+      { id: "chillout", tags: ["chillout"], fallback: true },
+      { id: "lofi", tags: ["lofi"], fallback: true },
+      { id: "classical", tags: ["classical"] },
+    ],
   },
 
   nav: [

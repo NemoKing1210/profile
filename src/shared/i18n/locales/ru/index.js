@@ -98,6 +98,13 @@ export default {
     musicIdle: "Фоновое радио",
     musicError: "Не удалось подключиться",
     musicCredit: "через Radio Browser",
+    musicGenreLabel: "Жанр",
+    musicGenres: {
+      ambient: "Ambient",
+      chillout: "Chillout",
+      lofi: "Lo-fi",
+      classical: "Классика",
+    },
   },
 
   echoFinale: {

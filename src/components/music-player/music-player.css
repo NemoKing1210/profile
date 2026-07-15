@@ -571,6 +571,80 @@
   color: var(--accent);
 }
 
+.music-player__genres {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.35rem;
+  margin: 0 0 0.85rem;
+  padding: 0.1rem 0.15rem 0.35rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent) transparent;
+  -webkit-overflow-scrolling: touch;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 0.4rem,
+    #000 calc(100% - 0.75rem),
+    transparent
+  );
+}
+
+.music-player__genres::-webkit-scrollbar {
+  height: 3px;
+}
+
+.music-player__genres::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px;
+}
+
+.music-player__genre {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.32rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-capsule) 55%, transparent);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.music-player__genre:hover:not(:disabled) {
+  color: var(--text-bright);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.music-player__genre.is-active {
+  color: var(--text-bright);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg-capsule));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.music-player__genre:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.music-player__genre:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .music-player__controls {
   position: relative;
   z-index: 1;
@@ -846,6 +920,14 @@ body.theme-light .music-player__sheet {
 body.theme-light .music-player__volume {
   background: color-mix(in srgb, var(--bg-store) 55%, transparent);
   border-color: rgba(15, 30, 45, 0.08);
+}
+
+body.theme-light .music-player__genre {
+  border-color: rgba(15, 30, 45, 0.12);
+}
+
+body.theme-light .music-player__genre.is-active {
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg-elevated));
 }
 
 body.theme-light .music-player__btn,

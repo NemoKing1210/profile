@@ -159,13 +159,14 @@ function scoreStation(station) {
 }
 
 /**
- * @param {{ tags?: string[]; limit?: number }} [opts]
+ * @param {{ tags?: string[]; limit?: number; includeFallback?: boolean }} [opts]
  * @returns {Promise<RadioStation[]>}
  */
 export async function fetchAmbientStations(opts = {}) {
   const tags = opts.tags?.length ? opts.tags : ["ambient", "chillout", "lofi"];
   const limit = Math.min(40, Math.max(6, opts.limit ?? 18));
-  const cacheKey = `${CACHE_KEY}:${tags.join("+")}:${limit}`;
+  const includeFallback = opts.includeFallback !== false;
+  const cacheKey = `${CACHE_KEY}:${tags.join("+")}:${limit}:fb${includeFallback ? 1 : 0}`;
 
   try {
     const cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
@@ -175,7 +176,9 @@ export async function fetchAmbientStations(opts = {}) {
       Array.isArray(cached.stations) &&
       cached.stations.length
     ) {
-      return mergeWithFallback(cached.stations, limit);
+      return includeFallback
+        ? mergeWithFallback(cached.stations, limit)
+        : cached.stations.slice(0, limit);
     }
   } catch {
     /* ignore bad cache */
@@ -208,7 +211,9 @@ export async function fetchAmbientStations(opts = {}) {
   );
 
   let stations = rankStations([...byId.values()]).slice(0, limit);
-  stations = mergeWithFallback(stations, limit);
+  if (includeFallback) {
+    stations = mergeWithFallback(stations, limit);
+  }
 
   if (!stations.length) {
     throw new Error("No radio stations found");

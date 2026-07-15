@@ -98,6 +98,13 @@ export default {
     musicIdle: "Radio ambiental",
     musicError: "No se pudo conectar",
     musicCredit: "vía Radio Browser",
+    musicGenreLabel: "Género",
+    musicGenres: {
+      ambient: "Ambient",
+      chillout: "Chillout",
+      lofi: "Lo-fi",
+      classical: "Clásica",
+    },
   },
 
   echoFinale: {

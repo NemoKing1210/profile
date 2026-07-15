@@ -10,6 +10,18 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.71.1] — 2026-07-15
+
+### Changed
+
+- Music genres trimmed to Ambient, Chillout, Lo-fi, Classical; default is Lo-fi
+
+## [1.71.0] — 2026-07-15
+
+### Added
+
+- Music player genre chips (Ambient, Chillout, Lo-fi, Jazz, Classical, Electronic, Synthwave, House, Rock, Metal); choice persists in localStorage
+
 ## [1.70.3] — 2026-07-15
 
 ### Changed

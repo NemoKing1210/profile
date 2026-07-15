@@ -94,6 +94,13 @@ export default {
     musicIdle: "氛围电台",
     musicError: "无法连接电台",
     musicCredit: "来自 Radio Browser",
+    musicGenreLabel: "曲风",
+    musicGenres: {
+      ambient: "Ambient",
+      chillout: "Chillout",
+      lofi: "Lo-fi",
+      classical: "古典",
+    },
   },
 
   echoFinale: {

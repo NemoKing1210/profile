@@ -7,9 +7,30 @@ import {
 
 const VOLUME_KEY = "profile:music-volume";
 const EXPANDED_KEY = "profile:music-expanded";
+const GENRE_KEY = "profile:music-genre";
 const DEFAULT_VOLUME = 0.35;
 const PROBE_TIMEOUT_MS = 4_500;
 const PROBE_STATION_LIMIT = 3;
+
+function musicConfig() {
+  return profile.musicPlayer || {};
+}
+
+function genreList() {
+  const genres = musicConfig().genres;
+  return Array.isArray(genres) && genres.length
+    ? genres
+    : [{ id: "ambient", tags: ["ambient"], fallback: true }];
+}
+
+function defaultGenreId() {
+  const cfg = musicConfig();
+  const genres = genreList();
+  if (cfg.defaultGenre && genres.some((g) => g.id === cfg.defaultGenre)) {
+    return cfg.defaultGenre;
+  }
+  return genres[0].id;
+}
 
 function readStoredVolume() {
   try {
@@ -31,6 +52,20 @@ function readExpanded() {
   }
 }
 
+function readStoredGenre() {
+  try {
+    const id = localStorage.getItem(GENRE_KEY);
+    if (id && genreList().some((g) => g.id === id)) return id;
+  } catch {
+    /* ignore */
+  }
+  return defaultGenreId();
+}
+
+function resolveGenre(genreId) {
+  return genreList().find((g) => g.id === genreId) || genreList()[0];
+}
+
 export function musicPlayerState() {
   return {
     /** Entire dock is hidden until a stream proves reachable (or after total failure). */
@@ -43,6 +78,7 @@ export function musicPlayerState() {
     musicError: false,
     musicPlaying: false,
     musicVolume: readStoredVolume(),
+    musicGenreId: readStoredGenre(),
     musicStations: [],
     musicIndex: 0,
     musicTrack: null,
@@ -66,6 +102,14 @@ export function musicPlayerMethods() {
 
     get musicVolumePct() {
       return Math.round((this.musicVolume ?? 0) * 100);
+    },
+
+    get musicGenreOptions() {
+      return genreList();
+    },
+
+    musicGenreName(id) {
+      return this.t?.ui?.musicGenres?.[id] || id;
     },
 
     async initMusicPlayer() {
@@ -98,9 +142,6 @@ export function musicPlayerMethods() {
       return this._probeReachableStation();
     },
 
-    /**
-     * Quietly test a few top stations (muted). Returns true if any can start buffering.
-     */
     async _probeReachableStation() {
       this._bindMusicAudio();
       const audio = this._musicAudio;
@@ -147,9 +188,7 @@ export function musicPlayerMethods() {
         audio.addEventListener("error", onError);
         audio.src = url;
         audio.load();
-        audio.play().catch(() => {
-          /* autoplay may fail while muted probe — loadeddata is enough */
-        });
+        audio.play().catch(() => {});
       }).finally(() => {
         audio.muted = false;
         audio.preload = "none";
@@ -198,6 +237,54 @@ export function musicPlayerMethods() {
       }
     },
 
+    _persistMusicGenre() {
+      try {
+        localStorage.setItem(GENRE_KEY, this.musicGenreId);
+      } catch {
+        /* ignore */
+      }
+    },
+
+    async selectMusicGenre(genreId) {
+      if (!this.musicVisible || !genreId) return;
+      if (genreId === this.musicGenreId || this.musicLoading || this.musicBooting) {
+        return;
+      }
+      if (!genreList().some((g) => g.id === genreId)) return;
+
+      const wasPlaying = this.musicPlaying;
+      this.musicGenreId = genreId;
+      this._persistMusicGenre();
+      this._musicPlayToken += 1;
+      this._musicSkipTries = 0;
+      this.musicError = false;
+
+      if (this._musicAudio) {
+        this._musicAudio.pause();
+        this._musicAudio.removeAttribute("src");
+        this._musicAudio.load();
+      }
+      this.musicPlaying = false;
+      this.musicBuffering = false;
+      this.musicStations = [];
+      this.musicTrack = null;
+      this.musicIndex = 0;
+
+      const stations = await this.ensureMusicPlaylist({ force: true });
+      if (!stations?.length) {
+        this.musicError = true;
+        this.musicReady = false;
+        return;
+      }
+
+      this.musicIndex = 0;
+      this.musicTrack = stations[0];
+      this.musicReady = true;
+      if (wasPlaying) {
+        await this._playCurrentStation();
+      }
+    },
+
     async ensureMusicPlaylist({ force = false } = {}) {
       if (!force && this.musicStations.length) {
         return this.musicStations;
@@ -209,13 +296,16 @@ export function musicPlayerMethods() {
       this.musicLoading = true;
       this.musicError = false;
       this._musicLoadPromise = (async () => {
+        const genre = resolveGenre(this.musicGenreId);
+        const cfg = musicConfig();
+        const useFallback = Boolean(genre.fallback);
         try {
-          const cfg = profile.musicPlayer || {};
           const stations = await fetchAmbientStations({
-            tags: cfg.tags,
+            tags: genre.tags?.length ? genre.tags : [genre.id],
             limit: cfg.limit,
+            includeFallback: useFallback,
           });
-          this.musicStations = preferReliableOrder(stations);
+          this.musicStations = preferReliableOrder(stations, useFallback);
           if (!this.musicTrack) {
             this.musicIndex = 0;
             this.musicTrack = this.musicStations[0] || null;
@@ -224,14 +314,21 @@ export function musicPlayerMethods() {
           this._bindMusicAudio();
           return this.musicStations;
         } catch {
-          this.musicStations = shuffle([...FALLBACK_STATIONS]);
-          if (!this.musicTrack) {
-            this.musicIndex = 0;
-            this.musicTrack = this.musicStations[0] || null;
+          if (useFallback) {
+            this.musicStations = shuffle([...FALLBACK_STATIONS]);
+            if (!this.musicTrack) {
+              this.musicIndex = 0;
+              this.musicTrack = this.musicStations[0] || null;
+            }
+            this.musicReady = Boolean(this.musicTrack);
+            this.musicError = !this.musicTrack;
+            this._bindMusicAudio();
+            return this.musicStations;
           }
-          this.musicReady = Boolean(this.musicTrack);
-          this.musicError = !this.musicTrack;
-          this._bindMusicAudio();
+          this.musicStations = [];
+          this.musicTrack = null;
+          this.musicReady = false;
+          this.musicError = true;
           return this.musicStations;
         } finally {
           this.musicLoading = false;
@@ -275,7 +372,10 @@ export function musicPlayerMethods() {
 
     _skipBrokenStation() {
       if (this._musicSkipTries >= Math.max(1, this.musicStations.length)) {
-        this._hideMusicPlayer();
+        this.musicError = true;
+        this.musicPlaying = false;
+        this.musicBuffering = false;
+        this._musicSkipTries = 0;
         return;
       }
       this._musicSkipTries += 1;
@@ -398,7 +498,8 @@ function shuffle(list) {
   return arr;
 }
 
-function preferReliableOrder(stations) {
+function preferReliableOrder(stations, useFallback) {
+  if (!useFallback) return shuffle(stations);
   const fallbackUrls = new Set(FALLBACK_STATIONS.map((s) => s.streamUrl));
   const reliable = [];
   const rest = [];
