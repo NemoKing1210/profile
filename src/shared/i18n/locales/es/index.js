@@ -287,7 +287,7 @@ export default {
     eyebrow: "Community case",
     title: "Abrir una caja",
     blurb:
-      "Una cajita al estilo CS justo bajo Mi Steam. Casi todo son bromas y efectos; el dorado es un logro de verdad (1%).",
+      "Ábrela: bromas y efectos en la página. El drop de oro es raro (1%) y desbloquea un logro de verdad.",
     open: "Abrir caja",
     opening: "Abriendo…",
     result: "Has obtenido: {item}",
@@ -332,7 +332,7 @@ export default {
     dizzyLine: "Vértigo permanente. Agárrate a un panel — o acostúmbrate.",
     blockResizeLine: "El layout se volvió loco: decenas de bloques reinventaron su tamaño.",
     blockResizeFallback: "Nada que redimensionar. La cuadrícula ya se rindió.",
-    textBlindLine: "Ceguera aplicada. El texto sigue ahí — confía.",
+    textBlindLine: "Ceguera durante 30 segundos. El texto sigue ahí — confía.",
     tauntNoJackpot:
       "Je. ¿Todavía sin Drop de oro? Energía de liga media. Sigue girando, turista.",
     tauntIncomplete:

@@ -287,7 +287,7 @@ export default {
     eyebrow: "Community case",
     title: "Open a case",
     blurb:
-      "A tiny CS-style case right under My Steam. Most drops are jokes and effects — the gold one is a real achievement (1%).",
+      "Open it for jokes and page effects. The gold drop is rare (1%) and unlocks a real achievement.",
     open: "Open case",
     opening: "Opening…",
     result: "You got: {item}",
@@ -332,7 +332,7 @@ export default {
     dizzyLine: "Vertigo locked on. Hold a panel — or learn to love the sway.",
     blockResizeLine: "Layout went feral: dozens of blocks reinvented their size.",
     blockResizeFallback: "Nothing left to resize. The grid already gave up.",
-    textBlindLine: "Blindness applied. The text is still there — trust me.",
+    textBlindLine: "Blindness applied for 30 seconds. The text is still there — trust me.",
     tauntNoJackpot:
       "Heh. Still no Gold Drop? Peak mid-ladder energy. Keep spinning, tourist.",
     tauntIncomplete:

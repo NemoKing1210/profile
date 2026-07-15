@@ -10,6 +10,24 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.65.4] — 2026-07-15
+
+### Changed
+
+- Case reward `blockResize` scales blocks mildly (85%–115%)
+
+## [1.65.3] — 2026-07-15
+
+### Changed
+
+- Case reward `textBlind` clears after 30 seconds
+
+## [1.65.2] — 2026-07-15
+
+### Changed
+
+- Case opener blurb: clearer, less jargon-heavy copy in all locales
+
 ## [1.65.1] — 2026-07-15
 
 ### Changed

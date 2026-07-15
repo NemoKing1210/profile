@@ -274,7 +274,7 @@ export default {
     eyebrow: "Community case",
     title: "开箱",
     blurb:
-      "「我的 Steam」下方有个迷你 CS 风箱子。多数掉落是玩笑和特效，金色才是真成就（1%）。",
+      "打开后会出玩笑和页面特效。金色掉落很稀有（1%），并解锁真正的成就。",
     open: "开箱",
     opening: "开启中…",
     result: "获得：{item}",
@@ -317,7 +317,7 @@ export default {
     dizzyLine: "眩晕永久开启。抓紧面板——或者慢慢习惯。",
     blockResizeLine: "布局发疯了：几十个区块重新发明了尺寸。",
     blockResizeFallback: "没什么可缩放的。网格已经放弃了。",
-    textBlindLine: "失明模式开启。文字还在——相信我。",
+    textBlindLine: "失明模式 30 秒。文字还在——相信我。",
     tauntNoJackpot:
       "呵。还没有金色掉落？中游段位气质。继续转吧，观光客。",
     tauntIncomplete:

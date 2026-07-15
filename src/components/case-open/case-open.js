@@ -35,6 +35,7 @@ const FAKE_JACKPOT_REVEAL_MS = 2400;
 const FAKE_JACKPOT_REVEAL_REDUCED_MS = 900;
 const BLOCK_RESIZE_MIN = 50;
 const BLOCK_RESIZE_MAX = 100;
+const TEXT_BLIND_MS = 30_000;
 
 /** Prefer UI shells that look funny when scaled (mirrors minecraft preferred set). */
 const CASE_SIZE_TARGETS =
@@ -381,9 +382,11 @@ export function caseOpenMethods() {
     },
 
     _rewardTextBlind() {
-      // Persists until reload — readability optional.
       document.documentElement.classList.add("case-text-blind");
       this.showSpeechI18n?.("caseOpen.textBlindLine", { holdMs: 6000 });
+      this._pushCaseTimer(() => {
+        document.documentElement.classList.remove("case-text-blind");
+      }, TEXT_BLIND_MS);
     },
 
     /**
@@ -430,7 +433,7 @@ export function caseOpenMethods() {
 
       for (const el of picks) {
         if (el.classList.contains("case-block-resized")) continue;
-        const scale = 0.48 + Math.random() * 1.22; // ~0.48–1.70
+        const scale = 0.85 + Math.random() * 0.3; // 85%–115%
         el.style.setProperty("--case-block-scale", scale.toFixed(3));
         el.classList.add("case-block-resized");
         this._caseResizedBlocks.push(el);

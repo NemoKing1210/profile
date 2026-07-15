@@ -286,7 +286,7 @@ export default {
     eyebrow: "Community case",
     title: "ケースを開ける",
     blurb:
-      "My Steam 直下のミニ CS 風ケース。ほとんどはネタとエフェクトで、金色だけが本物の実績（1%）。",
+      "開けるとネタとページ演出が出ます。ゴールドドロップは稀少（1%）で、本物の実績が解除されます。",
     open: "ケースを開ける",
     opening: "開封中…",
     result: "入手：{item}",
@@ -331,7 +331,7 @@ export default {
     dizzyLine: "めまい永久モード。パネルにしがみついて — 慣れるか選んで。",
     blockResizeLine: "レイアウトが暴れた。何十ものブロックがサイズを再発明。",
     blockResizeFallback: "リサイズするものがない。グリッドはもう諦めた。",
-    textBlindLine: "盲目モード。テキストはまだそこにある — 信じて。",
+    textBlindLine: "盲目モード 30 秒。テキストはまだそこにある — 信じて。",
     tauntNoJackpot:
       "へっ。まだゴールドドロップなし？ミッド帯の香り。回し続けて、観光客さん。",
     tauntIncomplete:

@@ -287,7 +287,7 @@ export default {
     eyebrow: "Community case",
     title: "Kiste öffnen",
     blurb:
-      "Eine kleine CS-Style-Kiste direkt unter Mein Steam. Meist Scherze und Effekte — das Goldene ist ein echtes Achievement (1%).",
+      "Öffnen für Scherze und Seiteneffekte. Der Gold-Drop ist selten (1%) und schaltet ein echtes Achievement frei.",
     open: "Kiste öffnen",
     opening: "Öffne…",
     result: "Du hast erhalten: {item}",
@@ -332,7 +332,7 @@ export default {
     dizzyLine: "Schwindel permanent. Halt ein Panel — oder gewöhn dich dran.",
     blockResizeLine: "Layout außer Kontrolle: Dutzende Blöcke haben ihre Größe neu erfunden.",
     blockResizeFallback: "Nichts zum Skalieren. Das Raster hat schon aufgegeben.",
-    textBlindLine: "Blindheit aktiv. Der Text ist noch da — vertrau mir.",
+    textBlindLine: "Blindheit für 30 Sekunden. Der Text ist noch da — vertrau mir.",
     tauntNoJackpot:
       "Heh. Immer noch kein Gold-Drop? Mid-Ladder-Energie. Weiterdrehen, Tourist.",
     tauntIncomplete:
