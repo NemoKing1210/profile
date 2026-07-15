@@ -1,0 +1,225 @@
+<div
+  class="music-player"
+  data-mc-immune
+  x-cloak
+  x-show="musicVisible || musicBooting"
+  :class="{
+    'music-player--open': musicOpen,
+    'music-player--playing': musicPlaying,
+    'music-player--error': musicError,
+    'music-player--loading': musicBusy,
+    'music-player--booting': musicBooting,
+    'music-player--buffering': musicBuffering,
+  }"
+  :aria-hidden="!(musicVisible || musicBooting) ? 'true' : 'false'"
+  @keydown.escape.window="musicOpen && closeMusicPanel()"
+>
+  <div class="music-player__dock">
+    <button
+      type="button"
+      class="music-player__toggle"
+      :aria-expanded="musicOpen ? 'true' : 'false'"
+      aria-controls="music-player-sheet"
+      :aria-label="musicOpen ? t.ui.musicClose : t.ui.musicOpen"
+      :disabled="musicBooting && !musicVisible"
+      :aria-busy="musicBusy ? 'true' : 'false'"
+      @click="toggleMusicPanel()"
+    >
+      <span class="music-player__toggle-glow" aria-hidden="true"></span>
+
+      <span
+        class="music-player__spinner"
+        x-show="musicBusy && !musicPlaying"
+        x-cloak
+        aria-hidden="true"
+      ></span>
+      <span
+        class="music-player__toggle-icon"
+        x-show="!musicBusy || musicPlaying"
+        x-html="icons.musicalNote"
+      ></span>
+      <span class="music-player__eq music-player__eq--toggle" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span
+        class="music-player__toggle-label"
+        x-text="
+          musicBooting || musicLoading
+            ? t.ui.musicLoading
+            : musicBuffering
+              ? t.ui.musicBuffering
+              : musicPlaying && musicTrack?.name
+                ? musicTrack.name
+                : t.ui.musicIdle
+        "
+      ></span>
+      <span
+        class="music-player__toggle-chevron"
+        aria-hidden="true"
+        x-show="!musicBooting"
+        x-html="musicOpen ? icons.chevronDown : icons.chevronUp"
+      ></span>
+    </button>
+
+    <div
+      id="music-player-sheet"
+      class="music-player__sheet"
+      role="region"
+      :aria-label="t.ui.musicPanelLabel"
+      :aria-hidden="musicOpen ? 'false' : 'true'"
+    >
+      <div class="music-player__sheet-shine" aria-hidden="true"></div>
+      <div class="music-player__wave" aria-hidden="true">
+        <svg
+          class="music-player__wave-svg"
+          viewBox="0 0 480 56"
+          preserveAspectRatio="none"
+          focusable="false"
+        >
+          <path
+            class="music-player__wave-path music-player__wave-path--a"
+            d="M0 36 C48 16 88 48 140 28 C192 8 236 44 280 26 C324 8 368 42 416 24 C448 12 468 30 480 34 L480 56 L0 56 Z"
+          />
+          <path
+            class="music-player__wave-path music-player__wave-path--b"
+            d="M0 42 C56 28 100 50 152 36 C204 22 248 48 300 34 C352 20 396 46 444 32 C464 26 474 34 480 38 L480 56 L0 56 Z"
+          />
+        </svg>
+      </div>
+
+      <header class="music-player__head">
+        <p class="music-player__eyebrow" x-text="t.ui.musicNowPlaying"></p>
+        <button
+          type="button"
+          class="music-player__close"
+          :aria-label="t.ui.musicClose"
+          :tabindex="musicOpen ? 0 : -1"
+          @click="closeMusicPanel()"
+        >
+          <span x-html="icons.xMark"></span>
+        </button>
+      </header>
+
+      <div class="music-player__body">
+        <div
+          class="music-player__art"
+          :class="{ 'music-player__art--spin': musicPlaying && !musicBuffering }"
+          aria-hidden="true"
+        >
+          <span class="music-player__art-ring"></span>
+          <img
+            class="music-player__art-img"
+            x-show="musicTrack?.favicon && !musicBusy"
+            :src="musicTrack?.favicon || ''"
+            alt=""
+            width="72"
+            height="72"
+            loading="lazy"
+            decoding="async"
+            @error="$el.removeAttribute('src')"
+          />
+          <span
+            class="music-player__art-fallback"
+            x-show="!musicTrack?.favicon && !musicBusy"
+            x-html="icons.musicalNote"
+          ></span>
+          <span
+            class="music-player__art-loader"
+            x-show="musicBusy"
+            x-cloak
+            aria-hidden="true"
+          >
+            <span class="music-player__spinner music-player__spinner--lg"></span>
+          </span>
+        </div>
+
+        <div class="music-player__copy">
+          <p
+            class="music-player__status"
+            :title="
+              musicBusy
+                ? (musicBuffering ? t.ui.musicBuffering : t.ui.musicLoading)
+                : musicError
+                  ? t.ui.musicError
+                  : (musicTrack?.name || t.ui.musicIdle)
+            "
+            x-text="
+              musicBusy
+                ? (musicBuffering ? t.ui.musicBuffering : t.ui.musicLoading)
+                : musicError
+                  ? t.ui.musicError
+                  : (musicTrack?.name || t.ui.musicIdle)
+            "
+          ></p>
+          <div
+            class="music-player__loadbar"
+            x-show="musicBusy"
+            x-cloak
+            aria-hidden="true"
+          >
+            <span class="music-player__loadbar-fill"></span>
+          </div>
+          <a
+            class="music-player__credit"
+            x-show="!musicBusy"
+            :href="musicTrack?.homepage || 'https://www.radio-browser.info/'"
+            target="_blank"
+            rel="noopener noreferrer"
+            :tabindex="musicOpen ? 0 : -1"
+            x-text="t.ui.musicCredit"
+          ></a>
+        </div>
+      </div>
+
+      <div class="music-player__controls">
+        <button
+          type="button"
+          class="music-player__btn music-player__btn--play"
+          :aria-label="musicPlaying ? t.ui.musicPause : t.ui.musicPlay"
+          :disabled="musicBooting || musicLoading || (musicError && !musicStations.length)"
+          :tabindex="musicOpen ? 0 : -1"
+          @click="toggleMusicPlayback()"
+        >
+          <span class="music-player__btn-glow" aria-hidden="true"></span>
+          <span
+            class="music-player__spinner music-player__spinner--btn"
+            x-show="musicBuffering"
+            x-cloak
+            aria-hidden="true"
+          ></span>
+          <span x-show="!musicBuffering && !musicPlaying" x-html="icons.play"></span>
+          <span x-show="!musicBuffering && musicPlaying" x-html="icons.pause"></span>
+        </button>
+        <button
+          type="button"
+          class="music-player__btn"
+          :aria-label="t.ui.musicNext"
+          :disabled="musicBusy || musicStations.length < 2"
+          :tabindex="musicOpen ? 0 : -1"
+          @click="nextMusicTrack({ autoplay: musicPlaying })"
+        >
+          <span x-html="icons.forward"></span>
+        </button>
+        <label class="music-player__volume">
+          <span class="visually-hidden" x-text="t.ui.musicVolume"></span>
+          <span
+            class="music-player__volume-icon"
+            aria-hidden="true"
+            x-html="musicVolumePct === 0 ? icons.speakerXMark : icons.speakerWave"
+          ></span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            :value="musicVolumePct"
+            :aria-valuetext="`${musicVolumePct}%`"
+            :tabindex="musicOpen ? 0 : -1"
+            @input="onMusicVolumeInput($event)"
+          />
+          <span class="music-player__volume-pct" x-text="`${musicVolumePct}%`"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

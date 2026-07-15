@@ -85,6 +85,19 @@ export default {
     scrollTopEchoTease:
       "¿De verdad no quieres mirar un poco más abajo? Quién sabe — tal vez al borde del feed aún espera un regalo.",
     bugReport: "¿Bug o va lento? Avísame",
+    musicOpen: "Abrir reproductor",
+    musicClose: "Cerrar reproductor",
+    musicPanelLabel: "Radio ambiental",
+    musicNowPlaying: "Sonando ahora",
+    musicPlay: "Reproducir",
+    musicPause: "Pausa",
+    musicNext: "Siguiente emisora",
+    musicVolume: "Volumen",
+    musicLoading: "Buscando emisoras…",
+    musicBuffering: "Cargando…",
+    musicIdle: "Radio ambiental",
+    musicError: "No se pudo conectar",
+    musicCredit: "vía Radio Browser",
   },
 
   echoFinale: {

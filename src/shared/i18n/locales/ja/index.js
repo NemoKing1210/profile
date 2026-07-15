@@ -84,6 +84,19 @@ export default {
     scrollTopEchoTease:
       "本当に、これ以上下を見なくていいの？フィードの果ては——もしかすると、まだギフトが待っているかも。",
     bugReport: "バグやカクつき？知らせてね",
+    musicOpen: "プレーヤーを開く",
+    musicClose: "プレーヤーを閉じる",
+    musicPanelLabel: "アンビエントラジオ",
+    musicNowPlaying: "再生中",
+    musicPlay: "再生",
+    musicPause: "一時停止",
+    musicNext: "次の局",
+    musicVolume: "音量",
+    musicLoading: "局を探しています…",
+    musicBuffering: "読み込み中…",
+    musicIdle: "アンビエントラジオ",
+    musicError: "局に接続できません",
+    musicCredit: "Radio Browser 経由",
   },
 
   echoFinale: {

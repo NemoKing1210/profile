@@ -85,6 +85,19 @@ export default {
     scrollTopEchoTease:
       "Справді не хочеш зазирнути ще нижче? Хтозна — раптом на самому краю стрічки все ж чекає подарунок.",
     bugReport: "Знайшли баг або сайт лагає? Повідомте мені",
+    musicOpen: "Відкрити плеєр",
+    musicClose: "Закрити плеєр",
+    musicPanelLabel: "Фонове радіо",
+    musicNowPlaying: "Зараз грає",
+    musicPlay: "Грати",
+    musicPause: "Пауза",
+    musicNext: "Наступна станція",
+    musicVolume: "Гучність",
+    musicLoading: "Шукаємо станції…",
+    musicBuffering: "Буферизація…",
+    musicIdle: "Фонове радіо",
+    musicError: "Не вдалося підключитися",
+    musicCredit: "через Radio Browser",
   },
 
   echoFinale: {

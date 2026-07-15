@@ -85,6 +85,19 @@ export default {
     scrollTopEchoTease:
       "Правда не хочешь заглянуть ещё ниже? Кто знает — вдруг у самого края ленты всё же ждёт подарок.",
     bugReport: "Нашли баг или сайт лагает? Сообщите мне",
+    musicOpen: "Открыть плеер",
+    musicClose: "Закрыть плеер",
+    musicPanelLabel: "Фоновое радио",
+    musicNowPlaying: "Сейчас играет",
+    musicPlay: "Играть",
+    musicPause: "Пауза",
+    musicNext: "Следующая станция",
+    musicVolume: "Громкость",
+    musicLoading: "Ищем станции…",
+    musicBuffering: "Буферизация…",
+    musicIdle: "Фоновое радио",
+    musicError: "Не удалось подключиться",
+    musicCredit: "через Radio Browser",
   },
 
   echoFinale: {

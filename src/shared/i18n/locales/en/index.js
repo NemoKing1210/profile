@@ -85,6 +85,19 @@ export default {
     scrollTopEchoTease:
       "Sure you don’t want to look a little deeper? Who knows — maybe a gift is waiting at the very edge of the feed.",
     bugReport: "Found a bug or the site’s lagging? Tell me",
+    musicOpen: "Open music player",
+    musicClose: "Close music player",
+    musicPanelLabel: "Ambient radio",
+    musicNowPlaying: "Now playing",
+    musicPlay: "Play",
+    musicPause: "Pause",
+    musicNext: "Next station",
+    musicVolume: "Volume",
+    musicLoading: "Tuning stations…",
+    musicBuffering: "Buffering…",
+    musicIdle: "Ambient radio",
+    musicError: "Couldn’t reach a station",
+    musicCredit: "via Radio Browser",
   },
 
   echoFinale: {

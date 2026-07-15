@@ -10,6 +10,47 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.70.3] — 2026-07-15
+
+### Changed
+
+- Mobile: bug-report chip moves to the top-left of the viewport (clears music / nav dock)
+
+## [1.70.2] — 2026-07-15
+
+### Changed
+
+- Mobile: bug-report chip sits higher above the nav dock and music player pill
+
+## [1.70.1] — 2026-07-15
+
+### Added
+
+- Music player loading spinner / buffer bar while tuning or buffering a stream
+
+### Changed
+
+- Music player wave decor is a soft drifting SVG (less distracting)
+- Player dock hides entirely when streams are unreachable (blocked network, all stations fail)
+
+## [1.70.0] — 2026-07-15
+
+### Changed
+
+- Music player: bottom-center Steam dock — peek pill expands into a sliding sheet with EQ/wave/glow motion
+
+## [1.69.1] — 2026-07-15
+
+### Fixed
+
+- Music player: Radio Browser fetch no longer hangs (timeouts, no CORS-preflight Accept); curated laut.fm fallbacks when streams fail
+
+## [1.69.0] — 2026-07-15
+
+### Added
+
+- Ambient music player (Radio Browser API): play/pause, next station, volume; Steam-chrome FAB above the bug-report chip
+
 ## [1.68.12] — 2026-07-15
 
 ### Added

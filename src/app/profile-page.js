@@ -48,6 +48,10 @@ import {
   scrollTopMethods,
   scrollTopState,
 } from "../components/scroll-top/index.js";
+import {
+  musicPlayerMethods,
+  musicPlayerState,
+} from "../components/music-player/index.js";
 
 import {
   stackFlipMethods,
@@ -70,6 +74,7 @@ export function createProfilePage() {
       ...commentsState(),
       ...topbarState(),
       ...scrollTopState(),
+      ...musicPlayerState(),
       ...echoFinaleState(),
       ...footerState(),
       ...achievementsState(),
@@ -138,6 +143,7 @@ export function createProfilePage() {
           this.bindCaseDebugApi?.();
           this.bindFooterEaster?.();
           this.bindBugReportReturn?.();
+          this.initMusicPlayer?.();
         });
       },
 
@@ -151,6 +157,7 @@ export function createProfilePage() {
         this.destroyHeroSpeech();
         this.destroyBugReportReturn?.();
         this.destroyComments();
+        this.destroyMusicPlayer?.();
 
         this._stopConfetti?.();
         this._stopConfetti = null;
@@ -175,6 +182,7 @@ export function createProfilePage() {
       ...Object.getOwnPropertyDescriptors(commentsMethods()),
       ...Object.getOwnPropertyDescriptors(topbarMethods()),
       ...Object.getOwnPropertyDescriptors(scrollTopMethods()),
+      ...Object.getOwnPropertyDescriptors(musicPlayerMethods()),
       ...Object.getOwnPropertyDescriptors(bugReportMethods()),
       ...Object.getOwnPropertyDescriptors(echoFinaleMethods()),
 

@@ -85,6 +85,19 @@ export default {
     scrollTopEchoTease:
       "Willst du wirklich nicht noch tiefer schauen? Wer weiß — vielleicht wartet am Rand des Feeds doch noch ein Geschenk.",
     bugReport: "Bug gefunden oder laggt’s? Sag Bescheid",
+    musicOpen: "Musikplayer öffnen",
+    musicClose: "Musikplayer schließen",
+    musicPanelLabel: "Ambient-Radio",
+    musicNowPlaying: "Jetzt läuft",
+    musicPlay: "Abspielen",
+    musicPause: "Pause",
+    musicNext: "Nächster Sender",
+    musicVolume: "Lautstärke",
+    musicLoading: "Sender werden gesucht…",
+    musicBuffering: "Puffert…",
+    musicIdle: "Ambient-Radio",
+    musicError: "Sender nicht erreichbar",
+    musicCredit: "via Radio Browser",
   },
 
   echoFinale: {

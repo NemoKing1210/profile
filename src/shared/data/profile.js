@@ -175,6 +175,16 @@ const profile = {
   },
 
   media: profileMedia,
+
+  /**
+   * Ambient radio via Radio Browser API (no API key).
+   * Tags are OR’d across requests; stations cached in localStorage for 24h.
+   */
+  musicPlayer: {
+    tags: ["ambient", "chillout", "lofi"],
+    limit: 18,
+  },
+
   nav: [
     { id: "about", href: "#about" },
     { id: "stack", href: "#stack" },

@@ -16,13 +16,19 @@ import clock from "heroicons/24/outline/clock.svg?raw";
 import cube from "heroicons/24/outline/cube.svg?raw";
 import faceSmile from "heroicons/24/outline/face-smile.svg?raw";
 import film from "heroicons/24/outline/film.svg?raw";
+import forward from "heroicons/24/outline/forward.svg?raw";
 import handThumbDown from "heroicons/24/outline/hand-thumb-down.svg?raw";
 import handThumbUp from "heroicons/24/outline/hand-thumb-up.svg?raw";
 import language from "heroicons/24/outline/language.svg?raw";
 import mapPin from "heroicons/24/outline/map-pin.svg?raw";
+import musicalNote from "heroicons/24/outline/musical-note.svg?raw";
+import pause from "heroicons/24/outline/pause.svg?raw";
+import play from "heroicons/24/outline/play.svg?raw";
 import puzzlePiece from "heroicons/24/outline/puzzle-piece.svg?raw";
 import sparkles from "heroicons/24/outline/sparkles.svg?raw";
 import moon from "heroicons/24/outline/moon.svg?raw";
+import speakerWave from "heroicons/24/outline/speaker-wave.svg?raw";
+import speakerXMark from "heroicons/24/outline/speaker-x-mark.svg?raw";
 import sun from "heroicons/24/outline/sun.svg?raw";
 import trophy from "heroicons/24/outline/trophy.svg?raw";
 import tv from "heroicons/24/outline/tv.svg?raw";
@@ -41,13 +47,19 @@ export const heroicons = {
   cube,
   faceSmile,
   film,
+  forward,
   handThumbDown,
   handThumbUp,
   language,
   mapPin,
   moon,
+  musicalNote,
+  pause,
+  play,
   puzzlePiece,
   sparkles,
+  speakerWave,
+  speakerXMark,
   sun,
   trophy,
   tv,

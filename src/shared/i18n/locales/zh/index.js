@@ -81,6 +81,19 @@ export default {
     scrollTopEchoTease:
       "真的不想再往下看一点吗？谁知道——信息流的尽头，也许还藏着一份礼物。",
     bugReport: "发现 Bug 或卡顿？告诉我",
+    musicOpen: "打开播放器",
+    musicClose: "关闭播放器",
+    musicPanelLabel: "氛围电台",
+    musicNowPlaying: "正在播放",
+    musicPlay: "播放",
+    musicPause: "暂停",
+    musicNext: "下一电台",
+    musicVolume: "音量",
+    musicLoading: "正在调台…",
+    musicBuffering: "缓冲中…",
+    musicIdle: "氛围电台",
+    musicError: "无法连接电台",
+    musicCredit: "来自 Radio Browser",
   },
 
   echoFinale: {
