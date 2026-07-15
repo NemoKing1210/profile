@@ -5,7 +5,7 @@ export default {
   nativeName: "中文",
   meta: {
     description:
-      "Kirill — 前端开发者。Vue、Nuxt、TypeScript。个人简介、技术栈与项目。",
+      "Kirill — 前端开发者。Vue、Nuxt、TypeScript。个人简介、技术栈、项目、游戏与电影。",
   },
   ui: {
     pageTitleSuffix: "主页",

@@ -5,7 +5,7 @@ export default {
   nativeName: "Українська",
   meta: {
     description:
-      "Кирило — frontend-розробник. Vue, Nuxt, TypeScript. Профіль, стек і проєкти.",
+      "Кирило — frontend-розробник. Vue, Nuxt, TypeScript. Профіль, стек, проєкти, ігри та фільми.",
   },
   ui: {
     pageTitleSuffix: "Профіль",

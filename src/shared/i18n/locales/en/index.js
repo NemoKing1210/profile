@@ -5,7 +5,7 @@ export default {
   nativeName: "English",
   meta: {
     description:
-      "Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack, and projects.",
+      "Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack, projects, games, and films.",
   },
   ui: {
     pageTitleSuffix: "Profile",
