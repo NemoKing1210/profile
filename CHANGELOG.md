@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.68.12] — 2026-07-15
+
+### Added
+
+- Google Tag Manager (`GTM-MFXM7B25`) in the page shell
+
 ## [1.68.11] — 2026-07-15
 
 ### Changed
