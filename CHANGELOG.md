@@ -10,6 +10,10 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Light theme: case opener card no longer picks up a muddy gold wash; reel stays a dark CS well instead of blending with page background
+
 ## [1.68.0] — 2026-07-15
 
 ### Changed
