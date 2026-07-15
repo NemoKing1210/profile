@@ -1,0 +1,80 @@
+<div
+  class="case-lock"
+  x-show="caseLockOpen"
+  x-cloak
+  role="alertdialog"
+  aria-modal="true"
+  :aria-label="t.caseOpen.lockDialogLabel"
+  @keydown.escape.prevent
+>
+  <div class="case-lock__veil" aria-hidden="true"></div>
+  <div class="case-lock__panel">
+    <p class="case-lock__eyebrow" x-text="t.caseOpen.lockEyebrow"></p>
+    <h2 class="case-lock__title" x-text="t.caseOpen.lockTitle"></h2>
+    <p class="case-lock__body" x-text="t.caseOpen.lockBody"></p>
+
+    <div
+      class="case-lock__digits"
+      role="group"
+      :aria-label="t.caseOpen.lockInputLabel"
+      :aria-invalid="caseLockError ? 'true' : 'false'"
+    >
+      <label class="case-lock__digit">
+        <span class="visually-hidden" x-text="t.caseOpen.lockDigit1"></span>
+        <input
+          class="case-lock__input"
+          type="text"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          maxlength="1"
+          pattern="[0-9]"
+          x-model="caseLockDigit0"
+          x-ref="caseLockDigit0"
+          :aria-invalid="caseLockError ? 'true' : 'false'"
+          :placeholder="t.caseOpen.lockPlaceholder"
+          @input="onCaseLockDigitInput(0, $event)"
+          @keydown="onCaseLockDigitKeydown(0, $event)"
+        />
+      </label>
+      <label class="case-lock__digit">
+        <span class="visually-hidden" x-text="t.caseOpen.lockDigit2"></span>
+        <input
+          class="case-lock__input"
+          type="text"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          maxlength="1"
+          pattern="[0-9]"
+          x-model="caseLockDigit1"
+          x-ref="caseLockDigit1"
+          :aria-invalid="caseLockError ? 'true' : 'false'"
+          :placeholder="t.caseOpen.lockPlaceholder"
+          @input="onCaseLockDigitInput(1, $event)"
+          @keydown="onCaseLockDigitKeydown(1, $event)"
+        />
+      </label>
+    </div>
+
+    <p
+      class="case-lock__hint"
+      x-show="caseLockHintShown"
+      x-cloak
+      role="status"
+      aria-live="polite"
+      x-text="caseLockHintLabel"
+    ></p>
+
+    <p
+      class="case-lock__error"
+      x-show="caseLockError"
+      x-text="t.caseOpen.lockError"
+    ></p>
+
+    <button
+      type="button"
+      class="btn btn--primary case-lock__submit"
+      @click="submitCaseLock()"
+      x-text="t.caseOpen.lockSubmit"
+    ></button>
+  </div>
+</div>

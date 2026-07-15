@@ -1,6 +1,6 @@
 /**
  * Weighted CS-style loot table for the profile case opener.
- * Weights sum to 100; jackpot 1%, rickroll 2%.
+ * Weights sum to 100; jackpot 1%, fake jackpot 2%, rickroll 2%.
  */
 
 /** @typedef {'consumer' | 'industrial' | 'milspec' | 'restricted' | 'classified' | 'covert'} CaseRarity */
@@ -17,6 +17,8 @@
 /** @type {readonly CaseRewardDef[]} */
 export const CASE_REWARDS = Object.freeze([
   { id: "caseJackpot", rarity: "covert", weight: 1, emoji: "🏆" },
+  /** Looks identical to Covert Drop on the reel; reveal is a bait-and-switch. */
+  { id: "fakeJackpot", rarity: "covert", weight: 2, emoji: "🏆" },
   { id: "rickroll", rarity: "classified", weight: 2, emoji: "🎵" },
   { id: "echoMidpath", rarity: "classified", weight: 2, emoji: "∞" },
   { id: "textCorrupt", rarity: "classified", weight: 3, emoji: "░" },
@@ -26,16 +28,20 @@ export const CASE_REWARDS = Object.freeze([
   { id: "lightFlash", rarity: "milspec", weight: 6, emoji: "☀️" },
   { id: "socialCredit", rarity: "restricted", weight: 6, emoji: "📈" },
   { id: "dizziness", rarity: "milspec", weight: 5, emoji: "😵" },
-  { id: "confetti", rarity: "restricted", weight: 7, emoji: "🎉" },
-  { id: "emojiBalloons", rarity: "milspec", weight: 8, emoji: "🎈" },
+  { id: "confetti", rarity: "restricted", weight: 6, emoji: "🎉" },
+  { id: "emojiBalloons", rarity: "milspec", weight: 6, emoji: "🎈" },
   { id: "progFact", rarity: "industrial", weight: 8, emoji: "💡" },
   { id: "screenShake", rarity: "milspec", weight: 5, emoji: "💥" },
-  { id: "vacJoke", rarity: "classified", weight: 5, emoji: "🚫" },
+  { id: "siteLock", rarity: "classified", weight: 4, emoji: "🔒" },
+  { id: "vacJoke", rarity: "classified", weight: 4, emoji: "🚫" },
   { id: "titleGlitch", rarity: "industrial", weight: 5, emoji: "📺" },
   { id: "accentPulse", rarity: "consumer", weight: 6, emoji: "✨" },
-  { id: "emptyCase", rarity: "consumer", weight: 4, emoji: "📦" },
-  { id: "profileTip", rarity: "industrial", weight: 5, emoji: "🗺️" },
+  { id: "emptyCase", rarity: "consumer", weight: 3, emoji: "📦" },
+  { id: "profileTip", rarity: "industrial", weight: 4, emoji: "🗺️" },
 ]);
+
+/** Trophy skins — keep off random decoy slots so gold stays rare. */
+const REEL_GOLD_IDS = new Set(["caseJackpot", "fakeJackpot"]);
 
 const TOTAL_WEIGHT = CASE_REWARDS.reduce((sum, r) => sum + r.weight, 0);
 
@@ -96,17 +102,22 @@ export function getRewardById(id) {
  * @returns {{ id: string, rarity: CaseRarity, emoji: string, win: boolean }[]}
  */
 export function buildReel(winner, length = 48, winIndex = 38) {
-  const decoys = CASE_REWARDS.filter((r) => r.id !== "caseJackpot");
+  const decoys = CASE_REWARDS.filter((r) => !REEL_GOLD_IDS.has(r.id));
   /** @type {{ id: string, rarity: CaseRarity, emoji: string, win: boolean }[]} */
   const items = [];
   const gold = CASE_REWARDS.find((r) => r.id === "caseJackpot");
+  // Fake jackpot uses the real Covert skin on the strip.
+  const winSkin =
+    winner.id === "fakeJackpot" && gold
+      ? { id: winner.id, rarity: gold.rarity, emoji: gold.emoji }
+      : winner;
 
   for (let i = 0; i < length; i++) {
     if (i === winIndex) {
       items.push({
-        id: winner.id,
-        rarity: winner.rarity,
-        emoji: winner.emoji,
+        id: winSkin.id,
+        rarity: winSkin.rarity,
+        emoji: winSkin.emoji,
         win: true,
       });
       continue;

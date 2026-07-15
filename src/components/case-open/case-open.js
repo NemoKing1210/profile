@@ -8,6 +8,7 @@ import {
 import {
   BALLOON_EMOJIS,
   buildReel,
+  getRewardById,
   getRewardChancePercent,
   REEL_ITEM_WIDTH,
   REEL_WIN_INDEX,
@@ -26,6 +27,8 @@ const LIGHT_FLASH_MS = 5000;
 const THEME_FADE_MS = 320;
 const BLOCK_FALL_MS = 1200;
 const ALPHABET_CUBE_COUNT = 14;
+const FAKE_JACKPOT_REVEAL_MS = 2400;
+const FAKE_JACKPOT_REVEAL_REDUCED_MS = 900;
 
 /**
  * @returns {Record<string, unknown>}
@@ -47,12 +50,22 @@ export function caseOpenState() {
     caseResultKey: 0,
     caseVacOpen: false,
     caseAccentPulse: false,
+    caseLockOpen: false,
+    caseLockPin: "",
+    caseLockDigit0: "",
+    caseLockDigit1: "",
+    caseLockError: false,
+    caseLockFails: 0,
+    /** True while a bait Covert Drop still wears jackpot chrome. */
+    caseResultJackpotStyle: false,
     _caseSpinTimer: 0,
     _caseSideTimers: /** @type {number[]} */ ([]),
     _caseTitleBackup: "",
     _caseBalloonRoot: /** @type {HTMLElement | null} */ (null),
     /** @type {boolean | null} previous themeLight while a flash is active */
     _caseThemeRestore: null,
+    _caseLockFocusTimer: 0,
+    _caseFakeoutTimer: 0,
   };
 }
 
@@ -74,6 +87,8 @@ export function caseOpenMethods() {
       this.caseLastRarity = "consumer";
       this.caseLastChance = 0;
       this.caseVacOpen = false;
+      this.caseResultJackpotStyle = false;
+      this._clearCaseFakeoutTimer();
 
       const winner = rollWeightedReward();
       const reel = buildReel(winner, 48, REEL_WIN_INDEX);
@@ -133,11 +148,17 @@ export function caseOpenMethods() {
         case "caseJackpot":
           this._rewardJackpot(winner, label);
           return;
+        case "fakeJackpot":
+          this._rewardFakeJackpot(winner);
+          return;
         case "socialCredit":
           this._rewardSocialCredit();
           break;
         case "dizziness":
           this._rewardDizziness();
+          break;
+        case "siteLock":
+          this._rewardSiteLock();
           break;
         case "confetti":
           this._rewardConfetti(event);
@@ -227,17 +248,8 @@ export function caseOpenMethods() {
     _rewardJackpot(winner, label) {
       const already = isAchievementUnlocked("caseJackpot");
       const newly = this.unlockAchievementRecord?.("caseJackpot");
-      this._stopConfetti?.();
-      this._stopConfetti = celebrateConfetti(already ? 3500 : 6500);
-
-      const point = this.$refs.caseOpenRoot?.getBoundingClientRect?.();
-      if (point) {
-        burstConfettiAt(
-          point.left + point.width / 2,
-          point.top + point.height / 2,
-          { count: 110 }
-        );
-      }
+      this.caseResultJackpotStyle = true;
+      this._burstCaseJackpotConfetti(already ? 3500 : 6500);
 
       if (already || newly === false) {
         this.showSpeechI18n?.("caseOpen.duplicateJackpot", { holdMs: 6500 });
@@ -251,6 +263,78 @@ export function caseOpenMethods() {
       }
     },
 
+    /**
+     * Looks like Covert Drop (reel + card + confetti), then flips to salt.
+     * @param {{ id: string, rarity: string, emoji: string, weight?: number }} winner
+     */
+    _rewardFakeJackpot(winner) {
+      const jackpot = getRewardById("caseJackpot");
+      const jackpotLabel =
+        this.t?.caseOpen?.rewards?.caseJackpot || "Covert Drop";
+      const fakeLabel =
+        this.t?.caseOpen?.rewards?.fakeJackpot || "Fake Covert";
+      const note =
+        this.t?.caseOpen?.fakeJackpotNote ||
+        "Psych — decorative gold only. No achievement.";
+
+      this.caseResultJackpotStyle = true;
+      this._burstCaseJackpotConfetti(2800);
+      this.showSpeechI18n?.("caseOpen.jackpotLine", { holdMs: 2200 });
+
+      this._setCaseResult(
+        {
+          id: winner.id,
+          rarity: jackpot?.rarity || "covert",
+          emoji: jackpot?.emoji || "🏆",
+        },
+        jackpotLabel
+      );
+      // Spoof the legendary 1% until the reveal.
+      this.caseLastChance = getRewardChancePercent(jackpot || winner);
+
+      const delay = prefersReducedMotion()
+        ? FAKE_JACKPOT_REVEAL_REDUCED_MS
+        : FAKE_JACKPOT_REVEAL_MS;
+
+      this._clearCaseFakeoutTimer();
+      this._caseFakeoutTimer = window.setTimeout(() => {
+        this._caseFakeoutTimer = 0;
+        this._stopConfetti?.();
+        this._stopConfetti = null;
+        this.caseResultJackpotStyle = false;
+        this.caseLastEmoji = "💔";
+        this.caseLastRarity = "consumer";
+        this.caseLastChance = getRewardChancePercent(winner);
+        this.caseResultLabel = fakeLabel;
+        this.caseResultNote = note;
+        this.caseResultText = note;
+        this.caseResultKey += 1;
+        this.showSpeechI18n?.("caseOpen.fakeJackpotLine", { holdMs: 6500 });
+      }, delay);
+    },
+
+    /** @param {number} celebrateMs */
+    _burstCaseJackpotConfetti(celebrateMs) {
+      this._stopConfetti?.();
+      this._stopConfetti = celebrateConfetti(celebrateMs);
+
+      const point = this.$refs.caseOpenRoot?.getBoundingClientRect?.();
+      if (point) {
+        burstConfettiAt(
+          point.left + point.width / 2,
+          point.top + point.height / 2,
+          { count: 110 }
+        );
+      }
+    },
+
+    _clearCaseFakeoutTimer() {
+      if (this._caseFakeoutTimer) {
+        window.clearTimeout(this._caseFakeoutTimer);
+        this._caseFakeoutTimer = 0;
+      }
+    },
+
     /** @param {Event} [event] */
     _rewardSocialCredit() {
       this._triggerSocialCreditReward?.();
@@ -261,6 +345,155 @@ export function caseOpenMethods() {
       // Stays on until reload — intentional “permanent” vertigo drop.
       document.documentElement.classList.add("case-dizziness");
       this.showSpeechI18n?.("caseOpen.dizzyLine", { holdMs: 5500 });
+    },
+
+    _rewardSiteLock() {
+      const a = Math.floor(Math.random() * 10);
+      const b = Math.floor(Math.random() * 10);
+      this.caseLockPin = `${a}${b}`;
+      this.caseLockDigit0 = "";
+      this.caseLockDigit1 = "";
+      this.caseLockError = false;
+      this.caseLockFails = 0;
+      this.caseLockOpen = true;
+      document.documentElement.classList.add("case-lock-active");
+      this.showSpeechI18n?.("caseOpen.lockLine", { holdMs: 6500 });
+
+      if (this._caseLockFocusTimer) {
+        window.clearTimeout(this._caseLockFocusTimer);
+      }
+      this._caseLockFocusTimer = window.setTimeout(() => {
+        this._caseLockFocusTimer = 0;
+        this.$refs.caseLockDigit0?.focus?.();
+      }, 80);
+    },
+
+    /** How many PIN digits are revealed (1 per 5 failed guesses, max 2). */
+    get caseLockHintCount() {
+      return Math.min(2, Math.floor((this.caseLockFails || 0) / 5));
+    },
+
+    get caseLockHintShown() {
+      return this.caseLockHintCount > 0;
+    },
+
+    get caseLockHintDisplay() {
+      const n = this.caseLockHintCount;
+      if (!n) return "";
+      const pin = String(this.caseLockPin || "");
+      const mask = this.t?.caseOpen?.lockPlaceholder || "·";
+      return [0, 1]
+        .map((i) => (i < n ? pin[i] ?? mask : mask))
+        .join(" ");
+    },
+
+    get caseLockHintLabel() {
+      const template = this.t?.caseOpen?.lockHint || "Hint: {code}";
+      return template.replace("{code}", this.caseLockHintDisplay);
+    },
+
+    /**
+     * @param {0 | 1} index
+     * @param {Event} event
+     */
+    onCaseLockDigitInput(index, event) {
+      if (!this.caseLockOpen) return;
+      this.caseLockError = false;
+      const el = /** @type {HTMLInputElement | null} */ (event?.target);
+      const raw = String(el?.value || "").replace(/\D/g, "");
+
+      // Paste / autofill may dump both digits into the first cell.
+      if (index === 0 && raw.length >= 2) {
+        this.caseLockDigit0 = raw[0];
+        this.caseLockDigit1 = raw[1];
+        if (el) el.value = raw[0];
+        this.$nextTick(() => {
+          this.$refs.caseLockDigit1?.focus?.();
+          this.submitCaseLock();
+        });
+        return;
+      }
+
+      const digit = raw.slice(0, 1);
+      if (index === 0) {
+        this.caseLockDigit0 = digit;
+        if (el) el.value = digit;
+        if (digit) this.$refs.caseLockDigit1?.focus?.();
+      } else {
+        this.caseLockDigit1 = digit;
+        if (el) el.value = digit;
+        if (digit && this.caseLockDigit0) this.submitCaseLock();
+      }
+    },
+
+    /**
+     * @param {0 | 1} index
+     * @param {KeyboardEvent} event
+     */
+    onCaseLockDigitKeydown(index, event) {
+      if (!this.caseLockOpen) return;
+      if (event.key === "Enter") {
+        event.preventDefault();
+        this.submitCaseLock();
+        return;
+      }
+      if (event.key !== "Backspace") return;
+
+      const key = index === 0 ? "caseLockDigit0" : "caseLockDigit1";
+      if (this[key]) return;
+
+      event.preventDefault();
+      if (index === 1) {
+        this.caseLockDigit0 = "";
+        this.caseLockError = false;
+        this.$refs.caseLockDigit0?.focus?.();
+      }
+    },
+
+    submitCaseLock() {
+      if (!this.caseLockOpen) return;
+      const d0 = String(this.caseLockDigit0 || "").replace(/\D/g, "").slice(0, 1);
+      const d1 = String(this.caseLockDigit1 || "").replace(/\D/g, "").slice(0, 1);
+      this.caseLockDigit0 = d0;
+      this.caseLockDigit1 = d1;
+      if (!d0 || !d1) {
+        this.caseLockError = true;
+        this.$nextTick(() => {
+          (d0 ? this.$refs.caseLockDigit1 : this.$refs.caseLockDigit0)?.focus?.();
+        });
+        return;
+      }
+      if (`${d0}${d1}` === this.caseLockPin) {
+        this._unlockCaseLock(true);
+        return;
+      }
+
+      const prevHints = this.caseLockHintCount;
+      this.caseLockFails = (this.caseLockFails || 0) + 1;
+      const nextHints = this.caseLockHintCount;
+      this.caseLockError = true;
+      this.caseLockDigit0 = "";
+      this.caseLockDigit1 = "";
+
+      if (nextHints > prevHints) {
+        this.showSpeechI18n?.("caseOpen.lockHintLine", { holdMs: 4500 });
+      }
+
+      this.$nextTick(() => this.$refs.caseLockDigit0?.focus?.());
+    },
+
+    /** @param {boolean} [celebrated] */
+    _unlockCaseLock(celebrated = false) {
+      this.caseLockOpen = false;
+      this.caseLockDigit0 = "";
+      this.caseLockDigit1 = "";
+      this.caseLockError = false;
+      this.caseLockFails = 0;
+      this.caseLockPin = "";
+      document.documentElement.classList.remove("case-lock-active");
+      if (celebrated) {
+        this.showSpeechI18n?.("caseOpen.lockUnlocked", { holdMs: 4500 });
+      }
     },
 
     _rewardConfetti(event) {
@@ -525,10 +758,12 @@ export function caseOpenMethods() {
 
     destroyCaseOpen() {
       this._clearCaseSpinTimer();
+      this._clearCaseFakeoutTimer();
       for (const id of this._caseSideTimers) {
         window.clearTimeout(id);
       }
       this._caseSideTimers = [];
+      this.caseResultJackpotStyle = false;
       this._restoreCaseTheme();
 
       if (this._caseTitleBackup) {
@@ -549,6 +784,11 @@ export function caseOpenMethods() {
       this.caseAccentPulse = false;
       this.caseOpening = false;
       document.documentElement.classList.remove("case-text-corrupt");
+      if (this._caseLockFocusTimer) {
+        window.clearTimeout(this._caseLockFocusTimer);
+        this._caseLockFocusTimer = 0;
+      }
+      this._unlockCaseLock(false);
     },
   };
 }

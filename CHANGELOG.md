@@ -10,6 +10,36 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.63.3] — 2026-07-15
+
+### Changed
+
+- Site lock reveals one PIN digit as a hint every 5 wrong guesses
+
+## [1.63.2] — 2026-07-15
+
+### Changed
+
+- Site lock uses two single-digit inputs instead of one field and a keypad
+
+## [1.63.1] — 2026-07-15
+
+### Changed
+
+- Site lock no longer displays the two-digit password on the overlay
+
+## [1.63.0] — 2026-07-15
+
+### Added
+
+- Case reward `fakeJackpot`: looks like Covert Drop on the reel, celebrates with confetti, then reveals the bait
+
+## [1.62.0] — 2026-07-15
+
+### Added
+
+- Case reward `siteLock`: full-screen overlay with a two-digit password (shown on the lock)
+
 ## [1.61.0] — 2026-07-15
 
 ### Added

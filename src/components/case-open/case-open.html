@@ -77,7 +77,8 @@
         class="case-open__result"
         :class="[
           `case-open__result--${caseLastRarity}`,
-          caseLastRewardId === 'caseJackpot' && 'case-open__result--jackpot'
+          caseResultJackpotStyle && 'case-open__result--jackpot',
+          caseLastRewardId === 'fakeJackpot' && !caseResultJackpotStyle && 'case-open__result--fakeout'
         ]"
         :key="caseResultKey"
         role="status"
