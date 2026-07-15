@@ -299,6 +299,88 @@ export const minecraftMineMethods = () => ({
     this.unlockAchievementRecord?.("interfaceMine");
   },
 
+  /**
+   * Instantly mine a specific block (case rewards / effects).
+   * @param {Element | null | undefined} block
+   * @returns {boolean}
+   */
+  smashPageBlock(block) {
+    if (!(block instanceof Element)) return false;
+    if (this._mcBroken.has(block) || block.classList.contains("mc-mined")) {
+      return false;
+    }
+    if (!this._mcAchievementShells) {
+      this._mcAchievementShells = collectAchievementShells();
+    }
+    this._breakBlock(block);
+    return true;
+  },
+
+  /**
+   * Pick a random preferred UI block (skips case UI / already mined / optional exclude).
+   * @param {{ exclude?: string }} [opts]
+   * @returns {Element | null}
+   */
+  pickRandomPageBlock({
+    exclude = ".case-open, .bug-report, .scroll-top, .achievement-toast, .achievements-drawer, .infinite-echoes, .infinite-echo, .infinite-sentinel",
+  } = {}) {
+    const blocked = new Set(
+      exclude ? [...document.querySelectorAll(exclude)] : []
+    );
+    const candidates = [...document.querySelectorAll(PREFERRED)].filter(
+      (el) =>
+        !blocked.has(el) &&
+        !(exclude && el.closest?.(exclude)) &&
+        !el.closest?.(".infinite-echoes, .infinite-echo, .infinite-sentinel") &&
+        !el.classList.contains("mc-mined") &&
+        !el.classList.contains("case-block-falling") &&
+        !this._mcBroken.has(el) &&
+        el.getAttribute("data-mc-activate") == null &&
+        el.getClientRects().length > 0
+    );
+    if (!candidates.length) return null;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  },
+
+  /**
+   * Mine a random preferred UI block.
+   * @param {{ exclude?: string }} [opts]
+   * @returns {boolean}
+   */
+  smashRandomPageBlock(opts) {
+    const pick = this.pickRandomPageBlock(opts);
+    return pick ? this.smashPageBlock(pick) : false;
+  },
+
+  /**
+   * Mark a shell destroyed after a custom animation (no second break anim).
+   * @param {Element | null | undefined} block
+   * @returns {boolean}
+   */
+  markShellDestroyed(block) {
+    if (!(block instanceof Element)) return false;
+    if (this._mcBroken.has(block) || block.classList.contains("mc-mined")) {
+      return false;
+    }
+    if (!this._mcAchievementShells) {
+      this._mcAchievementShells = collectAchievementShells();
+    }
+    this._mcBroken.add(block);
+    block.classList.remove(
+      "mc-cracking",
+      "mc-hit",
+      "case-block-falling",
+      "case-header-falling"
+    );
+    block.removeAttribute(STAGE_ATTR);
+    block.querySelector(":scope > .mc-crack")?.remove();
+    block.classList.add("mc-mined");
+    block.style.display = "none";
+    block.setAttribute("aria-hidden", "true");
+    this._tryUnlockInterfaceMineAchievement();
+    return true;
+  },
+
   destroyMinecraftMine() {
     this.exitMineMode();
   },

@@ -25,6 +25,17 @@ const MAX_FLAG_SQUARES = 24;
 const AVATAR_SIZE_GROWTH = 1.5;
 const AVATAR_BASE_DENSITY = AI_DENSITY * 2.5;
 const MAX_BALLS = 56;
+const MAX_LETTER_SQUARES = 40;
+const LETTER_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const LETTER_FILLS = Object.freeze([
+  "#66c0f4",
+  "#1a9fff",
+  "#a4d007",
+  "#e4ae39",
+  "#d32ce6",
+  "#4b69ff",
+  "#eb4b4b",
+]);
 /** Scroll px РІвЂ вЂ™ Matter velocity scale (down scroll pushes bodies down). */
 const SCROLL_IMPULSE = 0.055;
 const SCROLL_MAX_VY = 14;
@@ -109,6 +120,26 @@ function createFlagSquareEl(locale, size, label) {
   return el;
 }
 
+function createLetterSquareEl(letter, size, fill) {
+  const el = document.createElement("div");
+  el.className = "hero-ai hero-letter";
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
+  el.style.setProperty("--ai-fill", fill);
+  el.style.setProperty("--letter-size", `${Math.round(size * 0.62)}px`);
+  el.style.color =
+    relativeLuminance(fill) > 0.55 ? "#1b2838" : "#ffffff";
+  el.innerHTML = `<span class="hero-letter__glyph">${letter}</span>`;
+  el.title = letter;
+  el.setAttribute("aria-hidden", "true");
+  el.dataset.letter = letter;
+  return el;
+}
+
+function letterSpawnKey(letter, index) {
+  return `letter:${letter}:${index}`;
+}
+
 function syncActorEl(el, body, half) {
   const { x, y } = body.position;
   el.style.transform = `translate3d(${x - half}px, ${y - half}px, 0) rotate(${body.angle}rad)`;
@@ -173,6 +204,9 @@ function placeStatic(container, items, radius, actors) {
  *   spawnTechBall: (ball: object, opts?: { scale?: number, unique?: boolean }) => void,
  *   spawnAvatarSquare: (opts: { src: string, label?: string, unique?: boolean }) => void,
  *   spawnFlagSquare: (opts: { locale: string, label?: string, unique?: boolean }) => void,
+ *   spawnLetterSquares: (count?: number) => void,
+ *   clearLetterSquares: () => void,
+ *   clearSpawnedActors: () => void,
  *   destroy: () => void
  * }}
  */
@@ -182,6 +216,9 @@ export function initHeroPhysics(container, options = {}) {
     spawnTechBall() {},
     spawnAvatarSquare() {},
     spawnFlagSquare() {},
+    spawnLetterSquares() {},
+    clearLetterSquares() {},
+    clearSpawnedActors() {},
     destroy() {},
   };
 
@@ -650,11 +687,73 @@ export function initHeroPhysics(container, options = {}) {
 
   window.addEventListener("scroll", onScroll, { passive: true });
 
+  const clearActorsByKind = (kind) => {
+    for (const actor of actors.filter((a) => a.kind === kind)) {
+      removeActor(actor);
+    }
+  };
+
+  const clearLetterSquares = () => {
+    clearActorsByKind("letter");
+  };
+
+  const clearSpawnedActors = () => {
+    for (const actor of [...actors]) {
+      removeActor(actor);
+    }
+  };
+
+  const spawnLetterSquares = (count = 12) => {
+    clearLetterSquares();
+    const n = Math.max(1, Math.min(MAX_LETTER_SQUARES, Math.floor(count)));
+    const size = narrow ? 48 : 72;
+
+    for (let i = 0; i < n; i++) {
+      const letter =
+        LETTER_ALPHABET[Math.floor(Math.random() * LETTER_ALPHABET.length)];
+      const fill = LETTER_FILLS[i % LETTER_FILLS.length];
+      const half = size / 2;
+      const el = createLetterSquareEl(letter, size, fill);
+      container.appendChild(el);
+
+      const leftPad = narrow ? half + 16 : width * 0.28;
+      const span = Math.max(40, width - leftPad - half - 24);
+      const x = leftPad + Math.random() * span;
+      const y = -half - 30 - Math.random() * 140 - i * 18;
+      const body = Bodies.rectangle(x, y, size, size, {
+        restitution: 0.58,
+        friction: 0.1,
+        frictionAir: FRICTION_AIR,
+        density: AI_DENSITY,
+        chamfer: { radius: 10 },
+        label: `letter-${letter}-${i}`,
+        sleepThreshold: 45,
+      });
+      Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.2);
+      Body.setVelocity(body, {
+        x: (Math.random() - 0.5) * 3.2,
+        y: 1.5 + Math.random() * 2.5,
+      });
+      World.add(world, body);
+      actors.push({
+        body,
+        el,
+        half,
+        kind: "letter",
+        spawnKey: letterSpawnKey(letter, i),
+      });
+      syncActorEl(el, body, half);
+    }
+  };
+
   return {
     spawnAiSquare,
     spawnTechBall,
     spawnAvatarSquare,
     spawnFlagSquare,
+    spawnLetterSquares,
+    clearLetterSquares,
+    clearSpawnedActors,
     destroy() {
       spawnTimers.forEach((id) => clearTimeout(id));
       visibilityObserver.disconnect();

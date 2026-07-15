@@ -18,21 +18,38 @@
 export const CASE_REWARDS = Object.freeze([
   { id: "caseJackpot", rarity: "covert", weight: 1, emoji: "🏆" },
   { id: "rickroll", rarity: "classified", weight: 2, emoji: "🎵" },
-  { id: "localeSwitch", rarity: "restricted", weight: 9, emoji: "🌐" },
-  { id: "lightFlash", rarity: "milspec", weight: 8, emoji: "☀️" },
-  { id: "confetti", rarity: "restricted", weight: 12, emoji: "🎉" },
-  { id: "emojiBalloons", rarity: "milspec", weight: 10, emoji: "🎈" },
-  { id: "progFact", rarity: "industrial", weight: 11, emoji: "💡" },
-  { id: "screenShake", rarity: "milspec", weight: 7, emoji: "💥" },
-  { id: "heroSpawn", rarity: "restricted", weight: 8, emoji: "⚛️" },
+  { id: "echoMidpath", rarity: "classified", weight: 2, emoji: "∞" },
+  { id: "textCorrupt", rarity: "classified", weight: 3, emoji: "░" },
+  { id: "blockFall", rarity: "restricted", weight: 7, emoji: "🧱" },
+  { id: "alphabetCubes", rarity: "milspec", weight: 8, emoji: "🔤" },
+  { id: "localeSwitch", rarity: "restricted", weight: 7, emoji: "🌐" },
+  { id: "lightFlash", rarity: "milspec", weight: 6, emoji: "☀️" },
+  { id: "socialCredit", rarity: "restricted", weight: 6, emoji: "📈" },
+  { id: "confetti", rarity: "restricted", weight: 9, emoji: "🎉" },
+  { id: "emojiBalloons", rarity: "milspec", weight: 11, emoji: "🎈" },
+  { id: "progFact", rarity: "industrial", weight: 8, emoji: "💡" },
+  { id: "screenShake", rarity: "milspec", weight: 5, emoji: "💥" },
   { id: "vacJoke", rarity: "classified", weight: 5, emoji: "🚫" },
   { id: "titleGlitch", rarity: "industrial", weight: 5, emoji: "📺" },
   { id: "accentPulse", rarity: "consumer", weight: 6, emoji: "✨" },
-  { id: "emptyCase", rarity: "consumer", weight: 8, emoji: "📦" },
-  { id: "profileTip", rarity: "industrial", weight: 8, emoji: "🗺️" },
+  { id: "emptyCase", rarity: "consumer", weight: 4, emoji: "📦" },
+  { id: "profileTip", rarity: "industrial", weight: 5, emoji: "🗺️" },
 ]);
 
 const TOTAL_WEIGHT = CASE_REWARDS.reduce((sum, r) => sum + r.weight, 0);
+
+/** Total weight used by the roller (100 with the current table). */
+export const CASE_TOTAL_WEIGHT = TOTAL_WEIGHT;
+
+/**
+ * Drop chance as a percentage (weights are tuned to sum ≈ 100).
+ * @param {{ weight: number } | null | undefined} reward
+ * @returns {number}
+ */
+export function getRewardChancePercent(reward) {
+  if (!reward || !TOTAL_WEIGHT) return 0;
+  return Math.round((reward.weight / TOTAL_WEIGHT) * 1000) / 10;
+}
 
 /** Floating emoji pool for balloon drops. */
 export const BALLOON_EMOJIS = Object.freeze([

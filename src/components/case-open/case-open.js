@@ -1,5 +1,6 @@
 import { isAchievementUnlocked } from "../../shared/data/achievements.js";
-import { techBalls } from "../../shared/data/tech-balls.js";
+import { ECHO_FINALE_LOOP } from "../echo-finale/index.js";
+import { corruptEchoContent } from "../infinite-echo/backrooms-text.js";
 import {
   burstConfettiAt,
   celebrateConfetti,
@@ -7,6 +8,7 @@ import {
 import {
   BALLOON_EMOJIS,
   buildReel,
+  getRewardChancePercent,
   REEL_ITEM_WIDTH,
   REEL_WIN_INDEX,
   rollWeightedReward,
@@ -22,6 +24,8 @@ const BALLOON_LIFE_MS = 4200;
 const LIGHT_FLASH_MS = 5000;
 /** Match topbar `--theme-duration`. */
 const THEME_FADE_MS = 320;
+const BLOCK_FALL_MS = 1200;
+const ALPHABET_CUBE_COUNT = 14;
 
 /**
  * @returns {Record<string, unknown>}
@@ -35,6 +39,7 @@ export function caseOpenState() {
     caseLastRewardId: "",
     caseLastEmoji: "",
     caseLastRarity: "consumer",
+    caseLastChance: 0,
     caseResultLabel: "",
     caseResultNote: "",
     caseResultText: "",
@@ -65,6 +70,7 @@ export function caseOpenMethods() {
       this.caseLastRewardId = "";
       this.caseLastEmoji = "";
       this.caseLastRarity = "consumer";
+      this.caseLastChance = 0;
       this.caseVacOpen = false;
 
       const winner = rollWeightedReward();
@@ -124,6 +130,9 @@ export function caseOpenMethods() {
         case "caseJackpot":
           this._rewardJackpot(winner, label);
           return;
+        case "socialCredit":
+          this._rewardSocialCredit();
+          break;
         case "confetti":
           this._rewardConfetti(event);
           break;
@@ -135,9 +144,6 @@ export function caseOpenMethods() {
           break;
         case "screenShake":
           this._rewardScreenShake();
-          break;
-        case "heroSpawn":
-          this._rewardHeroSpawn();
           break;
         case "vacJoke":
           this._rewardVacJoke();
@@ -163,6 +169,18 @@ export function caseOpenMethods() {
         case "rickroll":
           this._rewardRickroll();
           break;
+        case "blockFall":
+          this._rewardBlockFall();
+          break;
+        case "echoMidpath":
+          this._rewardEchoMidpath();
+          break;
+        case "textCorrupt":
+          this._rewardTextCorrupt();
+          break;
+        case "alphabetCubes":
+          this._rewardAlphabetCubes();
+          break;
         default:
           break;
       }
@@ -179,10 +197,21 @@ export function caseOpenMethods() {
       this.caseLastRewardId = winner.id;
       this.caseLastEmoji = winner.emoji;
       this.caseLastRarity = winner.rarity || "consumer";
+      this.caseLastChance = getRewardChancePercent(winner);
       this.caseResultLabel = label;
       this.caseResultNote = note;
       this.caseResultText = note || formatResult(this, label);
       this.caseResultKey += 1;
+    },
+
+    get caseResultRarityLabel() {
+      const key = this.caseLastRarity || "consumer";
+      return this.t?.caseOpen?.rarities?.[key] || key;
+    },
+
+    get caseResultChanceLabel() {
+      const template = this.t?.caseOpen?.chance || "{pct}%";
+      return template.replace("{pct}", String(this.caseLastChance));
     },
 
     /**
@@ -217,6 +246,11 @@ export function caseOpenMethods() {
     },
 
     /** @param {Event} [event] */
+    _rewardSocialCredit() {
+      this._triggerSocialCreditReward?.();
+      this.showSpeechI18n?.("caseOpen.socialCreditLine", { holdMs: 5500 });
+    },
+
     _rewardConfetti(event) {
       const rect = event?.currentTarget?.getBoundingClientRect?.();
       const x = rect
@@ -248,19 +282,6 @@ export function caseOpenMethods() {
         target.classList.remove("case-open-shake");
       }, SHAKE_MS);
       this.showSpeechI18n?.("caseOpen.shakeLine", { holdMs: 4000 });
-    },
-
-    _rewardHeroSpawn() {
-      const physics = this._heroPhysics;
-      const ball =
-        techBalls[Math.floor(Math.random() * techBalls.length)];
-      if (physics?.spawnTechBall && ball) {
-        physics.spawnTechBall(ball, { unique: false });
-        this.showSpeechI18n?.("caseOpen.spawnLine", { holdMs: 4500 });
-        return;
-      }
-      this._spawnCaseBalloons(6);
-      this.showSpeechI18n?.("caseOpen.spawnFallback", { holdMs: 4500 });
     },
 
     _rewardVacJoke() {
@@ -354,6 +375,89 @@ export function caseOpenMethods() {
       this.showSpeechI18n?.("caseOpen.rickrollLine", { holdMs: 6000 });
     },
 
+    _rewardBlockFall() {
+      const block = this.pickRandomPageBlock?.();
+      if (!(block instanceof HTMLElement)) {
+        this.showSpeechI18n?.("caseOpen.blockFallFallback", { holdMs: 4500 });
+        return;
+      }
+
+      // Freeze layout space so siblings don’t jump while the clone of gravity runs.
+      const rect = block.getBoundingClientRect();
+      if (getComputedStyle(block).position === "static") {
+        block.style.width = `${rect.width}px`;
+        block.style.height = `${rect.height}px`;
+      }
+
+      block.classList.add("case-block-falling");
+      this.showSpeechI18n?.("caseOpen.blockFallLine", { holdMs: 5500 });
+
+      this._pushCaseTimer(() => {
+        this.markShellDestroyed?.(block);
+        block.classList.remove("case-block-falling");
+      }, BLOCK_FALL_MS);
+    },
+
+    _rewardEchoMidpath() {
+      const scroll = this._infiniteScroll;
+      if (!scroll?.seedFromLoop) {
+        this.showSpeechI18n?.("caseOpen.echoMidpathFallback", { holdMs: 4500 });
+        return;
+      }
+
+      const mid = Math.max(1, Math.floor(ECHO_FINALE_LOOP / 2));
+      scroll.seedFromLoop(mid);
+      this.showSpeechI18n?.("caseOpen.echoMidpathLine", { holdMs: 6500 });
+
+      const target =
+        this.$refs.infiniteEchoes ||
+        document.querySelector(".infinite-echoes");
+      target?.scrollIntoView?.({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+      });
+    },
+
+    _rewardTextCorrupt() {
+      const root = document.body;
+      if (!root) {
+        this.showSpeechI18n?.("caseOpen.textCorruptFallback", { holdMs: 4500 });
+        return;
+      }
+
+      // Two passes: heavy site-wide melt, then a quick second wave.
+      corruptEchoContent(root, 0.88, { budget: 1_200 });
+      this._pushCaseTimer(() => {
+        corruptEchoContent(root, 0.62, { budget: 480 });
+      }, 420);
+
+      document.documentElement.classList.add("case-text-corrupt");
+      this._pushCaseTimer(() => {
+        document.documentElement.classList.remove("case-text-corrupt");
+      }, 4_500);
+
+      this.showSpeechI18n?.("caseOpen.textCorruptLine", { holdMs: 6000 });
+    },
+
+    _rewardAlphabetCubes() {
+      const physics = this._heroPhysics;
+      if (!physics?.spawnLetterSquares) {
+        this.showSpeechI18n?.("caseOpen.alphabetFallback", { holdMs: 4500 });
+        return;
+      }
+
+      // Drop old letter cubes (and other spawned toys) then rain the alphabet.
+      physics.clearSpawnedActors?.();
+      physics.spawnLetterSquares(ALPHABET_CUBE_COUNT);
+      this.showSpeechI18n?.("caseOpen.alphabetLine", { holdMs: 5000 });
+
+      const hero = document.getElementById("hero") || this.$refs.heroPhysics;
+      hero?.scrollIntoView?.({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "center",
+      });
+    },
+
     /** @param {number} count */
     _spawnCaseBalloons(count) {
       this._ensureBalloonRoot();
@@ -432,6 +536,7 @@ export function caseOpenMethods() {
       this.caseVacOpen = false;
       this.caseAccentPulse = false;
       this.caseOpening = false;
+      document.documentElement.classList.remove("case-text-corrupt");
     },
   };
 }

@@ -29,7 +29,16 @@ export function initInfiniteScroll({
   onMark,
 }) {
   if (!source || !echoes || !sentinel) {
-    return { reset() {}, destroy() {} };
+    return {
+      reset() {},
+      destroy() {},
+      pause() {},
+      resume() {},
+      seedFromLoop() {},
+      getLoop() {
+        return 0;
+      },
+    };
   }
 
   let loop = 0;
@@ -246,6 +255,25 @@ export function initInfiniteScroll({
     if (!paused) fillBuffer();
   }
 
+  /**
+   * Restart the echo feed as if the visitor had already reached `startLoop`.
+   * Next clones begin at `startLoop` (1-based). Used by case rewards.
+   * @param {number} startLoop
+   */
+  function seedFromLoop(startLoop) {
+    const target = Math.max(1, Math.floor(Number(startLoop) || 1));
+    clearMarkObservers();
+    spokenLoops.clear();
+    echoes.replaceChildren();
+    // appendEcho does `loop += 1`, so seed one below the desired first label.
+    loop = target - 1;
+    if (!paused) fillBuffer();
+  }
+
+  function getLoop() {
+    return loop;
+  }
+
   function destroy() {
     paused = true;
     observer.disconnect();
@@ -261,7 +289,7 @@ export function initInfiniteScroll({
     echoes.replaceChildren();
   }
 
-  return { reset, destroy, pause, resume };
+  return { reset, destroy, pause, resume, seedFromLoop, getLoop };
 }
 
 /**
