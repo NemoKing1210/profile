@@ -4,6 +4,10 @@
   data-mc-immune
   :aria-label="t.ui.bugReport"
   @click="onBugReportClick()"
+  @mouseenter="showSpeechI18n('hero.bugReportTip', { holdMs: null })"
+  @mouseleave="hideSpeech()"
+  @focusin="showSpeechI18n('hero.bugReportTip', { holdMs: null })"
+  @focusout="hideSpeech()"
 >
   <span class="bug-report__text" x-text="t.ui.bugReport"></span>
 </button>

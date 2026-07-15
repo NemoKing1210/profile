@@ -189,6 +189,8 @@ export default {
     playEnough:
       "まだ遊び足りない？プロフィールの続きも見てみない？",
     playAlong: "楽しそうだね——一緒に遊ばせて！",
+    bugReportTip:
+      "プレミアムサポート：返信は速い、直し方は…創造的。押して — チケット切るよ。",
     bugReportReturn:
       "ごめん、我慢できなかった 😅 苦情は受け付けてないよ 🚫",
     metaLabel: "所在地、言語、生年",

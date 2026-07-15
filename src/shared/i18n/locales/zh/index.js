@@ -184,6 +184,7 @@ export default {
     ],
     playEnough: "还没玩够吗？要不往下看看我的主页？",
     playAlong: "看起来挺好玩——我也来一起玩！",
+    bugReportTip: "高级客服：回复很快，修复……很有创意。点一下——我开工单。",
     bugReportReturn: "抱歉，没忍住 😅 不接受投诉 🚫",
     metaLabel: "地点、语言与出生年份",
 

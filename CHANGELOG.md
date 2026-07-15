@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.68.8] — 2026-07-15
+
+### Added
+
+- Avatar hover tip on the bug-report button (`hero.bugReportTip`)
+
 ## [1.68.7] — 2026-07-15
 
 ### Changed

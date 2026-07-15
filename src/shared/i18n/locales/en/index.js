@@ -190,6 +190,8 @@ export default {
     playEnough:
       "Still not done playing? Maybe check out the rest of my profile?",
     playAlong: "Looks fun — I'll jump in and play with you!",
+    bugReportTip:
+      "Premium support: I reply fast and fix things… creatively. Hit it — I'll open a ticket.",
     bugReportReturn:
       "Sorry, I couldn’t resist 😅 Complaints not accepted 🚫",
     metaLabel: "Location, languages, and birth year",
