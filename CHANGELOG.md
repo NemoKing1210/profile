@@ -10,6 +10,15 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.68.0] — 2026-07-15
+
+### Changed
+
+- Links section: staggered reveals, brand-tint hover glow, sheen, and clearer press/hover motion on hub pills and link cards
+- Theme and language menus: open/close transitions and micro-interactions
+- Shared press feedback (`scale`) on links and buttons; `cursor: pointer` on buttons
+- Avatar speech bubble uses a deeper accent fill for readable white text in all themes
+
 ## [1.67.2] — 2026-07-15
 
 ### Fixed

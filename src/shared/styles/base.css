@@ -80,6 +80,9 @@ img {
 a {
   color: var(--accent);
   text-decoration: none;
+  transition:
+    color 0.15s var(--ease),
+    transform 0.15s var(--ease);
 }
 
 a:hover {
@@ -88,10 +91,21 @@ a:hover {
 
 button {
   cursor: pointer;
+  transition: transform 0.15s var(--ease);
 }
 
 button:disabled {
   cursor: not-allowed;
+}
+
+/* Shared press feedback for interactive chrome. */
+@media (prefers-reduced-motion: no-preference) {
+  a:active,
+  button:not(:disabled):active,
+  [role="button"]:not([aria-disabled="true"]):active,
+  .btn:not(:disabled):active {
+    transform: scale(0.97);
+  }
 }
 
 a:focus-visible,

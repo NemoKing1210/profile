@@ -156,10 +156,22 @@ body.is-locale-blurring
   }
 
   .btn--primary:hover,
+  .btn--primary:active,
+  .btn:active,
+  .btn--ghost:active,
+  a:active,
+  button:active,
+  [role="button"]:active,
   .capsule:hover,
   .capsule:focus-visible,
   .project-shelf .capsule.reveal.is-visible:hover,
-  .project-shelf .capsule.reveal.is-visible:focus-visible {
+  .project-shelf .capsule.reveal.is-visible:focus-visible,
+  .link-card:hover,
+  .link-card:focus-visible,
+  .hub-pill:hover,
+  .hub-pill:focus-visible,
+  .hub-card__cta:hover,
+  .hub-card__cta:focus-visible {
     transform: none;
   }
 }

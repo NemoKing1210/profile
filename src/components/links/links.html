@@ -1,4 +1,4 @@
-<section class="panel" id="links" aria-labelledby="links-title">
+<section class="panel panel--links" id="links" aria-labelledby="links-title">
   <header class="panel__head">
     <h2 class="panel__title" id="links-title" x-text="linksTitle">Links</h2>
   </header>
@@ -48,19 +48,19 @@
     <div class="hub-platforms">
       <p class="hub-platforms__label" x-text="t.hub.platformsLabel"></p>
       <ul class="hub-platforms__list" role="list">
-        <template x-for="platform in hubPlatforms" :key="platform.id">
-          <li>
+        <template x-for="(platform, index) in hubPlatforms" :key="platform.id">
+          <li :style="`--pill-i: ${index}`">
             <a
               class="hub-pill"
               :href="hub.href"
               rel="noopener noreferrer"
               target="_blank"
               :aria-label="platform.label"
+              :style="`--mark-fill: ${platform.mark.fill}`"
             >
               <span
                 class="hub-pill__icon"
                 :class="{ 'hub-pill__icon--light': platform.lightTile }"
-                :style="`--mark-fill: ${platform.mark.fill}`"
                 aria-hidden="true"
               >
                 <svg viewBox="0 0 24 24" focusable="false">
@@ -78,13 +78,14 @@
   <div class="links-direct">
     <p class="links-direct__label" x-text="t.links.directLabel"></p>
     <ul class="link-grid" role="list">
-      <template x-for="link in links" :key="link.id">
+      <template x-for="(link, index) in links" :key="link.id">
         <li>
           <a
             class="link-card"
             :href="link.href"
             rel="noopener noreferrer"
             target="_blank"
+            :style="`--mark-fill: ${link.mark.fill}; --link-i: ${index}`"
             @mouseenter="link.speechI18n && showSpeechI18n(link.speechI18n, { holdMs: null })"
             @mouseleave="link.speechI18n && hideSpeech()"
             @focusin="link.speechI18n && showSpeechI18n(link.speechI18n, { holdMs: null })"
@@ -93,7 +94,6 @@
             <span
               class="link-card__icon"
               :class="{ 'link-card__icon--light': link.lightTile }"
-              :style="`--mark-fill: ${link.mark.fill}`"
               aria-hidden="true"
             >
               <svg viewBox="0 0 24 24" focusable="false">

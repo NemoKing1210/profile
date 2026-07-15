@@ -12,11 +12,20 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease,
+    filter 160ms ease;
 }
 
 .btn:disabled {
   cursor: not-allowed;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .btn__icon {
@@ -59,6 +68,11 @@ body.theme-light .btn--primary:hover {
   transform: translateY(-1px);
 }
 
+.btn--primary:active:not(:disabled) {
+  filter: brightness(1.02);
+  transform: translateY(0) scale(0.97);
+}
+
 .btn--ghost {
   color: var(--text);
   background: color-mix(in srgb, var(--accent) 8%, transparent);
@@ -66,10 +80,15 @@ body.theme-light .btn--primary:hover {
   transition:
     color var(--theme-duration) var(--ease),
     background var(--theme-duration) var(--ease),
-    border-color var(--theme-duration) var(--ease);
+    border-color var(--theme-duration) var(--ease),
+    transform 160ms ease;
 }
 
 .btn--ghost:hover {
   color: var(--text-bright);
   background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.btn--ghost:active:not(:disabled) {
+  transform: scale(0.97);
 }
