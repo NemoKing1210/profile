@@ -9,6 +9,9 @@ const base = import.meta.env.BASE_URL;
 const profile = {
   name: "Кирилл",
   handle: "@NemoKing1210",
+  /** Absolute site URL on GitHub Pages (SEO / OG / canonical). */
+  siteUrl: "https://nemoking1210.github.io/profile/",
+  ogImage: "https://nemoking1210.github.io/profile/assets/images/og.png",
   birthYear: 1999,
   /** Spoken languages shown in hero chips (locale codes). */
   spokenLanguages: ["ru", "uk", "en"],

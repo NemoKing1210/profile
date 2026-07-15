@@ -1,8 +1,8 @@
-<div
+<button
+  type="button"
   class="achievement-toast"
   x-show="achievementToastOpen && achievementToast"
   x-cloak
-  role="status"
   aria-live="polite"
   @click="openAchievementsFromToast()"
 >
@@ -17,4 +17,4 @@
     <p class="achievement-toast__title" x-text="achievementToast?.title"></p>
     <p class="achievement-toast__body" x-text="achievementToast?.how"></p>
   </div>
-</div>
+</button>

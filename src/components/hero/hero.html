@@ -54,7 +54,7 @@
           @focusin="showSpeechI18n('hero.nameTip', { holdMs: null })"
           @focusout="hideSpeech()"
         >
-          <h1 class="hero__name" id="hero-name" x-text="name"></h1>
+          <h1 class="hero__name" id="hero-name" x-text="displayName">Kirill</h1>
         </div>
         <p class="hero__handle" x-text="handle"></p>
         <p class="hero__tagline" x-text="tagline"></p>
@@ -88,7 +88,6 @@
               class="btn"
               :class="index === 0 ? 'btn--primary' : 'btn--ghost'"
               :href="link.href"
-              rel="noopener noreferrer"
             >
               <img
                 class="btn__icon"

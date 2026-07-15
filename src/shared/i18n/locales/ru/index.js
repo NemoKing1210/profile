@@ -155,6 +155,7 @@ export default {
     ja: "Японский",
   },
   hero: {
+    name: "Кирилл",
     role: "Frontend-разработчик",
     status: "Online",
     statusOffline: "Offline",

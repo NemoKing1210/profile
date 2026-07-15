@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nemoking1210.github.io/profile/sitemap.xml

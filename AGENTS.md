@@ -12,7 +12,7 @@ Personal profile landing for GitHub Pages.
 - Content: [`src/shared/data/profile.js`](src/shared/data/profile.js) (IDs / stack / links).
 - i18n: [`src/shared/i18n/locales/`](src/shared/i18n/locales/) — `ru`, `uk`, `en`, `es`, `de`, `zh`, `ja`.
 - Visual system: Steam dark theme — [`DESIGN.md`](DESIGN.md).
-- Language: UI is multilingual; default `ru`, switcher in topbar.
+- Language: UI is multilingual; initial locale from `navigator.languages` (saved preference wins), fallback `en`; switcher in topbar.
 - Pages URL base: `/profile/` (see `vite.config.js`).
 - HTML includes: [`vite-plugin-handlebars`](https://www.npmjs.com/package/vite-plugin-handlebars) — `partialDirectory` = `src/components`; `{{> section/name }}` → `src/components/<section>/<name>.html`.
 - **Versioning:** [`package.json`](package.json) `version` + [`CHANGELOG.md`](CHANGELOG.md) (Keep a Changelog / SemVer).

@@ -10,13 +10,32 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
-### Fixed
+## [1.59.1] — 2026-07-15
 
-- Avatar hover speech waits for the typewriter to finish, then holds ~1s before dismissing on mouseleave
-- Achievements drawer list scrolls when the catalog is taller than the viewport
+### Changed
+
+- Hero display name follows locale: Кирилл / Кирило / Kirill (ru / uk / en); other UI languages use Kirill
+
+## [1.59.0] — 2026-07-15
+
+### Changed
+
+- Initial UI locale follows the browser (`navigator.languages`); fallback is English (was Russian)
+- Saved locale preference in `localStorage` still wins over auto-detect
+
+## [1.58.1] — 2026-07-15
+
+### Changed
+
+- Crawlable SEO (title, description, OG/Twitter, JSON-LD, noscript, heading fallbacks, OG image) is English
+- Locale switch updates the browser tab title only — share/crawl meta stays English
+
+## [1.58.0] — 2026-07-15
 
 ### Added
 
+- SEO head: canonical, Open Graph, Twitter Card, Person JSON-LD, `robots.txt`, `sitemap.xml`, OG share image
+- Static heading / skip-link fallbacks and `<noscript>` summary for crawlers
 - Joke avatar tip on hero role hover («не только Frontend…» / i18n)
 - Joke avatar tip on muted About badge «Backend по делу» (server lights off / i18n); other badges glow on hover like bulbs, Backend stays dark
 - `achievement.addAll()` console helper grants every achievement (no toast spam)
@@ -62,6 +81,12 @@ Update **both** when cutting a release.
 
 ### Fixed
 
+- Favicon path respects GitHub Pages base `/profile/`
+- `x-cloak` no longer hides the whole `<body>` (overlays only)
+- Achievement toast is a focusable button
+- Hero primary CTAs no longer use `rel="noopener"` without `target="_blank"`
+- Avatar hover speech waits for the typewriter to finish, then holds ~1s before dismissing on mouseleave
+- Achievements drawer list scrolls when the catalog is taller than the viewport
 - Scroll reveal for panels fires earlier (lower threshold, positive bottom rootMargin)
 - Avatar hover tips no longer flash while scrolling (cursor passes over tipped elements)
 - Hero scroll blocked by Matter.js: remove `wheel` preventDefault; allow touch pan unless a body is grabbed

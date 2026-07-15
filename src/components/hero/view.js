@@ -1,7 +1,18 @@
 import profile from "../../shared/data/profile.js";
+import { locales } from "../../shared/i18n/index.js";
+
+const LOCALIZED_NAME_LOCALES = new Set(["ru", "uk", "en"]);
 
 export function heroViewMethods() {
   return {
+    /** Hero h1: ru/uk/en native forms; all other UI locales → English. */
+    get displayName() {
+      if (LOCALIZED_NAME_LOCALES.has(this.locale)) {
+        return this.t.hero.name || this.name;
+      }
+      return locales.en.hero.name || this.name;
+    },
+
     get status() {
       return this.t.hero.status;
     },

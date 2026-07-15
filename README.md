@@ -13,7 +13,7 @@ Built with **Vite**, **Alpine.js**, and **Handlebars** partials. Sources stay mo
 - Full-bleed hero (banner, avatar, role, CTAs with service favicons)
 - Sections: About, Stack, Projects, Interests, Links
 - About highlights: skill badges, rich copy, AI tooling strip (Cursor, Claude, Codex, Claude Code)
-- Multilingual UI: **ru** (default), **uk**, **en**, **es**, **de**, **zh**, **ja** — switcher in the topbar
+- Multilingual UI: **en** / **ru** / **uk** / **es** / **de** / **zh** / **ja** — browser language on first visit (fallback **en**), switcher in the topbar
 - Steam dark palette (see [`DESIGN.md`](DESIGN.md))
 - Accessible basics: skip link, focus-visible, reduced motion, `x-cloak`
 - CI deploy via GitHub Actions → Pages
@@ -109,7 +109,7 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 
 ## Internationalization
 
-- Default language: **Russian** (`document.documentElement.lang` follows the switcher).
+- Initial language: browser (`navigator.languages`), then **English**; saved preference wins (`document.documentElement.lang` follows the switcher).
 - Locales: `ru`, `uk`, `en`, `es`, `de`, `zh`, `ja`.
 - Spoken-language chips in the hero come from `profile.spokenLanguages` + each locale’s `spoken` map.
 - Preference is stored in `localStorage` (see Alpine `profile-page`).

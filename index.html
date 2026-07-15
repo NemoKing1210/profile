@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -8,24 +8,106 @@
     />
     <meta
       name="description"
-      content="Кирилл — frontend-разработчик. Vue, Nuxt, TypeScript. Профиль, стек, проекты."
+      content="Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack, and projects."
     />
     <meta name="theme-color" content="#171a21" />
-    <title>Кирилл · Профиль</title>
+    <title>Kirill · Profile</title>
+    <link rel="canonical" href="https://nemoking1210.github.io/profile/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nemoking1210.github.io/profile/" />
+    <meta property="og:title" content="Kirill · Profile" />
+    <meta
+      property="og:description"
+      content="Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack, and projects."
+    />
+    <meta
+      property="og:image"
+      content="https://nemoking1210.github.io/profile/assets/images/og.png"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Kirill · Profile" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kirill · Profile" />
+    <meta
+      name="twitter:description"
+      content="Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack, and projects."
+    />
+    <meta
+      name="twitter:image"
+      content="https://nemoking1210.github.io/profile/assets/images/og.png"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="/profile/assets/images/favicon.svg"
+      type="image/svg+xml"
+    />
+    <link rel="apple-touch-icon" href="https://github.com/NemoKing1210.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kirill",
+        "alternateName": "Кирилл",
+        "url": "https://nemoking1210.github.io/profile/",
+        "image": "https://github.com/NemoKing1210.png",
+        "jobTitle": "Frontend developer",
+        "description": "Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack, and projects.",
+        "sameAs": [
+          "https://github.com/NemoKing1210",
+          "https://linktr.ee/nemoking",
+          "https://letterboxd.com/nemoking/",
+          "https://orcid.org/0009-0004-4232-676X"
+        ]
+      }
+    </script>
   </head>
   <body
     x-data="profilePage"
-    x-cloak
     :class="{ 'theme-sith': themeSith, 'theme-light': themeLight, 'is-theme-switching': themeSwitching, 'is-theme-switching-sith': themeSwitchSithPace, 'is-locale-blurring': localeBlurring }"
   >
-    <a class="skip-link" href="#main" x-text="t.ui.skipToContent"></a>
+    <a class="skip-link" href="#main" x-text="t.ui.skipToContent"
+      >Skip to content</a
+    >
+
+    <noscript>
+      <div class="seo-noscript">
+        <p>
+          Kirill — frontend developer. Vue, Nuxt, TypeScript. Profile, stack,
+          and projects.
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/NemoKing1210/steam-gamestatus"
+              >steam-gamestatus</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/NemoKing1210/steam-region-block-bypass"
+              >steam-region-block-bypass</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/NemoKing1210/youtube-bot-comments-filter"
+              >youtube-bot-comments-filter</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/NemoKing1210">GitHub</a>
+          </li>
+          <li>
+            <a href="https://linktr.ee/nemoking">Linktree</a>
+          </li>
+        </ul>
+      </div>
+    </noscript>
 
     {{> topbar/topbar }}
 

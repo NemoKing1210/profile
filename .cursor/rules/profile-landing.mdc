@@ -11,7 +11,7 @@ alwaysApply: true
 - Shared foundation: `src/shared/{styles,data,i18n,lib}/`.
 - i18n locales: `src/shared/i18n/locales/` (`ru` `uk` `en` `es` `de` `zh` `ja`). Spoken langs in `profile.spokenLanguages`.
 - Follow `DESIGN.md`: Steam dark palette, Exo 2 + Source Sans 3.
-- Default UI language is Russian; `document.documentElement.lang` follows the switcher.
+- Initial UI locale follows the browser (`navigator.languages`), then English; saved preference wins. `document.documentElement.lang` follows the switcher.
 - `vite.config.js` `base` must match the Pages path (`/profile/` for this repo).
 - Single Alpine root `profilePage` composed in `src/app/profile-page.js` — do not add a second framework or N `x-data` islands.
 - Do not commit `node_modules/` or `dist/`.

@@ -601,11 +601,15 @@ body.theme-light .achievements-drawer__progress-praise {
   grid-template-columns: 3.35rem 1fr;
   gap: 0.75rem;
   width: min(22.5rem, calc(100vw - 2rem));
+  margin: 0;
   padding: 0.7rem 0.85rem;
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 2px;
   background: linear-gradient(180deg, #3a4655 0%, #232a33 100%);
   color: #fff;
+  font: inherit;
+  text-align: left;
+  appearance: none;
   box-shadow:
     0 12px 36px rgba(0, 0, 0, 0.45),
     0 0 0 1px rgba(212, 175, 55, 0.22),

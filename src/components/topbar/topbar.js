@@ -140,10 +140,8 @@ export function localeChromeMethods() {
       }
 
       document.documentElement.lang = code;
+      // Browser tab follows UI locale; crawlable/share meta stays English (static head).
       document.title = this.pageTitle;
-
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.setAttribute("content", this.t.meta.description);
 
       if (this.avatarSpeechOpen && this._avatarSpeechI18nPath) {
         this.showSpeechI18n(this._avatarSpeechI18nPath, {
