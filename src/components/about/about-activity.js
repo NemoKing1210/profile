@@ -94,6 +94,25 @@ export function aboutActivityState() {
 
 export function aboutActivityMethods() {
   return {
+    get activityCopy() {
+      return this.about?.activity || this.t.about?.activity || {};
+    },
+
+    activitySpeechPath(key) {
+      const audience = this.audience;
+      if (
+        audience &&
+        this.t.audiences?.[audience]?.about?.activity?.[key] != null
+      ) {
+        return `audiences.${audience}.about.activity.${key}`;
+      }
+      return `about.activity.${key}`;
+    },
+
+    _isActivitySpeechPath(path) {
+      return typeof path === "string" && path.includes("about.activity.");
+    },
+
     get activityContributionCount() {
       return (this.activityCells || []).reduce(
         (sum, cell) => sum + (cell.level > 0 ? cell.level * 4 + 1 : 0),
@@ -102,7 +121,7 @@ export function aboutActivityMethods() {
     },
 
     get activitySummary() {
-      const copy = this.t.about?.activity || {};
+      const copy = this.activityCopy;
       if (this.activityPlaying) {
         return copy.playSummary || copy.playHint || "";
       }
@@ -118,12 +137,12 @@ export function aboutActivityMethods() {
 
     get activityHoverSpeechPath() {
       if (this.activityPlaying) return null;
-      if (this.activityComplete) return "about.activity.playHoverTip";
-      return "about.activity.hoverTip";
+      if (this.activityComplete) return this.activitySpeechPath("playHoverTip");
+      return this.activitySpeechPath("hoverTip");
     },
 
     get activityChartAria() {
-      const copy = this.t.about?.activity || {};
+      const copy = this.activityCopy;
       if (this.activityPlaying) {
         return copy.playHint || copy.playSummary || "";
       }
@@ -146,7 +165,7 @@ export function aboutActivityMethods() {
     },
 
     activityCellTipParts(cell) {
-      const copy = this.t.about?.activity || {};
+      const copy = this.activityCopy;
       const tips = copy.tips || [];
       const tip =
         tips[cell.tipIndex % Math.max(tips.length, 1)] || "";
@@ -166,11 +185,7 @@ export function aboutActivityMethods() {
     },
 
     hideActivityHoverSpeech() {
-      const path = this._avatarSpeechI18nPath;
-      if (
-        path === "about.activity.hoverTip" ||
-        path === "about.activity.playHoverTip"
-      ) {
+      if (this._isActivitySpeechPath(this._avatarSpeechI18nPath)) {
         this.hideSpeech?.();
       }
     },
@@ -319,13 +334,7 @@ export function aboutActivityMethods() {
     },
 
     _hideActivityAvatarSpeech() {
-      const path = this._avatarSpeechI18nPath;
-      if (
-        path === "about.activity.startSpeech" ||
-        path === "about.activity.hoverTip" ||
-        path === "about.activity.playHoverTip" ||
-        path === "about.activity.playStartSpeech"
-      ) {
+      if (this._isActivitySpeechPath(this._avatarSpeechI18nPath)) {
         this.hideSpeech?.();
       }
     },
@@ -339,7 +348,7 @@ export function aboutActivityMethods() {
         return;
       }
       this._activityStartSpeechDone = true;
-      this.showSpeechI18n("about.activity.startSpeech");
+      this.showSpeechI18n(this.activitySpeechPath("startSpeech"));
     },
 
     _queueActivityAnimation() {
@@ -526,7 +535,7 @@ export function aboutActivityMethods() {
       this.activityPlaying = true;
 
       this._bindActivitySnakeControls();
-      this.showSpeechI18n("about.activity.playStartSpeech");
+      this.showSpeechI18n(this.activitySpeechPath("playStartSpeech"));
       this._scheduleActivitySnakeTick();
 
       this.$nextTick(() => {
@@ -548,7 +557,7 @@ export function aboutActivityMethods() {
       if (won) {
         this.activitySnakeWon = true;
         this.unlockAchievementRecord?.("activitySnake");
-        this.showSpeechI18n("about.activity.playWinSpeech");
+        this.showSpeechI18n(this.activitySpeechPath("playWinSpeech"));
       }
     },
 

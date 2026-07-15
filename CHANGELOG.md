@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.75.0] — 2026-07-15
+
+### Added
+
+- Audience query param `?from=` — presets hide sections, swap hero CTAs, and tailor hero + About copy (e.g. `?from=steam`)
+
 ## [1.74.1] — 2026-07-15
 
 ### Changed

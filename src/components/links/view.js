@@ -1,6 +1,16 @@
 import { faviconForHref } from "../../shared/data/link-icons.js";
 import { linkMarks } from "../../shared/data/link-marks.js";
 import profile from "../../shared/data/profile.js";
+import { getAudiencePreset } from "../../shared/lib/audience.js";
+
+function mediaHubLink(id, media, label) {
+  if (!media?.href) return null;
+  return {
+    id,
+    label,
+    href: media.href,
+  };
+}
 
 export function linksViewMethods() {
   return {
@@ -33,8 +43,28 @@ export function linksViewMethods() {
       }));
     },
 
+    resolvePrimaryLink(id) {
+      const fromLinks = this.links.find((link) => link.id === id);
+      if (fromLinks) return fromLinks;
+
+      if (id === "steam") {
+        return mediaHubLink(
+          "steam",
+          profile.media?.steam,
+          this.t.hub?.platforms?.steam || this.t.steam?.title || "Steam"
+        );
+      }
+
+      return null;
+    },
+
     get primaryLinks() {
-      return this.links.slice(0, 2).map((link) => ({
+      const overrideIds = getAudiencePreset(this.audience)?.primaryLinkIds;
+      const base = overrideIds
+        ? overrideIds.map((id) => this.resolvePrimaryLink(id)).filter(Boolean)
+        : this.links.slice(0, 2);
+
+      return base.map((link) => ({
         ...link,
         icon: faviconForHref(link.href),
       }));

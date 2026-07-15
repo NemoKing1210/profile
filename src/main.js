@@ -1,5 +1,10 @@
 import Alpine from "alpinejs";
 import { createProfilePage } from "./app/profile-page.js";
+import {
+  getHiddenSections,
+  removeHiddenSections,
+  resolveAudience,
+} from "./shared/lib/audience.js";
 
 /* Cascade: foundation → section components (page order) → motion. */
 import "./app.css";
@@ -21,6 +26,9 @@ import "./components/echo-finale/index.js";
 import "./components/infinite-echo/index.js";
 import "./components/minecraft-mine/index.js";
 import "./shared/styles/motion.css";
+
+/* Strip audience-hidden panels before Alpine mounts (nav + infinite-scroll). */
+removeHiddenSections(document, getHiddenSections(resolveAudience()));
 
 Alpine.data("profilePage", createProfilePage);
 Alpine.start();

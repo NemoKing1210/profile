@@ -59,7 +59,7 @@ import {
   stackViewMethods,
 } from "../components/stack/index.js";
 import { topbarMethods, topbarState } from "../components/topbar/index.js";
-import { viewModelMethods } from "./view-model.js";
+import { viewModelMethods, viewModelState } from "./view-model.js";
 
 export function createProfilePage() {
   // Spread must not evaluate activity getters (object rest/spread calls them).
@@ -81,6 +81,7 @@ export function createProfilePage() {
       ...caseOpenState(),
       ...stackFlipState(),
       ...heroSpeechState(),
+      ...viewModelState(),
       localeList,
       name: profile.name,
       handle: profile.handle,
@@ -111,6 +112,7 @@ export function createProfilePage() {
       init() {
         this.setLocale(resolveInitialLocale(), { instant: true });
         this.applyStoredTheme?.();
+        this.applyAudienceLayout();
         this._onNavResize = () => {
           if (window.matchMedia("(min-width: 860px)").matches) {
             this.closeNav();
