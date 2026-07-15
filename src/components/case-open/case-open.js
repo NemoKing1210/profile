@@ -1,4 +1,5 @@
 import {
+  ACHIEVEMENT_IDS,
   achievementsTotalCount,
   achievementsUnlockedCount,
   isAchievementUnlocked,
@@ -12,7 +13,7 @@ import {
 import {
   BALLOON_EMOJIS,
   buildReel,
-  CASE_REWARDS,
+  getActiveCaseRewards,
   getRewardById,
   getRewardChancePercent,
   REEL_ITEM_WIDTH,
@@ -27,11 +28,10 @@ import {
 
 const SPIN_MS = 5200;
 const REDUCED_SPIN_MS = 280;
-const TITLE_GLITCH_MS = 4000;
 const VAC_MS = 2800;
-const SHAKE_MS = 700;
+const SHAKE_MS = 10000;
 const ACCENT_MS = 1600;
-const BALLOON_LIFE_MS = 4200;
+const BALLOON_LIFE_MS = 10000;
 const LIGHT_FLASH_MS = 5000;
 /** Match topbar `--theme-duration`. */
 const THEME_FADE_MS = 320;
@@ -83,7 +83,6 @@ export function caseOpenState() {
     caseRickrollWatchUrl: BUG_REPORT_RICKROLL_URL,
     _caseSpinTimer: 0,
     _caseSideTimers: /** @type {number[]} */ ([]),
-    _caseTitleBackup: "",
     _caseBalloonRoot: /** @type {HTMLElement | null} */ (null),
     /** @type {boolean | null} previous themeLight while a flash is active */
     _caseThemeRestore: null,
@@ -91,6 +90,8 @@ export function caseOpenState() {
     _caseFakeoutTimer: 0,
     /** @type {HTMLElement[]} */
     _caseResizedBlocks: [],
+    /** Hero scroll for alphabet cubes — only once per page load. */
+    _caseAlphabetScrolled: false,
   };
 }
 
@@ -235,7 +236,7 @@ export function caseOpenMethods() {
           this._rewardConfetti(event);
           break;
         case "emojiBalloons":
-          this._spawnCaseBalloons(8 + Math.floor(Math.random() * 5));
+          this._spawnCaseBalloons(22 + Math.floor(Math.random() * 12));
           break;
         case "progFact":
           this._rewardProgFact();
@@ -246,8 +247,8 @@ export function caseOpenMethods() {
         case "vacJoke":
           this._rewardVacJoke();
           break;
-        case "titleGlitch":
-          this._rewardTitleGlitch();
+        case "blockSwap":
+          this._rewardBlockSwap();
           break;
         case "accentPulse":
           this._rewardAccentPulse();
@@ -469,11 +470,13 @@ export function caseOpenMethods() {
       if (!this._caseResizedBlocks) this._caseResizedBlocks = [];
 
       for (const el of picks) {
-        if (el.classList.contains("case-block-resized")) continue;
-        const scale = 0.85 + Math.random() * 0.3; // 85%–115%
-        el.style.setProperty("--case-block-scale", scale.toFixed(3));
+        const factor = 0.85 + Math.random() * 0.3; // 85%–115% each hit
+        const next = readCaseBlockScale(el) * factor;
+        el.style.setProperty("--case-block-scale", next.toFixed(3));
         el.classList.add("case-block-resized");
-        this._caseResizedBlocks.push(el);
+        if (!this._caseResizedBlocks.includes(el)) {
+          this._caseResizedBlocks.push(el);
+        }
       }
 
       this.showSpeechI18n?.("caseOpen.blockResizeLine", { holdMs: 6000 });
@@ -667,7 +670,7 @@ export function caseOpenMethods() {
       this._pushCaseTimer(() => {
         target.classList.remove("case-open-shake");
       }, SHAKE_MS);
-      this.showSpeechI18n?.("caseOpen.shakeLine", { holdMs: 4000 });
+      this.showSpeechI18n?.("caseOpen.shakeLine", { holdMs: SHAKE_MS });
     },
 
     _rewardVacJoke() {
@@ -678,20 +681,35 @@ export function caseOpenMethods() {
       }, VAC_MS);
     },
 
-    _rewardTitleGlitch() {
-      if (!this._caseTitleBackup) {
-        this._caseTitleBackup = document.title;
+    _rewardBlockSwap() {
+      const blocks = collectSwappablePageBlocks();
+      if (blocks.length < 2) {
+        this.showSpeechI18n?.("caseOpen.blockSwapFallback", { holdMs: 4500 });
+        return;
       }
-      const gag =
-        this.t?.caseOpen?.titleGag || "VAC SECURED · profile.exe";
-      document.title = gag;
-      this.showSpeechI18n?.("caseOpen.titleLine", { holdMs: 4500 });
-      this._pushCaseTimer(() => {
-        if (this._caseTitleBackup) {
-          document.title = this._caseTitleBackup;
-          this._caseTitleBackup = "";
-        }
-      }, TITLE_GLITCH_MS);
+
+      const parent = blocks[0].parentElement;
+      if (!parent) {
+        this.showSpeechI18n?.("caseOpen.blockSwapFallback", { holdMs: 4500 });
+        return;
+      }
+
+      const shuffled = shuffleTake(blocks, blocks.length);
+      // Guarantee a visible reshuffle when more than one panel remains.
+      if (
+        shuffled.length > 1 &&
+        shuffled.every((el, i) => el === blocks[i])
+      ) {
+        const tmp = shuffled[0];
+        shuffled[0] = shuffled[1];
+        shuffled[1] = tmp;
+      }
+
+      for (const el of shuffled) {
+        parent.appendChild(el);
+      }
+
+      this.showSpeechI18n?.("caseOpen.blockSwapLine", { holdMs: 5500 });
     },
 
     _rewardAccentPulse() {
@@ -703,13 +721,21 @@ export function caseOpenMethods() {
     },
 
     _rewardProfileTip() {
-      const tips = this.t?.caseOpen?.tips || [];
-      if (!tips.length) {
+      const locked = ACHIEVEMENT_IDS.filter((id) => !isAchievementUnlocked(id));
+      if (!locked.length) {
         this.showSpeechI18n?.("caseOpen.tipFallback", { holdMs: 5500 });
         return;
       }
-      const tip = tips[Math.floor(Math.random() * tips.length)];
-      this.showSpeech?.(tip, { holdMs: 6500 });
+
+      const id = locked[Math.floor(Math.random() * locked.length)];
+      const how = this.t?.achievements?.items?.[id]?.how;
+      if (!how) {
+        this.showSpeechI18n?.("caseOpen.tipFallback", { holdMs: 5500 });
+        return;
+      }
+
+      const template = this.t?.caseOpen?.tipTemplate || "Tip: {hint}";
+      this.showSpeech?.(template.replace("{hint}", how), { holdMs: 6500 });
     },
 
     _rewardLocaleSwitch() {
@@ -851,11 +877,14 @@ export function caseOpenMethods() {
       physics.spawnLetterSquares(ALPHABET_CUBE_COUNT);
       this.showSpeechI18n?.("caseOpen.alphabetLine", { holdMs: 5000 });
 
-      const hero = document.getElementById("hero") || this.$refs.heroPhysics;
-      hero?.scrollIntoView?.({
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
-        block: "center",
-      });
+      if (!this._caseAlphabetScrolled) {
+        this._caseAlphabetScrolled = true;
+        const hero = document.getElementById("hero") || this.$refs.heroPhysics;
+        hero?.scrollIntoView?.({
+          behavior: prefersReducedMotion() ? "auto" : "smooth",
+          block: "center",
+        });
+      }
     },
 
     /** @param {number} count */
@@ -870,11 +899,11 @@ export function caseOpenMethods() {
         el.setAttribute("aria-hidden", "true");
         el.textContent =
           BALLOON_EMOJIS[Math.floor(Math.random() * BALLOON_EMOJIS.length)];
-        el.style.left = `${8 + Math.random() * 84}%`;
-        el.style.setProperty("--case-balloon-delay", `${Math.random() * 0.45}s`);
+        el.style.left = `${4 + Math.random() * 92}%`;
+        el.style.setProperty("--case-balloon-delay", `${Math.random() * 1.4}s`);
         el.style.setProperty(
           "--case-balloon-drift",
-          `${(Math.random() - 0.5) * 80}px`
+          `${(Math.random() - 0.5) * 120}px`
         );
         el.style.setProperty(
           "--case-balloon-scale",
@@ -886,7 +915,7 @@ export function caseOpenMethods() {
         }, BALLOON_LIFE_MS + i * 40);
       }
 
-      this.showSpeechI18n?.("caseOpen.balloonLine", { holdMs: 4000 });
+      this.showSpeechI18n?.("caseOpen.balloonLine", { holdMs: BALLOON_LIFE_MS });
     },
 
     _ensureBalloonRoot() {
@@ -920,7 +949,7 @@ export function caseOpenMethods() {
 
     bindCaseDebugApi() {
       const catalog = () =>
-        CASE_REWARDS.map((reward, index) => ({
+        getActiveCaseRewards().map((reward, index) => ({
           n: index + 1,
           id: reward.id,
           rarity: reward.rarity,
@@ -1020,10 +1049,6 @@ export function caseOpenMethods() {
           this._restoreCaseTheme();
           this._stopConfetti?.();
           this._stopConfetti = null;
-          if (this._caseTitleBackup) {
-            document.title = this._caseTitleBackup;
-            this._caseTitleBackup = "";
-          }
           document
             .querySelector("main")
             ?.classList.remove("case-open-shake");
@@ -1085,11 +1110,6 @@ export function caseOpenMethods() {
       this.caseResultJackpotStyle = false;
       this._restoreCaseTheme();
 
-      if (this._caseTitleBackup) {
-        document.title = this._caseTitleBackup;
-        this._caseTitleBackup = "";
-      }
-
       document
         .querySelector("main")
         ?.classList.remove("case-open-shake");
@@ -1132,6 +1152,21 @@ function prefersReducedMotion() {
 }
 
 /**
+ * Profile store sections only — never infinite-scroll clones (they lack the source attr).
+ * @returns {HTMLElement[]}
+ */
+function collectSwappablePageBlocks() {
+  const source = document.querySelector("[data-infinite-source]");
+  if (!(source instanceof HTMLElement)) return [];
+  return [...source.querySelectorAll(":scope > .panel")].filter((el) => {
+    if (!(el instanceof HTMLElement)) return false;
+    if (el.classList.contains("mc-mined")) return false;
+    if (el.classList.contains("case-block-falling")) return false;
+    return el.getClientRects().length > 0;
+  });
+}
+
+/**
  * @returns {HTMLElement[]}
  */
 function collectResizableBlocks() {
@@ -1142,9 +1177,19 @@ function collectResizableBlocks() {
     if (el.closest?.(CASE_SIZE_EXCLUDE)) return false;
     if (el.classList.contains("mc-mined")) return false;
     if (el.classList.contains("case-block-falling")) return false;
-    if (el.classList.contains("case-block-resized")) return false;
     return el.getClientRects().length > 0;
   });
+}
+
+/**
+ * Current CSS scale for Size Chaos (defaults to 1).
+ * @param {HTMLElement} el
+ * @returns {number}
+ */
+function readCaseBlockScale(el) {
+  const raw = el.style.getPropertyValue("--case-block-scale").trim();
+  const n = Number.parseFloat(raw);
+  return Number.isFinite(n) && n > 0 ? n : 1;
 }
 
 /**

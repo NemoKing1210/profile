@@ -962,7 +962,7 @@ html.case-text-blind .case-rickroll {
 
 /* Screen shake on main / store shell */
 .case-open-shake {
-  animation: case-screen-shake 0.65s var(--ease);
+  animation: case-screen-shake 0.65s var(--ease) infinite;
 }
 
 @keyframes case-screen-shake {
@@ -1001,7 +1001,7 @@ html.case-text-blind .case-rickroll {
   bottom: -2rem;
   font-size: calc(1.4rem * var(--case-balloon-scale, 1));
   line-height: 1;
-  animation: case-balloon-rise 4s var(--ease) var(--case-balloon-delay, 0s)
+  animation: case-balloon-rise 9s var(--ease) var(--case-balloon-delay, 0s)
     forwards;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
 }

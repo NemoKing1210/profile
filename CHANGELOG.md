@@ -10,6 +10,52 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.68.7] — 2026-07-15
+
+### Changed
+
+- Case `profileTip` hints only locked achievements (`how`); leaves the loot pool once every achievement is unlocked
+
+## [1.68.6] — 2026-07-15
+
+### Changed
+
+- Case `blockResize` (Size Chaos) can keep scaling already-resized blocks; each hit multiplies scale with no cap
+
+## [1.68.5] — 2026-07-15
+
+### Changed
+
+- Case `lightFlash` (White Flash) leaves the loot pool after the light theme achievement is unlocked
+
+## [1.68.4] — 2026-07-15
+
+### Added
+
+- Case `blockSwap` reward: shuffles profile sections in the main store shell (infinite-scroll clones untouched)
+
+### Removed
+
+- Case `titleGlitch` reward (tab title seizure)
+
+## [1.68.3] — 2026-07-15
+
+### Changed
+
+- Case `alphabetCubes` scrolls to the hero only the first time per page load
+
+## [1.68.2] — 2026-07-15
+
+### Changed
+
+- Case `emojiBalloons`: more balloons (~22–33) and a longer ~10s float
+
+## [1.68.1] — 2026-07-15
+
+### Changed
+
+- Case `screenShake` reward lasts 10 seconds
+
 ### Fixed
 
 - Light theme: case opener card no longer picks up a muddy gold wash; reel stays a dark CS well instead of blending with page background

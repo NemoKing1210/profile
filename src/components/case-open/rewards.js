@@ -1,7 +1,14 @@
 /**
  * Weighted CS-style loot table for the profile case opener.
  * Weights sum to 100; jackpot 1%, fake jackpot 2%, rickroll 2%.
+ * Some drops leave the live pool after related unlocks (see `getActiveCaseRewards`).
  */
+
+import {
+  achievementsTotalCount,
+  achievementsUnlockedCount,
+  isAchievementUnlocked,
+} from "../../shared/data/achievements.js";
 
 /** @typedef {'consumer' | 'industrial' | 'milspec' | 'restricted' | 'classified' | 'covert' | 'gold'} CaseRarity */
 
@@ -34,7 +41,7 @@ export const CASE_REWARDS = Object.freeze([
   { id: "screenShake", rarity: "milspec", weight: 5, emoji: "💥" },
   { id: "siteLock", rarity: "classified", weight: 4, emoji: "🔒" },
   { id: "vacJoke", rarity: "classified", weight: 4, emoji: "🚫" },
-  { id: "titleGlitch", rarity: "industrial", weight: 4, emoji: "📺" },
+  { id: "blockSwap", rarity: "industrial", weight: 4, emoji: "🔀" },
   { id: "accentPulse", rarity: "consumer", weight: 4, emoji: "✨" },
   { id: "blockResize", rarity: "restricted", weight: 5, emoji: "📐" },
   { id: "textBlind", rarity: "classified", weight: 4, emoji: "👓" },
@@ -48,17 +55,54 @@ const REEL_GOLD_IDS = new Set(["caseJackpot", "fakeJackpot"]);
 
 const TOTAL_WEIGHT = CASE_REWARDS.reduce((sum, r) => sum + r.weight, 0);
 
-/** Total weight used by the roller (100 with the current table). */
+/** Total weight of the full catalog (before unlock-gated filters). */
 export const CASE_TOTAL_WEIGHT = TOTAL_WEIGHT;
 
 /**
- * Drop chance as a percentage (weights are tuned to sum ≈ 100).
- * @param {{ weight: number } | null | undefined} reward
+ * @param {CaseRewardDef} reward
+ * @returns {boolean}
+ */
+function isRewardInLivePool(reward) {
+  if (reward.id === "lightFlash" && isAchievementUnlocked("lightTheme")) {
+    return false;
+  }
+  if (
+    reward.id === "profileTip" &&
+    achievementsUnlockedCount() >= achievementsTotalCount()
+  ) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Live loot table — drops leave once their tease unlock is permanent.
+ * @returns {CaseRewardDef[]}
+ */
+export function getActiveCaseRewards() {
+  return CASE_REWARDS.filter(isRewardInLivePool);
+}
+
+/**
+ * @param {CaseRewardDef[]} [pool]
+ * @returns {number}
+ */
+function poolTotalWeight(pool = getActiveCaseRewards()) {
+  return pool.reduce((sum, r) => sum + r.weight, 0);
+}
+
+/**
+ * Drop chance as a percentage against the live (filtered) pool.
+ * @param {{ id?: string, weight: number } | null | undefined} reward
  * @returns {number}
  */
 export function getRewardChancePercent(reward) {
-  if (!reward || !TOTAL_WEIGHT) return 0;
-  return Math.round((reward.weight / TOTAL_WEIGHT) * 1000) / 10;
+  if (!reward) return 0;
+  const pool = getActiveCaseRewards();
+  const total = poolTotalWeight(pool);
+  if (!total) return 0;
+  if (reward.id && !pool.some((r) => r.id === reward.id)) return 0;
+  return Math.round((reward.weight / total) * 1000) / 10;
 }
 
 /** Floating emoji pool for balloon drops. */
@@ -81,12 +125,14 @@ export const BALLOON_EMOJIS = Object.freeze([
  * @returns {CaseRewardDef}
  */
 export function rollWeightedReward() {
-  let roll = Math.random() * TOTAL_WEIGHT;
-  for (const reward of CASE_REWARDS) {
+  const pool = getActiveCaseRewards();
+  const total = poolTotalWeight(pool);
+  let roll = Math.random() * total;
+  for (const reward of pool) {
     roll -= reward.weight;
     if (roll <= 0) return reward;
   }
-  return CASE_REWARDS[CASE_REWARDS.length - 1];
+  return pool[pool.length - 1] || CASE_REWARDS[CASE_REWARDS.length - 1];
 }
 
 /** Stable reward ids in catalog order (1-based console refs). */
@@ -102,14 +148,17 @@ export function getRewardById(id) {
 
 /**
  * Resolve reward from 1-based index, 0-based index, or id string.
+ * Index refs use the live pool so console numbers match `ids()`.
  * @param {string | number} ref
  * @returns {CaseRewardDef | null}
  */
 export function resolveRewardRef(ref) {
+  const pool = getActiveCaseRewards();
+
   if (typeof ref === "number" && Number.isFinite(ref)) {
-    const asOneBased = CASE_REWARDS[ref - 1];
+    const asOneBased = pool[ref - 1];
     if (asOneBased) return asOneBased;
-    const asZeroBased = CASE_REWARDS[ref];
+    const asZeroBased = pool[ref];
     if (asZeroBased && ref >= 0) return asZeroBased;
     return null;
   }
@@ -118,7 +167,10 @@ export function resolveRewardRef(ref) {
   if (!raw) return null;
 
   const byId = getRewardById(raw);
-  if (byId) return byId;
+  if (byId) {
+    // Force-by-id still works for debug even if filtered from the live pool.
+    return byId;
+  }
 
   const asNum = Number(raw);
   if (Number.isInteger(asNum)) return resolveRewardRef(asNum);
@@ -134,7 +186,8 @@ export function resolveRewardRef(ref) {
  * @returns {{ id: string, rarity: CaseRarity, emoji: string, win: boolean }[]}
  */
 export function buildReel(winner, length = 48, winIndex = 38) {
-  const decoys = CASE_REWARDS.filter((r) => !REEL_GOLD_IDS.has(r.id));
+  const pool = getActiveCaseRewards();
+  const decoys = pool.filter((r) => !REEL_GOLD_IDS.has(r.id));
   /** @type {{ id: string, rarity: CaseRarity, emoji: string, win: boolean }[]} */
   const items = [];
   const gold = CASE_REWARDS.find((r) => r.id === "caseJackpot");
@@ -164,7 +217,8 @@ export function buildReel(winner, length = 48, winIndex = 38) {
       });
       continue;
     }
-    const pick = decoys[Math.floor(Math.random() * decoys.length)];
+    const pick = decoys[Math.floor(Math.random() * decoys.length)] || pool[0];
+    if (!pick) continue;
     items.push({
       id: pick.id,
       rarity: pick.rarity,
