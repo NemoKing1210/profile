@@ -153,7 +153,7 @@ export default {
         effect: "名誉称号。You’re never gonna give this one up.",
       },
       caseJackpot: {
-        title: "Covert Drop",
+        title: "ゴールドドロップ",
         how: "My Steam 下のケースで 1% ジャックポットを当てる。",
         effect: "名誉称号。インベントリに自慢ネタができた。",
       },
@@ -305,10 +305,10 @@ export default {
     reelLabel: "ケースのアイテムリール",
     duplicateJackpot:
       "トレードアップ……重複品。実績はもうある。それでも自慢していい。",
-    jackpotLine: "Covert Drop！実績解除。仕事中にインベのスクショは禁止。",
+    jackpotLine: "ゴールドドロップ！実績解除。仕事中にインベのスクショは禁止。",
     fakeJackpotLine:
       "どっきり。装飾ゴールド——XPゼロ、実績ゼロ、塩分MAX。",
-    fakeJackpotNote: "サイコ——偽 Covert。紙吹雪は返金なし。",
+    fakeJackpotNote: "サイコ——偽ジャックポット。紙吹雪は返金なし。",
     confettiLine: "紙吹雪ストーム。FPS が感謝……それとも訴訟。",
     balloonLine: "絵文字バルーン発進。吸い込まないで。",
     shakeLine: "画面シェイクパック。地震計が困惑。",
@@ -333,7 +333,7 @@ export default {
     blockResizeFallback: "リサイズするものがない。グリッドはもう諦めた。",
     textBlindLine: "盲目モード。テキストはまだそこにある — 信じて。",
     tauntNoJackpot:
-      "へっ。まだ Covert Drop なし？ミッド帯の香り。回し続けて、観光客さん。",
+      "へっ。まだゴールドドロップなし？ミッド帯の香り。回し続けて、観光客さん。",
     tauntIncomplete:
       "かわいいトロフィー。残り実績も埋めて — 半分の棚は自慢にならない。",
     tauntComplete:
@@ -381,8 +381,8 @@ export default {
       "ヒント：スタックと旗を全部 hero に投げてコレクトトロフィー。",
     ],
     rewards: {
-      caseJackpot: "Covert Drop",
-      fakeJackpot: "偽 Covert",
+      caseJackpot: "ゴールドドロップ",
+      fakeJackpot: "偽ジャックポット",
       rickroll: "Rickroll",
       echoMidpath: "エコー中間",
       textCorrupt: "テキスト溶解",

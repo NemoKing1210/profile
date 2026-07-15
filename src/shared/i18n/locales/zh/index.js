@@ -150,7 +150,7 @@ export default {
         effect: "荣誉称号。You’re never gonna give this one up.",
       },
       caseJackpot: {
-        title: "Covert Drop",
+        title: "金色掉落",
         how: "在「我的 Steam」下方的箱子里砸中 1% 大奖。",
         effect: "荣誉称号。库存终于有东西可以秀了。",
       },
@@ -293,9 +293,9 @@ export default {
     reelLabel: "箱子物品转轮",
     duplicateJackpot:
       "炼金……炼出了重复。成就早就有了——照样能炫。",
-    jackpotLine: "Covert Drop！成就已解锁。上班别晒库存截图。",
+    jackpotLine: "金色掉落！成就已解锁。上班别晒库存截图。",
     fakeJackpotLine: "上当了。装饰用金牌——零经验、零成就、满级盐度。",
-    fakeJackpotNote: "心理战——假 Covert。彩带概不退款。",
+    fakeJackpotNote: "心理战——假大奖。彩带概不退款。",
     confettiLine: "彩带风暴。你的帧率在感谢……或起诉你。",
     balloonLine: "表情气球起飞。请勿吸入。",
     shakeLine: "屏幕抖动包。地震仪一脸懵。",
@@ -319,7 +319,7 @@ export default {
     blockResizeFallback: "没什么可缩放的。网格已经放弃了。",
     textBlindLine: "失明模式开启。文字还在——相信我。",
     tauntNoJackpot:
-      "呵。还没有 Covert Drop？中游段位气质。继续转吧，观光客。",
+      "呵。还没有金色掉落？中游段位气质。继续转吧，观光客。",
     tauntIncomplete:
       "奖杯挺可爱。其余成就补齐——半架子可吹不动。",
     tauntComplete:
@@ -367,8 +367,8 @@ export default {
       "提示：把整套技术栈和旗帜丢进 hero，可解锁收集奖杯。",
     ],
     rewards: {
-      caseJackpot: "Covert Drop",
-      fakeJackpot: "假 Covert",
+      caseJackpot: "金色掉落",
+      fakeJackpot: "假大奖",
       rickroll: "Rickroll",
       echoMidpath: "回声中点",
       textCorrupt: "文本融化",

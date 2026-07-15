@@ -154,7 +154,7 @@ export default {
         effect: "Honorary title. You’re never gonna give this one up.",
       },
       caseJackpot: {
-        title: "Covert Drop",
+        title: "Gold Drop",
         how: "Hit the 1% jackpot in the case under My Steam.",
         effect: "Honorary title. Your inventory just got bragging rights.",
       },
@@ -306,10 +306,10 @@ export default {
     reelLabel: "Case item reel",
     duplicateJackpot:
       "Trade-up complete… into a duplicate. Achievement already unlocked — flex anyway.",
-    jackpotLine: "Covert drop! Achievement unlocked. Don’t screenshot your inventory at work.",
+    jackpotLine: "Gold drop! Achievement unlocked. Don’t screenshot your inventory at work.",
     fakeJackpotLine:
       "Gotcha. Decorative gold — zero XP, zero achievement, maximum salt.",
-    fakeJackpotNote: "Psych — fake Covert. Confetti refunded nowhere.",
+    fakeJackpotNote: "Psych — fake jackpot. Confetti refunded nowhere.",
     confettiLine: "Confetti storm. Your FPS thanked you… or sued you.",
     balloonLine: "Emoji balloons inbound. Do not inhale.",
     shakeLine: "Screen shake package. Seismic sensors confused.",
@@ -334,7 +334,7 @@ export default {
     blockResizeFallback: "Nothing left to resize. The grid already gave up.",
     textBlindLine: "Blindness applied. The text is still there — trust me.",
     tauntNoJackpot:
-      "Heh. Still no Covert Drop? Peak mid-ladder energy. Keep spinning, tourist.",
+      "Heh. Still no Gold Drop? Peak mid-ladder energy. Keep spinning, tourist.",
     tauntIncomplete:
       "Cute trophy. Now finish the rest of the achievements — half a shelf isn’t a flex.",
     tauntComplete:
@@ -382,8 +382,8 @@ export default {
       "Tip: toss every stack and flag into the hero for a collection trophy.",
     ],
     rewards: {
-      caseJackpot: "Covert Drop",
-      fakeJackpot: "Fake Covert",
+      caseJackpot: "Gold Drop",
+      fakeJackpot: "Fake Jackpot",
       rickroll: "Rickroll",
       echoMidpath: "Mid-path Echo",
       textCorrupt: "Text Melt",

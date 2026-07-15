@@ -154,7 +154,7 @@ export default {
         effect: "Почесний титул. You’re never gonna give this one up.",
       },
       caseJackpot: {
-        title: "Covert Drop",
+        title: "Золотий дроп",
         how: "Вбий джекпот 1% у кейсі під блоком «Мій Steam».",
         effect: "Почесний титул. Інвентар тепер є чим хвалитися.",
       },
@@ -306,10 +306,10 @@ export default {
     reelLabel: "Стрічка предметів кейса",
     duplicateJackpot:
       "Trade-up… у дублікат. Досягнення вже є — але флекс ніхто не скасовував.",
-    jackpotLine: "Covert drop! Досягнення розблоковано. На роботі скрін інвентаря краще не кидати.",
+    jackpotLine: "Золотий дроп! Досягнення розблоковано. На роботі скрін інвентаря краще не кидати.",
     fakeJackpotLine:
       "Обманка. Декоративне золото — нуль XP, нуль ачівки, максимум солі.",
-    fakeJackpotNote: "Психіка — фейковий Covert. Конфеті ніхто не поверне.",
+    fakeJackpotNote: "Психіка — фейковий джекпот. Конфеті ніхто не поверне.",
     confettiLine: "Шторм конфетті. Твій FPS або дякує, або подає до суду.",
     balloonLine: "Кульки з емодзі на підльоті. Не вдихати.",
     shakeLine: "Пакет screen shake. Сейсмодатчики спантеличені.",
@@ -334,7 +334,7 @@ export default {
     blockResizeFallback: "Міняти розмір нікому. Сітка вже здалась.",
     textBlindLine: "Сліпота увімкнена. Текст досі там — повір.",
     tauntNoJackpot:
-      "Ха. Досі без Covert Drop? Класика мід-ладерного вайбу. Крути далі, туристе.",
+      "Ха. Досі без золотого дропа? Класика мід-ладерного вайбу. Крути далі, туристе.",
     tauntIncomplete:
       "Милий трофей. Тепер доб’й інші ачівки — полиця навпіл це не flex.",
     tauntComplete:
@@ -382,8 +382,8 @@ export default {
       "Підказка: закинь у hero весь стек і прапори — буде колекційний трофей.",
     ],
     rewards: {
-      caseJackpot: "Covert Drop",
-      fakeJackpot: "Фейковий Covert",
+      caseJackpot: "Золотий дроп",
+      fakeJackpot: "Фейковий джекпот",
       rickroll: "Рікрол",
       echoMidpath: "Середина луни",
       textCorrupt: "Плавлення тексту",

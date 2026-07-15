@@ -69,7 +69,7 @@ export function caseOpenState() {
     caseLockDigit1: "",
     caseLockError: false,
     caseLockFails: 0,
-    /** True while a bait Covert Drop still wears jackpot chrome. */
+    /** True while a bait gold drop still wears jackpot chrome. */
     caseResultJackpotStyle: false,
     _caseSpinTimer: 0,
     _caseSideTimers: /** @type {number[]} */ ([]),
@@ -297,15 +297,15 @@ export function caseOpenMethods() {
     },
 
     /**
-     * Looks like Covert Drop (reel + card + confetti), then flips to salt.
+     * Looks like Gold Drop (reel + card + confetti), then flips to salt.
      * @param {{ id: string, rarity: string, emoji: string, weight?: number }} winner
      */
     _rewardFakeJackpot(winner) {
       const jackpot = getRewardById("caseJackpot");
       const jackpotLabel =
-        this.t?.caseOpen?.rewards?.caseJackpot || "Covert Drop";
+        this.t?.caseOpen?.rewards?.caseJackpot || "Gold Drop";
       const fakeLabel =
-        this.t?.caseOpen?.rewards?.fakeJackpot || "Fake Covert";
+        this.t?.caseOpen?.rewards?.fakeJackpot || "Fake Jackpot";
       const note =
         this.t?.caseOpen?.fakeJackpotNote ||
         "Psych — decorative gold only. No achievement.";

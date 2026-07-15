@@ -10,11 +10,17 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.65.1] — 2026-07-15
+
+### Changed
+
+- Case jackpot copy: “Covert Drop” → localized “Gold Drop” / “Золотой дроп” (and equivalents)
+
 ## [1.65.0] — 2026-07-15
 
 ### Added
 
-- Case reward `taunt`: mocks missing Covert Drop / incomplete achievements, or gets sad if everything is unlocked
+- Case reward `taunt`: mocks a missing gold drop / incomplete achievements, or gets sad if everything is unlocked
 
 ## [1.64.0] — 2026-07-15
 

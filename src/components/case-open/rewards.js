@@ -17,7 +17,7 @@
 /** @type {readonly CaseRewardDef[]} */
 export const CASE_REWARDS = Object.freeze([
   { id: "caseJackpot", rarity: "gold", weight: 1, emoji: "🏆" },
-  /** Looks identical to Covert Drop on the reel; reveal is a bait-and-switch. */
+  /** Looks identical to Gold Drop on the reel; reveal is a bait-and-switch. */
   { id: "fakeJackpot", rarity: "gold", weight: 2, emoji: "🏆" },
   { id: "rickroll", rarity: "classified", weight: 2, emoji: "🎵" },
   { id: "echoMidpath", rarity: "classified", weight: 2, emoji: "∞" },

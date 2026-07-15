@@ -154,7 +154,7 @@ export default {
         effect: "Título honorífico. You’re never gonna give this one up.",
       },
       caseJackpot: {
-        title: "Covert Drop",
+        title: "Drop de oro",
         how: "Saca el jackpot del 1% en la caja bajo Mi Steam.",
         effect: "Título honorífico. Tu inventario ya tiene de qué alardear.",
       },
@@ -306,10 +306,10 @@ export default {
     reelLabel: "Cinta de objetos de la caja",
     duplicateJackpot:
       "Trade-up… a un duplicado. El logro ya está — luce igual.",
-    jackpotLine: "¡Covert drop! Logro desbloqueado. No enseñas el inventario en el trabajo.",
+    jackpotLine: "¡Drop de oro! Logro desbloqueado. No enseñas el inventario en el trabajo.",
     fakeJackpotLine:
       "Te pillé. Oro decorativo — cero XP, cero logro, máxima sal.",
-    fakeJackpotNote: "Psicología — Covert falso. El confeti no se reembolsa.",
+    fakeJackpotNote: "Psicología — jackpot falso. El confeti no se reembolsa.",
     confettiLine: "Tormenta de confeti. Tu FPS te agradece… o te demanda.",
     balloonLine: "Globos emoji en camino. No los inhales.",
     shakeLine: "Paquete de screen shake. Sensores sísmicos confusos.",
@@ -334,7 +334,7 @@ export default {
     blockResizeFallback: "Nada que redimensionar. La cuadrícula ya se rindió.",
     textBlindLine: "Ceguera aplicada. El texto sigue ahí — confía.",
     tauntNoJackpot:
-      "Je. ¿Todavía sin Covert Drop? Energía de liga media. Sigue girando, turista.",
+      "Je. ¿Todavía sin Drop de oro? Energía de liga media. Sigue girando, turista.",
     tauntIncomplete:
       "Bonito trofeo. Ahora completa el resto de logros — media estantería no es flex.",
     tauntComplete:
@@ -382,8 +382,8 @@ export default {
       "Consejo: tira al hero todo el stack y las banderas para un trofeo de colección.",
     ],
     rewards: {
-      caseJackpot: "Covert Drop",
-      fakeJackpot: "Covert falso",
+      caseJackpot: "Drop de oro",
+      fakeJackpot: "Jackpot falso",
       rickroll: "Rickroll",
       echoMidpath: "Eco a mitad",
       textCorrupt: "Texto derretido",

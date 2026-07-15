@@ -154,7 +154,7 @@ export default {
         effect: "Ehrentitel. You’re never gonna give this one up.",
       },
       caseJackpot: {
-        title: "Covert Drop",
+        title: "Gold-Drop",
         how: "Triff den 1%-Jackpot in der Kiste unter Mein Steam.",
         effect: "Ehrentitel. Dein Inventar hat jetzt Angeberrechte.",
       },
@@ -306,10 +306,10 @@ export default {
     reelLabel: "Item-Reel der Kiste",
     duplicateJackpot:
       "Trade-up… zum Duplikat. Achievement schon da — flex trotzdem.",
-    jackpotLine: "Covert Drop! Achievement freigeschaltet. Inventar-Screenshot besser nicht bei der Arbeit.",
+    jackpotLine: "Gold-Drop! Achievement freigeschaltet. Inventar-Screenshot besser nicht bei der Arbeit.",
     fakeJackpotLine:
       "Erwischt. Dekoratives Gold — null XP, null Achievement, maximaler Salzgehalt.",
-    fakeJackpotNote: "Psych — Fake-Covert. Konfetti gibt’s nicht zurück.",
+    fakeJackpotNote: "Psych — Fake-Jackpot. Konfetti gibt’s nicht zurück.",
     confettiLine: "Konfetti-Sturm. Deine FPS danken… oder verklagen dich.",
     balloonLine: "Emoji-Ballons im Anflug. Nicht einatmen.",
     shakeLine: "Screen-Shake-Paket. Seismografen verwirrt.",
@@ -334,7 +334,7 @@ export default {
     blockResizeFallback: "Nichts zum Skalieren. Das Raster hat schon aufgegeben.",
     textBlindLine: "Blindheit aktiv. Der Text ist noch da — vertrau mir.",
     tauntNoJackpot:
-      "Heh. Immer noch kein Covert Drop? Mid-Ladder-Energie. Weiterdrehen, Tourist.",
+      "Heh. Immer noch kein Gold-Drop? Mid-Ladder-Energie. Weiterdrehen, Tourist.",
     tauntIncomplete:
       "Süßer Pokal. Jetzt den Rest der Achievements — halb volles Board ist kein Flex.",
     tauntComplete:
@@ -382,8 +382,8 @@ export default {
       "Tipp: wirf jeden Stack und jede Flagge in den Hero für ein Sammler-Trophy.",
     ],
     rewards: {
-      caseJackpot: "Covert Drop",
-      fakeJackpot: "Fake-Covert",
+      caseJackpot: "Gold-Drop",
+      fakeJackpot: "Fake-Jackpot",
       rickroll: "Rickroll",
       echoMidpath: "Echo-Mitte",
       textCorrupt: "Textschmelze",
