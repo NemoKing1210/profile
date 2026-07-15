@@ -300,6 +300,7 @@ export default {
       restricted: "Restricted",
       classified: "Classified",
       covert: "Covert",
+      gold: "Extraordinary",
     },
     idleItem: "???",
     reelLabel: "Case item reel",

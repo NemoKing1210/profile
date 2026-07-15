@@ -300,6 +300,7 @@ export default {
       restricted: "Запрещённое",
       classified: "Засекреченное",
       covert: "Тайное",
+      gold: "Особое",
     },
     idleItem: "???",
     reelLabel: "Лента предметов кейса",

@@ -39,12 +39,12 @@
       class="case-open__track"
       :style="`transform: translate3d(${caseReelOffset}px, 0, 0); transition-duration: ${caseReelTransitionMs}ms;`"
     >
-      <template x-for="(item, index) in caseReelItems" :key="index">
+      <template x-for="(item, index) in caseReelItems" :key="`${index}-${item.id}-${item.rarity}`">
         <div
           class="case-open__item"
           :class="[
             `case-open__item--${item.rarity}`,
-            item.win && caseReelLanded && 'case-open__item--winner'
+            item.win && caseReelLanded ? 'case-open__item--winner' : ''
           ]"
           :data-win="item.win || null"
         >
@@ -77,8 +77,8 @@
         class="case-open__result"
         :class="[
           `case-open__result--${caseLastRarity}`,
-          caseResultJackpotStyle && 'case-open__result--jackpot',
-          caseLastRewardId === 'fakeJackpot' && !caseResultJackpotStyle && 'case-open__result--fakeout'
+          caseResultJackpotStyle ? 'case-open__result--jackpot' : '',
+          caseLastRewardId === 'fakeJackpot' && !caseResultJackpotStyle ? 'case-open__result--fakeout' : ''
         ]"
         :key="caseResultKey"
         role="status"

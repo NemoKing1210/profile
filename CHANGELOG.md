@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.63.4] — 2026-07-15
+
+### Fixed
+
+- Case opener: jackpot uses gold rarity color; Covert maps to red; reel snaps to the winner; Alpine no longer applies a stray `false` class
+
 ## [1.63.3] — 2026-07-15
 
 ### Changed

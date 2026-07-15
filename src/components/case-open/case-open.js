@@ -120,6 +120,15 @@ export function caseOpenMethods() {
         this._clearCaseSpinTimer();
         this._caseSpinTimer = window.setTimeout(() => {
           this._caseSpinTimer = 0;
+          // Snap dead-center after jitter so pointer rarity matches the result.
+          const exact =
+            -(
+              REEL_WIN_INDEX * REEL_ITEM_WIDTH -
+              (viewport?.clientWidth || viewportW) / 2 +
+              REEL_ITEM_WIDTH / 2
+            );
+          this.caseReelTransitionMs = reduced ? 0 : 160;
+          this.caseReelOffset = exact;
           this.caseReelLanded = true;
           this._finishCaseOpen(winner, event);
         }, duration + 40);
@@ -284,7 +293,7 @@ export function caseOpenMethods() {
       this._setCaseResult(
         {
           id: winner.id,
-          rarity: jackpot?.rarity || "covert",
+          rarity: jackpot?.rarity || "gold",
           emoji: jackpot?.emoji || "🏆",
         },
         jackpotLabel

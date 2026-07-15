@@ -300,6 +300,7 @@ export default {
       restricted: "Verboten",
       classified: "Geheim",
       covert: "Verdeckt",
+      gold: "Außergewöhnlich",
     },
     idleItem: "???",
     reelLabel: "Item-Reel der Kiste",

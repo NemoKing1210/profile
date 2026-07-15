@@ -287,6 +287,7 @@ export default {
       restricted: "受限",
       classified: "保密",
       covert: "隐秘",
+      gold: "非凡",
     },
     idleItem: "???",
     reelLabel: "箱子物品转轮",

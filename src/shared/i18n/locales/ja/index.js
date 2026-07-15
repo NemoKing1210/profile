@@ -299,6 +299,7 @@ export default {
       restricted: "制限",
       classified: "機密",
       covert: "隠密",
+      gold: "特別",
     },
     idleItem: "???",
     reelLabel: "ケースのアイテムリール",

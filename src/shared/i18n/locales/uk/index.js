@@ -300,6 +300,7 @@ export default {
       restricted: "Заборонене",
       classified: "Засекречене",
       covert: "Таємне",
+      gold: "Особливе",
     },
     idleItem: "???",
     reelLabel: "Стрічка предметів кейса",

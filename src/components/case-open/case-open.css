@@ -345,6 +345,9 @@
   --item-rarity: var(--case-classified);
 }
 .case-open__item--covert {
+  --item-rarity: var(--case-covert);
+}
+.case-open__item--gold {
   --item-rarity: var(--case-gold);
   background:
     linear-gradient(
@@ -543,7 +546,10 @@
 .case-open__result--classified {
   --result-rarity: var(--case-classified);
 }
-.case-open__result--covert,
+.case-open__result--covert {
+  --result-rarity: var(--case-covert);
+}
+.case-open__result--gold,
 .case-open__result--jackpot {
   --result-rarity: var(--case-gold);
 }

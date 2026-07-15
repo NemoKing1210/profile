@@ -3,7 +3,7 @@
  * Weights sum to 100; jackpot 1%, fake jackpot 2%, rickroll 2%.
  */
 
-/** @typedef {'consumer' | 'industrial' | 'milspec' | 'restricted' | 'classified' | 'covert'} CaseRarity */
+/** @typedef {'consumer' | 'industrial' | 'milspec' | 'restricted' | 'classified' | 'covert' | 'gold'} CaseRarity */
 
 /**
  * @typedef {{
@@ -16,9 +16,9 @@
 
 /** @type {readonly CaseRewardDef[]} */
 export const CASE_REWARDS = Object.freeze([
-  { id: "caseJackpot", rarity: "covert", weight: 1, emoji: "🏆" },
+  { id: "caseJackpot", rarity: "gold", weight: 1, emoji: "🏆" },
   /** Looks identical to Covert Drop on the reel; reveal is a bait-and-switch. */
-  { id: "fakeJackpot", rarity: "covert", weight: 2, emoji: "🏆" },
+  { id: "fakeJackpot", rarity: "gold", weight: 2, emoji: "🏆" },
   { id: "rickroll", rarity: "classified", weight: 2, emoji: "🎵" },
   { id: "echoMidpath", rarity: "classified", weight: 2, emoji: "∞" },
   { id: "textCorrupt", rarity: "classified", weight: 3, emoji: "░" },
@@ -106,7 +106,7 @@ export function buildReel(winner, length = 48, winIndex = 38) {
   /** @type {{ id: string, rarity: CaseRarity, emoji: string, win: boolean }[]} */
   const items = [];
   const gold = CASE_REWARDS.find((r) => r.id === "caseJackpot");
-  // Fake jackpot uses the real Covert skin on the strip.
+  // Fake jackpot uses the real gold jackpot skin on the strip.
   const winSkin =
     winner.id === "fakeJackpot" && gold
       ? { id: winner.id, rarity: gold.rarity, emoji: gold.emoji }

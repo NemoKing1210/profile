@@ -300,6 +300,7 @@ export default {
       restricted: "Restringido",
       classified: "Clasificado",
       covert: "Encubierto",
+      gold: "Extraordinario",
     },
     idleItem: "???",
     reelLabel: "Cinta de objetos de la caja",
