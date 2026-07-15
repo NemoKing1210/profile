@@ -153,11 +153,8 @@
 
 .case-open__item {
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.2rem;
+  display: grid;
+  place-items: center;
   flex: 0 0 112px;
   width: 112px;
   padding: 0.45rem 0.35rem;
@@ -201,23 +198,8 @@
 }
 
 .case-open__item-emoji {
-  font-size: 1.45rem;
+  font-size: 1.65rem;
   line-height: 1;
-}
-
-.case-open__item-label {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 0 0.2rem;
-  color: var(--text);
-  font-family: var(--font-display);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-align: center;
 }
 
 .case-open__actions {

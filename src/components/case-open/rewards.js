@@ -1,6 +1,6 @@
 /**
  * Weighted CS-style loot table for the profile case opener.
- * Weights sum to 100; jackpot is fixed at 1%.
+ * Weights sum to 100; jackpot 1%, rickroll 2%.
  */
 
 /** @typedef {'consumer' | 'industrial' | 'milspec' | 'restricted' | 'classified' | 'covert'} CaseRarity */
@@ -17,16 +17,19 @@
 /** @type {readonly CaseRewardDef[]} */
 export const CASE_REWARDS = Object.freeze([
   { id: "caseJackpot", rarity: "covert", weight: 1, emoji: "🏆" },
-  { id: "confetti", rarity: "restricted", weight: 14, emoji: "🎉" },
-  { id: "emojiBalloons", rarity: "milspec", weight: 12, emoji: "🎈" },
-  { id: "progFact", rarity: "industrial", weight: 14, emoji: "💡" },
-  { id: "screenShake", rarity: "milspec", weight: 8, emoji: "💥" },
-  { id: "heroSpawn", rarity: "restricted", weight: 10, emoji: "⚛️" },
-  { id: "vacJoke", rarity: "classified", weight: 6, emoji: "🚫" },
-  { id: "titleGlitch", rarity: "industrial", weight: 7, emoji: "📺" },
-  { id: "accentPulse", rarity: "consumer", weight: 8, emoji: "✨" },
-  { id: "emptyCase", rarity: "consumer", weight: 10, emoji: "📦" },
-  { id: "profileTip", rarity: "industrial", weight: 10, emoji: "🗺️" },
+  { id: "rickroll", rarity: "classified", weight: 2, emoji: "🎵" },
+  { id: "localeSwitch", rarity: "restricted", weight: 9, emoji: "🌐" },
+  { id: "lightFlash", rarity: "milspec", weight: 8, emoji: "☀️" },
+  { id: "confetti", rarity: "restricted", weight: 12, emoji: "🎉" },
+  { id: "emojiBalloons", rarity: "milspec", weight: 10, emoji: "🎈" },
+  { id: "progFact", rarity: "industrial", weight: 11, emoji: "💡" },
+  { id: "screenShake", rarity: "milspec", weight: 7, emoji: "💥" },
+  { id: "heroSpawn", rarity: "restricted", weight: 8, emoji: "⚛️" },
+  { id: "vacJoke", rarity: "classified", weight: 5, emoji: "🚫" },
+  { id: "titleGlitch", rarity: "industrial", weight: 5, emoji: "📺" },
+  { id: "accentPulse", rarity: "consumer", weight: 6, emoji: "✨" },
+  { id: "emptyCase", rarity: "consumer", weight: 8, emoji: "📦" },
+  { id: "profileTip", rarity: "industrial", weight: 8, emoji: "🗺️" },
 ]);
 
 const TOTAL_WEIGHT = CASE_REWARDS.reduce((sum, r) => sum + r.weight, 0);
@@ -78,6 +81,7 @@ export function buildReel(winner, length = 48, winIndex = 38) {
   const decoys = CASE_REWARDS.filter((r) => r.id !== "caseJackpot");
   /** @type {{ id: string, rarity: CaseRarity, emoji: string, win: boolean }[]} */
   const items = [];
+  const gold = CASE_REWARDS.find((r) => r.id === "caseJackpot");
 
   for (let i = 0; i < length; i++) {
     if (i === winIndex) {
@@ -90,8 +94,7 @@ export function buildReel(winner, length = 48, winIndex = 38) {
       continue;
     }
     // Rare gold tease slots (not the actual winner).
-    if (i !== winIndex && Math.random() < 0.04) {
-      const gold = CASE_REWARDS[0];
+    if (gold && Math.random() < 0.04) {
       items.push({
         id: gold.id,
         rarity: gold.rarity,

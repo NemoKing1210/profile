@@ -19,6 +19,9 @@ const VAC_MS = 2800;
 const SHAKE_MS = 700;
 const ACCENT_MS = 1600;
 const BALLOON_LIFE_MS = 4200;
+const LIGHT_FLASH_MS = 5000;
+/** Match topbar `--theme-duration`. */
+const THEME_FADE_MS = 320;
 
 /**
  * @returns {Record<string, unknown>}
@@ -42,6 +45,8 @@ export function caseOpenState() {
     _caseSideTimers: /** @type {number[]} */ ([]),
     _caseTitleBackup: "",
     _caseBalloonRoot: /** @type {HTMLElement | null} */ (null),
+    /** @type {boolean | null} previous themeLight while a flash is active */
+    _caseThemeRestore: null,
   };
 }
 
@@ -148,6 +153,15 @@ export function caseOpenMethods() {
           break;
         case "profileTip":
           this._rewardProfileTip();
+          break;
+        case "localeSwitch":
+          this._rewardLocaleSwitch();
+          break;
+        case "lightFlash":
+          this._rewardLightFlash();
+          break;
+        case "rickroll":
+          this._rewardRickroll();
           break;
         default:
           break;
@@ -291,6 +305,55 @@ export function caseOpenMethods() {
       this.showSpeech?.(tip, { holdMs: 6500 });
     },
 
+    _rewardLocaleSwitch() {
+      const current = this.locale;
+      const codes = (this.localeList || [])
+        .map((item) => item.code)
+        .filter((code) => code && code !== current);
+
+      if (!codes.length) {
+        this.showSpeechI18n?.("caseOpen.localeFallback", { holdMs: 4500 });
+        return;
+      }
+
+      const next = codes[Math.floor(Math.random() * codes.length)];
+      // Celebrate: flag spawn + ui.langSwitched tip (blur commits locale mid-animation).
+      this.setLocale?.(next, { celebrate: true });
+    },
+
+    _rewardLightFlash() {
+      if (this._caseThemeRestore === null) {
+        this._caseThemeRestore = Boolean(this.themeLight);
+      }
+
+      if (!this.themeLight) {
+        this._beginThemeSwitch?.(THEME_FADE_MS);
+        this.themeLight = true;
+        this._syncThemeColorMeta?.();
+      }
+
+      this._pushCaseTimer(() => {
+        this._restoreCaseTheme();
+      }, LIGHT_FLASH_MS);
+
+      this.showSpeechI18n?.("caseOpen.lightFlashLine", { holdMs: 5000 });
+    },
+
+    _restoreCaseTheme() {
+      if (this._caseThemeRestore === null) return;
+      const previous = this._caseThemeRestore;
+      this._caseThemeRestore = null;
+      if (this.themeLight === previous) return;
+      this._beginThemeSwitch?.(THEME_FADE_MS);
+      this.themeLight = previous;
+      this._syncThemeColorMeta?.();
+    },
+
+    _rewardRickroll() {
+      this.onBugReportClick?.();
+      this.showSpeechI18n?.("caseOpen.rickrollLine", { holdMs: 6000 });
+    },
+
     /** @param {number} count */
     _spawnCaseBalloons(count) {
       this._ensureBalloonRoot();
@@ -350,6 +413,7 @@ export function caseOpenMethods() {
         window.clearTimeout(id);
       }
       this._caseSideTimers = [];
+      this._restoreCaseTheme();
 
       if (this._caseTitleBackup) {
         document.title = this._caseTitleBackup;

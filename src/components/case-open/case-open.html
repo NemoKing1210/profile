@@ -36,16 +36,11 @@
           :data-win="item.win || null"
         >
           <span class="case-open__item-emoji" x-text="item.emoji"></span>
-          <span
-            class="case-open__item-label"
-            x-text="t.caseOpen.rewards[item.id] || item.id"
-          ></span>
         </div>
       </template>
       <template x-if="!caseReelItems.length">
         <div class="case-open__item case-open__item--idle">
           <span class="case-open__item-emoji">📦</span>
-          <span class="case-open__item-label" x-text="t.caseOpen.idleItem"></span>
         </div>
       </template>
     </div>
