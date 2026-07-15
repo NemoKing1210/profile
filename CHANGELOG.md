@@ -10,6 +10,24 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.68.11] — 2026-07-15
+
+### Changed
+
+- Case `textBlind` lasts 15 seconds; a second Blindness drop while already blind cures it early
+
+## [1.68.10] — 2026-07-15
+
+### Changed
+
+- Case “Open case” press: slam squash/pop, click ripple, sparks, and a short confetti burst
+
+## [1.68.9] — 2026-07-15
+
+### Added
+
+- Case “Open case” button: gold breathe, sheen sweep, and stronger hover glow (respects reduced motion)
+
 ## [1.68.8] — 2026-07-15
 
 ### Added

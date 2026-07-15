@@ -41,7 +41,8 @@ const FAKE_JACKPOT_REVEAL_MS = 2400;
 const FAKE_JACKPOT_REVEAL_REDUCED_MS = 900;
 const BLOCK_RESIZE_MIN = 50;
 const BLOCK_RESIZE_MAX = 100;
-const TEXT_BLIND_MS = 30_000;
+const TEXT_BLIND_MS = 15_000;
+const CTA_SLAM_MS = 520;
 
 /** Prefer UI shells that look funny when scaled (mirrors minecraft preferred set). */
 const CASE_SIZE_TARGETS =
@@ -78,6 +79,8 @@ export function caseOpenState() {
     caseLockFails: 0,
     /** True while a bait gold drop still wears jackpot chrome. */
     caseResultJackpotStyle: false,
+    /** Brief slam animation on the open-case CTA. */
+    caseCtaSlam: false,
     caseRickrollOpen: false,
     caseRickrollEmbedUrl: "",
     caseRickrollWatchUrl: BUG_REPORT_RICKROLL_URL,
@@ -88,6 +91,7 @@ export function caseOpenState() {
     _caseThemeRestore: null,
     _caseLockFocusTimer: 0,
     _caseFakeoutTimer: 0,
+    _caseTextBlindTimer: 0,
     /** @type {HTMLElement[]} */
     _caseResizedBlocks: [],
     /** Hero scroll for alphabet cubes — only once per page load. */
@@ -122,6 +126,8 @@ export function caseOpenMethods() {
      */
     _startCaseOpen(winner, event) {
       if (this.caseOpening) return false;
+
+      this._punchCaseCta(event);
 
       this.caseOpening = true;
       this.caseReelLanded = false;
@@ -420,11 +426,30 @@ export function caseOpenMethods() {
     },
 
     _rewardTextBlind() {
+      if (document.documentElement.classList.contains("case-text-blind")) {
+        this._clearCaseTextBlind();
+        this.showSpeechI18n?.("caseOpen.textBlindCureLine", { holdMs: 5000 });
+        return;
+      }
+
       document.documentElement.classList.add("case-text-blind");
       this.showSpeechI18n?.("caseOpen.textBlindLine", { holdMs: 6000 });
-      this._pushCaseTimer(() => {
+      this._clearCaseTextBlindTimer();
+      this._caseTextBlindTimer = window.setTimeout(() => {
+        this._caseTextBlindTimer = 0;
         document.documentElement.classList.remove("case-text-blind");
       }, TEXT_BLIND_MS);
+    },
+
+    _clearCaseTextBlindTimer() {
+      if (!this._caseTextBlindTimer) return;
+      window.clearTimeout(this._caseTextBlindTimer);
+      this._caseTextBlindTimer = 0;
+    },
+
+    _clearCaseTextBlind() {
+      this._clearCaseTextBlindTimer();
+      document.documentElement.classList.remove("case-text-blind");
     },
 
     /**
@@ -927,6 +952,68 @@ export function caseOpenMethods() {
       this._caseBalloonRoot = root;
     },
 
+    /**
+     * Satisfying CTA slam: squash, ripple, sparks, brief gold confetti.
+     * @param {Event} [event]
+     */
+    _punchCaseCta(event) {
+      this.caseCtaSlam = true;
+      this._pushCaseTimer(() => {
+        this.caseCtaSlam = false;
+      }, CTA_SLAM_MS);
+
+      const btn = this.$refs.caseOpenCta;
+      if (!(btn instanceof HTMLElement)) return;
+
+      const rect = btn.getBoundingClientRect();
+      const hasPoint =
+        event &&
+        "clientX" in event &&
+        typeof event.clientX === "number" &&
+        Number.isFinite(event.clientX);
+      const localX = hasPoint
+        ? Math.min(rect.width, Math.max(0, event.clientX - rect.left))
+        : rect.width / 2;
+      const localY = hasPoint
+        ? Math.min(rect.height, Math.max(0, event.clientY - rect.top))
+        : rect.height / 2;
+      const originX = hasPoint ? event.clientX : rect.left + rect.width / 2;
+      const originY = hasPoint ? event.clientY : rect.top + rect.height / 2;
+
+      burstConfettiAt(originX, originY, { count: 42 });
+
+      if (prefersReducedMotion()) return;
+
+      const ripple = document.createElement("span");
+      ripple.className = "case-open__cta-ripple";
+      ripple.style.left = `${localX}px`;
+      ripple.style.top = `${localY}px`;
+      ripple.setAttribute("aria-hidden", "true");
+      btn.appendChild(ripple);
+
+      const wrap = btn.parentElement;
+      if (wrap instanceof HTMLElement) {
+        for (let i = 0; i < 8; i += 1) {
+          const spark = document.createElement("span");
+          spark.className = "case-open__cta-spark";
+          spark.style.setProperty("--case-spark-i", String(i));
+          spark.style.setProperty(
+            "--case-spark-angle",
+            `${(360 / 8) * i + (Math.random() * 18 - 9)}deg`
+          );
+          spark.style.setProperty(
+            "--case-spark-dist",
+            `${28 + Math.random() * 22}px`
+          );
+          spark.setAttribute("aria-hidden", "true");
+          wrap.appendChild(spark);
+          this._pushCaseTimer(() => spark.remove(), CTA_SLAM_MS);
+        }
+      }
+
+      this._pushCaseTimer(() => ripple.remove(), CTA_SLAM_MS);
+    },
+
     /** @param {() => void} fn @param {number} ms */
     _pushCaseTimer(fn, ms) {
       const id = window.setTimeout(fn, ms);
@@ -1064,6 +1151,7 @@ export function caseOpenMethods() {
             "case-text-blind",
             "case-dizziness"
           );
+          this._clearCaseTextBlind();
           this._clearCaseResizedBlocks();
           if (this._caseLockFocusTimer) {
             window.clearTimeout(this._caseLockFocusTimer);
@@ -1124,6 +1212,7 @@ export function caseOpenMethods() {
       this.caseOpening = false;
       document.documentElement.classList.remove("case-text-corrupt");
       document.documentElement.classList.remove("case-text-blind");
+      this._clearCaseTextBlind();
       this._clearCaseResizedBlocks();
       if (this._caseLockFocusTimer) {
         window.clearTimeout(this._caseLockFocusTimer);

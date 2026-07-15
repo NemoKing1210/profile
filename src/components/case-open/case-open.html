@@ -61,16 +61,21 @@
   </div>
 
   <div class="case-open__actions">
-    <button
-      type="button"
-      class="btn btn--primary case-open__cta"
-      :disabled="caseOpening"
-      @click="openCase($event)"
-    >
-      <span
-        x-text="caseOpening ? t.caseOpen.opening : t.caseOpen.open"
-      ></span>
-    </button>
+    <div class="case-open__cta-wrap">
+      <button
+        type="button"
+        class="btn btn--primary case-open__cta"
+        :class="{ 'case-open__cta--slam': caseCtaSlam }"
+        x-ref="caseOpenCta"
+        :disabled="caseOpening"
+        @click="openCase($event)"
+      >
+        <span
+          class="case-open__cta-label"
+          x-text="caseOpening ? t.caseOpen.opening : t.caseOpen.open"
+        ></span>
+      </button>
+    </div>
 
     <template x-if="caseResultText">
       <div

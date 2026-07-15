@@ -326,7 +326,8 @@ export default {
     dizzyLine: "眩晕永久开启。抓紧面板——或者慢慢习惯。",
     blockResizeLine: "布局发疯了：几十个区块重新发明了尺寸。",
     blockResizeFallback: "没什么可缩放的。网格已经放弃了。",
-    textBlindLine: "失明模式 30 秒。文字还在——相信我。",
+    textBlindLine: "失明模式 15 秒。文字还在——相信我。",
+    textBlindCureLine: "找到眼镜了。失明解除——欢迎回来，眼睛。",
     tauntNoJackpot:
       "呵。还没有金色掉落？中游段位气质。继续转吧，观光客。",
     tauntIncomplete:

@@ -342,7 +342,8 @@ export default {
     dizzyLine: "Vertigo locked on. Hold a panel — or learn to love the sway.",
     blockResizeLine: "Layout went feral: dozens of blocks reinvented their size.",
     blockResizeFallback: "Nothing left to resize. The grid already gave up.",
-    textBlindLine: "Blindness applied for 30 seconds. The text is still there — trust me.",
+    textBlindLine: "Blindness applied for 15 seconds. The text is still there — trust me.",
+    textBlindCureLine: "Glasses found. Blindness cancelled — welcome back, eyes.",
     tauntNoJackpot:
       "Heh. Still no Gold Drop? Peak mid-ladder energy. Keep spinning, tourist.",
     tauntIncomplete:

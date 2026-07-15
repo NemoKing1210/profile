@@ -341,7 +341,8 @@ export default {
     dizzyLine: "めまい永久モード。パネルにしがみついて — 慣れるか選んで。",
     blockResizeLine: "レイアウトが暴れた。何十ものブロックがサイズを再発明。",
     blockResizeFallback: "リサイズするものがない。グリッドはもう諦めた。",
-    textBlindLine: "盲目モード 30 秒。テキストはまだそこにある — 信じて。",
+    textBlindLine: "盲目モード 15 秒。テキストはまだそこにある — 信じて。",
+    textBlindCureLine: "メガネ発見。盲目解除 — おかえり、目よ。",
     tauntNoJackpot:
       "へっ。まだゴールドドロップなし？ミッド帯の香り。回し続けて、観光客さん。",
     tauntIncomplete:

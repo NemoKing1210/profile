@@ -342,7 +342,8 @@ export default {
     dizzyLine: "Vértigo permanente. Agárrate a un panel — o acostúmbrate.",
     blockResizeLine: "El layout se volvió loco: decenas de bloques reinventaron su tamaño.",
     blockResizeFallback: "Nada que redimensionar. La cuadrícula ya se rindió.",
-    textBlindLine: "Ceguera durante 30 segundos. El texto sigue ahí — confía.",
+    textBlindLine: "Ceguera durante 15 segundos. El texto sigue ahí — confía.",
+    textBlindCureLine: "Gafas encontradas. Ceguera cancelada — bienvenidos de nuevo, ojos.",
     tauntNoJackpot:
       "Je. ¿Todavía sin Drop de oro? Energía de liga media. Sigue girando, turista.",
     tauntIncomplete:

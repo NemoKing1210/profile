@@ -342,7 +342,8 @@ export default {
     dizzyLine: "Schwindel permanent. Halt ein Panel — oder gewöhn dich dran.",
     blockResizeLine: "Layout außer Kontrolle: Dutzende Blöcke haben ihre Größe neu erfunden.",
     blockResizeFallback: "Nichts zum Skalieren. Das Raster hat schon aufgegeben.",
-    textBlindLine: "Blindheit für 30 Sekunden. Der Text ist noch da — vertrau mir.",
+    textBlindLine: "Blindheit für 15 Sekunden. Der Text ist noch da — vertrau mir.",
+    textBlindCureLine: "Brille gefunden. Blindheit aufgehoben — willkommen zurück, Augen.",
     tauntNoJackpot:
       "Heh. Immer noch kein Gold-Drop? Mid-Ladder-Energie. Weiterdrehen, Tourist.",
     tauntIncomplete:
