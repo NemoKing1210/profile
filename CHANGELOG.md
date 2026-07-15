@@ -10,6 +10,13 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.61.0] — 2026-07-15
+
+### Added
+
+- CS-style case opener under My Steam (weighted reel, joke drops, 1% Covert Drop achievement)
+- New achievement `caseJackpot` (Covert Drop)
+
 ## [1.60.0] — 2026-07-15
 
 ### Changed

@@ -33,6 +33,10 @@ import {
   achievementsState,
 } from "../components/achievements/index.js";
 import { interestsViewMethods } from "../components/interests/index.js";
+import {
+  caseOpenMethods,
+  caseOpenState,
+} from "../components/case-open/index.js";
 import { linksViewMethods } from "../components/links/index.js";
 import {
   minecraftMineMethods,
@@ -69,6 +73,7 @@ export function createProfilePage() {
       ...echoFinaleState(),
       ...footerState(),
       ...achievementsState(),
+      ...caseOpenState(),
       ...stackFlipState(),
       ...heroSpeechState(),
       localeList,
@@ -158,6 +163,7 @@ export function createProfilePage() {
         this.destroyFooterEaster();
         this.destroyAboutActivity();
         this.destroyMinecraftMine();
+        this.destroyCaseOpen?.();
         this.destroyAchievements?.();
       },
     },
@@ -173,6 +179,7 @@ export function createProfilePage() {
 
       ...Object.getOwnPropertyDescriptors(footerMethods()),
       ...Object.getOwnPropertyDescriptors(achievementsMethods()),
+      ...Object.getOwnPropertyDescriptors(caseOpenMethods()),
       ...Object.getOwnPropertyDescriptors(stackFlipMethods()),
       ...Object.getOwnPropertyDescriptors(stackViewMethods()),
       ...Object.getOwnPropertyDescriptors(heroSpeechMethods()),

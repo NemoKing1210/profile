@@ -17,6 +17,7 @@ export const ACHIEVEMENT_IDS = Object.freeze([
   "foundFooter",
   "spawnCollector",
   "rickroll",
+  "caseJackpot",
 ]);
 
 /** Heroicon key per achievement (see `shared/data/heroicons.js`). */
@@ -29,6 +30,7 @@ export const ACHIEVEMENT_ICONS = Object.freeze({
   foundFooter: "mapPin",
   spawnCollector: "sparkles",
   rickroll: "faceSmile",
+  caseJackpot: "trophy",
 });
 
 

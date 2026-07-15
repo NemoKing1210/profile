@@ -1,0 +1,114 @@
+<aside
+  class="case-open"
+  :class="{ 'case-open--pulse': caseAccentPulse }"
+  aria-labelledby="case-open-title"
+  x-ref="caseOpenRoot"
+>
+  <div class="case-open__glow" aria-hidden="true"></div>
+
+  <div class="case-open__head">
+    <div class="case-open__copy">
+      <p class="case-open__eyebrow" x-text="t.caseOpen.eyebrow"></p>
+      <h3
+        class="case-open__title"
+        id="case-open-title"
+        x-text="t.caseOpen.title"
+      ></h3>
+      <p class="case-open__blurb" x-text="t.caseOpen.blurb"></p>
+    </div>
+  </div>
+
+  <div
+    class="case-open__reel"
+    x-ref="caseReelViewport"
+    role="img"
+    :aria-label="t.caseOpen.reelLabel"
+  >
+    <div class="case-open__pointer" aria-hidden="true"></div>
+    <div
+      class="case-open__track"
+      :style="`transform: translate3d(${caseReelOffset}px, 0, 0); transition-duration: ${caseReelTransitionMs}ms;`"
+    >
+      <template x-for="(item, index) in caseReelItems" :key="index">
+        <div
+          class="case-open__item"
+          :class="`case-open__item--${item.rarity}`"
+          :data-win="item.win || null"
+        >
+          <span class="case-open__item-emoji" x-text="item.emoji"></span>
+          <span
+            class="case-open__item-label"
+            x-text="t.caseOpen.rewards[item.id] || item.id"
+          ></span>
+        </div>
+      </template>
+      <template x-if="!caseReelItems.length">
+        <div class="case-open__item case-open__item--idle">
+          <span class="case-open__item-emoji">📦</span>
+          <span class="case-open__item-label" x-text="t.caseOpen.idleItem"></span>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="case-open__actions">
+    <button
+      type="button"
+      class="btn btn--primary case-open__cta"
+      :disabled="caseOpening"
+      @click="openCase($event)"
+    >
+      <span
+        x-text="caseOpening ? t.caseOpen.opening : t.caseOpen.open"
+      ></span>
+    </button>
+
+    <template x-if="caseResultText">
+      <div
+        class="case-open__result"
+        :class="[
+          `case-open__result--${caseLastRarity}`,
+          caseLastRewardId === 'caseJackpot' && 'case-open__result--jackpot'
+        ]"
+        :key="caseResultKey"
+        role="status"
+        aria-live="polite"
+        :aria-label="caseResultText"
+      >
+        <span class="case-open__result-glow" aria-hidden="true"></span>
+        <span
+          class="case-open__result-emoji"
+          aria-hidden="true"
+          x-text="caseLastEmoji"
+        ></span>
+        <div class="case-open__result-copy">
+          <p
+            class="case-open__result-eyebrow"
+            x-text="t.caseOpen.resultEyebrow"
+          ></p>
+          <p
+            class="case-open__result-title"
+            x-text="caseResultLabel"
+          ></p>
+          <p
+            class="case-open__result-note"
+            x-show="caseResultNote"
+            x-text="caseResultNote"
+          ></p>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <div
+    class="case-open__vac"
+    x-show="caseVacOpen"
+    x-cloak
+    role="status"
+    aria-live="assertive"
+  >
+    <p class="case-open__vac-eyebrow" x-text="t.caseOpen.vacEyebrow"></p>
+    <p class="case-open__vac-title" x-text="t.caseOpen.vacTitle"></p>
+    <p class="case-open__vac-body" x-text="t.caseOpen.vacBody"></p>
+  </div>
+</aside>

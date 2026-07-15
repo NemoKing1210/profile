@@ -10,6 +10,7 @@ import "./components/about/index.js";
 import "./components/stack/index.js";
 import "./components/projects/index.js";
 import "./components/interests/index.js";
+import "./components/case-open/index.js";
 import "./components/links/index.js";
 import "./components/comments/index.js";
 import "./components/footer/index.js";
