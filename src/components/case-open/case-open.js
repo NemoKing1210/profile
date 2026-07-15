@@ -33,6 +33,7 @@ const ALPHABET_CUBE_COUNT = 14;
 export function caseOpenState() {
   return {
     caseOpening: false,
+    caseReelLanded: false,
     caseReelItems: [],
     caseReelOffset: 0,
     caseReelTransitionMs: 0,
@@ -64,6 +65,7 @@ export function caseOpenMethods() {
       if (this.caseOpening) return;
 
       this.caseOpening = true;
+      this.caseReelLanded = false;
       this.caseResultText = "";
       this.caseResultLabel = "";
       this.caseResultNote = "";
@@ -103,6 +105,7 @@ export function caseOpenMethods() {
         this._clearCaseSpinTimer();
         this._caseSpinTimer = window.setTimeout(() => {
           this._caseSpinTimer = 0;
+          this.caseReelLanded = true;
           this._finishCaseOpen(winner, event);
         }, duration + 40);
       });
@@ -132,6 +135,9 @@ export function caseOpenMethods() {
           return;
         case "socialCredit":
           this._rewardSocialCredit();
+          break;
+        case "dizziness":
+          this._rewardDizziness();
           break;
         case "confetti":
           this._rewardConfetti(event);
@@ -249,6 +255,12 @@ export function caseOpenMethods() {
     _rewardSocialCredit() {
       this._triggerSocialCreditReward?.();
       this.showSpeechI18n?.("caseOpen.socialCreditLine", { holdMs: 5500 });
+    },
+
+    _rewardDizziness() {
+      // Stays on until reload — intentional “permanent” vertigo drop.
+      document.documentElement.classList.add("case-dizziness");
+      this.showSpeechI18n?.("caseOpen.dizzyLine", { holdMs: 5500 });
     },
 
     _rewardConfetti(event) {

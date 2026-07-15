@@ -1,6 +1,10 @@
 <aside
   class="case-open"
-  :class="{ 'case-open--pulse': caseAccentPulse }"
+  :class="{
+    'case-open--pulse': caseAccentPulse,
+    'case-open--spinning': caseOpening,
+    'case-open--landed': caseReelLanded && !caseOpening
+  }"
   aria-labelledby="case-open-title"
   x-ref="caseOpenRoot"
 >
@@ -20,10 +24,16 @@
 
   <div
     class="case-open__reel"
+    :class="{
+      'case-open__reel--spinning': caseOpening,
+      'case-open__reel--landed': caseReelLanded
+    }"
     x-ref="caseReelViewport"
     role="img"
     :aria-label="t.caseOpen.reelLabel"
   >
+    <div class="case-open__reel-shine" aria-hidden="true"></div>
+    <div class="case-open__reel-spark" aria-hidden="true"></div>
     <div class="case-open__pointer" aria-hidden="true"></div>
     <div
       class="case-open__track"
@@ -32,9 +42,13 @@
       <template x-for="(item, index) in caseReelItems" :key="index">
         <div
           class="case-open__item"
-          :class="`case-open__item--${item.rarity}`"
+          :class="[
+            `case-open__item--${item.rarity}`,
+            item.win && caseReelLanded && 'case-open__item--winner'
+          ]"
           :data-win="item.win || null"
         >
+          <span class="case-open__item-glow" aria-hidden="true"></span>
           <span class="case-open__item-emoji" x-text="item.emoji"></span>
         </div>
       </template>
