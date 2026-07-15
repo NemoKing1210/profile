@@ -21,6 +21,7 @@ Update **both** when cutting a release.
 - Joke avatar tip on muted About badge «Backend по делу» (server lights off / i18n); other badges glow on hover like bulbs, Backend stays dark
 - `achievement.addAll()` console helper grants every achievement (no toast spam)
 - Shared Steam-style scrollbars (dark track / beveled thumb, light-theme tokens)
+- Avatar speech queue: timed lines wait their turn (no interrupt / no duplicate identities)
 - Avatar tip after 90s on the site if no achievements yet («А ты знал, что на сайте есть достижения?» / i18n)
 - Achievement «Full Spawn» / «Полный спавн»: spawn every language flag, avatar, stack tech, and AI tool — effect auto-drops missing ones on later visits (no duplicates of already present bodies)
 - More avatar speech beats while playing with hero physics objects (tips at 5 / 10 / 15 / 25 interactions)

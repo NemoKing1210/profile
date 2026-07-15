@@ -5,6 +5,7 @@ import {
   markPhysicsSpawned,
   resolveTechBall,
 } from "../../shared/data/physics-spawns.js";
+import { createSpeechQueue } from "./speech-queue.js";
 
 const DEFAULT_HOLD_MS = 5000;
 const WORD_INTERVAL_MS = 118;
@@ -14,6 +15,11 @@ const HOVER_HIDE_DELAY_MS = 1000;
 const SCROLL_IDLE_MS = 160;
 /** Stagger between catalog drops when the spawnCollector effect runs. */
 const CATALOG_SPAWN_STAGGER_MS = 48;
+/**
+ * Sticky tips deferred behind a timed beat get a finite hold so they cannot
+ * linger forever after the pointer has already moved on.
+ */
+const DEFERRED_STICKY_HOLD_MS = DEFAULT_HOLD_MS;
 
 /** Interaction count → speech beat while flinging hero physics bodies. */
 const PHYSICS_SPEECH_AT = {
@@ -37,7 +43,9 @@ export function heroSpeechState() {
     avatarInView: true,
     _avatarSpeechI18nPath: null,
     _avatarSpeechHoldMs: DEFAULT_HOLD_MS,
+    _avatarSpeechIdentity: null,
     _avatarSpeechHeard: null,
+    _avatarSpeechQueue: null,
     _speechPlayAlongDone: false,
     _physicsPlayTipCursor: 0,
     _avatarSpeechTimer: null,
@@ -199,17 +207,23 @@ export function heroSpeechMethods() {
     },
 
     showSpeech(text, { holdMs = DEFAULT_HOLD_MS } = {}) {
-      if (this._shouldSuppressHoverSpeech(holdMs)) return;
       const full = String(text ?? "");
-      this._avatarSpeechI18nPath = null;
-      this._beginSpeech(full, holdMs, { identity: `text:${full}` });
+      if (!full) return;
+      this._offerSpeech({
+        identity: `text:${full}`,
+        text: full,
+        i18nPath: null,
+        holdMs,
+      });
     },
 
     showSpeechI18n(path, { holdMs = DEFAULT_HOLD_MS } = {}) {
-      if (this._shouldSuppressHoverSpeech(holdMs)) return;
-      this._avatarSpeechI18nPath = path;
-      this._beginSpeech(resolveI18nPath(this.t, path), holdMs, {
+      if (!path) return;
+      this._offerSpeech({
         identity: `i18n:${path}`,
+        text: "",
+        i18nPath: path,
+        holdMs,
       });
     },
 
@@ -217,6 +231,10 @@ export function heroSpeechMethods() {
       // Scroll moves the cursor across tipped nodes → mouseleave. Don't let that
       // dismiss timed / event speeches (only sticky hover tips use holdMs: null).
       if (this._pageScrolling && this._avatarSpeechHoldMs != null) return;
+
+      // Never cancel a timed beat via mouseleave / focusout.
+      if (this._avatarSpeechHoldMs != null) return;
+
       this._requestSpeechHide();
     },
 
@@ -243,6 +261,86 @@ export function heroSpeechMethods() {
       }
     },
 
+    /** @returns {ReturnType<typeof createSpeechQueue>} */
+    _queue() {
+      if (!this._avatarSpeechQueue) {
+        this._avatarSpeechQueue = createSpeechQueue();
+      }
+      return this._avatarSpeechQueue;
+    },
+
+    _isSpeechBusy() {
+      return this.avatarSpeechOpen || this.avatarSpeechTyping;
+    },
+
+    /**
+     * Admit a speech job: play now, refresh same line, or enqueue (no dups).
+     * Never interrupts a line that is still speaking — newcomers wait in queue.
+     * @param {import("./speech-queue.js").SpeechJob} job
+     */
+    _offerSpeech(job) {
+      if (this._shouldSuppressHoverSpeech(job.holdMs)) return;
+
+      // Same line again (locale refresh): update copy in place, keep the beat.
+      if (
+        job.identity &&
+        job.identity === this._avatarSpeechIdentity &&
+        this.avatarSpeechOpen
+      ) {
+        this._playSpeechJob(job);
+        return;
+      }
+
+      if (this._queue().has(job.identity)) return;
+
+      if (!this._isSpeechBusy()) {
+        this._playSpeechJob(job);
+        return;
+      }
+
+      this._queue().enqueue(job);
+
+      // If the current line already finished typing, start winding it down so
+      // the queued message can follow (sticky tips otherwise wait for mouseleave).
+      if (!this.avatarSpeechTyping && this.avatarSpeechOpen) {
+        this._scheduleReleaseForQueue();
+      }
+    },
+
+    /**
+     * @param {import("./speech-queue.js").SpeechJob} job
+     * @param {{ deferredSticky?: boolean }} [opts]
+     */
+    _playSpeechJob(job, { deferredSticky = false } = {}) {
+      const holdMs =
+        deferredSticky && job.holdMs == null
+          ? DEFERRED_STICKY_HOLD_MS
+          : job.holdMs;
+
+      const text = job.i18nPath
+        ? resolveI18nPath(this.t, job.i18nPath)
+        : String(job.text ?? "");
+
+      if (!text) {
+        this._advanceSpeechQueue();
+        return;
+      }
+
+      this._avatarSpeechIdentity = job.identity;
+      this._avatarSpeechI18nPath = job.i18nPath ?? null;
+      this._beginSpeech(text, holdMs, { identity: job.identity });
+    },
+
+    _advanceSpeechQueue() {
+      const next = this._queue().dequeue();
+      if (!next) return;
+      if (this._shouldSuppressHoverSpeech(next.holdMs)) {
+        this._advanceSpeechQueue();
+        return;
+      }
+      this._playSpeechJob(next, { deferredSticky: next.holdMs == null });
+    },
+
     _beginSpeech(full, holdMs, { identity } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
@@ -260,7 +358,7 @@ export function heroSpeechMethods() {
         this.avatarSpeechText = full;
         this.avatarSpeechTyping = false;
         if (identity) this._speechHeard().add(identity);
-        this._scheduleAvatarSpeechHide();
+        this._afterSpeechTyped();
         return;
       }
 
@@ -278,13 +376,35 @@ export function heroSpeechMethods() {
           this._stopAvatarSpeechTimer();
           this.avatarSpeechTyping = false;
           if (identity) this._speechHeard().add(identity);
-          if (this._avatarSpeechHidePending) {
-            this._scheduleHoverSpeechHide();
-            return;
-          }
-          this._scheduleAvatarSpeechHide();
+          this._afterSpeechTyped();
         }
       }, WORD_INTERVAL_MS);
+    },
+
+    /** Called once the current line is fully on screen (or shown instantly). */
+    _afterSpeechTyped() {
+      if (this._avatarSpeechHidePending) {
+        this._scheduleHoverSpeechHide();
+        return;
+      }
+      if (this._queue().size > 0) {
+        this._scheduleReleaseForQueue();
+        return;
+      }
+      this._scheduleAvatarSpeechHide();
+    },
+
+    /**
+     * Short beat after the line is spoken, then clear and play the next job.
+     * Used when something is already waiting so sticky tips don't block the queue.
+     */
+    _scheduleReleaseForQueue() {
+      if (this._queue().size === 0) return;
+      this._stopAvatarSpeechHideTimer();
+      this._avatarSpeechHideTimer = window.setTimeout(() => {
+        this._avatarSpeechHideTimer = null;
+        this._clearSpeech({ advance: true });
+      }, HOVER_HIDE_DELAY_MS);
     },
 
     /**
@@ -304,7 +424,7 @@ export function heroSpeechMethods() {
       this._stopAvatarSpeechHideTimer();
       this._avatarSpeechHideTimer = window.setTimeout(() => {
         this._avatarSpeechHideTimer = null;
-        this._clearSpeech();
+        this._clearSpeech({ advance: true });
       }, HOVER_HIDE_DELAY_MS);
     },
 
@@ -318,18 +438,24 @@ export function heroSpeechMethods() {
       if (this._avatarSpeechHoldMs == null) return;
       this._avatarSpeechHideTimer = window.setTimeout(() => {
         this._avatarSpeechHideTimer = null;
-        this._clearSpeech();
+        this._clearSpeech({ advance: true });
       }, this._avatarSpeechHoldMs);
     },
 
-    _clearSpeech() {
+    /**
+     * @param {{ advance?: boolean }} [opts]
+     */
+    _clearSpeech({ advance = false } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
       this._avatarSpeechHidePending = false;
       this.avatarSpeechOpen = false;
       this.avatarSpeechTyping = false;
       this._avatarSpeechI18nPath = null;
+      this._avatarSpeechIdentity = null;
       this._avatarSpeechHoldMs = DEFAULT_HOLD_MS;
+
+      if (advance) this._advanceSpeechQueue();
     },
 
     _stopAvatarSpeechTimer() {
@@ -367,6 +493,7 @@ export function heroSpeechMethods() {
           if (this.avatarSpeechOpen && this._avatarSpeechHoldMs == null) {
             this._requestSpeechHide();
           }
+          this._queue().removeWhere((job) => job.holdMs == null);
         }
 
         if (this._speechScrollIdleTimer != null) {
@@ -384,7 +511,8 @@ export function heroSpeechMethods() {
     },
 
     destroyHeroSpeech() {
-      this._clearSpeech();
+      this._queue().clear();
+      this._clearSpeech({ advance: false });
       this._clearPhysicsCatalogSpawnTimers();
       this._avatarSpeechObserver?.disconnect();
       this._avatarSpeechObserver = null;
