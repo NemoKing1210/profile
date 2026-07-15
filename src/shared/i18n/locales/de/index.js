@@ -330,6 +330,15 @@ export default {
     textCorruptFallback: "Nichts zu schmelzen. Die Leere hat den Text schon gefressen.",
     socialCreditLine: "Bürgerscore aktualisiert. Die Kommentarwand ist stolz auf dich.",
     dizzyLine: "Schwindel permanent. Halt ein Panel — oder gewöhn dich dran.",
+    blockResizeLine: "Layout außer Kontrolle: Dutzende Blöcke haben ihre Größe neu erfunden.",
+    blockResizeFallback: "Nichts zum Skalieren. Das Raster hat schon aufgegeben.",
+    textBlindLine: "Blindheit aktiv. Der Text ist noch da — vertrau mir.",
+    tauntNoJackpot:
+      "Heh. Immer noch kein Covert Drop? Mid-Ladder-Energie. Weiterdrehen, Tourist.",
+    tauntIncomplete:
+      "Süßer Pokal. Jetzt den Rest der Achievements — halb volles Board ist kein Flex.",
+    tauntComplete:
+      "Du hast… alles? Das ist echt beeindruckend. Jetzt bin ich traurig.",
     alphabetLine: "A–Z fiel vom Himmel. Physik ist jetzt im Kindergarten.",
     alphabetFallback: "Hero-Physik offline. Buchstaben weigern sich zu spawnen.",
     lockLine: "Seite gesperrt. Zwei Ziffern. Hinweise alle fünf Fehlversuche.",
@@ -384,6 +393,9 @@ export default {
       lightFlash: "Weißblitz",
       socialCredit: "Sozialkredit",
       dizziness: "Schwindel",
+      blockResize: "Größenchaos",
+      textBlind: "Blindheit",
+      taunt: "Spott",
       confetti: "Konfetti-Sturm",
       emojiBalloons: "Emoji-Ballons",
       progFact: "Dev-Fakt",

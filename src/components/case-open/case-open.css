@@ -938,6 +938,23 @@ html.case-dizziness .case-open {
   }
 }
 
+/* Block resize (case reward) — scale property avoids fighting transform animations */
+.case-block-resized {
+  scale: var(--case-block-scale, 1);
+  transform-origin: center center;
+  transition: scale 0.45s var(--ease, ease);
+  z-index: 2;
+}
+
+/* Blindness — blur site chrome; leave lock dialog readable */
+html.case-text-blind body > :not(.case-lock) {
+  filter: blur(5.5px);
+}
+
+html.case-text-blind .case-lock {
+  filter: none;
+}
+
 /* Screen shake on main / store shell */
 .case-open-shake {
   animation: case-screen-shake 0.65s var(--ease);
@@ -1229,6 +1246,14 @@ html.case-lock-active {
   html.case-dizziness .game-card,
   html.case-dizziness .media-cover {
     animation: none;
+  }
+
+  .case-block-resized {
+    transition: none;
+  }
+
+  html.case-text-blind body > :not(.case-lock) {
+    filter: blur(3px);
   }
 
   .case-open-balloon {

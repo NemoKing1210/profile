@@ -315,6 +315,15 @@ export default {
     textCorruptFallback: "没什么可熔的。虚空已经吃掉了文案。",
     socialCreditLine: "公民分已更新。评论墙为你骄傲。",
     dizzyLine: "眩晕永久开启。抓紧面板——或者慢慢习惯。",
+    blockResizeLine: "布局发疯了：几十个区块重新发明了尺寸。",
+    blockResizeFallback: "没什么可缩放的。网格已经放弃了。",
+    textBlindLine: "失明模式开启。文字还在——相信我。",
+    tauntNoJackpot:
+      "呵。还没有 Covert Drop？中游段位气质。继续转吧，观光客。",
+    tauntIncomplete:
+      "奖杯挺可爱。其余成就补齐——半架子可吹不动。",
+    tauntComplete:
+      "你……全收集了？真厉害。弄得我有点难过。",
     alphabetLine: "A–Z 从天上掉进 hero。物理突然上幼儿园了。",
     alphabetFallback: "Hero 物理离线。字母拒绝生成。",
     lockLine: "站点已锁定。两位数字。每错五次泄露一位提示。",
@@ -369,6 +378,9 @@ export default {
       lightFlash: "白色闪现",
       socialCredit: "社会信用",
       dizziness: "眩晕",
+      blockResize: "尺寸混乱",
+      textBlind: "失明",
+      taunt: "嘲讽",
       confetti: "彩带风暴",
       emojiBalloons: "表情气球",
       progFact: "开发冷知识",

@@ -10,6 +10,18 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.65.0] — 2026-07-15
+
+### Added
+
+- Case reward `taunt`: mocks missing Covert Drop / incomplete achievements, or gets sad if everything is unlocked
+
+## [1.64.0] — 2026-07-15
+
+### Added
+
+- Case rewards `blockResize` (50–100 blocks change size) and `textBlind` (site text/UI blur)
+
 ## [1.63.4] — 2026-07-15
 
 ### Fixed

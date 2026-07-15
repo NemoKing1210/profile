@@ -330,6 +330,15 @@ export default {
     textCorruptFallback: "Nothing to melt. The void already ate the copy.",
     socialCreditLine: "Citizen score updated. The wall of comments is proud of you.",
     dizzyLine: "Vertigo locked on. Hold a panel — or learn to love the sway.",
+    blockResizeLine: "Layout went feral: dozens of blocks reinvented their size.",
+    blockResizeFallback: "Nothing left to resize. The grid already gave up.",
+    textBlindLine: "Blindness applied. The text is still there — trust me.",
+    tauntNoJackpot:
+      "Heh. Still no Covert Drop? Peak mid-ladder energy. Keep spinning, tourist.",
+    tauntIncomplete:
+      "Cute trophy. Now finish the rest of the achievements — half a shelf isn’t a flex.",
+    tauntComplete:
+      "You… collected everything? That’s actually impressive. Now I feel weird.",
     alphabetLine: "A–Z just rained into the hero. Physics enrolled in preschool.",
     alphabetFallback: "Hero physics offline. Letters refused to spawn.",
     lockLine: "Site locked. Two digits. Hints drip every five wrong guesses.",
@@ -384,6 +393,9 @@ export default {
       lightFlash: "White Flash",
       socialCredit: "Social Credit",
       dizziness: "Vertigo",
+      blockResize: "Size Chaos",
+      textBlind: "Blindness",
+      taunt: "Taunt",
       confetti: "Confetti Storm",
       emojiBalloons: "Emoji Balloons",
       progFact: "Dev Fact",

@@ -329,6 +329,15 @@ export default {
     textCorruptFallback: "溶かすものがない。虚無がコピーを食べた。",
     socialCreditLine: "市民スコア更新。コメント欄が君を褒めてる。",
     dizzyLine: "めまい永久モード。パネルにしがみついて — 慣れるか選んで。",
+    blockResizeLine: "レイアウトが暴れた。何十ものブロックがサイズを再発明。",
+    blockResizeFallback: "リサイズするものがない。グリッドはもう諦めた。",
+    textBlindLine: "盲目モード。テキストはまだそこにある — 信じて。",
+    tauntNoJackpot:
+      "へっ。まだ Covert Drop なし？ミッド帯の香り。回し続けて、観光客さん。",
+    tauntIncomplete:
+      "かわいいトロフィー。残り実績も埋めて — 半分の棚は自慢にならない。",
+    tauntComplete:
+      "全部…集めたの？本当にすごい。なんか寂しい。",
     alphabetLine: "A–Z が空から hero に。物理、幼稚園に入学。",
     alphabetFallback: "Hero 物理オフライン。文字がスポーンを拒否。",
     lockLine: "サイトロック。2桁。5回ミスごとにヒント1桁。",
@@ -383,6 +392,9 @@ export default {
       lightFlash: "ホワイトフラッシュ",
       socialCredit: "ソーシャルクレジット",
       dizziness: "めまい",
+      blockResize: "サイズカオス",
+      textBlind: "盲目",
+      taunt: "あざけり",
       confetti: "紙吹雪ストーム",
       emojiBalloons: "絵文字バルーン",
       progFact: "Dev 豆知識",

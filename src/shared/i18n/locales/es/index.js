@@ -330,6 +330,15 @@ export default {
     textCorruptFallback: "Nada que fundir. El vacío ya se comió el copy.",
     socialCreditLine: "Puntuación ciudadana actualizada. El muro de comentarios te aplaude.",
     dizzyLine: "Vértigo permanente. Agárrate a un panel — o acostúmbrate.",
+    blockResizeLine: "El layout se volvió loco: decenas de bloques reinventaron su tamaño.",
+    blockResizeFallback: "Nada que redimensionar. La cuadrícula ya se rindió.",
+    textBlindLine: "Ceguera aplicada. El texto sigue ahí — confía.",
+    tauntNoJackpot:
+      "Je. ¿Todavía sin Covert Drop? Energía de liga media. Sigue girando, turista.",
+    tauntIncomplete:
+      "Bonito trofeo. Ahora completa el resto de logros — media estantería no es flex.",
+    tauntComplete:
+      "¿Coleccionaste… todo? Eso sí impresiona. Ahora me da pena.",
     alphabetLine: "A–Z cayó del cielo. La física se apuntó al kinder.",
     alphabetFallback: "Física del hero offline. Las letras no quisieron spawnear.",
     lockLine: "Sitio bloqueado. Dos dígitos. Pistas cada cinco fallos.",
@@ -384,6 +393,9 @@ export default {
       lightFlash: "Flash blanco",
       socialCredit: "Crédito social",
       dizziness: "Vértigo",
+      blockResize: "Caos de tamaños",
+      textBlind: "Ceguera",
+      taunt: "Burla",
       confetti: "Tormenta de confeti",
       emojiBalloons: "Globos emoji",
       progFact: "Dato dev",

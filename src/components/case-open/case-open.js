@@ -1,4 +1,8 @@
-import { isAchievementUnlocked } from "../../shared/data/achievements.js";
+import {
+  achievementsTotalCount,
+  achievementsUnlockedCount,
+  isAchievementUnlocked,
+} from "../../shared/data/achievements.js";
 import { ECHO_FINALE_LOOP } from "../echo-finale/index.js";
 import { corruptEchoContent } from "../infinite-echo/backrooms-text.js";
 import {
@@ -29,6 +33,15 @@ const BLOCK_FALL_MS = 1200;
 const ALPHABET_CUBE_COUNT = 14;
 const FAKE_JACKPOT_REVEAL_MS = 2400;
 const FAKE_JACKPOT_REVEAL_REDUCED_MS = 900;
+const BLOCK_RESIZE_MIN = 50;
+const BLOCK_RESIZE_MAX = 100;
+
+/** Prefer UI shells that look funny when scaled (mirrors minecraft preferred set). */
+const CASE_SIZE_TARGETS =
+  ".media-cover, .interest-chip, .interest-badge, .btn, .capsule, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .brand, .interest-intro, .case-open__item, .comment-card, .footer__link";
+
+const CASE_SIZE_EXCLUDE =
+  ".case-open, .case-lock, .bug-report, .scroll-top, .achievement-toast, .achievements-drawer, .infinite-echoes, .infinite-echo, .infinite-sentinel, .skip-link";
 
 /**
  * @returns {Record<string, unknown>}
@@ -66,6 +79,8 @@ export function caseOpenState() {
     _caseThemeRestore: null,
     _caseLockFocusTimer: 0,
     _caseFakeoutTimer: 0,
+    /** @type {HTMLElement[]} */
+    _caseResizedBlocks: [],
   };
 }
 
@@ -166,6 +181,15 @@ export function caseOpenMethods() {
         case "dizziness":
           this._rewardDizziness();
           break;
+        case "blockResize":
+          this._rewardBlockResize();
+          break;
+        case "textBlind":
+          this._rewardTextBlind();
+          break;
+        case "taunt":
+          this._rewardTaunt(winner, label);
+          return;
         case "siteLock":
           this._rewardSiteLock();
           break;
@@ -354,6 +378,74 @@ export function caseOpenMethods() {
       // Stays on until reload — intentional “permanent” vertigo drop.
       document.documentElement.classList.add("case-dizziness");
       this.showSpeechI18n?.("caseOpen.dizzyLine", { holdMs: 5500 });
+    },
+
+    _rewardTextBlind() {
+      // Persists until reload — readability optional.
+      document.documentElement.classList.add("case-text-blind");
+      this.showSpeechI18n?.("caseOpen.textBlindLine", { holdMs: 6000 });
+    },
+
+    /**
+     * Mock the player’s trophy shelf: no jackpot → laugh, incomplete set → laugh,
+     * full completion → cry.
+     * @param {{ id: string, rarity: string, emoji: string }} winner
+     * @param {string} label
+     */
+    _rewardTaunt(winner, label) {
+      const hasJackpot = isAchievementUnlocked("caseJackpot");
+      const allDone =
+        hasJackpot &&
+        achievementsUnlockedCount() >= achievementsTotalCount();
+
+      /** @type {"tauntNoJackpot" | "tauntIncomplete" | "tauntComplete"} */
+      let noteKey = "tauntNoJackpot";
+      let emoji = "😈";
+      if (allDone) {
+        noteKey = "tauntComplete";
+        emoji = "😢";
+      } else if (hasJackpot) {
+        noteKey = "tauntIncomplete";
+      }
+
+      const note = this.t?.caseOpen?.[noteKey] || "";
+      this.showSpeechI18n?.(`caseOpen.${noteKey}`, { holdMs: 7000 });
+      this._setCaseResult({ ...winner, emoji }, label, {
+        note: note || undefined,
+      });
+    },
+
+    _rewardBlockResize() {
+      const pool = collectResizableBlocks();
+      if (!pool.length) {
+        this.showSpeechI18n?.("caseOpen.blockResizeFallback", { holdMs: 4500 });
+        return;
+      }
+
+      const want =
+        BLOCK_RESIZE_MIN +
+        Math.floor(Math.random() * (BLOCK_RESIZE_MAX - BLOCK_RESIZE_MIN + 1));
+      const picks = shuffleTake(pool, Math.min(want, pool.length));
+      if (!this._caseResizedBlocks) this._caseResizedBlocks = [];
+
+      for (const el of picks) {
+        if (el.classList.contains("case-block-resized")) continue;
+        const scale = 0.48 + Math.random() * 1.22; // ~0.48–1.70
+        el.style.setProperty("--case-block-scale", scale.toFixed(3));
+        el.classList.add("case-block-resized");
+        this._caseResizedBlocks.push(el);
+      }
+
+      this.showSpeechI18n?.("caseOpen.blockResizeLine", { holdMs: 6000 });
+    },
+
+    _clearCaseResizedBlocks() {
+      const list = this._caseResizedBlocks || [];
+      for (const el of list) {
+        el.classList.remove("case-block-resized");
+        el.style.removeProperty("--case-block-scale");
+      }
+      this._caseResizedBlocks = [];
     },
 
     _rewardSiteLock() {
@@ -793,6 +885,8 @@ export function caseOpenMethods() {
       this.caseAccentPulse = false;
       this.caseOpening = false;
       document.documentElement.classList.remove("case-text-corrupt");
+      document.documentElement.classList.remove("case-text-blind");
+      this._clearCaseResizedBlocks();
       if (this._caseLockFocusTimer) {
         window.clearTimeout(this._caseLockFocusTimer);
         this._caseLockFocusTimer = 0;
@@ -813,4 +907,37 @@ function formatResult(ctx, label) {
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * @returns {HTMLElement[]}
+ */
+function collectResizableBlocks() {
+  const blocked = new Set([...document.querySelectorAll(CASE_SIZE_EXCLUDE)]);
+  return [...document.querySelectorAll(CASE_SIZE_TARGETS)].filter((el) => {
+    if (!(el instanceof HTMLElement)) return false;
+    if (blocked.has(el)) return false;
+    if (el.closest?.(CASE_SIZE_EXCLUDE)) return false;
+    if (el.classList.contains("mc-mined")) return false;
+    if (el.classList.contains("case-block-falling")) return false;
+    if (el.classList.contains("case-block-resized")) return false;
+    return el.getClientRects().length > 0;
+  });
+}
+
+/**
+ * @template T
+ * @param {T[]} list
+ * @param {number} count
+ * @returns {T[]}
+ */
+function shuffleTake(list, count) {
+  const copy = list.slice();
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy.slice(0, Math.max(0, count));
 }
