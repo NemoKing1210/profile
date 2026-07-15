@@ -37,7 +37,7 @@
     <span
       class="lang-switch__chevron"
       aria-hidden="true"
-      x-html="langMenuOpen ? icons.chevronUp : icons.chevronDown"
+      x-html="icons.chevronDown"
     ></span>
   </button>
   <ul
@@ -47,9 +47,15 @@
     :aria-label="t.ui.langLabel"
     x-show="langMenuOpen"
     x-cloak
+    x-transition:enter="lang-switch-menu-motion"
+    x-transition:enter-start="lang-switch-menu-motion--from"
+    x-transition:enter-end="lang-switch-menu-motion--to"
+    x-transition:leave="lang-switch-menu-motion lang-switch-menu-motion--leave"
+    x-transition:leave-start="lang-switch-menu-motion--to"
+    x-transition:leave-end="lang-switch-menu-motion--from"
   >
-    <template x-for="option in localeList" :key="option.code">
-      <li role="presentation">
+    <template x-for="(option, index) in localeList" :key="option.code">
+      <li role="presentation" :style="`--lang-i: ${index}`">
         <button
           type="button"
           class="lang-switch__option lang-option"

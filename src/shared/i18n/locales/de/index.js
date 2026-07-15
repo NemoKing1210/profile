@@ -321,6 +321,12 @@ export default {
     localeFallback: "Sprachroulette klemmt. Nimm den Umschalter.",
     lightFlashLine: "Hell-Theme für fünf Sekunden. Nicht gewöhnen.",
     rickrollLine: "Never gonna give you up — Kistenregeln gelten.",
+    rickrollDialogLabel: "Rickroll",
+    rickrollEyebrow: "Geheimdrop",
+    rickrollTitle: "Never gonna give you up",
+    rickrollBody: "Dein Kistengewinn ist ein Live-Auftritt. Viel Spaß bei der Show.",
+    rickrollOpenExternal: "Auf YouTube öffnen",
+    rickrollClose: "Reicht mir",
     blockFallLine: "Schwerkraft: ein Zufallsblock fiel von der Seite.",
     blockFallFallback: "Nichts mehr zu fallen. Die Schwerkraft hat alles geholt.",
     echoMidpathLine:

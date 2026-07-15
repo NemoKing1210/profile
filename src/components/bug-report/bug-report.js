@@ -1,6 +1,12 @@
 const PENDING_KEY = "profile:bugReportPending";
 const RETURN_HOLD_MS = 7000;
 
+export const BUG_REPORT_RICKROLL_URL =
+  "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1";
+
+export const BUG_REPORT_RICKROLL_EMBED_URL =
+  "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0";
+
 export function bugReportMethods() {
   return {
     onBugReportClick() {
@@ -10,11 +16,7 @@ export function bugReportMethods() {
         /* private mode / blocked storage */
       }
       this._bugReportAwaitingReturn = true;
-      window.open(
-        `https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1`,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      window.open(BUG_REPORT_RICKROLL_URL, "_blank", "noopener,noreferrer");
     },
 
     bindBugReportReturn() {
@@ -63,7 +65,6 @@ export function bugReportMethods() {
     },
   };
 }
-
 
 function readPendingFlag() {
   try {

@@ -71,7 +71,10 @@
         <button
           type="button"
           class="theme-joke__btn"
-          :class="themeJokeFlash && 'theme-joke__btn--flash'"
+          :class="{
+            'theme-joke__btn--flash': themeJokeFlash,
+            'theme-joke__btn--spin': themeJokeSpin,
+          }"
           :aria-label="themeToggleLabel"
           :aria-pressed="canUseLightTheme ? themeLight : undefined"
           :aria-expanded="canUseLightTheme ? undefined : themeJokeOpen"
@@ -91,6 +94,12 @@
           aria-live="polite"
           x-show="!canUseLightTheme && themeJokeOpen"
           x-cloak
+          x-transition:enter="theme-joke-toast-motion"
+          x-transition:enter-start="theme-joke-toast-motion--from"
+          x-transition:enter-end="theme-joke-toast-motion--to"
+          x-transition:leave="theme-joke-toast-motion theme-joke-toast-motion--leave"
+          x-transition:leave-start="theme-joke-toast-motion--to"
+          x-transition:leave-end="theme-joke-toast-motion--from"
         >
           <p class="theme-joke__title" x-text="t.ui.themeDeniedTitle"></p>
           <p class="theme-joke__text" x-text="t.ui.themeDenied"></p>

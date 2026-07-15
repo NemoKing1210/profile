@@ -321,6 +321,12 @@ export default {
     localeFallback: "Рулетка мов заклинила. Перемкни вручну.",
     lightFlashLine: "Світла тема на п’ять секунд. Не звикай.",
     rickrollLine: "Never gonna give you up — правила кейса такі.",
+    rickrollDialogLabel: "Рікрол",
+    rickrollEyebrow: "Секретний дроп",
+    rickrollTitle: "Never gonna give you up",
+    rickrollBody: "Приз з кейса — живий виступ. Приємного перегляду.",
+    rickrollOpenExternal: "Відкрити на YouTube",
+    rickrollClose: "З мене досить",
     blockFallLine: "Гравітація: випадковий блок зірвався зі сторінки.",
     blockFallFallback: "Падати вже немає чому. Гравітація все забрала.",
     echoMidpathLine:

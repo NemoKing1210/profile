@@ -321,6 +321,12 @@ export default {
     localeFallback: "La ruleta de idiomas se atascó. Usa el selector.",
     lightFlashLine: "Tema claro cinco segundos. No te acostumbres.",
     rickrollLine: "Never gonna give you up — reglas de la caja.",
+    rickrollDialogLabel: "Rickroll",
+    rickrollEyebrow: "Botín clasificado",
+    rickrollTitle: "Never gonna give you up",
+    rickrollBody: "Tu premio es un concierto en directo. Disfruta el show.",
+    rickrollOpenExternal: "Abrir en YouTube",
+    rickrollClose: "Ya es suficiente",
     blockFallLine: "Gravedad: un bloque al azar se cayó de la página.",
     blockFallFallback: "No queda nada que soltar. La gravedad ya lo recogió todo.",
     echoMidpathLine:

@@ -321,6 +321,12 @@ export default {
     localeFallback: "Language roulette jammed. Try the switcher instead.",
     lightFlashLine: "Light theme for five seconds. Don’t get used to it.",
     rickrollLine: "Never gonna give you up — case rules are house rules.",
+    rickrollDialogLabel: "Rickroll",
+    rickrollEyebrow: "Classified drop",
+    rickrollTitle: "Never gonna give you up",
+    rickrollBody: "Your case prize is a live performance. Enjoy the show.",
+    rickrollOpenExternal: "Open on YouTube",
+    rickrollClose: "I’ve seen enough",
     blockFallLine: "Gravity claim: a random block just fell off the page.",
     blockFallFallback: "Nothing left to drop. Gravity already collected everything.",
     echoMidpathLine:

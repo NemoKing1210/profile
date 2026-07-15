@@ -11,7 +11,12 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  cursor: pointer;
   transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
 }
 
 .btn__icon {

@@ -320,6 +320,12 @@ export default {
     localeFallback: "言語ルーレットが止まった。スイッチャーを使って。",
     lightFlashLine: "ライトテーマは5秒。慣れないで。",
     rickrollLine: "Never gonna give you up — ケースのルールだ。",
+    rickrollDialogLabel: "Rickroll",
+    rickrollEyebrow: "極秘ドロップ",
+    rickrollTitle: "Never gonna give you up",
+    rickrollBody: "ケースの賞品は生ライブです。どうぞごゆっくり。",
+    rickrollOpenExternal: "YouTube で開く",
+    rickrollClose: "もう十分",
     blockFallLine: "重力発動：ランダムなブロックがページから落ちた。",
     blockFallFallback: "落とすものがもうない。重力が全部回収済み。",
     echoMidpathLine:

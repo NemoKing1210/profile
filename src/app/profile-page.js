@@ -135,6 +135,7 @@ export function createProfilePage() {
           this.bindLongStayAchievement?.();
           this.bindAchievementsDiscoverHint?.();
           this.bindAchievementDebugApi?.();
+          this.bindCaseDebugApi?.();
           this.bindFooterEaster?.();
           this.bindBugReportReturn?.();
         });

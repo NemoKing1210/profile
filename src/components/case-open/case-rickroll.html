@@ -1,0 +1,46 @@
+<div
+  class="case-rickroll"
+  x-show="caseRickrollOpen"
+  x-cloak
+  role="dialog"
+  aria-modal="true"
+  :aria-label="t.caseOpen.rickrollDialogLabel"
+  @keydown.escape.window="caseRickrollOpen && closeCaseRickroll()"
+>
+  <div
+    class="case-rickroll__veil"
+    aria-hidden="true"
+    @click="closeCaseRickroll()"
+  ></div>
+  <div class="case-rickroll__panel">
+    <p class="case-rickroll__eyebrow" x-text="t.caseOpen.rickrollEyebrow"></p>
+    <h2 class="case-rickroll__title" x-text="t.caseOpen.rickrollTitle"></h2>
+    <p class="case-rickroll__body" x-text="t.caseOpen.rickrollBody"></p>
+    <div class="case-rickroll__frame">
+      <iframe
+        class="case-rickroll__video"
+        x-show="caseRickrollEmbedUrl"
+        :src="caseRickrollEmbedUrl"
+        title="Rick Astley — Never Gonna Give You Up"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
+    <div class="case-rickroll__actions">
+      <a
+        class="btn btn--ghost case-rickroll__external"
+        :href="caseRickrollWatchUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        x-text="t.caseOpen.rickrollOpenExternal"
+      ></a>
+      <button
+        type="button"
+        class="btn btn--primary case-rickroll__close"
+        @click="closeCaseRickroll()"
+        x-text="t.caseOpen.rickrollClose"
+      ></button>
+    </div>
+  </div>
+</div>

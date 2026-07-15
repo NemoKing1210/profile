@@ -26,6 +26,7 @@ export function localeChromeState() {
     localeBlurring: false,
     themeJokeOpen: false,
     themeJokeFlash: false,
+    themeJokeSpin: false,
     themeSith: false,
     themeLight: false,
     themeSwitching: false,
@@ -38,6 +39,7 @@ export function localeChromeState() {
     _localeBlurEndTimer: null,
     _themeJokeTimer: null,
     _themeFlashTimer: null,
+    _themeSpinTimer: null,
     _themeSithTimer: null,
     _themeSwitchTimer: null,
     _statusOfflineTimer: null,
@@ -405,11 +407,27 @@ export function localeChromeMethods() {
       this.themeJokeOpen = false;
       this.themeJokeFlash = false;
       this.themeSith = false;
+      this._pulseThemeIconSpin();
       this._beginThemeSwitch(THEME_FADE_MS);
       this.themeLight = !this.themeLight;
       this._persistThemePreference();
       this._syncThemeColorMeta();
       this._speakThemeSwitched();
+    },
+
+    _pulseThemeIconSpin() {
+      this.themeJokeSpin = false;
+      // Force restart when clicking rapidly.
+      requestAnimationFrame(() => {
+        this.themeJokeSpin = true;
+        if (this._themeSpinTimer != null) {
+          window.clearTimeout(this._themeSpinTimer);
+        }
+        this._themeSpinTimer = window.setTimeout(() => {
+          this.themeJokeSpin = false;
+          this._themeSpinTimer = null;
+        }, 500);
+      });
     },
 
     _speakThemeSwitched() {
@@ -495,6 +513,10 @@ export function localeChromeMethods() {
         window.clearTimeout(this._themeFlashTimer);
         this._themeFlashTimer = null;
       }
+      if (this._themeSpinTimer != null) {
+        window.clearTimeout(this._themeSpinTimer);
+        this._themeSpinTimer = null;
+      }
       if (this._themeSithTimer != null) {
         window.clearTimeout(this._themeSithTimer);
         this._themeSithTimer = null;
@@ -520,6 +542,7 @@ export function localeChromeMethods() {
       this._clearStatusOfflineTimer();
       this.themeJokeOpen = false;
       this.themeJokeFlash = false;
+      this.themeJokeSpin = false;
       this.themeSith = false;
     },
   };

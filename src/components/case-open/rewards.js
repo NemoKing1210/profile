@@ -89,12 +89,41 @@ export function rollWeightedReward() {
   return CASE_REWARDS[CASE_REWARDS.length - 1];
 }
 
+/** Stable reward ids in catalog order (1-based console refs). */
+export const CASE_REWARD_IDS = Object.freeze(CASE_REWARDS.map((r) => r.id));
+
 /**
  * @param {string} id
  * @returns {CaseRewardDef | undefined}
  */
 export function getRewardById(id) {
   return CASE_REWARDS.find((r) => r.id === id);
+}
+
+/**
+ * Resolve reward from 1-based index, 0-based index, or id string.
+ * @param {string | number} ref
+ * @returns {CaseRewardDef | null}
+ */
+export function resolveRewardRef(ref) {
+  if (typeof ref === "number" && Number.isFinite(ref)) {
+    const asOneBased = CASE_REWARDS[ref - 1];
+    if (asOneBased) return asOneBased;
+    const asZeroBased = CASE_REWARDS[ref];
+    if (asZeroBased && ref >= 0) return asZeroBased;
+    return null;
+  }
+
+  const raw = String(ref ?? "").trim();
+  if (!raw) return null;
+
+  const byId = getRewardById(raw);
+  if (byId) return byId;
+
+  const asNum = Number(raw);
+  if (Number.isInteger(asNum)) return resolveRewardRef(asNum);
+
+  return null;
 }
 
 /**

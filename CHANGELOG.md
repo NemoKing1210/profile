@@ -10,6 +10,24 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.67.2] — 2026-07-15
+
+### Fixed
+
+- Case `rickroll` plays in an on-page overlay (no popup / no blank-tab reservation); achievement unlocks when the dialog is closed
+
+## [1.67.1] — 2026-07-15
+
+### Fixed
+
+- Case `rickroll` drop opens YouTube again (gesture-reserved tab; popup blockers were killing the post-spin `window.open`)
+
+## [1.67.0] — 2026-07-15
+
+### Added
+
+- `window.caseOpen` console debug API (force reel drops, grant rewards, lock helpers) — mirror of `window.achievement`
+
 ## [1.66.2] — 2026-07-15
 
 ### Changed

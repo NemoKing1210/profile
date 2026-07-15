@@ -12,12 +12,18 @@ import {
 import {
   BALLOON_EMOJIS,
   buildReel,
+  CASE_REWARDS,
   getRewardById,
   getRewardChancePercent,
   REEL_ITEM_WIDTH,
   REEL_WIN_INDEX,
+  resolveRewardRef,
   rollWeightedReward,
 } from "./rewards.js";
+import {
+  BUG_REPORT_RICKROLL_EMBED_URL,
+  BUG_REPORT_RICKROLL_URL,
+} from "../bug-report/bug-report.js";
 
 const SPIN_MS = 5200;
 const REDUCED_SPIN_MS = 280;
@@ -42,7 +48,7 @@ const CASE_SIZE_TARGETS =
   ".media-cover, .interest-chip, .interest-badge, .btn, .capsule, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .brand, .interest-intro, .case-open__item, .comment-card, .footer__link";
 
 const CASE_SIZE_EXCLUDE =
-  ".case-open, .case-lock, .bug-report, .scroll-top, .achievement-toast, .achievements-drawer, .infinite-echoes, .infinite-echo, .infinite-sentinel, .skip-link";
+  ".case-open, .case-lock, .case-rickroll, .bug-report, .scroll-top, .achievement-toast, .achievements-drawer, .infinite-echoes, .infinite-echo, .infinite-sentinel, .skip-link";
 
 /**
  * @returns {Record<string, unknown>}
@@ -72,6 +78,9 @@ export function caseOpenState() {
     caseLockFails: 0,
     /** True while a bait gold drop still wears jackpot chrome. */
     caseResultJackpotStyle: false,
+    caseRickrollOpen: false,
+    caseRickrollEmbedUrl: "",
+    caseRickrollWatchUrl: BUG_REPORT_RICKROLL_URL,
     _caseSpinTimer: 0,
     _caseSideTimers: /** @type {number[]} */ ([]),
     _caseTitleBackup: "",
@@ -91,7 +100,27 @@ export function caseOpenState() {
 export function caseOpenMethods() {
   return {
     openCase(event) {
-      if (this.caseOpening) return;
+      return this._startCaseOpen(rollWeightedReward(), event);
+    },
+
+    /**
+     * @param {string | number} ref
+     * @param {Event} [event]
+     * @returns {boolean}
+     */
+    openCaseWithReward(ref, event) {
+      const winner = resolveRewardRef(ref);
+      if (!winner) return false;
+      return this._startCaseOpen(winner, event);
+    },
+
+    /**
+     * @param {{ id: string, rarity: string, emoji: string, weight?: number }} winner
+     * @param {Event} [event]
+     * @returns {boolean}
+     */
+    _startCaseOpen(winner, event) {
+      if (this.caseOpening) return false;
 
       this.caseOpening = true;
       this.caseReelLanded = false;
@@ -106,7 +135,6 @@ export function caseOpenMethods() {
       this.caseResultJackpotStyle = false;
       this._clearCaseFakeoutTimer();
 
-      const winner = rollWeightedReward();
       const reel = buildReel(winner, 48, REEL_WIN_INDEX);
       this.caseReelItems = reel;
       this.caseReelTransitionMs = 0;
@@ -148,6 +176,15 @@ export function caseOpenMethods() {
           this.caseReelLanded = true;
           this._finishCaseOpen(winner, event);
         }, duration + 40);
+      });
+
+      return true;
+    },
+
+    _scrollCaseIntoView() {
+      this.$refs.caseOpenRoot?.scrollIntoView?.({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "center",
       });
     },
 
@@ -720,8 +757,22 @@ export function caseOpenMethods() {
     },
 
     _rewardRickroll() {
-      this.onBugReportClick?.();
+      // In-page player — popup blockers kill deferred window.open after the reel.
+      this.caseRickrollEmbedUrl = BUG_REPORT_RICKROLL_EMBED_URL;
+      this.caseRickrollOpen = true;
+      document.documentElement.classList.add("case-rickroll-active");
       this.showSpeechI18n?.("caseOpen.rickrollLine", { holdMs: 6000 });
+    },
+
+    closeCaseRickroll({ celebrated = true } = {}) {
+      if (!this.caseRickrollOpen && !this.caseRickrollEmbedUrl) return;
+      this.caseRickrollOpen = false;
+      // Drop iframe src so audio stops immediately.
+      this.caseRickrollEmbedUrl = "";
+      document.documentElement.classList.remove("case-rickroll-active");
+      if (!celebrated) return;
+      this.unlockAchievementRecord?.("rickroll");
+      this.showSpeechI18n?.("hero.bugReportReturn", { holdMs: 7000 });
     },
 
     _rewardBlockFall() {
@@ -860,6 +911,170 @@ export function caseOpenMethods() {
       }
     },
 
+    /** Abort an in-flight reel without granting a reward. */
+    _abortCaseSpin() {
+      this._clearCaseSpinTimer();
+      this.caseOpening = false;
+      this.caseReelTransitionMs = 0;
+    },
+
+    bindCaseDebugApi() {
+      const catalog = () =>
+        CASE_REWARDS.map((reward, index) => ({
+          n: index + 1,
+          id: reward.id,
+          rarity: reward.rarity,
+          emoji: reward.emoji,
+          chance: getRewardChancePercent(reward),
+        }));
+
+      const api = {
+        ids: () => catalog(),
+        chances: () => catalog(),
+        last: () => ({
+          id: this.caseLastRewardId || null,
+          rarity: this.caseLastRarity || null,
+          emoji: this.caseLastEmoji || null,
+          chance: this.caseLastChance || 0,
+          label: this.caseResultLabel || "",
+          note: this.caseResultNote || "",
+        }),
+        open: (ref) => {
+          this._scrollCaseIntoView();
+          if (this.caseOpening) {
+            console.warn("[caseOpen] reel busy — wait or caseOpen.abort()");
+            return false;
+          }
+
+          if (ref == null || ref === "") {
+            const ok = this.openCase();
+            console.info(
+              ok
+                ? "[caseOpen] spinning (random)"
+                : "[caseOpen] could not start spin"
+            );
+            return ok;
+          }
+
+          const winner = resolveRewardRef(ref);
+          if (!winner) {
+            console.warn("[caseOpen] unknown reward:", ref);
+            return false;
+          }
+
+          const ok = this._startCaseOpen(winner);
+          console.info(
+            ok
+              ? `[caseOpen] spinning → ${winner.id}`
+              : "[caseOpen] could not start spin"
+          );
+          return ok ? winner.id : false;
+        },
+        spin: (ref) => api.open(ref),
+        give: (ref) => {
+          const winner = resolveRewardRef(ref);
+          if (!winner) {
+            console.warn("[caseOpen] unknown reward:", ref);
+            return false;
+          }
+          if (this.caseOpening) this._abortCaseSpin();
+          this._scrollCaseIntoView();
+          this._finishCaseOpen(winner);
+          console.info(`[caseOpen] granted: ${winner.id}`);
+          return winner.id;
+        },
+        pin: () => {
+          if (!this.caseLockOpen) {
+            console.info("[caseOpen] no active site lock");
+            return null;
+          }
+          console.info(`[caseOpen] lock PIN: ${this.caseLockPin}`);
+          return this.caseLockPin;
+        },
+        unlock: () => {
+          if (!this.caseLockOpen) {
+            console.info("[caseOpen] no active site lock");
+            return false;
+          }
+          this._unlockCaseLock(true);
+          console.info("[caseOpen] lock cleared");
+          return true;
+        },
+        abort: () => {
+          if (!this.caseOpening) {
+            console.info("[caseOpen] reel idle");
+            return false;
+          }
+          this._abortCaseSpin();
+          console.info("[caseOpen] spin aborted");
+          return true;
+        },
+        clear: () => {
+          this._abortCaseSpin();
+          this._clearCaseFakeoutTimer();
+          for (const id of this._caseSideTimers) {
+            window.clearTimeout(id);
+          }
+          this._caseSideTimers = [];
+          this.caseResultJackpotStyle = false;
+          this._restoreCaseTheme();
+          this._stopConfetti?.();
+          this._stopConfetti = null;
+          if (this._caseTitleBackup) {
+            document.title = this._caseTitleBackup;
+            this._caseTitleBackup = "";
+          }
+          document
+            .querySelector("main")
+            ?.classList.remove("case-open-shake");
+          document
+            .querySelector(".store-shell")
+            ?.classList.remove("case-open-shake");
+          this._caseBalloonRoot?.remove();
+          this._caseBalloonRoot = null;
+          this.caseVacOpen = false;
+          this.caseAccentPulse = false;
+          document.documentElement.classList.remove(
+            "case-text-corrupt",
+            "case-text-blind",
+            "case-dizziness"
+          );
+          this._clearCaseResizedBlocks();
+          if (this._caseLockFocusTimer) {
+            window.clearTimeout(this._caseLockFocusTimer);
+            this._caseLockFocusTimer = 0;
+          }
+          this._unlockCaseLock(false);
+          this.closeCaseRickroll({ celebrated: false });
+          console.info("[caseOpen] cleared active case effects");
+          return true;
+        },
+        help: () => {
+          console.info(
+            [
+              "caseOpen API",
+              "  caseOpen.ids()              — catalog with 1-based numbers",
+              "  caseOpen.chances()          — same table (id / rarity / %)",
+              "  caseOpen.open()             — random spin + scroll to reel",
+              "  caseOpen.open(1|id)         — force winner, then spin",
+              "  caseOpen.spin(1|id)         — alias of open()",
+              "  caseOpen.give(1|id)         — grant reward (no reel)",
+              "  caseOpen.last()             — last landed reward",
+              "  caseOpen.pin()              — print site-lock PIN if active",
+              "  caseOpen.unlock()           — dismiss site lock",
+              "  caseOpen.abort()            — cancel in-flight spin",
+              "  caseOpen.clear()            — wipe spin + temporary effects",
+              "  caseOpen.help()             — this text",
+            ].join("\n")
+          );
+          return catalog();
+        },
+      };
+
+      window.caseOpen = api;
+      return api;
+    },
+
     destroyCaseOpen() {
       this._clearCaseSpinTimer();
       this._clearCaseFakeoutTimer();
@@ -895,6 +1110,10 @@ export function caseOpenMethods() {
         this._caseLockFocusTimer = 0;
       }
       this._unlockCaseLock(false);
+      this.closeCaseRickroll({ celebrated: false });
+      if (window.caseOpen) {
+        delete window.caseOpen;
+      }
     },
   };
 }
