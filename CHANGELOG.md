@@ -10,6 +10,18 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.66.1] — 2026-07-15
+
+### Changed
+
+- Avatar speech also anchors to the hub card avatar (`hub-card__avatar`)
+
+## [1.66.0] — 2026-07-15
+
+### Changed
+
+- Avatar speech anchors to the most visible profile avatar (hero, Letterboxd, Backloggd, Steam); falls back to the topbar brand when none are on screen
+
 ## [1.65.4] — 2026-07-15
 
 ### Changed

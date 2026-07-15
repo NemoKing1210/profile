@@ -7,15 +7,19 @@
     <div class="hub-card__glow" aria-hidden="true"></div>
     <div class="hub-card__head">
       <div class="hub-card__identity">
-        <img
-          class="hub-card__avatar"
-          :src="avatar"
-          :alt="name"
-          width="96"
-          height="96"
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="hub-card__avatar-slot">
+          <img
+            class="hub-card__avatar"
+            data-speech-avatar="hub"
+            :src="avatar"
+            :alt="name"
+            width="96"
+            height="96"
+            loading="lazy"
+            decoding="async"
+          />
+          {{> hero/speech-bubble modifier="hub" }}
+        </div>
         <div class="hub-card__titles">
           <p class="hub-card__eyebrow" x-text="t.hub.eyebrow"></p>
           <div class="hub-card__title-row">

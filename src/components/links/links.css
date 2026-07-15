@@ -2,7 +2,8 @@
 
 .hub-card {
   position: relative;
-  overflow: hidden;
+  /* visible so speech bubble can sit above the avatar */
+  overflow: visible;
   margin-bottom: 1.1rem;
   padding: 1rem 1.05rem 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -16,12 +17,20 @@
 
 .hub-card__glow {
   position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hub-card__glow::before {
+  content: "";
+  position: absolute;
   inset: auto -12% -45% auto;
   width: 240px;
   height: 240px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(103, 193, 245, 0.2), transparent 68%);
-  pointer-events: none;
 }
 
 .hub-card__head {
@@ -42,10 +51,17 @@
   min-width: 0;
 }
 
+.hub-card__avatar-slot {
+  position: relative;
+  flex-shrink: 0;
+  line-height: 0;
+  z-index: 2;
+}
+
 .hub-card__avatar {
   width: 3rem;
   height: 3rem;
-  flex-shrink: 0;
+  display: block;
   object-fit: cover;
   border-radius: 0.4rem;
   border: 1px solid rgba(102, 192, 244, 0.4);

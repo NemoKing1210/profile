@@ -152,18 +152,34 @@ body.theme-light .hero__banner::before {
     color var(--theme-duration) var(--ease);
 }
 
-.avatar-speech--hero {
+/* Above a profile avatar (hero / media shelves / steam). Brand is separate. */
+.avatar-speech--hero,
+.avatar-speech--letterboxd,
+.avatar-speech--backloggd,
+.avatar-speech--steam,
+.avatar-speech--hub {
   bottom: calc(100% + 0.75rem);
   left: 0;
 }
 
-.avatar-speech--hero::after {
+.avatar-speech--hero::after,
+.avatar-speech--letterboxd::after,
+.avatar-speech--backloggd::after,
+.avatar-speech--steam::after,
+.avatar-speech--hub::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 1.35rem;
   border: 7px solid transparent;
   border-top-color: color-mix(in srgb, var(--bg-store) 70%, var(--accent));
+}
+
+/* Smaller shelf / hub avatars: keep the tail over the face. */
+.avatar-speech--letterboxd::after,
+.avatar-speech--backloggd::after,
+.avatar-speech--hub::after {
+  left: 0.7rem;
 }
 
 .avatar-speech--brand {

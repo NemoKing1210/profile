@@ -17,6 +17,7 @@
         <button
           type="button"
           class="hero__avatar-btn"
+          data-speech-avatar="hero"
           @click="spawnAvatarSquare()"
           @mouseenter="showSpeechI18n('hero.avatarTip', { holdMs: null })"
           @mouseleave="hideSpeech()"
@@ -26,7 +27,6 @@
         >
           <img
             class="hero__avatar"
-            x-ref="heroAvatar"
             :src="avatar"
             :alt="`${name} — ${t.ui.avatarAlt}`"
             width="128"

@@ -63,15 +63,19 @@
   <aside class="steam-invite" aria-labelledby="steam-invite-title">
     <div class="steam-invite__glow" aria-hidden="true"></div>
     <div class="steam-invite__persona">
-      <img
-        class="steam-invite__avatar"
-        :src="steam.avatar"
-        :alt="steam.name"
-        width="184"
-        height="184"
-        loading="lazy"
-        decoding="async"
-      />
+      <div class="steam-invite__avatar-slot">
+        <img
+          class="steam-invite__avatar"
+          data-speech-avatar="steam"
+          :src="steam.avatar"
+          :alt="steam.name"
+          width="184"
+          height="184"
+          loading="lazy"
+          decoding="async"
+        />
+        {{> hero/speech-bubble modifier="steam" }}
+      </div>
       <div class="steam-invite__who">
         <p class="steam-invite__eyebrow" x-text="steam.title"></p>
         <p class="steam-invite__name" x-text="steam.name"></p>

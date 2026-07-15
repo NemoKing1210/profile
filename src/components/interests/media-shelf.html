@@ -6,21 +6,25 @@
 <div class="media-shelf">
   <div class="media-shelf__head">
     <div class="media-shelf__identity">
-      <img
-        class="media-shelf__avatar"
-        :class="t.{{localeKey}}.avatarTip && 'media-shelf__avatar--tip'"
-        :src="{{source}}.avatar"
-        :alt="{{source}}.name"
-        width="{{avatarW}}"
-        height="{{avatarH}}"
-        loading="lazy"
-        decoding="async"
-        :tabindex="t.{{localeKey}}.avatarTip ? 0 : null"
-        @mouseenter="t.{{localeKey}}.avatarTip && showSpeechI18n('{{localeKey}}.avatarTip', { holdMs: null })"
-        @mouseleave="t.{{localeKey}}.avatarTip && hideSpeech()"
-        @focusin="t.{{localeKey}}.avatarTip && showSpeechI18n('{{localeKey}}.avatarTip', { holdMs: null })"
-        @focusout="t.{{localeKey}}.avatarTip && hideSpeech()"
-      />
+      <div class="media-shelf__avatar-slot">
+        <img
+          class="media-shelf__avatar"
+          data-speech-avatar="{{localeKey}}"
+          :class="t.{{localeKey}}.avatarTip && 'media-shelf__avatar--tip'"
+          :src="{{source}}.avatar"
+          :alt="{{source}}.name"
+          width="{{avatarW}}"
+          height="{{avatarH}}"
+          loading="lazy"
+          decoding="async"
+          :tabindex="t.{{localeKey}}.avatarTip ? 0 : null"
+          @mouseenter="t.{{localeKey}}.avatarTip && showSpeechI18n('{{localeKey}}.avatarTip', { holdMs: null })"
+          @mouseleave="t.{{localeKey}}.avatarTip && hideSpeech()"
+          @focusin="t.{{localeKey}}.avatarTip && showSpeechI18n('{{localeKey}}.avatarTip', { holdMs: null })"
+          @focusout="t.{{localeKey}}.avatarTip && hideSpeech()"
+        />
+        {{> hero/speech-bubble modifier=localeKey }}
+      </div>
 
       <div class="media-shelf__titles">
         <h3 class="media-shelf__title" x-text="t.{{localeKey}}.title"></h3>

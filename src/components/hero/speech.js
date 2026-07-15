@@ -5,6 +5,13 @@ import {
   markPhysicsSpawned,
   resolveTechBall,
 } from "../../shared/data/physics-spawns.js";
+import {
+  SPEECH_ANCHOR_BRAND,
+  SPEECH_AVATAR_SELECTOR,
+  SPEECH_AVATAR_THRESHOLDS,
+  applySpeechAvatarEntry,
+  pickSpeechAnchor,
+} from "./speech-avatars.js";
 import { createSpeechQueue } from "./speech-queue.js";
 
 /**
@@ -45,8 +52,8 @@ export function heroSpeechState() {
     avatarSpeechWords: [],
     avatarSpeechTyping: false,
     avatarSpeechAnimateWords: true,
-    avatarSpeechAnchor: "hero",
-    avatarInView: true,
+    avatarSpeechAnchor: SPEECH_ANCHOR_BRAND,
+    avatarInView: false,
     _avatarSpeechI18nPath: null,
     _avatarSpeechHoldMs: DEFAULT_HOLD_MS,
     _avatarSpeechIdentity: null,
@@ -59,6 +66,8 @@ export function heroSpeechState() {
     /** Set when hide is requested while words are still typing out. */
     _avatarSpeechHidePending: false,
     _avatarSpeechObserver: null,
+    /** @type {Map<string, import("./speech-avatars.js").SpeechAvatarVisibility> | null} */
+    _speechAvatarVisibility: null,
     _pageScrolling: false,
     _speechScrollIdleTimer: null,
     _onSpeechPageScroll: null,
@@ -195,21 +204,47 @@ export function heroSpeechMethods() {
     },
 
     bindAvatarSpeech() {
-      const avatar = this.$refs.heroAvatar;
-      if (!avatar || this._avatarSpeechObserver) return;
+      if (this._avatarSpeechObserver) return;
+
+      const hosts = document.querySelectorAll(SPEECH_AVATAR_SELECTOR);
+      this._speechAvatarVisibility = new Map();
 
       this._avatarSpeechObserver = new IntersectionObserver(
         (entries) => {
-          const entry = entries[0];
-          this.avatarInView = Boolean(entry?.isIntersecting);
-          if (this.avatarSpeechOpen) {
-            this.avatarSpeechAnchor = this.avatarInView ? "hero" : "brand";
+          let changed = false;
+          for (const entry of entries) {
+            if (applySpeechAvatarEntry(this._speechAvatarVisibility, entry)) {
+              changed = true;
+            }
           }
+          if (changed) this._syncSpeechAnchor();
         },
-        { threshold: 0.35 }
+        { threshold: SPEECH_AVATAR_THRESHOLDS }
       );
-      this._avatarSpeechObserver.observe(avatar);
+
+      for (const host of hosts) {
+        this._avatarSpeechObserver.observe(host);
+      }
+
+      this._syncSpeechAnchor();
       this._bindSpeechScrollGuard();
+    },
+
+    /**
+     * Resolve the best visible profile avatar; brand (header) if none.
+     * @returns {string}
+     */
+    _preferredSpeechAnchor() {
+      return pickSpeechAnchor(this._speechAvatarVisibility);
+    },
+
+    /** Keep reactive anchor + avatarInView in sync with viewport hosts. */
+    _syncSpeechAnchor() {
+      const next = this._preferredSpeechAnchor();
+      this.avatarInView = next !== SPEECH_ANCHOR_BRAND;
+      if (this.avatarSpeechOpen) {
+        this.avatarSpeechAnchor = next;
+      }
     },
 
     showSpeech(text, { holdMs = DEFAULT_HOLD_MS } = {}) {
@@ -358,7 +393,8 @@ export function heroSpeechMethods() {
       this._stopAvatarSpeechHideTimer();
       this._avatarSpeechHidePending = false;
       this._avatarSpeechHoldMs = holdMs;
-      this.avatarSpeechAnchor = this.avatarInView ? "hero" : "brand";
+      this.avatarSpeechAnchor = this._preferredSpeechAnchor();
+      this.avatarInView = this.avatarSpeechAnchor !== SPEECH_ANCHOR_BRAND;
       this.avatarSpeechOpen = true;
 
       const words = splitSpeechWords(full);
@@ -528,6 +564,7 @@ export function heroSpeechMethods() {
       this._clearPhysicsCatalogSpawnTimers();
       this._avatarSpeechObserver?.disconnect();
       this._avatarSpeechObserver = null;
+      this._speechAvatarVisibility = null;
       if (this._onSpeechPageScroll) {
         window.removeEventListener("scroll", this._onSpeechPageScroll);
         this._onSpeechPageScroll = null;
