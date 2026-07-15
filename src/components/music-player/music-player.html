@@ -23,9 +23,14 @@
       :aria-label="musicOpen ? t.ui.musicClose : t.ui.musicOpen"
       :disabled="musicBooting && !musicVisible"
       :aria-busy="musicBusy ? 'true' : 'false'"
+      @pointermove="onMusicGlowPointer($event)"
+      @pointerleave="resetMusicGlowPointer($event)"
       @click="toggleMusicPanel()"
     >
-      <span class="music-player__toggle-glow" aria-hidden="true"></span>
+      <span class="music-player__toggle-glow" aria-hidden="true">
+        <span class="music-player__glow-blob"></span>
+        <span class="music-player__glow-edge"></span>
+      </span>
 
       <span
         class="music-player__spinner"
@@ -67,7 +72,13 @@
       role="region"
       :aria-label="t.ui.musicPanelLabel"
       :aria-hidden="musicOpen ? 'false' : 'true'"
+      @pointermove="onMusicGlowPointer($event)"
+      @pointerleave="resetMusicGlowPointer($event)"
     >
+      <div class="music-player__sheet-glow" aria-hidden="true">
+        <span class="music-player__glow-blob"></span>
+        <span class="music-player__glow-edge"></span>
+      </div>
       <div class="music-player__sheet-shine" aria-hidden="true"></div>
       <div class="music-player__wave" aria-hidden="true">
         <svg

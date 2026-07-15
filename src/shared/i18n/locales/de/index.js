@@ -98,6 +98,8 @@ export default {
     musicIdle: "Ambient-Radio",
     musicError: "Sender nicht erreichbar",
     musicCredit: "via Radio Browser",
+    musicListenTip: "Lust auf ein bisschen Radio?",
+    musicListenCta: "Abspielen",
     musicGenreLabel: "Genre",
     musicGenres: {
       ambient: "Ambient",

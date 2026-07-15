@@ -8,6 +8,10 @@ import {
 const VOLUME_KEY = "profile:music-volume";
 const EXPANDED_KEY = "profile:music-expanded";
 const GENRE_KEY = "profile:music-genre";
+const MUSIC_LISTEN_HINT_KEY = "profile:music-listen-hint-shown";
+/** Visible tab time before the avatar nudges to start the radio. */
+const MUSIC_LISTEN_HINT_MS = 60_000;
+const MUSIC_LISTEN_HINT_HOLD_MS = 12_000;
 const DEFAULT_VOLUME = 0.35;
 const PROBE_TIMEOUT_MS = 4_500;
 const PROBE_STATION_LIMIT = 3;
@@ -87,6 +91,10 @@ export function musicPlayerState() {
     _musicSkipTries: 0,
     _musicPlayToken: 0,
     _musicWantOpen: readExpanded(),
+    _musicListenHintAccumMs: 0,
+    _musicListenHintStartedAt: null,
+    _musicListenHintTimer: null,
+    _onMusicListenHintVisibility: null,
   };
 }
 
@@ -112,6 +120,28 @@ export function musicPlayerMethods() {
       return this.t?.ui?.musicGenres?.[id] || id;
     },
 
+    /** Pointer-following accent spotlight on the toggle pill / sheet. */
+    onMusicGlowPointer(event) {
+      if (!canTrackMusicGlow()) return;
+      const el = event.currentTarget;
+      if (!(el instanceof HTMLElement)) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.width < 1 || rect.height < 1) return;
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty("--music-glow-x", `${clampPct(x)}%`);
+      el.style.setProperty("--music-glow-y", `${clampPct(y)}%`);
+      el.dataset.musicGlow = "1";
+    },
+
+    resetMusicGlowPointer(event) {
+      const el = event.currentTarget;
+      if (!(el instanceof HTMLElement)) return;
+      el.style.removeProperty("--music-glow-x");
+      el.style.removeProperty("--music-glow-y");
+      delete el.dataset.musicGlow;
+    },
+
     async initMusicPlayer() {
       this.musicBooting = true;
       this.musicLoading = true;
@@ -128,6 +158,7 @@ export function musicPlayerMethods() {
           this.musicOpen = true;
           this._persistMusicOpen();
         }
+        this.bindMusicListenHint?.();
       } catch {
         this._hideMusicPlayer();
       } finally {
@@ -205,6 +236,7 @@ export function musicPlayerMethods() {
       this.musicTrack = null;
       this._musicWantOpen = false;
       this._persistMusicOpen();
+      this.destroyMusicListenHint?.();
       if (this._musicAudio) {
         this._musicAudio.pause();
         this._musicAudio.removeAttribute("src");
@@ -348,6 +380,8 @@ export function musicPlayerMethods() {
         this.musicPlaying = true;
         this.musicBuffering = false;
         this.musicError = false;
+        this._markMusicListenHintShown?.();
+        this.destroyMusicListenHint?.();
       });
       audio.addEventListener("waiting", () => {
         if (this.musicPlaying || audio.src) this.musicBuffering = true;
@@ -476,6 +510,7 @@ export function musicPlayerMethods() {
 
     destroyMusicPlayer() {
       this._musicPlayToken += 1;
+      this.destroyMusicListenHint();
       if (this._musicAudio) {
         this._musicAudio.pause();
         this._musicAudio.removeAttribute("src");
@@ -485,6 +520,136 @@ export function musicPlayerMethods() {
       this.musicPlaying = false;
       this.musicBuffering = false;
       this._musicLoadPromise = null;
+    },
+
+    /**
+     * After MUSIC_LISTEN_HINT_MS of visible time without playback,
+     * ask once whether to start the radio (avatar CTA).
+     */
+    bindMusicListenHint() {
+      if (!this.musicVisible) return;
+      if (this._wasMusicListenHintShown()) return;
+      if (this._onMusicListenHintVisibility) return;
+
+      this._musicListenHintAccumMs = 0;
+      this._musicListenHintStartedAt = null;
+      this._musicListenHintTimer = null;
+
+      this._onMusicListenHintVisibility = () => {
+        if (document.hidden) {
+          this._pauseMusicListenHintClock();
+        } else {
+          this._resumeMusicListenHintClock();
+        }
+      };
+      document.addEventListener(
+        "visibilitychange",
+        this._onMusicListenHintVisibility
+      );
+
+      if (!document.hidden) {
+        this._resumeMusicListenHintClock();
+      }
+    },
+
+    _resumeMusicListenHintClock() {
+      if (!this.musicVisible || this._wasMusicListenHintShown()) {
+        this.destroyMusicListenHint();
+        return;
+      }
+      if (this.musicPlaying) {
+        this._pauseMusicListenHintClock();
+        return;
+      }
+      if (this._musicListenHintStartedAt != null) return;
+
+      this._musicListenHintStartedAt = performance.now();
+      const remaining = Math.max(
+        0,
+        MUSIC_LISTEN_HINT_MS - this._musicListenHintAccumMs
+      );
+
+      if (this._musicListenHintTimer != null) {
+        window.clearTimeout(this._musicListenHintTimer);
+      }
+      this._musicListenHintTimer = window.setTimeout(() => {
+        this._musicListenHintTimer = null;
+        this._musicListenHintStartedAt = null;
+        this._musicListenHintAccumMs = MUSIC_LISTEN_HINT_MS;
+        if (this.musicPlaying) {
+          this._markMusicListenHintShown();
+          this.destroyMusicListenHint();
+          return;
+        }
+        this._speakMusicListenHint();
+        this.destroyMusicListenHint();
+      }, remaining);
+    },
+
+    _pauseMusicListenHintClock() {
+      if (this._musicListenHintStartedAt == null) return;
+
+      this._musicListenHintAccumMs +=
+        performance.now() - this._musicListenHintStartedAt;
+      this._musicListenHintStartedAt = null;
+
+      if (this._musicListenHintTimer != null) {
+        window.clearTimeout(this._musicListenHintTimer);
+        this._musicListenHintTimer = null;
+      }
+    },
+
+    _speakMusicListenHint() {
+      if (!this.musicVisible || this.musicPlaying) return;
+      if (this._wasMusicListenHintShown()) return;
+
+      this._markMusicListenHintShown();
+      this.showSpeechI18n?.("ui.musicListenTip", {
+        holdMs: MUSIC_LISTEN_HINT_HOLD_MS,
+        action: {
+          labelI18n: "ui.musicListenCta",
+          method: "onSpeechMusicListen",
+          icon: "play",
+          tone: "green",
+        },
+      });
+    },
+
+    async onSpeechMusicListen() {
+      if (!this.musicVisible) return;
+      this.musicOpen = true;
+      this._musicWantOpen = true;
+      this._persistMusicOpen();
+      if (!this.musicPlaying) {
+        await this.toggleMusicPlayback();
+      }
+    },
+
+    _wasMusicListenHintShown() {
+      try {
+        return localStorage.getItem(MUSIC_LISTEN_HINT_KEY) === "1";
+      } catch {
+        return false;
+      }
+    },
+
+    _markMusicListenHintShown() {
+      try {
+        localStorage.setItem(MUSIC_LISTEN_HINT_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+    },
+
+    destroyMusicListenHint() {
+      this._pauseMusicListenHintClock();
+      if (this._onMusicListenHintVisibility) {
+        document.removeEventListener(
+          "visibilitychange",
+          this._onMusicListenHintVisibility
+        );
+        this._onMusicListenHintVisibility = null;
+      }
     },
   };
 }
@@ -514,4 +679,16 @@ function preferReliableOrder(stations, useFallback) {
     }
   }
   return [...shuffle(reliable), ...shuffle(rest)];
+}
+
+function clampPct(value) {
+  return Math.min(100, Math.max(0, value)).toFixed(1);
+}
+
+function canTrackMusicGlow() {
+  if (typeof window === "undefined") return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return false;
+  }
+  return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }

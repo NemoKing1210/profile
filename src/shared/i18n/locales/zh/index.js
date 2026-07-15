@@ -94,6 +94,8 @@ export default {
     musicIdle: "氛围电台",
     musicError: "无法连接电台",
     musicCredit: "来自 Radio Browser",
+    musicListenTip: "来点电台音乐？",
+    musicListenCta: "播放",
     musicGenreLabel: "曲风",
     musicGenres: {
       ambient: "Ambient",

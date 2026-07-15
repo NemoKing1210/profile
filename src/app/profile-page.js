@@ -140,6 +140,7 @@ export function createProfilePage() {
           this.bindLongStayAchievement?.();
           this.bindAchievementsDiscoverHint?.();
           this.bindAchievementDebugApi?.();
+          this.bindSpeechDebugApi?.();
           this.bindCaseDebugApi?.();
           this.bindFooterEaster?.();
           this.bindBugReportReturn?.();

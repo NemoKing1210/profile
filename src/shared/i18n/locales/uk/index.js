@@ -98,6 +98,8 @@ export default {
     musicIdle: "Фонове радіо",
     musicError: "Не вдалося підключитися",
     musicCredit: "через Radio Browser",
+    musicListenTip: "Не хочеш послухати радіо?",
+    musicListenCta: "Увімкнути",
     musicGenreLabel: "Жанр",
     musicGenres: {
       ambient: "Ambient",

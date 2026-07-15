@@ -27,6 +27,8 @@ const WORD_INTERVAL_MS = 52;
 const SPEECH_TEXT_SWAP_OUT_MS = 240;
 /** Extra hold after typewriter finishes when hide was requested early (hover leave). */
 const HOVER_HIDE_DELAY_MS = 1000;
+/** Match `.avatar-speech-motion--leave` so CTA/copy stay painted through the fade-out. */
+const SPEECH_LEAVE_MS = 380;
 /** After the last scroll event, wait this long before allowing hover tips again. */
 const SCROLL_IDLE_MS = 160;
 /** Stagger between catalog drops when the spawnCollector effect runs. */
@@ -61,6 +63,10 @@ export function heroSpeechState() {
     avatarSpeechEpoch: 0,
     avatarSpeechAnchor: SPEECH_ANCHOR_BRAND,
     avatarInView: false,
+    /** @type {{ label: string, method: string, iconHtml: string, tone: string|null } | null} */
+    avatarSpeechAction: null,
+    /** Raw action spec kept for locale refresh. */
+    _avatarSpeechActionSpec: null,
     _avatarSpeechI18nPath: null,
     _avatarSpeechHoldMs: DEFAULT_HOLD_MS,
     _avatarSpeechIdentity: null,
@@ -71,6 +77,8 @@ export function heroSpeechState() {
     _avatarSpeechTimer: null,
     _avatarSpeechHideTimer: null,
     _avatarSpeechSwapTimer: null,
+    /** Clears action/copy after the leave transition (keeps CTA visible while fading). */
+    _speechDomScrubTimer: null,
     /** Set when hide is requested while words are still typing out. */
     _avatarSpeechHidePending: false,
     _avatarSpeechObserver: null,
@@ -255,7 +263,7 @@ export function heroSpeechMethods() {
       }
     },
 
-    showSpeech(text, { holdMs = DEFAULT_HOLD_MS } = {}) {
+    showSpeech(text, { holdMs = DEFAULT_HOLD_MS, action = null } = {}) {
       const full = String(text ?? "");
       if (!full) return;
       this._offerSpeech({
@@ -263,17 +271,28 @@ export function heroSpeechMethods() {
         text: full,
         i18nPath: null,
         holdMs,
+        action: normalizeSpeechAction(action),
       });
     },
 
-    showSpeechI18n(path, { holdMs = DEFAULT_HOLD_MS } = {}) {
+    showSpeechI18n(path, { holdMs = DEFAULT_HOLD_MS, action = null } = {}) {
       if (!path) return;
       this._offerSpeech({
         identity: `i18n:${path}`,
         text: "",
         i18nPath: path,
         holdMs,
+        action: normalizeSpeechAction(action),
       });
+    },
+
+    onAvatarSpeechAction() {
+      if (!this.avatarSpeechOpen) return;
+      const method = this.avatarSpeechAction?.method;
+      this._clearSpeech({ advance: true });
+      if (method && typeof this[method] === "function") {
+        this[method]();
+      }
     },
 
     hideSpeech() {
@@ -383,6 +402,8 @@ export function heroSpeechMethods() {
 
       this._avatarSpeechIdentity = job.identity;
       this._avatarSpeechI18nPath = job.i18nPath ?? null;
+      this._avatarSpeechActionSpec = job.action ?? null;
+      this.avatarSpeechAction = resolveSpeechAction(this.t, job.action, this.icons);
       this._beginSpeech(text, holdMs, { identity: job.identity });
     },
 
@@ -400,6 +421,7 @@ export function heroSpeechMethods() {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
       this._stopAvatarSpeechSwapTimer();
+      this._stopSpeechDomScrub();
       this._avatarSpeechHidePending = false;
       this._avatarSpeechHoldMs = holdMs;
       this.avatarSpeechAnchor = this._preferredSpeechAnchor();
@@ -555,11 +577,31 @@ export function heroSpeechMethods() {
       this.avatarSpeechOpen = false;
       this.avatarSpeechTyping = false;
       this.avatarSpeechTextPhase = null;
+      // Keep action + copy until leave finishes — otherwise the CTA pops blank mid-fade.
       this._avatarSpeechI18nPath = null;
       this._avatarSpeechIdentity = null;
       this._avatarSpeechHoldMs = DEFAULT_HOLD_MS;
+      this._scheduleSpeechDomScrub();
 
       if (advance) this._advanceSpeechQueue();
+    },
+
+    _scheduleSpeechDomScrub() {
+      this._stopSpeechDomScrub();
+      const delay = prefersReducedMotion() ? 0 : SPEECH_LEAVE_MS;
+      this._speechDomScrubTimer = window.setTimeout(() => {
+        this._speechDomScrubTimer = null;
+        if (this.avatarSpeechOpen) return;
+        this.avatarSpeechAction = null;
+        this._avatarSpeechActionSpec = null;
+      }, delay);
+    },
+
+    _stopSpeechDomScrub() {
+      if (this._speechDomScrubTimer != null) {
+        window.clearTimeout(this._speechDomScrubTimer);
+        this._speechDomScrubTimer = null;
+      }
     },
 
     _stopAvatarSpeechTimer() {
@@ -621,9 +663,161 @@ export function heroSpeechMethods() {
       });
     },
 
+    bindSpeechDebugApi() {
+      const resolve = (ref) => resolveSpeechTemplate(ref);
+
+      const api = {
+        templates: () =>
+          SPEECH_TEMPLATES.map((tpl, index) => ({
+            n: index + 1,
+            id: tpl.id,
+            i18nPath: tpl.i18nPath || null,
+            holdMs: tpl.holdMs ?? DEFAULT_HOLD_MS,
+            hasAction: Boolean(tpl.action),
+          })),
+        list: () => api.templates(),
+        state: () => ({
+          open: this.avatarSpeechOpen,
+          typing: this.avatarSpeechTyping,
+          text: this.avatarSpeechText,
+          i18nPath: this._avatarSpeechI18nPath,
+          holdMs: this._avatarSpeechHoldMs,
+          action: this.avatarSpeechAction
+            ? {
+                label: this.avatarSpeechAction.label,
+                method: this.avatarSpeechAction.method,
+                tone: this.avatarSpeechAction.tone,
+              }
+            : null,
+          queueLen: this._queue().size,
+        }),
+        say: (text, opts = {}) => {
+          const full = String(text ?? "").trim();
+          if (!full) {
+            console.warn("[speech] empty text");
+            return false;
+          }
+          const holdMs =
+            opts.holdMs === null ? null : Number(opts.holdMs) || DEFAULT_HOLD_MS;
+          this.showSpeech(full, {
+            holdMs,
+            action: opts.action ?? null,
+          });
+          console.info(`[speech] say (${full.length} chars)`);
+          return true;
+        },
+        i18n: (path, opts = {}) => {
+          const key = String(path ?? "").trim();
+          if (!key) {
+            console.warn("[speech] empty i18n path");
+            return false;
+          }
+          const holdMs =
+            opts.holdMs === null ? null : Number(opts.holdMs) || DEFAULT_HOLD_MS;
+          this.showSpeechI18n(key, {
+            holdMs,
+            action: opts.action ?? null,
+          });
+          console.info(`[speech] i18n: ${key}`);
+          return true;
+        },
+        template: (ref, overrides = {}) => {
+          const tpl = resolve(ref);
+          if (!tpl) {
+            console.warn("[speech] unknown template:", ref);
+            return false;
+          }
+          const holdMs =
+            overrides.holdMs !== undefined
+              ? overrides.holdMs
+              : (tpl.holdMs ?? DEFAULT_HOLD_MS);
+          const action =
+            overrides.action !== undefined
+              ? overrides.action
+              : (tpl.action ?? null);
+
+          if (tpl.text != null && !tpl.i18nPath) {
+            this.showSpeech(tpl.text, { holdMs, action });
+          } else if (tpl.i18nPath) {
+            this.showSpeechI18n(tpl.i18nPath, { holdMs, action });
+          } else {
+            console.warn("[speech] template has no text/i18n:", tpl.id);
+            return false;
+          }
+          console.info(`[speech] template: ${tpl.id}`);
+          return true;
+        },
+        demo: () => {
+          this.showSpeech("Console demo — press Play", {
+            holdMs: 12_000,
+            action: {
+              label: "Play",
+              method: "onSpeechMusicListen",
+              icon: "play",
+              tone: "green",
+            },
+          });
+          console.info("[speech] demo with green play CTA");
+          return true;
+        },
+        hide: () => {
+          this._queue().clear();
+          this._clearSpeech({ advance: false });
+          console.info("[speech] hidden");
+          return true;
+        },
+        /**
+         * Clear the one-shot music-listen tip flag so the timed hint can fire again.
+         */
+        resetMusicHint: () => {
+          try {
+            localStorage.removeItem("profile:music-listen-hint-shown");
+          } catch {
+            /* ignore */
+          }
+          this._musicListenHintAccumMs = 0;
+          this._musicListenHintStartedAt = null;
+          this.destroyMusicListenHint?.();
+          this.bindMusicListenHint?.();
+          console.info("[speech] music listen hint flag cleared + timer rebound");
+          return true;
+        },
+        tones: () => [...SPEECH_ACTION_TONES],
+        help: () => {
+          console.info(
+            [
+              "speech API (avatar bubble)",
+              "  speech.templates()              — catalog with 1-based numbers",
+              "  speech.template(1|id, overrides?) — play a preset (opts: holdMs, action)",
+              "  speech.say(text, opts?)          — custom copy",
+              "  speech.i18n(path, opts?)         — showSpeechI18n path (e.g. ui.langSwitched)",
+              "  speech.demo()                    — sample line + green Play CTA",
+              "  speech.hide()                    — force-dismiss + clear queue",
+              "  speech.state()                   — current bubble state",
+              "  speech.tones()                   — CTA tones: green|accent|hot|danger|muted",
+              "  speech.resetMusicHint()          — clear music tip localStorage + rebind",
+              "  speech.help()                    — this text",
+              "",
+              "opts.action = { label | labelI18n, method, icon?, tone? }",
+              "  e.g. speech.say('Hi', { holdMs: 8000, action: { label: 'Go', method: 'hideSpeech', tone: 'accent' } })",
+              "  e.g. speech.template('musicListen')",
+              "  e.g. speech.i18n('hero.playAlong', { holdMs: 6000 })",
+            ].join("\n")
+          );
+          return api.templates();
+        },
+      };
+
+      window.speech = api;
+      return api;
+    },
+
     destroyHeroSpeech() {
       this._queue().clear();
       this._clearSpeech({ advance: false });
+      this._stopSpeechDomScrub();
+      this.avatarSpeechAction = null;
+      this._avatarSpeechActionSpec = null;
       this._clearPhysicsCatalogSpawnTimers();
       this._avatarSpeechObserver?.disconnect();
       this._avatarSpeechObserver = null;
@@ -637,6 +831,9 @@ export function heroSpeechMethods() {
         this._speechScrollIdleTimer = null;
       }
       this._pageScrolling = false;
+      if (window.speech) {
+        delete window.speech;
+      }
     },
   };
 }
@@ -672,6 +869,131 @@ function resolveI18nPath(tree, path) {
     .split(".")
     .reduce((acc, key) => (acc == null ? undefined : acc[key]), tree);
   return typeof value === "string" ? value : "";
+}
+
+const SPEECH_ACTION_TONES = new Set([
+  "green",
+  "accent",
+  "hot",
+  "danger",
+  "muted",
+]);
+
+/**
+ * Preset lines for the console debug API (`window.speech`).
+ * @type {ReadonlyArray<{
+ *   id: string,
+ *   i18nPath?: string,
+ *   text?: string,
+ *   holdMs?: number|null,
+ *   action?: import("./speech-queue.js").SpeechAction,
+ * }>}
+ */
+const SPEECH_TEMPLATES = Object.freeze([
+  {
+    id: "musicListen",
+    i18nPath: "ui.musicListenTip",
+    holdMs: 12_000,
+    action: {
+      labelI18n: "ui.musicListenCta",
+      method: "onSpeechMusicListen",
+      icon: "play",
+      tone: "green",
+    },
+  },
+  {
+    id: "achievementsDiscover",
+    i18nPath: "ui.achievementsDiscoverTip",
+  },
+  {
+    id: "langSwitched",
+    i18nPath: "ui.langSwitched",
+  },
+  {
+    id: "playEnough",
+    i18nPath: "hero.playEnough",
+  },
+  {
+    id: "playAlong",
+    i18nPath: "hero.playAlong",
+  },
+  {
+    id: "activityStart",
+    i18nPath: "about.activity.startSpeech",
+  },
+  {
+    id: "activityPlayStart",
+    i18nPath: "about.activity.playStartSpeech",
+  },
+  {
+    id: "activityPlayWin",
+    i18nPath: "about.activity.playWinSpeech",
+  },
+]);
+
+/**
+ * @param {string|number} ref
+ * @returns {(typeof SPEECH_TEMPLATES)[number]|null}
+ */
+function resolveSpeechTemplate(ref) {
+  if (typeof ref === "number" && Number.isFinite(ref)) {
+    const index = Math.trunc(ref) - 1;
+    return SPEECH_TEMPLATES[index] ?? null;
+  }
+  const key = String(ref ?? "").trim();
+  if (!key) return null;
+  if (/^\d+$/.test(key)) {
+    const index = Number(key) - 1;
+    return SPEECH_TEMPLATES[index] ?? null;
+  }
+  return SPEECH_TEMPLATES.find((tpl) => tpl.id === key) ?? null;
+}
+
+/**
+ * @param {unknown} action
+ * @returns {import("./speech-queue.js").SpeechAction|null}
+ */
+function normalizeSpeechAction(action) {
+  if (!action || typeof action !== "object") return null;
+  const method = String(action.method || "").trim();
+  if (!method) return null;
+  const labelI18n =
+    typeof action.labelI18n === "string" && action.labelI18n
+      ? action.labelI18n
+      : null;
+  const label =
+    typeof action.label === "string" && action.label ? action.label : "";
+  if (!labelI18n && !label) return null;
+  const icon =
+    typeof action.icon === "string" && action.icon.trim()
+      ? action.icon.trim()
+      : null;
+  const toneRaw = typeof action.tone === "string" ? action.tone.trim() : "";
+  const tone = SPEECH_ACTION_TONES.has(toneRaw) ? toneRaw : null;
+  return { method, labelI18n, label, icon, tone };
+}
+
+/**
+ * @param {object} tree
+ * @param {import("./speech-queue.js").SpeechAction|null|undefined} action
+ * @param {Record<string, string>|null|undefined} icons
+ * @returns {{ label: string, method: string, iconHtml: string, tone: string|null } | null}
+ */
+function resolveSpeechAction(tree, action, icons) {
+  if (!action?.method) return null;
+  const label = action.labelI18n
+    ? resolveI18nPath(tree, action.labelI18n)
+    : String(action.label || "");
+  if (!label) return null;
+  const iconKey = action.icon;
+  const iconHtml =
+    iconKey && icons && typeof icons[iconKey] === "string" ? icons[iconKey] : "";
+  return {
+    label,
+    method: action.method,
+    iconHtml,
+    tone: action.tone || null,
+  };
 }
 
 function prefersReducedMotion() {

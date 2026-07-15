@@ -10,6 +10,37 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.74.0] — 2026-07-15
+
+### Added
+
+- Dynamic accent spotlight on music player toggle and sheet (pointer-follow + idle drift while playing)
+
+## [1.73.1] — 2026-07-15
+
+### Fixed
+
+- Avatar speech CTA no longer blanks out mid hide — content stays through the leave fade
+
+## [1.73.0] — 2026-07-15
+
+### Added
+
+- Console debug API for avatar speech (`window.speech`): templates, custom text/i18n, CTA actions, force-hide
+
+## [1.72.1] — 2026-07-15
+
+### Added
+
+- Avatar speech CTA: optional `icon` (heroicons) and `tone` (`green` / `accent` / `hot` / `danger` / `muted`)
+
+## [1.72.0] — 2026-07-15
+
+### Added
+
+- Avatar speech actions (CTA button in the bubble)
+- After ~1 minute on site without radio, avatar offers “listen?” with a play button
+
 ## [1.71.1] — 2026-07-15
 
 ### Changed

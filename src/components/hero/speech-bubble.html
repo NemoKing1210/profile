@@ -36,4 +36,21 @@
       aria-hidden="true"
     ></span>
   </p>
+  <button
+    type="button"
+    class="avatar-speech__action"
+    :class="avatarSpeechAction?.tone && `avatar-speech__action--${avatarSpeechAction.tone}`"
+    x-show="avatarSpeechAction && !avatarSpeechTyping"
+    x-cloak
+    x-transition.opacity.duration.200ms
+    @click.stop="onAvatarSpeechAction()"
+  >
+    <span
+      class="avatar-speech__action-icon"
+      x-show="avatarSpeechAction?.iconHtml"
+      x-html="avatarSpeechAction?.iconHtml"
+      aria-hidden="true"
+    ></span>
+    <span class="avatar-speech__action-label" x-text="avatarSpeechAction?.label"></span>
+  </button>
 </div>

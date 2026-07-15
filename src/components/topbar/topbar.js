@@ -148,6 +148,7 @@ export function localeChromeMethods() {
       if (this.avatarSpeechOpen && this._avatarSpeechI18nPath) {
         this.showSpeechI18n(this._avatarSpeechI18nPath, {
           holdMs: this._avatarSpeechHoldMs,
+          action: this._avatarSpeechActionSpec,
         });
       }
 

@@ -276,6 +276,151 @@ body.theme-light .avatar-speech {
   animation: avatar-speech-caret 0.75s ease-in-out infinite;
 }
 
+.avatar-speech__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0.65rem 0 0;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid color-mix(in srgb, #ffffff 42%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, #ffffff 16%, transparent);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 22%, transparent);
+  transition:
+    background 0.18s var(--ease),
+    border-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    transform 0.18s var(--ease),
+    box-shadow 0.18s var(--ease);
+}
+
+.avatar-speech__action-icon {
+  display: grid;
+  place-items: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: 0 0 auto;
+}
+
+.avatar-speech__action-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-speech__action-label {
+  line-height: 1;
+}
+
+.avatar-speech__action:hover {
+  background: color-mix(in srgb, #ffffff 26%, transparent);
+  border-color: color-mix(in srgb, #ffffff 60%, transparent);
+  transform: translateY(-1px);
+}
+
+.avatar-speech__action:active {
+  transform: translateY(0);
+}
+
+.avatar-speech__action:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Positive / enable (e.g. start radio) */
+.avatar-speech__action--green {
+  color: #0e1419;
+  border-color: color-mix(in srgb, var(--accent-green) 70%, #ffffff);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent-green) 92%, #ffffff),
+    color-mix(in srgb, var(--accent-green) 75%, #2a475e)
+  );
+  box-shadow:
+    0 4px 14px color-mix(in srgb, var(--accent-green) 35%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 35%, transparent);
+}
+
+.avatar-speech__action--green:hover {
+  color: #0e1419;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent-green) 100%, #ffffff),
+    color-mix(in srgb, var(--accent-green) 82%, #2a475e)
+  );
+  border-color: color-mix(in srgb, var(--accent-green) 55%, #ffffff);
+}
+
+.avatar-speech__action--accent {
+  color: #0e1419;
+  border-color: color-mix(in srgb, var(--accent) 65%, #ffffff);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent) 95%, #ffffff),
+    color-mix(in srgb, var(--accent-hot) 70%, var(--accent))
+  );
+  box-shadow:
+    0 4px 14px color-mix(in srgb, var(--accent) 30%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 30%, transparent);
+}
+
+.avatar-speech__action--accent:hover {
+  color: #0e1419;
+  border-color: color-mix(in srgb, var(--accent) 50%, #ffffff);
+}
+
+.avatar-speech__action--hot {
+  color: #ffffff;
+  border-color: color-mix(in srgb, var(--accent-hot) 55%, #ffffff);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent-hot) 88%, #ffffff),
+    color-mix(in srgb, var(--accent-hot) 70%, #000000)
+  );
+  box-shadow:
+    0 4px 14px color-mix(in srgb, var(--accent-hot) 35%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 22%, transparent);
+}
+
+.avatar-speech__action--hot:hover {
+  border-color: color-mix(in srgb, var(--accent-hot) 40%, #ffffff);
+}
+
+.avatar-speech__action--danger {
+  color: #ffffff;
+  border-color: color-mix(in srgb, #ff6b6b 55%, #ffffff);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, #ff6b6b 85%, #ffffff),
+    color-mix(in srgb, #c62828 80%, #000000)
+  );
+  box-shadow:
+    0 4px 14px color-mix(in srgb, #ff6b6b 30%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 20%, transparent);
+}
+
+.avatar-speech__action--danger:hover {
+  border-color: color-mix(in srgb, #ff6b6b 40%, #ffffff);
+}
+
+.avatar-speech__action--muted {
+  color: color-mix(in srgb, #ffffff 85%, transparent);
+  border-color: color-mix(in srgb, #ffffff 22%, transparent);
+  background: color-mix(in srgb, #000000 28%, transparent);
+}
+
+.avatar-speech__action--muted:hover {
+  background: color-mix(in srgb, #000000 38%, transparent);
+  border-color: color-mix(in srgb, #ffffff 35%, transparent);
+}
+
 .avatar-speech-motion {
   transition:
     opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
@@ -376,8 +521,13 @@ body.theme-light .avatar-speech {
 
   .avatar-speech-motion,
   .avatar-speech-motion--leave,
-  .avatar-speech__text {
+  .avatar-speech__text,
+  .avatar-speech__action {
     transition: none;
+  }
+
+  .avatar-speech__action:hover {
+    transform: none;
   }
 
   .avatar-speech__text--swap-out,

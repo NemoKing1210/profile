@@ -7,11 +7,21 @@
  */
 
 /**
+ * @typedef {object} SpeechAction
+ * @property {string} [label]
+ * @property {string|null} [labelI18n]
+ * @property {string} method — name of a method on the Alpine page root
+ * @property {string|null} [icon] — key in `icons` / heroicons map
+ * @property {"green"|"accent"|"hot"|"danger"|"muted"|null} [tone]
+ */
+
+/**
  * @typedef {object} SpeechJob
  * @property {string} identity
  * @property {string} [text]
  * @property {string|null} [i18nPath]
  * @property {number|null} holdMs
+ * @property {SpeechAction|null} [action]
  */
 
 /**
