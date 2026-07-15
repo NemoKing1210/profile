@@ -7,6 +7,12 @@ import {
 } from "../../shared/data/physics-spawns.js";
 import { createSpeechQueue } from "./speech-queue.js";
 
+/**
+ * Temporary kill-switch: when false, new speech replaces the current line
+ * immediately (no FIFO wait). Flip back to true to restore the queue.
+ */
+const SPEECH_QUEUE_ENABLED = false;
+
 const DEFAULT_HOLD_MS = 5000;
 const WORD_INTERVAL_MS = 118;
 /** Extra hold after typewriter finishes when hide was requested early (hover leave). */
@@ -287,6 +293,12 @@ export function heroSpeechMethods() {
         job.identity === this._avatarSpeechIdentity &&
         this.avatarSpeechOpen
       ) {
+        this._playSpeechJob(job);
+        return;
+      }
+
+      if (!SPEECH_QUEUE_ENABLED) {
+        this._queue().clear();
         this._playSpeechJob(job);
         return;
       }

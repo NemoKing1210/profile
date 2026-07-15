@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.59.3] — 2026-07-15
+
+### Changed
+
+- Avatar speech queue temporarily disabled (`SPEECH_QUEUE_ENABLED = false`); new lines replace the current tip immediately
+
 ## [1.59.2] — 2026-07-15
 
 ### Fixed
