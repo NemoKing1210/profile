@@ -10,6 +10,18 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.75.2] — 2026-07-15
+
+### Changed
+
+- Steam audience (`?from=steam`) hides GitHub and ORCID in the Links panel
+
+## [1.75.1] — 2026-07-15
+
+### Removed
+
+- Notion from Linktree hub platform chips
+
 ## [1.75.0] — 2026-07-15
 
 ### Added

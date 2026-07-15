@@ -41,7 +41,6 @@ const profile = {
       "steam",
       "backloggd",
       "letterboxd",
-      "notion",
     ],
   },
 

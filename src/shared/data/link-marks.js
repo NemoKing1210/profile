@@ -7,7 +7,6 @@ import {
   siGithub,
   siLetterboxd,
   siLinktree,
-  siNotion,
   siOrcid,
   siSteam,
   siTelegram,
@@ -44,7 +43,6 @@ export const linkMarks = {
   whatsapp: mark(siWhatsapp),
   facebook: mark(siFacebook),
   steam: mark(siSteam),
-  notion: mark(siNotion, "#c7d5e0"),
   email: emailMark,
   backloggd: backloggdMark,
 };

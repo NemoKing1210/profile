@@ -12,18 +12,25 @@ function mediaHubLink(id, media, label) {
   };
 }
 
+function hiddenLinkIds(audience) {
+  return new Set(getAudiencePreset(audience)?.hideLinkIds ?? []);
+}
+
 export function linksViewMethods() {
   return {
     get links() {
-      return profile.links.map((link) => ({
-        ...link,
-        hint: this.t.links.hints[link.id] || "",
-        mark: linkMarks[link.id] || linkMarks.linktree,
-        lightTile: link.id === "github" || link.id === "letterboxd",
-        speechI18n: this.t.links.speechTips?.[link.id]
-          ? `links.speechTips.${link.id}`
-          : null,
-      }));
+      const hidden = hiddenLinkIds(this.audience);
+      return profile.links
+        .filter((link) => !hidden.has(link.id))
+        .map((link) => ({
+          ...link,
+          hint: this.t.links.hints[link.id] || "",
+          mark: linkMarks[link.id] || linkMarks.linktree,
+          lightTile: link.id === "github" || link.id === "letterboxd",
+          speechI18n: this.t.links.speechTips?.[link.id]
+            ? `links.speechTips.${link.id}`
+            : null,
+        }));
     },
 
     get linksTitle() {
@@ -35,12 +42,15 @@ export function linksViewMethods() {
     },
 
     get hubPlatforms() {
-      return (profile.hub?.platforms || []).map((id) => ({
-        id,
-        label: this.t.hub.platforms[id] || id,
-        mark: linkMarks[id] || linkMarks.linktree,
-        lightTile: id === "github" || id === "letterboxd",
-      }));
+      const hidden = hiddenLinkIds(this.audience);
+      return (profile.hub?.platforms || [])
+        .filter((id) => !hidden.has(id))
+        .map((id) => ({
+          id,
+          label: this.t.hub.platforms[id] || id,
+          mark: linkMarks[id] || linkMarks.linktree,
+          lightTile: id === "github" || id === "letterboxd",
+        }));
     },
 
     resolvePrimaryLink(id) {

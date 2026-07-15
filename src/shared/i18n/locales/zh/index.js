@@ -322,7 +322,6 @@ export default {
       steam: "Steam",
       backloggd: "Backloggd",
       letterboxd: "Letterboxd",
-      notion: "Notion",
     },
   },
   letterboxd: {

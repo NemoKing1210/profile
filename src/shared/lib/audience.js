@@ -13,7 +13,7 @@ export function resolveAudience(search = window.location.search) {
 
 /**
  * @param {string | null | undefined} audienceId
- * @returns {{ hide: string[], primaryLinkIds?: string[] } | null}
+ * @returns {{ hide: string[], primaryLinkIds?: string[], hideLinkIds?: string[] } | null}
  */
 export function getAudiencePreset(audienceId) {
   if (!audienceId) return null;
