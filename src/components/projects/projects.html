@@ -7,14 +7,16 @@
     >Projects</h2>
     <p class="panel__sub" x-text="t.ui.projectsSubtitle"></p>
   </header>
-  <div class="project-shelf">
-    <template x-for="project in projects" :key="project.id">
+  <div class="project-shelf" role="list">
+    <template x-for="(project, index) in projects" :key="project.id">
       <a
         class="capsule"
+        role="listitem"
         :class="[
           `capsule--${project.tone}`,
           project.featured ? 'capsule--featured' : '',
         ]"
+        :style="`--capsule-i: ${index}`"
         :href="project.url"
         rel="noopener noreferrer"
         target="_blank"
@@ -24,29 +26,38 @@
           :style="`--mark-fill: ${project.mark.fill}`"
           aria-hidden="true"
         >
+          <span class="capsule__glow"></span>
+          <span class="capsule__shine"></span>
           <svg class="capsule__mark" viewBox="0 0 24 24" focusable="false">
             <path :d="project.mark.path" fill="currentColor"></path>
           </svg>
         </div>
         <div class="capsule__body">
           <div class="capsule__meta">
-            <span class="capsule__kind" x-text="project.kindLabel"></span>
-            <span
-              class="capsule__status"
-              x-text="project.statusLabel"
-            ></span>
+            <div class="capsule__meta-start">
+              <span
+                class="capsule__featured"
+                x-show="project.featured"
+                x-text="t.projects.featured"
+              ></span>
+              <span class="capsule__kind" x-text="project.kindLabel"></span>
+            </div>
+            <span class="capsule__status">
+              <span class="capsule__status-dot" aria-hidden="true"></span>
+              <span x-text="project.statusLabel"></span>
+            </span>
           </div>
           <h3 class="capsule__title" x-text="project.title"></h3>
           <p class="capsule__blurb" x-text="project.blurb"></p>
           <ul class="capsule__highlights" x-show="project.highlights.length">
             <template x-for="(item, hi) in project.highlights" :key="hi">
-              <li x-text="item"></li>
+              <li :style="`--hi: ${hi}`" x-text="item"></li>
             </template>
           </ul>
           <div class="capsule__foot">
             <ul class="capsule__tags">
-              <template x-for="tag in project.tags" :key="tag">
-                <li x-text="tag"></li>
+              <template x-for="(tag, ti) in project.tags" :key="tag">
+                <li :style="`--ti: ${ti}`" x-text="tag"></li>
               </template>
             </ul>
             <span class="capsule__cta">

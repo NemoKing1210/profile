@@ -86,7 +86,7 @@ Ship only purposeful motion:
 1. Banner subtle scale-in on load.
 2. Hero identity rise-in.
 3. Hero tech balls: fall-in with physics, drag & collide (skipped / static under `prefers-reduced-motion`).
-4. Section / capsule reveal on scroll (`IntersectionObserver`).
+4. Section / capsule reveal on scroll (`IntersectionObserver`); project capsules stagger in and gain shelf hover (shine sweep, lift, status pulse).
 5. Avatar speech bubble typewriter after prolonged physics play (nudge at 20, join-in + avatar spawn at 30).
 6. Language switch: CSS animation blurs text `0 → 6px → 0` (images stay sharp); copy swaps at peak blur; a flag square drops into the hero physics layer (instant swap + static flag under `prefers-reduced-motion`).
 7. Stack “favorite library” card: scroll proximity drives a one-way 3D flip from React → Vue (locked to Vue under `prefers-reduced-motion`).

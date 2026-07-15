@@ -431,6 +431,7 @@ export default {
   projects: {
     title: "Proyectos",
     openCta: "Abrir en GitHub",
+    featured: "Destacado",
     notice:
       "Por ahora empiezo con poco — userscripts y pet projects. Lo más grande viene después.",
     status: {

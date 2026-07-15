@@ -430,6 +430,7 @@ export default {
   projects: {
     title: "Проекты",
     openCta: "Открыть на GitHub",
+    featured: "В фокусе",
     notice:
       "Пока начинаю с малого — userscripts и pet-проекты. Крупнее и сложнее — впереди.",
     status: {

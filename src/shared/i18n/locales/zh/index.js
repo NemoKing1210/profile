@@ -408,6 +408,7 @@ export default {
   projects: {
     title: "项目",
     openCta: "在 GitHub 打开",
+    featured: "精选",
     notice: "先从小处开始——userscript 和 pet projects。更大的还在后面。",
     status: {
       public: "Public",

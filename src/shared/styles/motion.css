@@ -156,7 +156,10 @@ body.is-locale-blurring
   }
 
   .btn--primary:hover,
-  .capsule:hover {
+  .capsule:hover,
+  .capsule:focus-visible,
+  .project-shelf .capsule.reveal.is-visible:hover,
+  .project-shelf .capsule.reveal.is-visible:focus-visible {
     transform: none;
   }
 }

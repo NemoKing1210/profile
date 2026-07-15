@@ -176,20 +176,35 @@ body.theme-light .link-card {
   border-color: var(--border-subtle);
 }
 
+body.theme-light .project-shelf::before {
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
 body.theme-light .capsule {
   background: var(--bg-elevated);
+  box-shadow:
+    inset 3px 0 0 0 color-mix(in srgb, var(--capsule-glow, var(--accent)) var(--capsule-glow-strength, 0%), transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 body.theme-light .capsule:hover,
-body.theme-light .capsule:focus-visible {
+body.theme-light .capsule:focus-visible,
+body.theme-light .project-shelf .capsule.reveal.is-visible:hover,
+body.theme-light .project-shelf .capsule.reveal.is-visible:focus-visible {
   background: color-mix(in srgb, var(--bg-elevated) 82%, var(--capsule-glow, var(--accent)) 18%);
   box-shadow:
     inset 3px 0 0 0 var(--capsule-glow, var(--accent)),
-    0 10px 28px rgba(15, 30, 45, 0.1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 12px 28px rgba(15, 30, 45, 0.12),
+    0 0 0 1px color-mix(in srgb, var(--capsule-glow, var(--accent)) 16%, transparent);
 }
 
 body.theme-light .capsule--featured {
   background: color-mix(in srgb, var(--bg-elevated) 88%, var(--capsule-glow, var(--accent)) 12%);
+  box-shadow:
+    inset 3px 0 0 0 color-mix(in srgb, var(--capsule-glow, var(--accent)) 55%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 24px color-mix(in srgb, var(--capsule-glow, var(--accent)) 8%, transparent);
 }
 
 body.theme-light .capsule__art {
@@ -215,9 +230,33 @@ body.theme-light .capsule__art::before {
   );
 }
 
+body.theme-light .capsule__shine {
+  background: linear-gradient(
+    115deg,
+    transparent 28%,
+    rgba(255, 255, 255, 0.45) 46%,
+    transparent 64%
+  );
+}
+
 body.theme-light .capsule__tags li {
   background: color-mix(in srgb, var(--bg-store) 65%, #fff 35%);
   border-color: var(--hairline);
+}
+
+body.theme-light .capsule:hover .capsule__tags li,
+body.theme-light .capsule:focus-visible .capsule__tags li {
+  background: color-mix(in srgb, var(--bg-store) 55%, var(--capsule-glow, var(--accent)) 45%);
+  border-color: color-mix(in srgb, var(--capsule-glow, var(--accent)) 28%, var(--hairline));
+}
+
+body.theme-light .project-notice {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--accent) 10%, transparent) 0%,
+      color-mix(in srgb, var(--bg-store) 55%, transparent) 42%
+    );
 }
 
 body.theme-light .interest-chip--hot,

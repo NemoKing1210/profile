@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.60.0] — 2026-07-15
+
+### Changed
+
+- Projects shelf: library rail, featured badge, richer capsule chrome, staggered reveal, and hover motion (shine, lift, status pulse)
+
 ## [1.59.4] — 2026-07-15
 
 ### Added

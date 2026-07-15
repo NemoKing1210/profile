@@ -1,13 +1,44 @@
+/* Projects — Steam library capsule shelf */
+
 .project-shelf {
+  --shelf-gap: 0.85rem;
+  position: relative;
   display: grid;
-  gap: 0.85rem;
+  gap: var(--shelf-gap);
+  padding-left: 0.85rem;
+}
+
+.project-shelf::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  width: 3px;
+  border-radius: 2px;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--accent) 55%, transparent) 12%,
+      color-mix(in srgb, var(--accent) 28%, transparent) 50%,
+      color-mix(in srgb, var(--accent) 55%, transparent) 88%,
+      transparent 100%
+    );
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 22%, transparent);
+  opacity: 0.85;
+  pointer-events: none;
 }
 
 .capsule {
+  --capsule-glow-strength: 0%;
+  position: relative;
   display: grid;
   grid-template-columns: 112px 1fr;
   gap: 1.1rem;
   padding: 0.9rem;
+  overflow: hidden;
+  isolation: isolate;
   background:
     linear-gradient(
       105deg,
@@ -19,16 +50,59 @@
   border-radius: var(--radius);
   color: inherit;
   text-decoration: none;
-  box-shadow: inset 3px 0 0 0 color-mix(in srgb, var(--capsule-glow, var(--accent)) 0%, transparent);
+  box-shadow:
+    inset 3px 0 0 0 color-mix(in srgb, var(--capsule-glow, var(--accent)) var(--capsule-glow-strength), transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   transition:
-    border-color 160ms ease,
-    background 160ms ease,
-    transform 160ms ease,
-    box-shadow 160ms ease;
+    border-color 220ms var(--ease),
+    background 220ms var(--ease),
+    transform 220ms var(--ease),
+    box-shadow 220ms var(--ease);
+}
+
+/* Staggered scroll reveal — layered on shared .reveal */
+.project-shelf .capsule.reveal {
+  transition:
+    opacity 0.55s var(--ease),
+    transform 0.55s var(--ease),
+    border-color 220ms var(--ease),
+    background 220ms var(--ease),
+    box-shadow 220ms var(--ease);
+  transition-delay: calc(var(--capsule-i, 0) * 85ms);
+}
+
+.project-shelf .capsule.reveal.is-visible:hover,
+.project-shelf .capsule.reveal.is-visible:focus-visible {
+  transition-delay: 0ms;
+}
+
+.capsule::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      120% 80% at 0% 50%,
+      color-mix(in srgb, var(--capsule-glow, var(--accent)) 14%, transparent) 0%,
+      transparent 55%
+    );
+  opacity: 0;
+  transition: opacity 260ms var(--ease);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.capsule > * {
+  position: relative;
+  z-index: 1;
 }
 
 .capsule:hover,
-.capsule:focus-visible {
+.capsule:focus-visible,
+.project-shelf .capsule.reveal.is-visible:hover,
+.project-shelf .capsule.reveal.is-visible:focus-visible {
+  --capsule-glow-strength: 100%;
   border-color: var(--border-strong);
   background:
     linear-gradient(
@@ -38,10 +112,17 @@
       rgba(27, 40, 56, 0.85) 100%
     );
   color: inherit;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow:
     inset 3px 0 0 0 var(--capsule-glow, var(--accent)),
-    0 10px 28px rgba(0, 0, 0, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.32),
+    0 0 0 1px color-mix(in srgb, var(--capsule-glow, var(--accent)) 18%, transparent);
+}
+
+.capsule:hover::before,
+.capsule:focus-visible::before {
+  opacity: 1;
 }
 
 .capsule--featured {
@@ -55,6 +136,19 @@
       rgba(22, 32, 45, 0.75) 100%
     );
   border-color: color-mix(in srgb, var(--capsule-glow, var(--accent)) 22%, transparent);
+  box-shadow:
+    inset 3px 0 0 0 color-mix(in srgb, var(--capsule-glow, var(--accent)) 55%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 28px color-mix(in srgb, var(--capsule-glow, var(--accent)) 10%, transparent);
+}
+
+.capsule--featured:hover,
+.capsule--featured:focus-visible {
+  box-shadow:
+    inset 3px 0 0 0 var(--capsule-glow, var(--accent)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 36px rgba(0, 0, 0, 0.34),
+    0 0 36px color-mix(in srgb, var(--capsule-glow, var(--accent)) 16%, transparent);
 }
 
 .capsule--steam {
@@ -85,11 +179,25 @@
     linear-gradient(155deg, #1a2a3a 0%, #101820 100%);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  transition:
+    border-color 220ms var(--ease),
+    box-shadow 220ms var(--ease),
+    transform 220ms var(--ease);
 }
 
 .capsule--featured .capsule__art {
   width: 140px;
   height: 140px;
+}
+
+.capsule:hover .capsule__art,
+.capsule:focus-visible .capsule__art {
+  border-color: color-mix(in srgb, var(--mark-fill, var(--accent)) 35%, var(--border-subtle));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 22px color-mix(in srgb, var(--mark-fill, var(--accent)) 22%, transparent);
+  transform: scale(1.02);
 }
 
 .capsule__art::before {
@@ -103,16 +211,52 @@
       rgba(255, 255, 255, 0.015) 10px 11px
     );
   pointer-events: none;
+  z-index: 1;
+}
+
+.capsule__glow {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      color-mix(in srgb, var(--mark-fill, var(--accent)) 42%, transparent) 0%,
+      transparent 58%
+    );
+  opacity: 0.55;
+  animation: capsule-art-breathe 4.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.capsule__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 28%,
+    rgba(255, 255, 255, 0.14) 46%,
+    transparent 64%
+  );
+  transform: translateX(-120%) skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.capsule:hover .capsule__shine,
+.capsule:focus-visible .capsule__shine {
+  animation: capsule-shine 720ms var(--ease) both;
 }
 
 .capsule__mark {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 2.65rem;
   height: 2.65rem;
   color: var(--mark-fill, var(--accent));
   filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--mark-fill, var(--accent)) 35%, transparent));
-  transition: transform 180ms ease;
+  transition: transform 280ms var(--ease), filter 280ms var(--ease);
 }
 
 .capsule--featured .capsule__mark {
@@ -122,7 +266,8 @@
 
 .capsule:hover .capsule__mark,
 .capsule:focus-visible .capsule__mark {
-  transform: scale(1.06);
+  transform: scale(1.1) translateY(-2px);
+  filter: drop-shadow(0 8px 18px color-mix(in srgb, var(--mark-fill, var(--accent)) 48%, transparent));
 }
 
 .capsule__body {
@@ -139,6 +284,29 @@
   gap: 0.75rem;
 }
 
+.capsule__meta-start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.55rem;
+  min-width: 0;
+}
+
+.capsule__featured {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.42rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--capsule-glow, var(--accent)) 42%, transparent);
+  background: color-mix(in srgb, var(--capsule-glow, var(--accent)) 14%, transparent);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--capsule-glow, var(--accent)) 88%, var(--text-bright) 12%);
+}
+
 .capsule__kind {
   font-family: var(--font-display);
   font-size: 0.7rem;
@@ -149,12 +317,24 @@
 }
 
 .capsule__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
   flex-shrink: 0;
   color: var(--accent-green);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.capsule__status-dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-green) 55%, transparent);
+  animation: capsule-status-pulse 2.4s ease-out infinite;
 }
 
 .capsule__title {
@@ -164,10 +344,16 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--text-bright);
+  transition: color 180ms var(--ease);
 }
 
 .capsule--featured .capsule__title {
   font-size: 1.22rem;
+}
+
+.capsule:hover .capsule__title,
+.capsule:focus-visible .capsule__title {
+  color: color-mix(in srgb, var(--text-bright) 88%, var(--capsule-glow, var(--accent)) 12%);
 }
 
 .capsule__blurb {
@@ -192,6 +378,20 @@
   color: var(--text);
   font-size: 0.84rem;
   line-height: 1.35;
+  opacity: 0.92;
+  transform: translateX(0);
+  transition:
+    opacity 200ms var(--ease),
+    transform 220ms var(--ease),
+    color 200ms var(--ease);
+  transition-delay: calc(var(--hi, 0) * 35ms);
+}
+
+.capsule:hover .capsule__highlights li,
+.capsule:focus-visible .capsule__highlights li {
+  opacity: 1;
+  transform: translateX(2px);
+  color: var(--text-bright);
 }
 
 .capsule__highlights li::before {
@@ -204,6 +404,13 @@
   border-radius: 1px;
   background: var(--capsule-glow, var(--accent));
   box-shadow: 0 0 8px color-mix(in srgb, var(--capsule-glow, var(--accent)) 45%, transparent);
+  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+
+.capsule:hover .capsule__highlights li::before,
+.capsule:focus-visible .capsule__highlights li::before {
+  transform: scale(1.15);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--capsule-glow, var(--accent)) 60%, transparent);
 }
 
 .capsule__foot {
@@ -235,6 +442,21 @@
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  transform: translateY(0);
+  transition:
+    transform 220ms var(--ease),
+    border-color 220ms var(--ease),
+    color 220ms var(--ease),
+    background 220ms var(--ease);
+  transition-delay: calc(var(--ti, 0) * 28ms);
+}
+
+.capsule:hover .capsule__tags li,
+.capsule:focus-visible .capsule__tags li {
+  transform: translateY(-1px);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--capsule-glow, var(--accent)) 28%, rgba(255, 255, 255, 0.06));
+  background: color-mix(in srgb, rgba(0, 0, 0, 0.28) 70%, var(--capsule-glow, var(--accent)) 30%);
 }
 
 .capsule__cta {
@@ -248,19 +470,26 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--accent);
-  transition: color 160ms ease, gap 160ms ease;
+  transition: color 160ms ease, gap 220ms var(--ease), transform 220ms var(--ease);
 }
 
 .capsule:hover .capsule__cta,
 .capsule:focus-visible .capsule__cta {
   color: var(--text-bright);
-  gap: 0.48rem;
+  gap: 0.5rem;
+  transform: translateX(2px);
 }
 
 .capsule__cta-icon {
   display: inline-flex;
   width: 0.95rem;
   height: 0.95rem;
+  transition: transform 220ms var(--ease);
+}
+
+.capsule:hover .capsule__cta-icon,
+.capsule:focus-visible .capsule__cta-icon {
+  transform: translate(1px, -1px);
 }
 
 .capsule__cta-icon svg {
@@ -269,17 +498,64 @@
 }
 
 .project-notice {
-  margin: 1rem 0 0;
-  padding: 0.75rem 0.9rem;
+  margin: 1.1rem 0 0;
+  padding: 0.8rem 0.95rem;
   border-left: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
-  background: color-mix(in srgb, var(--bg-deep) 55%, transparent);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
+      color-mix(in srgb, var(--bg-deep) 55%, transparent) 42%
+    );
   border-radius: 0 var(--radius) var(--radius) 0;
   color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.45;
 }
 
+@keyframes capsule-shine {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(130%) skewX(-18deg);
+  }
+}
+
+@keyframes capsule-art-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes capsule-status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-green) 50%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 0.45rem color-mix(in srgb, var(--accent-green) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-green) 0%, transparent);
+  }
+}
+
 @media (max-width: 640px) {
+  .project-shelf {
+    padding-left: 0.7rem;
+  }
+
   .capsule,
   .capsule--featured {
     grid-template-columns: 76px 1fr;
@@ -307,5 +583,49 @@
   .capsule__foot {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capsule__glow,
+  .capsule__status-dot {
+    animation: none;
+  }
+
+  .capsule:hover .capsule__shine,
+  .capsule:focus-visible .capsule__shine {
+    animation: none;
+    opacity: 0;
+  }
+
+  .project-shelf .capsule.reveal {
+    transition-delay: 0ms;
+  }
+
+  .capsule,
+  .capsule__art,
+  .capsule__mark,
+  .capsule__highlights li,
+  .capsule__tags li,
+  .capsule__cta,
+  .capsule__cta-icon {
+    transition: none;
+  }
+
+  .capsule:hover,
+  .capsule:focus-visible,
+  .capsule:hover .capsule__art,
+  .capsule:focus-visible .capsule__art,
+  .capsule:hover .capsule__mark,
+  .capsule:focus-visible .capsule__mark,
+  .capsule:hover .capsule__highlights li,
+  .capsule:focus-visible .capsule__highlights li,
+  .capsule:hover .capsule__tags li,
+  .capsule:focus-visible .capsule__tags li,
+  .capsule:hover .capsule__cta,
+  .capsule:focus-visible .capsule__cta,
+  .capsule:hover .capsule__cta-icon,
+  .capsule:focus-visible .capsule__cta-icon {
+    transform: none;
   }
 }

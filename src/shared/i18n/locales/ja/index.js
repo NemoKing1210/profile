@@ -430,6 +430,7 @@ export default {
   projects: {
     title: "プロジェクト",
     openCta: "GitHub で開く",
+    featured: "注目",
     notice:
       "まずは小さく——userscript と pet projects から。もっと大きなものはこれから。",
     status: {
