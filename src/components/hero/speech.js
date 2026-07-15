@@ -200,19 +200,32 @@ export function heroSpeechMethods() {
       }
 
       if (beat === "playEnough") {
-        this.showSpeechI18n("hero.playEnough");
+        this.showSpeechI18n(this.physicsSpeechPath("playEnough"));
         return;
       }
 
       if (beat === "playAlong") {
         this._speechPlayAlongDone = true;
-        this.showSpeechI18n("hero.playAlong");
+        this.showSpeechI18n(this.physicsSpeechPath("playAlong"));
         this.spawnAvatarSquare();
       }
     },
 
+    physicsSpeechPath(key) {
+      const audience = this.audience;
+      if (
+        audience &&
+        this.t?.audiences?.[audience]?.hero?.[key] != null
+      ) {
+        return `audiences.${audience}.hero.${key}`;
+      }
+      return `hero.${key}`;
+    },
+
     _speakPhysicsPlayTip() {
-      const tips = this.t?.hero?.playTips;
+      const tips =
+        this.t?.audiences?.[this.audience]?.hero?.playTips ||
+        this.t?.hero?.playTips;
       if (!Array.isArray(tips) || tips.length === 0) return;
       const text = tips[this._physicsPlayTipCursor % tips.length];
       this._physicsPlayTipCursor += 1;

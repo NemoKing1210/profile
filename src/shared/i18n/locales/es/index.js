@@ -231,6 +231,16 @@ export default {
         roleTip:
           "De día código. De noche coop, una raid o «una partida más». Añádeme en Steam.",
         nameTip: "Nick de Steam — así me conocen los amigos",
+        playTips: [
+          "Suave — eso es mi biblioteca, no una bolera.",
+          "La gravedad aprueba. Los amigos online también esperan.",
+          "Sigue lanzando. Yo miro… en silencio. Por ahora.",
+          "Si cada tiro contara como horas de Steam…",
+          "Cuidado: las portadas también tienen sentimientos. Creo.",
+        ],
+        playEnough:
+          "¿Todavía no te cansas? ¿Me añades en Steam?",
+        playAlong: "Parece divertido — ¡juego contigo!",
       },
       about: {
         eyebrow: "Juegos · amigos · noches",

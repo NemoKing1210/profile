@@ -14,7 +14,7 @@ Update **both** when cutting a release.
 
 ### Added
 
-- Audience query param `?from=` — presets hide sections, swap hero CTAs, and tailor hero + About copy (e.g. `?from=steam`)
+- Audience query param `?from=` — presets hide sections, swap hero CTAs, tailor hero + About copy, and (for `steam`) drop game-cover balls instead of tech icons
 
 ## [1.74.1] — 2026-07-15
 

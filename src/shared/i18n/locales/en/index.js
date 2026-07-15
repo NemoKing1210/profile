@@ -231,6 +231,16 @@ export default {
         roleTip:
           "Code by day. Co-op, a raid, or one more round by night. Add me on Steam.",
         nameTip: "Steam nickname — that's how friends know me",
+        playTips: [
+          "Easy there — that's my library, not a bowling alley.",
+          "Gravity approves. Friends online are waiting too.",
+          "Keep tossing. I'm watching… quietly. For now.",
+          "If every throw counted as Steam hours…",
+          "Careful: the covers have feelings. Probably.",
+        ],
+        playEnough:
+          "Still not done playing? Maybe add me on Steam?",
+        playAlong: "Looks fun — I'll jump in and play with you!",
       },
       about: {
         eyebrow: "Games · friends · evenings",

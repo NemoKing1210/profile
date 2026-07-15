@@ -47,12 +47,19 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function iconMarkup(ball) {
+function isRenderableBall(ball) {
+  return Boolean(ball?.path || ball?.image);
+}
+
+function ballMarkup(ball) {
+  if (ball.image) {
+    return `<img class="hero-ball__cover" src="${ball.image}" alt="" width="128" height="128" decoding="async" draggable="false" />`;
+  }
   return `<svg class="hero-ball__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="${ball.path}"/></svg>`;
 }
 
 function relativeLuminance(hex) {
-  const raw = hex.replace("#", "");
+  const raw = String(hex || "#66c0f4").replace("#", "");
   const n =
     raw.length === 3
       ? raw.split("").map((c) => parseInt(c + c, 16))
@@ -71,12 +78,13 @@ function relativeLuminance(hex) {
 function createBallEl(ball, radius) {
   const el = document.createElement("div");
   el.className = "hero-ball";
+  if (ball.image) el.classList.add("hero-ball--cover");
   el.style.width = `${radius * 2}px`;
   el.style.height = `${radius * 2}px`;
-  el.style.setProperty("--ball-fill", ball.fill);
+  el.style.setProperty("--ball-fill", ball.fill || "#66c0f4");
   el.style.color =
-    relativeLuminance(ball.fill) > 0.55 ? "#1b2838" : "#ffffff";
-  el.innerHTML = iconMarkup(ball);
+    relativeLuminance(ball.fill || "#66c0f4") > 0.55 ? "#1b2838" : "#ffffff";
+  el.innerHTML = ballMarkup(ball);
   el.title = ball.label;
   el.setAttribute("aria-hidden", "true");
   return el;
@@ -198,7 +206,7 @@ function placeStatic(container, items, radius, actors) {
 /**
  * Interactive physics layer in the hero.
  * @param {HTMLElement} container
- * @param {{ onInteract?: () => void }} [options]
+ * @param {{ onInteract?: () => void, balls?: object[] }} [options]
  * @returns {{
  *   spawnAiSquare: (tool: object, opts?: { unique?: boolean }) => void,
  *   spawnTechBall: (ball: object, opts?: { scale?: number, unique?: boolean }) => void,
@@ -232,6 +240,11 @@ export function initHeroPhysics(container, options = {}) {
     }
   };
 
+  const ballCatalog =
+    Array.isArray(options.balls) && options.balls.length
+      ? options.balls
+      : techBalls;
+
   container.replaceChildren();
   container.classList.add("is-ready");
 
@@ -245,11 +258,21 @@ export function initHeroPhysics(container, options = {}) {
 
   let { width, height } = measure();
   const narrow = width < 640;
-  const radius = narrow ? 24 : 64;
+  const coverBalls = ballCatalog.some((ball) => ball?.image);
+  const radius = coverBalls
+    ? narrow
+      ? 36
+      : 96
+    : narrow
+      ? 24
+      : 64;
   const aiSize = narrow ? 56 : 112;
   const baseAvatarSize = aiSize * 2;
   let avatarGeneration = 0;
-  const items = techBalls.slice(0, narrow ? 9 : techBalls.length);
+  const items = ballCatalog.slice(
+    0,
+    narrow ? (coverBalls ? 7 : 9) : ballCatalog.length
+  );
 
   /** @type {{ body?: import("matter-js").Body, el: HTMLElement, half: number, kind: string, spawnKey?: string }[]} */
   const actors = [];
@@ -320,7 +343,7 @@ export function initHeroPhysics(container, options = {}) {
         placeStaticAi(tool, { unique });
       },
       spawnTechBall(ball, { scale = 1, unique = false } = {}) {
-        if (!ball?.path) return;
+        if (!isRenderableBall(ball)) return;
         const spawnKey = techSpawnKey(ball.id);
         if (unique && hasSpawnKey(spawnKey)) return;
 
@@ -453,7 +476,7 @@ export function initHeroPhysics(container, options = {}) {
   };
 
   const spawnBall = (ball, i = 0, { scale = 1, unique = false } = {}) => {
-    if (!ball?.path) return;
+    if (!isRenderableBall(ball)) return;
 
     const spawnKey = techSpawnKey(ball.id);
     if (unique && hasSpawnKey(spawnKey)) return;

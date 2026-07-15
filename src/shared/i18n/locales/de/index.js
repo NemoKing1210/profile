@@ -231,6 +231,16 @@ export default {
         roleTip:
           "Tagsüber Code. Abends Coop, Raid oder „noch eine Runde“. Add mich auf Steam.",
         nameTip: "Steam-Nick — so kennen mich Freunde",
+        playTips: [
+          "Vorsicht — das ist meine Bibliothek, keine Bowlingbahn.",
+          "Die Schwerkraft nickt. Freunde online warten auch.",
+          "Wirf ruhig weiter. Ich schaue zu… vorerst still.",
+          "Wenn jeder Wurf Steam-Stunden wäre…",
+          "Vorsicht: Die Cover haben Gefühle. Vermutlich.",
+        ],
+        playEnough:
+          "Immer noch nicht genug gespielt? Add mich doch auf Steam.",
+        playAlong: "Sieht lustig aus — ich spiele mit!",
       },
       about: {
         eyebrow: "Games · Freunde · Abende",

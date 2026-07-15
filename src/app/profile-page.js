@@ -1,3 +1,6 @@
+import { gameBalls } from "../shared/data/game-balls.js";
+import { techBalls } from "../shared/data/tech-balls.js";
+import { getAudiencePreset } from "../shared/lib/audience.js";
 import { heroicons } from "../shared/data/heroicons.js";
 import profile from "../shared/data/profile.js";
 import {
@@ -60,6 +63,12 @@ import {
 } from "../components/stack/index.js";
 import { topbarMethods, topbarState } from "../components/topbar/index.js";
 import { viewModelMethods, viewModelState } from "./view-model.js";
+
+function resolvePhysicsBalls(audience) {
+  return getAudiencePreset(audience)?.physicsBalls === "games"
+    ? gameBalls
+    : techBalls;
+}
 
 export function createProfilePage() {
   // Spread must not evaluate activity getters (object rest/spread calls them).
@@ -124,6 +133,7 @@ export function createProfilePage() {
           this._stopImageFade = initImageFade(this.$root);
           this._heroPhysics = initHeroPhysics(this.$refs.heroPhysics, {
             onInteract: () => this.onPhysicsInteract(),
+            balls: resolvePhysicsBalls(this.audience),
           });
           this.bindAvatarSpeech();
           this.applyPhysicsSpawnCollectorEffect?.();

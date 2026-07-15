@@ -13,6 +13,7 @@ export const AUDIENCE_PARAM = "from";
  * @property {string[]} hide
  * @property {string[]} [primaryLinkIds]
  * @property {"steam"} [heroIdentity] — use `profile.media.<id>` for hero name/handle
+ * @property {"games"} [physicsBalls] — hero drop catalog (`gameBalls` instead of tech)
  * @property {{ id: string, tone?: string, speechI18n?: string }[]} [aboutBadges]
  */
 
@@ -23,6 +24,7 @@ export const audiences = {
     hide: ["stack", "projects"],
     primaryLinkIds: ["steam", "linktree"],
     heroIdentity: "steam",
+    physicsBalls: "games",
     aboutBadges: [
       { id: "coop", tone: "accent" },
       { id: "library", tone: "accent" },

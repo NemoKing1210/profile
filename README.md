@@ -69,6 +69,7 @@ Bump both when shipping a meaningful release (see [`AGENTS.md`](AGENTS.md) and [
 |------|--------|
 | Name, stack, projects, links, AI tools, badges | [`src/shared/data/profile.js`](src/shared/data/profile.js) |
 | Audience presets (`?from=steam`, …) | [`src/shared/data/audiences.js`](src/shared/data/audiences.js) |
+| Hero game-ball covers (`?from=steam`) | [`public/assets/images/hero-games/`](public/assets/images/hero-games/) + [`game-balls.js`](src/shared/data/game-balls.js) |
 | Bio, UI strings, translations | [`src/shared/i18n/locales/`](src/shared/i18n/locales/) |
 | Section UI (HTML/CSS/JS) | [`src/components/`](src/components/) |
 | Page shell / section order | [`index.html`](index.html) (`{{> section/name }}`) |
