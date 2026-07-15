@@ -25,6 +25,10 @@
       :href="{{source}}.href"
       rel="noopener noreferrer"
       target="_blank"
+      @mouseenter="showSpeechI18n('{{localeKey}}.ctaTip', { holdMs: null })"
+      @mouseleave="hideSpeech()"
+      @focusin="showSpeechI18n('{{localeKey}}.ctaTip', { holdMs: null })"
+      @focusout="hideSpeech()"
     >
       <span x-text="{{cta}}"></span>
       <span

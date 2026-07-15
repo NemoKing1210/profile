@@ -201,6 +201,7 @@ export default {
       "Letterboxd 是影迷社交网络：观影日记、评分、片单与讨论。",
     favoritesLabel: "最爱",
     openProfile: "主页",
+    ctaTip: "瞅瞅观影日记——星比我 GitHub 仓库还多。",
     subgenresLabel: "喜欢的子类型",
     tips: {
       fellowship: "“我们要决定的，只是如何使用我们所得到的时间。”——甘道夫",
@@ -223,6 +224,7 @@ export default {
       "Backloggd 是游戏版 Letterboxd：游玩日记、评分、待玩列表与片单。",
     favoritesLabel: "最爱",
     openProfile: "主页",
+    ctaTip: "待玩列表跟下面的无限滚动一样长。进来吧，说不定能开一局。",
     genresLabel: "喜欢的类型",
     tips: {
       programming: "正是这款游戏让我爱上了编程",
@@ -246,6 +248,8 @@ export default {
     invite:
       "我玩得多，也很开心。Steam 上是库存、好友，还有那些会反复打开的游戏。",
     cta: "打开 Steam 主页",
+    ctaTip:
+      "加个好友。我保证不在 CS 里坑你……大概。另外，库存一张截图已经装不下了。",
   },
   about: {
     title: "关于我",

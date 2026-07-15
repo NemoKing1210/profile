@@ -91,6 +91,10 @@
           :href="steam.href"
           rel="noopener noreferrer"
           target="_blank"
+          @mouseenter="showSpeechI18n('steam.ctaTip', { holdMs: null })"
+          @mouseleave="hideSpeech()"
+          @focusin="showSpeechI18n('steam.ctaTip', { holdMs: null })"
+          @focusout="hideSpeech()"
         >
           <svg
             class="steam-invite__cta-mark"

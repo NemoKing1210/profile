@@ -207,6 +207,8 @@ export default {
       "Letterboxd は映画好き向けのSNS。視聴日記、評価、リスト、議論ができます。",
     favoritesLabel: "お気に入り",
     openProfile: "プロフィール",
+    ctaTip:
+      "観賞日記を見てみて——星の数は僕の GitHub リポジトリより多いよ。",
     subgenresLabel: "好きなサブジャンル",
     tips: {
       fellowship:
@@ -231,6 +233,8 @@ export default {
       "Backloggd はゲーム版 Letterboxd。プレイ日記、評価、バックログ、リストができます。",
     favoritesLabel: "お気に入り",
     openProfile: "プロフィール",
+    ctaTip:
+      "バックログは下の無限スクロール並みに長い。覗いてみて——一緒に遊ぶゲームが見つかるかも。",
     genresLabel: "好きなジャンル",
     tips: {
       programming: "このゲームのおかげでプログラミングが好きになった",
@@ -255,6 +259,8 @@ export default {
     invite:
       "たくさん、楽しく遊んでいます。Steam にはライブラリ、フレンド、本当に戻ってくるゲーム。",
     cta: "Steam プロフィールを開く",
+    ctaTip:
+      "フレンド追加して。CS で投げないことは……だいたい約束する。ライブラリはもうスクショ一枚に収まらないけど。",
   },
   about: {
     title: "自己紹介",

@@ -208,6 +208,8 @@ export default {
       "Letterboxd ist ein soziales Netzwerk für Filmfans: Sehtagebuch, Bewertungen, Listen und Diskussion.",
     favoritesLabel: "Favoriten",
     openProfile: "Profil",
+    ctaTip:
+      "Schau ins Tagebuch — dort gibt’s mehr Sterne als in meinen GitHub-Repos.",
     subgenresLabel: "Lieblings-Subgenres",
     tips: {
       fellowship:
@@ -232,6 +234,8 @@ export default {
       "Backloggd ist Letterboxd für Spiele: Spieltagebuch, Bewertungen, Backlog und Listen.",
     favoritesLabel: "Favoriten",
     openProfile: "Profil",
+    ctaTip:
+      "Der Backlog ist endlos — wie der Scroll darunter. Schau rein, vielleicht finden wir ein Match.",
     genresLabel: "Lieblingsgenres",
     tips: {
       programming: "Dank dieses Spiels habe ich das Programmieren lieben gelernt",
@@ -256,6 +260,8 @@ export default {
     invite:
       "Ich spiele viel und gern. Auf Steam — Bibliothek, Freunde und das, wozu ich wirklich zurückkomme.",
     cta: "Steam-Profil öffnen",
+    ctaTip:
+      "Add mich. Ich verspreche, in CS nicht zu throwen… meistens. Und ja, die Library passt nicht mehr auf einen Screenshot.",
   },
   about: {
     title: "Über mich",

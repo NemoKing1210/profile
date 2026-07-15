@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.59.4] — 2026-07-15
+
+### Added
+
+- Avatar speech tips on Letterboxd / Backloggd profile CTAs and Steam invite CTA (i18n)
+
 ## [1.59.3] — 2026-07-15
 
 ### Changed
