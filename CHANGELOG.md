@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.59.2] — 2026-07-15
+
+### Fixed
+
+- Project `capsule__art` (and capsule hover / tags) adopt light-theme tokens instead of hard-coded Steam-dark fills
+
 ## [1.59.1] — 2026-07-15
 
 ### Changed

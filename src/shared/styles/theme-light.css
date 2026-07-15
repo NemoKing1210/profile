@@ -180,6 +180,46 @@ body.theme-light .capsule {
   background: var(--bg-elevated);
 }
 
+body.theme-light .capsule:hover,
+body.theme-light .capsule:focus-visible {
+  background: color-mix(in srgb, var(--bg-elevated) 82%, var(--capsule-glow, var(--accent)) 18%);
+  box-shadow:
+    inset 3px 0 0 0 var(--capsule-glow, var(--accent)),
+    0 10px 28px rgba(15, 30, 45, 0.1);
+}
+
+body.theme-light .capsule--featured {
+  background: color-mix(in srgb, var(--bg-elevated) 88%, var(--capsule-glow, var(--accent)) 12%);
+}
+
+body.theme-light .capsule__art {
+  background:
+    radial-gradient(
+      120% 90% at 20% 15%,
+      color-mix(in srgb, var(--mark-fill, var(--accent)) 26%, transparent) 0%,
+      transparent 58%
+    ),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--bg-capsule) 70%, #fff 30%) 0%,
+      var(--bg-store) 100%
+    );
+  border-color: var(--border-subtle);
+}
+
+body.theme-light .capsule__art::before {
+  background: repeating-linear-gradient(
+    -18deg,
+    transparent 0 10px,
+    rgba(15, 30, 45, 0.035) 10px 11px
+  );
+}
+
+body.theme-light .capsule__tags li {
+  background: color-mix(in srgb, var(--bg-store) 65%, #fff 35%);
+  border-color: var(--hairline);
+}
+
 body.theme-light .interest-chip--hot,
 body.theme-light .interest-badge--hot {
   color: var(--accent-hot);
