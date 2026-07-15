@@ -21,7 +21,10 @@ import { createSpeechQueue } from "./speech-queue.js";
 const SPEECH_QUEUE_ENABLED = false;
 
 const DEFAULT_HOLD_MS = 5000;
-const WORD_INTERVAL_MS = 118;
+/** Delay between typewriter word ticks (lower = faster). */
+const WORD_INTERVAL_MS = 52;
+/** Outgoing beat when replacing copy while the bubble stays open. */
+const SPEECH_TEXT_SWAP_OUT_MS = 240;
 /** Extra hold after typewriter finishes when hide was requested early (hover leave). */
 const HOVER_HIDE_DELAY_MS = 1000;
 /** After the last scroll event, wait this long before allowing hover tips again. */
@@ -52,6 +55,10 @@ export function heroSpeechState() {
     avatarSpeechWords: [],
     avatarSpeechTyping: false,
     avatarSpeechAnimateWords: true,
+    /** null | "out" | "in" — crossfade when copy changes while the bubble is open. */
+    avatarSpeechTextPhase: null,
+    /** Bumps word keys so type-in animations replay on each line. */
+    avatarSpeechEpoch: 0,
     avatarSpeechAnchor: SPEECH_ANCHOR_BRAND,
     avatarInView: false,
     _avatarSpeechI18nPath: null,
@@ -63,6 +70,7 @@ export function heroSpeechState() {
     _physicsPlayTipCursor: 0,
     _avatarSpeechTimer: null,
     _avatarSpeechHideTimer: null,
+    _avatarSpeechSwapTimer: null,
     /** Set when hide is requested while words are still typing out. */
     _avatarSpeechHidePending: false,
     _avatarSpeechObserver: null,
@@ -391,11 +399,57 @@ export function heroSpeechMethods() {
     _beginSpeech(full, holdMs, { identity } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
+      this._stopAvatarSpeechSwapTimer();
       this._avatarSpeechHidePending = false;
       this._avatarSpeechHoldMs = holdMs;
       this.avatarSpeechAnchor = this._preferredSpeechAnchor();
       this.avatarInView = this.avatarSpeechAnchor !== SPEECH_ANCHOR_BRAND;
+
+      const replacingOpen = this.avatarSpeechOpen;
       this.avatarSpeechOpen = true;
+
+      if (replacingOpen && !prefersReducedMotion()) {
+        this._swapSpeechText(full, holdMs, identity);
+        return;
+      }
+
+      this.avatarSpeechTextPhase = null;
+      this._revealSpeechText(full, holdMs, identity);
+    },
+
+    /**
+     * Crossfade the line out, then type the next one in (bubble stays open).
+     * @param {string} full
+     * @param {number|null} holdMs
+     * @param {string|undefined} identity
+     */
+    _swapSpeechText(full, holdMs, identity) {
+      this.avatarSpeechTyping = false;
+      this.avatarSpeechTextPhase = "out";
+
+      this._avatarSpeechSwapTimer = window.setTimeout(() => {
+        this._avatarSpeechSwapTimer = null;
+        this.avatarSpeechTextPhase = "in";
+        this._revealSpeechText(full, holdMs, identity);
+
+        this._avatarSpeechSwapTimer = window.setTimeout(() => {
+          this._avatarSpeechSwapTimer = null;
+          if (this.avatarSpeechTextPhase === "in") {
+            this.avatarSpeechTextPhase = null;
+          }
+        }, 420);
+      }, SPEECH_TEXT_SWAP_OUT_MS);
+    },
+
+    /**
+     * Start typewriter (or instant reveal) for the current line.
+     * @param {string} full
+     * @param {number|null} holdMs
+     * @param {string|undefined} identity
+     */
+    _revealSpeechText(full, holdMs, identity) {
+      this._avatarSpeechHoldMs = holdMs;
+      this.avatarSpeechEpoch += 1;
 
       const words = splitSpeechWords(full);
       const heard = Boolean(identity && this._speechHeard().has(identity));
@@ -496,9 +550,11 @@ export function heroSpeechMethods() {
     _clearSpeech({ advance = false } = {}) {
       this._stopAvatarSpeechTimer();
       this._stopAvatarSpeechHideTimer();
+      this._stopAvatarSpeechSwapTimer();
       this._avatarSpeechHidePending = false;
       this.avatarSpeechOpen = false;
       this.avatarSpeechTyping = false;
+      this.avatarSpeechTextPhase = null;
       this._avatarSpeechI18nPath = null;
       this._avatarSpeechIdentity = null;
       this._avatarSpeechHoldMs = DEFAULT_HOLD_MS;
@@ -517,6 +573,13 @@ export function heroSpeechMethods() {
       if (this._avatarSpeechHideTimer != null) {
         window.clearTimeout(this._avatarSpeechHideTimer);
         this._avatarSpeechHideTimer = null;
+      }
+    },
+
+    _stopAvatarSpeechSwapTimer() {
+      if (this._avatarSpeechSwapTimer != null) {
+        window.clearTimeout(this._avatarSpeechSwapTimer);
+        this._avatarSpeechSwapTimer = null;
       }
     },
 

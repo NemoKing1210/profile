@@ -16,8 +16,14 @@
   role="status"
   aria-live="polite"
 >
-  <p class="avatar-speech__text">
-    <template x-for="(word, wordIndex) in avatarSpeechWords" :key="`${wordIndex}-${word}`">
+  <p
+    class="avatar-speech__text"
+    :class="{
+      'avatar-speech__text--swap-out': avatarSpeechTextPhase === 'out',
+      'avatar-speech__text--swap-in': avatarSpeechTextPhase === 'in',
+    }"
+  >
+    <template x-for="(word, wordIndex) in avatarSpeechWords" :key="`${avatarSpeechEpoch}-${wordIndex}-${word}`">
       <span
         class="avatar-speech__word"
         :class="!avatarSpeechAnimateWords && 'avatar-speech__word--instant'"
@@ -26,6 +32,7 @@
     </template><span
       class="avatar-speech__caret"
       x-show="avatarSpeechTyping"
+      x-transition.opacity.duration.150ms
       aria-hidden="true"
     ></span>
   </p>

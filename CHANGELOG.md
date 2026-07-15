@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.66.2] — 2026-07-15
+
+### Changed
+
+- Avatar speech: faster typewriter, stronger bubble enter/leave, and a crossfade when the line is replaced while open
+
 ## [1.66.1] — 2026-07-15
 
 ### Changed
