@@ -29,10 +29,27 @@
   flex-direction: column;
   align-items: center;
   pointer-events: none;
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    transform 0.58s var(--ease),
+    opacity 0.4s var(--ease);
 }
 
 .music-player__dock > * {
   pointer-events: auto;
+}
+
+/* Primary bootstrap: keep the pill fully below the viewport, then slide in. */
+.music-player--booting .music-player__dock {
+  transform: translateY(calc(100% + var(--music-bottom) + 1.75rem));
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+}
+
+.music-player--booting .music-player__dock > * {
+  pointer-events: none;
 }
 
 .music-player--booting .music-player__dock > .music-player__sheet {
@@ -1064,12 +1081,18 @@ body.theme-light .music-player__close {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .music-player__dock,
   .music-player__toggle,
   .music-player__sheet,
   .music-player__btn,
   .music-player__close,
   .music-player__credit {
     transition: none;
+  }
+
+  .music-player--booting .music-player__dock {
+    transform: translateY(calc(100% + var(--music-bottom) + 1.75rem));
+    opacity: 0;
   }
 
   .music-player__sheet {

@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.74.1] — 2026-07-15
+
+### Changed
+
+- Music player toggle stays off-screen during primary bootstrap, then slides in when ready
+
 ## [1.74.0] — 2026-07-15
 
 ### Added

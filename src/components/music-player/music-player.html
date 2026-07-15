@@ -11,7 +11,7 @@
     'music-player--booting': musicBooting,
     'music-player--buffering': musicBuffering,
   }"
-  :aria-hidden="!(musicVisible || musicBooting) ? 'true' : 'false'"
+  :aria-hidden="musicBooting || !musicVisible ? 'true' : 'false'"
   @keydown.escape.window="musicOpen && closeMusicPanel()"
 >
   <div class="music-player__dock">
