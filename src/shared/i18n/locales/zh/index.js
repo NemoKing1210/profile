@@ -676,6 +676,8 @@ export default {
     blurbs: {
       "steam-gamestatus":
         "面向 Steam 商店与社区的 Userscript：在游戏卡片上直接显示保护、日期、评分与硬件徽章，无需离开页面。数据来自 GameStatus.info，带缓存与设置面板。",
+      "backloggd-plus":
+        "面向 Backloggd 的 Userscript：在游戏页显示 Steam、Metacritic、OpenCritic、HLTB、Deck/Proton 与 GameStatus 信息行，列表封面徽章，以及 Steam / SteamDB 上的 Backloggd 按钮——无需 API 密钥。",
       "steam-region-block-bypass":
         "Steam 商店 Userscript：遇到「unavailable in your region」时恢复访客商品页，并可选访客搜索。Steam 风格设置面板，以及用于 IP 封锁的代理网关。",
       ProxyChecker:
@@ -688,6 +690,11 @@ export default {
         "列表页与游戏页徽章",
         "Steam 风格提示：评分与配置",
         "缓存、懒加载与 10 种 UI 语言",
+      ],
+      "backloggd-plus": [
+        "Backloggd 游戏页信息增强行",
+        "封面价格 / 已拥有 / 愿望单徽章",
+        "Steam 与 SteamDB 上的 Backloggd 按钮",
       ],
       "steam-region-block-bypass": [
         "通过匿名访客请求恢复页面",

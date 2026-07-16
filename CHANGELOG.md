@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.76.0] — 2026-07-16
+
+### Added
+
+- Project capsule for [backloggd-plus](https://github.com/NemoKing1210/backloggd-plus) (userscript) with Backloggd mark and copy in all locales
+
 ## [1.75.2] — 2026-07-15
 
 ### Changed

@@ -104,6 +104,16 @@ const profile = {
       status: "public",
     },
     {
+      id: "backloggd-plus",
+      title: "backloggd-plus",
+      kind: "userscript",
+      mark: "backloggd",
+      tone: "backloggd",
+      tags: ["JavaScript", "Userscript", "Backloggd", "Steam"],
+      url: "https://github.com/NemoKing1210/backloggd-plus",
+      status: "public",
+    },
+    {
       id: "steam-region-block-bypass",
       title: "steam-region-block-bypass",
       kind: "userscript",

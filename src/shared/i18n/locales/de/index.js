@@ -711,6 +711,8 @@ export default {
     blurbs: {
       "steam-gamestatus":
         "Userscript für Steam Store & Community: Badges zu Schutz, Daten, Scores und Hardware direkt auf Spielkarten — ohne die Seite zu verlassen. Daten von GameStatus.info, mit Cache und Einstellungen.",
+      "backloggd-plus":
+        "Userscript für Backloggd: Steam-, Metacritic-, OpenCritic-, HLTB-, Deck/Proton- und GameStatus-Zeilen auf Spielseiten, Cover-Badges in Listen sowie Backloggd-Buttons auf Steam und SteamDB — ohne API-Keys.",
       "steam-region-block-bypass":
         "Steam-Store-Userscript: bei „unavailable in your region“ wird die Gast-Produktseite wiederhergestellt, optional mit Guest-Suche. Steam-Panel plus Proxy-Gateway für IP-Sperren.",
       ProxyChecker:
@@ -723,6 +725,11 @@ export default {
         "Badges in Listen und auf der Spielseite",
         "Steam-ähnliche Tooltips mit Scores & Specs",
         "Cache, Lazy-Load und 10 UI-Sprachen",
+      ],
+      "backloggd-plus": [
+        "Anreicherungszeilen auf Backloggd-Spielseiten",
+        "Preis-/Owned-/Wishlist-Badges auf Covern",
+        "Backloggd-Buttons auf Steam & SteamDB",
       ],
       "steam-region-block-bypass": [
         "Seiten per anonymous Guest-Fetch wiederherstellen",

@@ -710,6 +710,8 @@ export default {
     blurbs: {
       "steam-gamestatus":
         "Steam Store / Community 用 userscript：保護・日付・スコア・スペックのバッジをゲームカードに表示。ページを離れずに GameStatus.info のデータを取得し、キャッシュと設定パネル付き。",
+      "backloggd-plus":
+        "Backloggd 用 userscript：ゲームページに Steam・Metacritic・OpenCritic・HLTB・Deck/Proton・GameStatus の行、リスト表紙のバッジ、Steam / SteamDB 上の Backloggd ボタンを追加。API キー不要。",
       "steam-region-block-bypass":
         "Steam Store 用 userscript：「unavailable in your region」表示時にゲスト商品ページを復元し、任意でゲスト検索も。Steam 風設定パネルと IP 制限向けプロキシゲートウェイ付き。",
       ProxyChecker:
@@ -722,6 +724,11 @@ export default {
         "一覧とゲームページにバッジ",
         "Steam 風ツールチップ（スコア／スペック）",
         "キャッシュ、遅延読み込み、UI 10言語",
+      ],
+      "backloggd-plus": [
+        "Backloggd ゲームページの情報行",
+        "表紙の価格 / owned / wishlist バッジ",
+        "Steam・SteamDB の Backloggd ボタン",
       ],
       "steam-region-block-bypass": [
         "匿名ゲスト取得でページを復元",

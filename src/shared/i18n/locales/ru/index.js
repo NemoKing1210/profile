@@ -710,6 +710,8 @@ export default {
     blurbs: {
       "steam-gamestatus":
         "Userscript для Steam Store и Community: бейджи защиты, дат, оценок и железа прямо на карточках игр — без ухода со страницы. Данные тянутся из GameStatus.info, с кэшем и настройками.",
+      "backloggd-plus":
+        "Userscript для Backloggd: строки Steam, Metacritic, OpenCritic, HLTB, Deck/Proton и GameStatus на страницах игр, бейджи на обложках в списках, плюс кнопки Backloggd на Steam и SteamDB — без API-ключей.",
       "steam-region-block-bypass":
         "Userscript для Steam Store: когда висит «unavailable in your region», подтягивает гостевую карточку товара и опционально guest-поиск. Есть Steam-панель настроек и прокси-шлюз для IP-блокировок.",
       ProxyChecker:
@@ -722,6 +724,11 @@ export default {
         "Бейджи на листингах и на странице игры",
         "Тултипы в стиле Steam с оценками и железом",
         "Кэш, ленивая подгрузка и 10 языков UI",
+      ],
+      "backloggd-plus": [
+        "Строки обогащения на страницах игр Backloggd",
+        "Бейджи цены / owned / wishlist на обложках",
+        "Кнопки Backloggd на Steam и SteamDB",
       ],
       "steam-region-block-bypass": [
         "Восстановление карточки через anonymous fetch",

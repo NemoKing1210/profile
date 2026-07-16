@@ -711,6 +711,8 @@ export default {
     blurbs: {
       "steam-gamestatus":
         "Userscript para Steam Store y Community: insignias de protección, fechas, puntuaciones y hardware en las fichas — sin salir de la página. Datos de GameStatus.info, con caché y panel de ajustes.",
+      "backloggd-plus":
+        "Userscript para Backloggd: filas de Steam, Metacritic, OpenCritic, HLTB, Deck/Proton y GameStatus en páginas de juegos, insignias en portadas de listas, más botones de Backloggd en Steam y SteamDB — sin claves API.",
       "steam-region-block-bypass":
         "Userscript de Steam Store: cuando aparece “unavailable in your region”, restaura la ficha de invitado y, opcionalmente, la búsqueda guest. Panel al estilo Steam y gateway proxy para bloqueos por IP.",
       ProxyChecker:
@@ -723,6 +725,11 @@ export default {
         "Insignias en listados y en la página del juego",
         "Tooltips al estilo Steam con scores y specs",
         "Caché, carga diferida y 10 idiomas de UI",
+      ],
+      "backloggd-plus": [
+        "Filas de enriquecimiento en páginas de juegos",
+        "Insignias de precio / owned / wishlist en portadas",
+        "Botones Backloggd en Steam y SteamDB",
       ],
       "steam-region-block-bypass": [
         "Restaurar fichas con fetch anónimo",
