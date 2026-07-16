@@ -712,6 +712,8 @@ export default {
         "Userscript для Steam Store и Community: бейджи защиты, дат, оценок и железа прямо на карточках игр — без ухода со страницы. Данные тянутся из GameStatus.info, с кэшем и настройками.",
       "backloggd-plus":
         "Userscript для Backloggd: строки Steam, Metacritic, OpenCritic, HLTB, Deck/Proton и GameStatus на страницах игр, бейджи на обложках в списках, плюс кнопки Backloggd на Steam и SteamDB — без API-ключей.",
+      "github-gitfut":
+        "Userscript для GitHub: скаут-карточки GitFut в стиле World Cup с рейтингом до 99 на профилях и в hovercard аватаров — тиры отделки, шесть футбольных статов, playstyles, кэш и панель настроек.",
       "steam-region-block-bypass":
         "Userscript для Steam Store: когда висит «unavailable in your region», подтягивает гостевую карточку товара и опционально guest-поиск. Есть Steam-панель настроек и прокси-шлюз для IP-блокировок.",
       ProxyChecker:
@@ -729,6 +731,11 @@ export default {
         "Строки обогащения на страницах игр Backloggd",
         "Бейджи цены / owned / wishlist на обложках",
         "Кнопки Backloggd на Steam и SteamDB",
+      ],
+      "github-gitfut": [
+        "Скаут-панель профиля + hovercard аватаров",
+        "Темизация по тиру (Bronze → Icon)",
+        "Умный кэш, soft-nav и 10 языков UI",
       ],
       "steam-region-block-bypass": [
         "Восстановление карточки через anonymous fetch",

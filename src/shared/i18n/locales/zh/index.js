@@ -678,6 +678,8 @@ export default {
         "面向 Steam 商店与社区的 Userscript：在游戏卡片上直接显示保护、日期、评分与硬件徽章，无需离开页面。数据来自 GameStatus.info，带缓存与设置面板。",
       "backloggd-plus":
         "面向 Backloggd 的 Userscript：在游戏页显示 Steam、Metacritic、OpenCritic、HLTB、Deck/Proton 与 GameStatus 信息行，列表封面徽章，以及 Steam / SteamDB 上的 Backloggd 按钮——无需 API 密钥。",
+      "github-gitfut":
+        "面向 GitHub 的 Userscript：在个人主页与头像悬浮卡片上展示 World Cup 风格的 GitFut 球探卡（满分 99）——成色等级、六项足球属性、打法风格、缓存与设置面板。",
       "steam-region-block-bypass":
         "Steam 商店 Userscript：遇到「unavailable in your region」时恢复访客商品页，并可选访客搜索。Steam 风格设置面板，以及用于 IP 封锁的代理网关。",
       ProxyChecker:
@@ -695,6 +697,11 @@ export default {
         "Backloggd 游戏页信息增强行",
         "封面价格 / 已拥有 / 愿望单徽章",
         "Steam 与 SteamDB 上的 Backloggd 按钮",
+      ],
+      "github-gitfut": [
+        "个人主页球探面板 + 头像悬浮卡",
+        "按成色主题（Bronze → Icon）",
+        "智能缓存、软导航与 10 种 UI 语言",
       ],
       "steam-region-block-bypass": [
         "通过匿名访客请求恢复页面",

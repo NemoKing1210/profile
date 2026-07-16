@@ -712,6 +712,8 @@ export default {
         "Steam Store / Community 用 userscript：保護・日付・スコア・スペックのバッジをゲームカードに表示。ページを離れずに GameStatus.info のデータを取得し、キャッシュと設定パネル付き。",
       "backloggd-plus":
         "Backloggd 用 userscript：ゲームページに Steam・Metacritic・OpenCritic・HLTB・Deck/Proton・GameStatus の行、リスト表紙のバッジ、Steam / SteamDB 上の Backloggd ボタンを追加。API キー不要。",
+      "github-gitfut":
+        "GitHub 用 userscript：プロフィールとアバター hovercard に World Cup 風の GitFut スカウトカード（99 点満点）を表示。フィニッシュ階層、6 つのサッカー能力値、プレイスタイル、キャッシュ、設定パネル付き。",
       "steam-region-block-bypass":
         "Steam Store 用 userscript：「unavailable in your region」表示時にゲスト商品ページを復元し、任意でゲスト検索も。Steam 風設定パネルと IP 制限向けプロキシゲートウェイ付き。",
       ProxyChecker:
@@ -729,6 +731,11 @@ export default {
         "Backloggd ゲームページの情報行",
         "表紙の価格 / owned / wishlist バッジ",
         "Steam・SteamDB の Backloggd ボタン",
+      ],
+      "github-gitfut": [
+        "プロフィールのスカウトパネル＋アバター hovercard",
+        "フィニッシュ階層のテーマ（Bronze → Icon）",
+        "スマートキャッシュ、ソフトナビ、UI 10言語",
       ],
       "steam-region-block-bypass": [
         "匿名ゲスト取得でページを復元",

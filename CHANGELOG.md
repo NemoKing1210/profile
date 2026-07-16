@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.77.0] — 2026-07-16
+
+### Added
+
+- Project capsule for [github-gitfut](https://github.com/NemoKing1210/github-gitfut) (userscript) with GitHub mark and copy in all locales
+
 ## [1.76.0] — 2026-07-16
 
 ### Added

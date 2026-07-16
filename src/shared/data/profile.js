@@ -114,6 +114,16 @@ const profile = {
       status: "public",
     },
     {
+      id: "github-gitfut",
+      title: "github-gitfut",
+      kind: "userscript",
+      mark: "github",
+      tone: "github",
+      tags: ["JavaScript", "Userscript", "GitHub", "GitFut"],
+      url: "https://github.com/NemoKing1210/github-gitfut",
+      status: "public",
+    },
+    {
       id: "steam-region-block-bypass",
       title: "steam-region-block-bypass",
       kind: "userscript",

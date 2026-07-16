@@ -711,6 +711,8 @@ export default {
         "Userscript for Steam Store & Community: protection, dates, scores, and hardware badges on game cards — without leaving the page. Powered by GameStatus.info with caching and a settings panel.",
       "backloggd-plus":
         "Userscript for Backloggd: Steam, Metacritic, OpenCritic, HLTB, Deck/Proton, and GameStatus rows on game pages, cover badges on lists, plus Backloggd buttons on Steam and SteamDB — no API keys required.",
+      "github-gitfut":
+        "Userscript for GitHub: World Cup–style GitFut scout cards rated out of 99 on profiles and avatar hovercards — finish tiers, six football stats, playstyles, caching, and a settings panel.",
       "steam-region-block-bypass":
         "Steam Store userscript: when you hit “unavailable in your region”, it restores a guest product page and optional guest search. Steam-styled settings plus a proxy gateway for IP locks.",
       ProxyChecker:
@@ -728,6 +730,11 @@ export default {
         "Enrichment rows on Backloggd game pages",
         "Price / owned / wishlist badges on covers",
         "Backloggd buttons on Steam & SteamDB",
+      ],
+      "github-gitfut": [
+        "Profile scout panel + avatar hovercards",
+        "Finish-tier theming (Bronze → Icon)",
+        "Smart cache, soft-nav, and 10 UI languages",
       ],
       "steam-region-block-bypass": [
         "Restore pages via anonymous guest fetch",

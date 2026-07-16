@@ -159,6 +159,10 @@
   --capsule-glow: #7ec8ff;
 }
 
+.capsule--github {
+  --capsule-glow: #58a6ff;
+}
+
 .capsule--youtube {
   --capsule-glow: #ff4444;
 }

@@ -713,6 +713,8 @@ export default {
         "Userscript für Steam Store & Community: Badges zu Schutz, Daten, Scores und Hardware direkt auf Spielkarten — ohne die Seite zu verlassen. Daten von GameStatus.info, mit Cache und Einstellungen.",
       "backloggd-plus":
         "Userscript für Backloggd: Steam-, Metacritic-, OpenCritic-, HLTB-, Deck/Proton- und GameStatus-Zeilen auf Spielseiten, Cover-Badges in Listen sowie Backloggd-Buttons auf Steam und SteamDB — ohne API-Keys.",
+      "github-gitfut":
+        "Userscript für GitHub: GitFut-Scout-Karten im World-Cup-Stil mit Rating bis 99 auf Profilen und in Avatar-Hovercards — Finish-Tiers, sechs Fußball-Stats, Playstyles, Cache und Einstellungspanel.",
       "steam-region-block-bypass":
         "Steam-Store-Userscript: bei „unavailable in your region“ wird die Gast-Produktseite wiederhergestellt, optional mit Guest-Suche. Steam-Panel plus Proxy-Gateway für IP-Sperren.",
       ProxyChecker:
@@ -730,6 +732,11 @@ export default {
         "Anreicherungszeilen auf Backloggd-Spielseiten",
         "Preis-/Owned-/Wishlist-Badges auf Covern",
         "Backloggd-Buttons auf Steam & SteamDB",
+      ],
+      "github-gitfut": [
+        "Profil-Scout-Panel + Avatar-Hovercards",
+        "Finish-Tier-Theming (Bronze → Icon)",
+        "Smart Cache, Soft-Nav und 10 UI-Sprachen",
       ],
       "steam-region-block-bypass": [
         "Seiten per anonymous Guest-Fetch wiederherstellen",
