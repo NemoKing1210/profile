@@ -701,18 +701,69 @@ export default {
     featured: "Destacado",
     notice:
       "Por ahora empiezo con poco — userscripts y pet projects. Lo más grande viene después.",
+    searchPlaceholder: "Buscar proyectos…",
+    filtersAll: "Todos",
+    filtersLabel: "Filtros de proyectos",
+    groupByLabel: "Agrupar por",
+    groupByKind: "Tipo",
+    groupByShelf: "Estante",
+    filterGroups: "Estante",
+    filterKinds: "Tipo",
+    clearFilters: "Limpiar filtros",
+    results: "{count} proyectos",
+    resultsOne: "{count} proyecto",
+    empty: "Ningún proyecto coincide con estos filtros.",
+    groups: {
+      steam: {
+        title: "Steam",
+        description: "Userscripts de Store y Community — insignias, bypass regional y más.",
+      },
+      backloggd: {
+        title: "Backloggd",
+        description: "UI enriquecida e importación de biblioteca para Backloggd.",
+      },
+      github: {
+        title: "GitHub",
+        description: "Mejoras de perfil y hovercards en GitHub.",
+      },
+      youtube: {
+        title: "YouTube",
+        description: "Filtros de spam en comentarios y ayudas para el canal.",
+      },
+      tools: {
+        title: "Herramientas",
+        description: "Utilidades de escritorio y apps independientes.",
+      },
+    },
+    kindGroups: {
+      userscript: {
+        title: "Userscripts",
+        description: "Scripts del navegador para Steam, Backloggd, GitHub, YouTube y más.",
+      },
+      desktop: {
+        title: "Programas",
+        description: "Apps de escritorio y utilidades que se instalan en local.",
+      },
+      website: {
+        title: "Sitios",
+        description: "Sitios y web apps — landings, herramientas y experimentos.",
+      },
+    },
     status: {
       public: "Public",
     },
     kinds: {
       userscript: "Userscript",
-      desktop: "Desktop",
+      desktop: "Programa",
+      website: "Sitio",
     },
     blurbs: {
       "steam-gamestatus":
         "Userscript para Steam Store y Community: insignias de protección, fechas, puntuaciones y hardware en las fichas — sin salir de la página. Datos de GameStatus.info, con caché y panel de ajustes.",
       "backloggd-plus":
         "Userscript para Backloggd: filas de Steam, Metacritic, OpenCritic, HLTB, Deck/Proton y GameStatus en páginas de juegos, insignias en portadas de listas, más botones de Backloggd en Steam y SteamDB — sin claves API.",
+      "backloggd-data-transfer":
+        "Userscript para Backloggd: importa logs de juegos desde otras plataformas con un transfer JSON o CSV unificado. Asistente de match y revisión, caché de coincidencias y limpieza de logs múltiples — Backloggd no tiene import nativo.",
       "github-gitfut":
         "Userscript para GitHub: cartas de scouting GitFut al estilo World Cup con rating hasta 99 en perfiles y hovercards de avatar — tiers de acabado, seis stats de fútbol, playstyles, caché y panel de ajustes.",
       "steam-region-block-bypass":
@@ -732,6 +783,11 @@ export default {
         "Filas de enriquecimiento en páginas de juegos",
         "Insignias de precio / owned / wishlist en portadas",
         "Botones Backloggd en Steam y SteamDB",
+      ],
+      "backloggd-data-transfer": [
+        "Asistente de importación: JSON / CSV → match → escritura",
+        "Caché de matches, historial y escrituras en paralelo",
+        "Escaneo Cleanup de juegos con varios logs",
       ],
       "github-gitfut": [
         "Panel de scouting en perfil + hovercards",

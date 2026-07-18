@@ -91,10 +91,34 @@ const profile = {
     { id: "claudecode", label: "Claude Code" },
   ],
 
+  /**
+   * Semantic project shelves (order = UI section order).
+   * Copy: locales `projects.groups.<id>`.
+   */
+  projectGroups: [
+    { id: "steam", mark: "steam", tone: "steam" },
+    { id: "backloggd", mark: "backloggd", tone: "backloggd" },
+    { id: "github", mark: "github", tone: "github" },
+    { id: "youtube", mark: "youtube", tone: "youtube" },
+    { id: "tools", mark: "electron", tone: "desktop" },
+  ],
+
+  /**
+   * Project type shelves when group-by = kind (order = UI section order).
+   * Copy: locales `projects.kindGroups.<id>`.
+   * `icon` → heroicons key for section chrome.
+   */
+  projectKinds: [
+    { id: "userscript", tone: "userscript", icon: "codeBracket" },
+    { id: "desktop", tone: "desktop", icon: "computerDesktop" },
+    { id: "website", tone: "website", icon: "globeAlt" },
+  ],
+
   projects: [
     {
       id: "steam-gamestatus",
       title: "steam-gamestatus",
+      group: "steam",
       kind: "userscript",
       mark: "steam",
       tone: "steam",
@@ -104,28 +128,9 @@ const profile = {
       status: "public",
     },
     {
-      id: "backloggd-plus",
-      title: "backloggd-plus",
-      kind: "userscript",
-      mark: "backloggd",
-      tone: "backloggd",
-      tags: ["JavaScript", "Userscript", "Backloggd", "Steam"],
-      url: "https://github.com/NemoKing1210/backloggd-plus",
-      status: "public",
-    },
-    {
-      id: "github-gitfut",
-      title: "github-gitfut",
-      kind: "userscript",
-      mark: "github",
-      tone: "github",
-      tags: ["JavaScript", "Userscript", "GitHub", "GitFut"],
-      url: "https://github.com/NemoKing1210/github-gitfut",
-      status: "public",
-    },
-    {
       id: "steam-region-block-bypass",
       title: "steam-region-block-bypass",
+      group: "steam",
       kind: "userscript",
       mark: "steam",
       tone: "steam",
@@ -134,24 +139,58 @@ const profile = {
       status: "public",
     },
     {
-      id: "ProxyChecker",
-      title: "ProxyChecker",
-      kind: "desktop",
-      mark: "electron",
-      tone: "desktop",
-      tags: ["TypeScript", "Electron", "React", "Desktop"],
-      url: "https://github.com/NemoKing1210/ProxyChecker",
+      id: "backloggd-plus",
+      title: "backloggd-plus",
+      group: "backloggd",
+      kind: "userscript",
+      mark: "backloggd",
+      tone: "backloggd",
+      tags: ["JavaScript", "Userscript", "Backloggd", "Steam"],
+      url: "https://github.com/NemoKing1210/backloggd-plus",
       status: "public",
-      hidden: true,
+    },
+    {
+      id: "backloggd-data-transfer",
+      title: "backloggd-data-transfer",
+      group: "backloggd",
+      kind: "userscript",
+      mark: "backloggd",
+      tone: "backloggd",
+      tags: ["JavaScript", "Userscript", "Backloggd", "Import"],
+      url: "https://github.com/NemoKing1210/backloggd-data-transfer",
+      status: "public",
+    },
+    {
+      id: "github-gitfut",
+      title: "github-gitfut",
+      group: "github",
+      kind: "userscript",
+      mark: "github",
+      tone: "github",
+      tags: ["JavaScript", "Userscript", "GitHub", "GitFut"],
+      url: "https://github.com/NemoKing1210/github-gitfut",
+      status: "public",
     },
     {
       id: "youtube-bot-comments-filter",
       title: "youtube-bot-comments-filter",
+      group: "youtube",
       kind: "userscript",
       mark: "youtube",
       tone: "youtube",
       tags: ["JavaScript", "Userscript", "YouTube"],
       url: "https://github.com/NemoKing1210/youtube-bot-comments-filter",
+      status: "public",
+    },
+    {
+      id: "ProxyChecker",
+      title: "ProxyChecker",
+      group: "tools",
+      kind: "desktop",
+      mark: "electron",
+      tone: "desktop",
+      tags: ["TypeScript", "Electron", "React", "Desktop"],
+      url: "https://github.com/NemoKing1210/ProxyChecker",
       status: "public",
     },
   ],

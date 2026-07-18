@@ -701,18 +701,69 @@ export default {
     featured: "Highlight",
     notice:
       "Ich fange erstmal klein an — Userscripts und Pet-Projekte. Größeres kommt noch.",
+    searchPlaceholder: "Projekte suchen…",
+    filtersAll: "Alle",
+    filtersLabel: "Projektfilter",
+    groupByLabel: "Gruppieren",
+    groupByKind: "Typ",
+    groupByShelf: "Regal",
+    filterGroups: "Regal",
+    filterKinds: "Typ",
+    clearFilters: "Filter zurücksetzen",
+    results: "{count} Projekte",
+    resultsOne: "{count} Projekt",
+    empty: "Keine Projekte passen zu diesen Filtern.",
+    groups: {
+      steam: {
+        title: "Steam",
+        description: "Store- & Community-Userscripts — Badges, Region-Bypass und mehr.",
+      },
+      backloggd: {
+        title: "Backloggd",
+        description: "UI-Anreicherung und Bibliotheksimport für Backloggd.",
+      },
+      github: {
+        title: "GitHub",
+        description: "Profil- und Hovercard-Erweiterungen auf GitHub.",
+      },
+      youtube: {
+        title: "YouTube",
+        description: "Spam-Filter für Kommentare und Kanal-Helfer.",
+      },
+      tools: {
+        title: "Tools",
+        description: "Desktop-Utilities und eigenständige Apps.",
+      },
+    },
+    kindGroups: {
+      userscript: {
+        title: "Userscripts",
+        description: "Browser-Skripte für Steam, Backloggd, GitHub, YouTube und mehr.",
+      },
+      desktop: {
+        title: "Programme",
+        description: "Desktop-Apps und Utilities zum lokalen Installieren.",
+      },
+      website: {
+        title: "Websites",
+        description: "Sites und Web-Apps — Landings, Tools und Experimente.",
+      },
+    },
     status: {
       public: "Public",
     },
     kinds: {
       userscript: "Userscript",
-      desktop: "Desktop",
+      desktop: "Programm",
+      website: "Website",
     },
     blurbs: {
       "steam-gamestatus":
         "Userscript für Steam Store & Community: Badges zu Schutz, Daten, Scores und Hardware direkt auf Spielkarten — ohne die Seite zu verlassen. Daten von GameStatus.info, mit Cache und Einstellungen.",
       "backloggd-plus":
         "Userscript für Backloggd: Steam-, Metacritic-, OpenCritic-, HLTB-, Deck/Proton- und GameStatus-Zeilen auf Spielseiten, Cover-Badges in Listen sowie Backloggd-Buttons auf Steam und SteamDB — ohne API-Keys.",
+      "backloggd-data-transfer":
+        "Userscript für Backloggd: importiert Spiele-Logs von anderen Plattformen über ein einheitliches Transfer-JSON oder CSV. Assistent für Match & Review, Match-Cache und Cleanup mehrfacher Logs — Backloggd hat keinen nativen Import.",
       "github-gitfut":
         "Userscript für GitHub: GitFut-Scout-Karten im World-Cup-Stil mit Rating bis 99 auf Profilen und in Avatar-Hovercards — Finish-Tiers, sechs Fußball-Stats, Playstyles, Cache und Einstellungspanel.",
       "steam-region-block-bypass":
@@ -732,6 +783,11 @@ export default {
         "Anreicherungszeilen auf Backloggd-Spielseiten",
         "Preis-/Owned-/Wishlist-Badges auf Covern",
         "Backloggd-Buttons auf Steam & SteamDB",
+      ],
+      "backloggd-data-transfer": [
+        "Import-Assistent: JSON / CSV → Match → Schreiben",
+        "Match-Cache, Verlauf und parallele Writes",
+        "Cleanup-Scan für Spiele mit mehreren Logs",
       ],
       "github-gitfut": [
         "Profil-Scout-Panel + Avatar-Hovercards",

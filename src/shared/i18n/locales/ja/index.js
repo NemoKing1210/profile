@@ -700,18 +700,69 @@ export default {
     featured: "注目",
     notice:
       "まずは小さく——userscript と pet projects から。もっと大きなものはこれから。",
+    searchPlaceholder: "プロジェクトを検索…",
+    filtersAll: "すべて",
+    filtersLabel: "プロジェクトフィルタ",
+    groupByLabel: "グループ",
+    groupByKind: "種類",
+    groupByShelf: "棚",
+    filterGroups: "棚",
+    filterKinds: "種類",
+    clearFilters: "フィルタをクリア",
+    results: "{count} 件のプロジェクト",
+    resultsOne: "{count} 件のプロジェクト",
+    empty: "これらのフィルタに一致するプロジェクトはありません。",
+    groups: {
+      steam: {
+        title: "Steam",
+        description: "Store / Community 向け userscript — バッジ、リージョン回避など。",
+      },
+      backloggd: {
+        title: "Backloggd",
+        description: "Backloggd の UI 強化とライブラリインポート。",
+      },
+      github: {
+        title: "GitHub",
+        description: "GitHub のプロフィールと hovercard の拡張。",
+      },
+      youtube: {
+        title: "YouTube",
+        description: "コメントのスパムフィルタとチャンネル補助。",
+      },
+      tools: {
+        title: "ツール",
+        description: "デスクトップユーティリティと単体アプリ。",
+      },
+    },
+    kindGroups: {
+      userscript: {
+        title: "Userscript",
+        description: "Steam / Backloggd / GitHub / YouTube 向けのブラウザスクリプト。",
+      },
+      desktop: {
+        title: "プログラム",
+        description: "ローカルにインストールして使うデスクトップアプリ。",
+      },
+      website: {
+        title: "サイト",
+        description: "サイトと Web アプリ — ランディング、ツール、実験。",
+      },
+    },
     status: {
       public: "Public",
     },
     kinds: {
       userscript: "Userscript",
-      desktop: "Desktop",
+      desktop: "プログラム",
+      website: "サイト",
     },
     blurbs: {
       "steam-gamestatus":
         "Steam Store / Community 用 userscript：保護・日付・スコア・スペックのバッジをゲームカードに表示。ページを離れずに GameStatus.info のデータを取得し、キャッシュと設定パネル付き。",
       "backloggd-plus":
         "Backloggd 用 userscript：ゲームページに Steam・Metacritic・OpenCritic・HLTB・Deck/Proton・GameStatus の行、リスト表紙のバッジ、Steam / SteamDB 上の Backloggd ボタンを追加。API キー不要。",
+      "backloggd-data-transfer":
+        "Backloggd 用 userscript：統一 transfer JSON / CSV で他プラットフォームからゲームログをインポート。マッチ＆レビューのウィザード、マッチキャッシュ、複数ログのクリーンアップ対応。Backloggd にネイティブインポートはない。",
       "github-gitfut":
         "GitHub 用 userscript：プロフィールとアバター hovercard に World Cup 風の GitFut スカウトカード（99 点満点）を表示。フィニッシュ階層、6 つのサッカー能力値、プレイスタイル、キャッシュ、設定パネル付き。",
       "steam-region-block-bypass":
@@ -731,6 +782,11 @@ export default {
         "Backloggd ゲームページの情報行",
         "表紙の価格 / owned / wishlist バッジ",
         "Steam・SteamDB の Backloggd ボタン",
+      ],
+      "backloggd-data-transfer": [
+        "インポートウィザード：JSON / CSV → マッチ → 書き込み",
+        "マッチキャッシュ、履歴、並列書き込み",
+        "複数ログのゲーム向け Cleanup スキャン",
       ],
       "github-gitfut": [
         "プロフィールのスカウトパネル＋アバター hovercard",

@@ -666,18 +666,69 @@ export default {
     openCta: "在 GitHub 打开",
     featured: "精选",
     notice: "先从小处开始——userscript 和 pet projects。更大的还在后面。",
+    searchPlaceholder: "搜索项目…",
+    filtersAll: "全部",
+    filtersLabel: "项目筛选",
+    groupByLabel: "分组",
+    groupByKind: "类型",
+    groupByShelf: "分类架",
+    filterGroups: "分类",
+    filterKinds: "类型",
+    clearFilters: "清除筛选",
+    results: "{count} 个项目",
+    resultsOne: "{count} 个项目",
+    empty: "没有符合这些筛选条件的项目。",
+    groups: {
+      steam: {
+        title: "Steam",
+        description: "商店与社区 Userscript——徽章、区域绕过等。",
+      },
+      backloggd: {
+        title: "Backloggd",
+        description: "Backloggd 的信息增强与库导入。",
+      },
+      github: {
+        title: "GitHub",
+        description: "GitHub 个人主页与悬浮卡片增强。",
+      },
+      youtube: {
+        title: "YouTube",
+        description: "评论垃圾过滤与频道辅助工具。",
+      },
+      tools: {
+        title: "工具",
+        description: "桌面工具与独立应用。",
+      },
+    },
+    kindGroups: {
+      userscript: {
+        title: "Userscript",
+        description: "浏览器脚本：Steam、Backloggd、GitHub、YouTube 等。",
+      },
+      desktop: {
+        title: "程序",
+        description: "可本地安装运行的桌面应用与工具。",
+      },
+      website: {
+        title: "网站",
+        description: "网站与 Web 应用——落地页、工具与实验。",
+      },
+    },
     status: {
       public: "Public",
     },
     kinds: {
       userscript: "Userscript",
-      desktop: "Desktop",
+      desktop: "程序",
+      website: "网站",
     },
     blurbs: {
       "steam-gamestatus":
         "面向 Steam 商店与社区的 Userscript：在游戏卡片上直接显示保护、日期、评分与硬件徽章，无需离开页面。数据来自 GameStatus.info，带缓存与设置面板。",
       "backloggd-plus":
         "面向 Backloggd 的 Userscript：在游戏页显示 Steam、Metacritic、OpenCritic、HLTB、Deck/Proton 与 GameStatus 信息行，列表封面徽章，以及 Steam / SteamDB 上的 Backloggd 按钮——无需 API 密钥。",
+      "backloggd-data-transfer":
+        "面向 Backloggd 的 Userscript：通过统一的 transfer JSON 或 CSV 从其他平台导入游戏日志。匹配与审阅向导、匹配缓存，以及多日志清理——Backloggd 没有原生导入。",
       "github-gitfut":
         "面向 GitHub 的 Userscript：在个人主页与头像悬浮卡片上展示 World Cup 风格的 GitFut 球探卡（满分 99）——成色等级、六项足球属性、打法风格、缓存与设置面板。",
       "steam-region-block-bypass":
@@ -697,6 +748,11 @@ export default {
         "Backloggd 游戏页信息增强行",
         "封面价格 / 已拥有 / 愿望单徽章",
         "Steam 与 SteamDB 上的 Backloggd 按钮",
+      ],
+      "backloggd-data-transfer": [
+        "导入向导：JSON / CSV → 匹配 → 写入",
+        "匹配缓存、历史记录与并行写入",
+        "清理扫描：找出多日志游戏",
       ],
       "github-gitfut": [
         "个人主页球探面板 + 头像悬浮卡",

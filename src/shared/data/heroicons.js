@@ -13,13 +13,17 @@ import bookOpen from "heroicons/24/outline/book-open.svg?raw";
 import briefcase from "heroicons/24/outline/briefcase.svg?raw";
 import cake from "heroicons/24/outline/cake.svg?raw";
 import clock from "heroicons/24/outline/clock.svg?raw";
+import codeBracket from "heroicons/24/outline/code-bracket.svg?raw";
+import computerDesktop from "heroicons/24/outline/computer-desktop.svg?raw";
 import cube from "heroicons/24/outline/cube.svg?raw";
 import faceSmile from "heroicons/24/outline/face-smile.svg?raw";
 import film from "heroicons/24/outline/film.svg?raw";
 import forward from "heroicons/24/outline/forward.svg?raw";
+import globeAlt from "heroicons/24/outline/globe-alt.svg?raw";
 import handThumbDown from "heroicons/24/outline/hand-thumb-down.svg?raw";
 import handThumbUp from "heroicons/24/outline/hand-thumb-up.svg?raw";
 import language from "heroicons/24/outline/language.svg?raw";
+import magnifyingGlass from "heroicons/24/outline/magnifying-glass.svg?raw";
 import mapPin from "heroicons/24/outline/map-pin.svg?raw";
 import musicalNote from "heroicons/24/outline/musical-note.svg?raw";
 import pause from "heroicons/24/outline/pause.svg?raw";
@@ -44,13 +48,17 @@ export const heroicons = {
   briefcase,
   cake,
   clock,
+  codeBracket,
+  computerDesktop,
   cube,
   faceSmile,
   film,
   forward,
+  globeAlt,
   handThumbDown,
   handThumbUp,
   language,
+  magnifyingGlass,
   mapPin,
   moon,
   musicalNote,

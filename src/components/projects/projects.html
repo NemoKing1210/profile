@@ -7,71 +7,245 @@
     >Projects</h2>
     <p class="panel__sub" x-text="t.ui.projectsSubtitle"></p>
   </header>
-  <div class="project-shelf" role="list">
-    <template x-for="(project, index) in projects" :key="project.id">
-      <a
-        class="capsule"
-        role="listitem"
-        :class="[
-          `capsule--${project.tone}`,
-          project.featured ? 'capsule--featured' : '',
-        ]"
-        :style="`--capsule-i: ${index}`"
-        :href="project.url"
-        rel="noopener noreferrer"
-        target="_blank"
+
+  <div class="project-toolbar" role="search">
+    <label class="project-search">
+      <span class="visually-hidden" x-text="t.projects.searchPlaceholder"></span>
+      <span
+        class="project-search__icon"
+        x-html="icons.magnifyingGlass"
+        aria-hidden="true"
+      ></span>
+      <input
+        class="project-search__input"
+        type="search"
+        name="project-query"
+        autocomplete="off"
+        spellcheck="false"
+        :placeholder="t.projects.searchPlaceholder"
+        :aria-label="t.projects.searchPlaceholder"
+        x-model="projectQuery"
+        @keydown.escape.prevent="clearProjectQuery()"
+      />
+      <button
+        type="button"
+        class="project-search__clear"
+        x-show="projectQuery"
+        x-cloak
+        :aria-label="t.projects.clearFilters"
+        @click="clearProjectQuery()"
       >
-        <div
-          class="capsule__art"
-          :style="`--mark-fill: ${project.mark.fill}`"
-          aria-hidden="true"
-        >
-          <span class="capsule__glow"></span>
-          <span class="capsule__shine"></span>
-          <svg class="capsule__mark" viewBox="0 0 24 24" focusable="false">
-            <path :d="project.mark.path" fill="currentColor"></path>
-          </svg>
+        <span x-html="icons.xMark" aria-hidden="true"></span>
+      </button>
+    </label>
+
+    <div class="project-filters" :aria-label="t.projects.filtersLabel">
+      <div class="project-filters__row">
+        <span class="project-filters__label" x-text="t.projects.groupByLabel"></span>
+        <div class="project-filters__chips" role="group">
+          <template x-for="chip in projectGroupByChips" :key="'by-' + chip.id">
+            <button
+              type="button"
+              class="project-chip"
+              :class="{ 'project-chip--active': projectGroupBy === chip.id }"
+              :aria-pressed="projectGroupBy === chip.id ? 'true' : 'false'"
+              @click="setProjectGroupBy(chip.id)"
+            >
+              <span x-text="chip.label"></span>
+            </button>
+          </template>
         </div>
-        <div class="capsule__body">
-          <div class="capsule__meta">
-            <div class="capsule__meta-start">
-              <span
-                class="capsule__featured"
-                x-show="project.featured"
-                x-text="t.projects.featured"
-              ></span>
-              <span class="capsule__kind" x-text="project.kindLabel"></span>
-            </div>
-            <span class="capsule__status">
-              <span class="capsule__status-dot" aria-hidden="true"></span>
-              <span x-text="project.statusLabel"></span>
-            </span>
-          </div>
-          <h3 class="capsule__title" x-text="project.title"></h3>
-          <p class="capsule__blurb" x-text="project.blurb"></p>
-          <ul class="capsule__highlights" x-show="project.highlights.length">
-            <template x-for="(item, hi) in project.highlights" :key="hi">
-              <li :style="`--hi: ${hi}`" x-text="item"></li>
+      </div>
+
+      <div class="project-filters__row">
+        <span class="project-filters__label" x-text="t.projects.filterKinds"></span>
+        <div class="project-filters__chips" role="group">
+          <template x-for="chip in projectKindChips" :key="'k-' + chip.id">
+            <button
+              type="button"
+              class="project-chip"
+              :class="{ 'project-chip--active': projectKindFilter === chip.id }"
+              :aria-pressed="projectKindFilter === chip.id ? 'true' : 'false'"
+              @click="setProjectKindFilter(chip.id)"
+            >
+              <span x-text="chip.label"></span>
+              <span class="project-chip__count" x-text="chip.count"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <div class="project-filters__row">
+        <span class="project-filters__label" x-text="t.projects.filterGroups"></span>
+        <div class="project-filters__chips" role="group">
+          <template x-for="chip in projectGroupChips" :key="'g-' + chip.id">
+            <button
+              type="button"
+              class="project-chip"
+              :class="{ 'project-chip--active': projectGroupFilter === chip.id }"
+              :aria-pressed="projectGroupFilter === chip.id ? 'true' : 'false'"
+              @click="setProjectGroupFilter(chip.id)"
+            >
+              <span x-text="chip.label"></span>
+              <span class="project-chip__count" x-text="chip.count"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-toolbar__meta">
+      <p
+        class="project-toolbar__count"
+        aria-live="polite"
+        x-text="projectResultLabel"
+      ></p>
+      <button
+        type="button"
+        class="project-toolbar__clear"
+        x-show="projectFiltersActive"
+        x-cloak
+        @click="clearProjectFilters()"
+        x-text="t.projects.clearFilters"
+      ></button>
+    </div>
+  </div>
+
+  <div
+    class="project-empty"
+    x-show="projectResultCount === 0"
+    x-cloak
+  >
+    <p class="project-empty__text" x-text="t.projects.empty"></p>
+    <button
+      type="button"
+      class="project-empty__clear"
+      x-show="projectFiltersActive"
+      @click="clearProjectFilters()"
+      x-text="t.projects.clearFilters"
+    ></button>
+  </div>
+
+  <div class="project-library" x-show="projectResultCount > 0">
+    <template x-for="section in projectSections" :key="section.id">
+      <section
+        class="project-group"
+        :class="`project-group--${section.tone || section.id}`"
+        :aria-labelledby="`project-group-${section.id}`"
+      >
+        <header class="project-group__head">
+          <div
+            class="project-group__mark"
+            :class="{ 'project-group__mark--icon': section.markMode === 'icon' }"
+            :style="`--mark-fill: ${section.markFill}`"
+            aria-hidden="true"
+          >
+            <template x-if="section.markMode === 'icon'">
+              <span class="project-group__icon" x-html="section.markHtml"></span>
             </template>
-          </ul>
-          <div class="capsule__foot">
-            <ul class="capsule__tags">
-              <template x-for="(tag, ti) in project.tags" :key="tag">
-                <li :style="`--ti: ${ti}`" x-text="tag"></li>
-              </template>
-            </ul>
-            <span class="capsule__cta">
-              <span x-text="t.projects.openCta"></span>
-              <span
-                class="capsule__cta-icon"
-                x-html="icons.arrowTopRightOnSquare"
-                aria-hidden="true"
-              ></span>
-            </span>
+            <template x-if="section.markMode !== 'icon'">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path :d="section.mark.path" fill="currentColor"></path>
+              </svg>
+            </template>
           </div>
+          <div class="project-group__copy">
+            <div class="project-group__title-row">
+              <h3
+                class="project-group__title"
+                :id="`project-group-${section.id}`"
+                x-text="section.title"
+              ></h3>
+              <span
+                class="project-group__count"
+                x-text="section.count"
+              ></span>
+            </div>
+            <p
+              class="project-group__desc"
+              x-show="section.description"
+              x-text="section.description"
+            ></p>
+          </div>
+        </header>
+
+        <div class="project-shelf" role="list">
+          <template x-for="(project, index) in section.projects" :key="project.id">
+            <a
+              class="capsule"
+              role="listitem"
+              :class="[
+                `capsule--${project.tone}`,
+                project.featured ? 'capsule--featured' : '',
+              ]"
+              :style="`--capsule-i: ${index}`"
+              :href="project.url"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <div
+                class="capsule__art"
+                :style="`--mark-fill: ${project.mark.fill}`"
+                aria-hidden="true"
+              >
+                <span class="capsule__glow"></span>
+                <span class="capsule__shine"></span>
+                <svg class="capsule__mark" viewBox="0 0 24 24" focusable="false">
+                  <path :d="project.mark.path" fill="currentColor"></path>
+                </svg>
+              </div>
+              <div class="capsule__body">
+                <div class="capsule__meta">
+                  <div class="capsule__meta-start">
+                    <span
+                      class="capsule__featured"
+                      x-show="project.featured"
+                      x-text="t.projects.featured"
+                    ></span>
+                    <span class="capsule__kind" x-text="project.kindLabel"></span>
+                  </div>
+                  <span class="capsule__status">
+                    <span class="capsule__status-dot" aria-hidden="true"></span>
+                    <span x-text="project.statusLabel"></span>
+                  </span>
+                </div>
+                <h4 class="capsule__title" x-text="project.title"></h4>
+                <p class="capsule__blurb" x-text="project.blurb"></p>
+                <ul class="capsule__highlights" x-show="project.highlights.length">
+                  <template x-for="(item, hi) in project.highlights" :key="hi">
+                    <li :style="`--hi: ${hi}`" x-text="item"></li>
+                  </template>
+                </ul>
+                <div class="capsule__foot">
+                  <ul class="capsule__tags">
+                    <template x-for="(tag, ti) in project.tags" :key="tag">
+                      <li :style="`--ti: ${ti}`">
+                        <button
+                          type="button"
+                          class="capsule__tag"
+                          :aria-label="tag"
+                          @click.prevent.stop="onProjectTagClick(tag)"
+                          x-text="tag"
+                        ></button>
+                      </li>
+                    </template>
+                  </ul>
+                  <span class="capsule__cta">
+                    <span x-text="t.projects.openCta"></span>
+                    <span
+                      class="capsule__cta-icon"
+                      x-html="icons.arrowTopRightOnSquare"
+                      aria-hidden="true"
+                    ></span>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </template>
         </div>
-      </a>
+      </section>
     </template>
   </div>
+
   <p class="project-notice" x-text="t.projects.notice"></p>
 </section>

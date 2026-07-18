@@ -10,6 +10,25 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.80.0] — 2026-07-19
+
+### Added
+
+- [ProxyChecker](https://github.com/NemoKing1210/ProxyChecker) on the Projects shelf (desktop / Tools)
+- Group-by toggle: Type (userscripts / programs / websites) or Shelf (Steam, Backloggd, …), with always-visible type filters
+
+## [1.79.0] — 2026-07-19
+
+### Added
+
+- Projects library: semantic group shelves, search, group/kind filters, tag-to-search, and empty state (copy in all locales)
+
+## [1.78.0] — 2026-07-19
+
+### Added
+
+- Project capsule for [backloggd-data-transfer](https://github.com/NemoKing1210/backloggd-data-transfer) (userscript) with Backloggd mark and copy in all locales
+
 ## [1.77.0] — 2026-07-16
 
 ### Added

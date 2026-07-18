@@ -45,7 +45,11 @@ import {
   minecraftMineMethods,
   minecraftMineState,
 } from "../components/minecraft-mine/index.js";
-import { projectsViewMethods } from "../components/projects/index.js";
+import {
+  projectsMethods,
+  projectsState,
+  projectsViewMethods,
+} from "../components/projects/index.js";
 import { bugReportMethods } from "../components/bug-report/index.js";
 import {
   scrollTopMethods,
@@ -89,6 +93,7 @@ export function createProfilePage() {
       ...achievementsState(),
       ...caseOpenState(),
       ...stackFlipState(),
+      ...projectsState(),
       ...heroSpeechState(),
       ...viewModelState(),
       localeList,
@@ -207,6 +212,7 @@ export function createProfilePage() {
       ...Object.getOwnPropertyDescriptors(heroSpeechMethods()),
       ...Object.getOwnPropertyDescriptors(heroViewMethods()),
       ...Object.getOwnPropertyDescriptors(interestsViewMethods()),
+      ...Object.getOwnPropertyDescriptors(projectsMethods()),
       ...Object.getOwnPropertyDescriptors(projectsViewMethods()),
       ...Object.getOwnPropertyDescriptors(linksViewMethods()),
       ...Object.getOwnPropertyDescriptors(viewModelMethods()),

@@ -699,18 +699,69 @@ export default {
     featured: "Featured",
     notice:
       "Starting small for now — userscripts and pet projects. Bigger things are ahead.",
+    searchPlaceholder: "Search projects…",
+    filtersAll: "All",
+    filtersLabel: "Project filters",
+    groupByLabel: "Group by",
+    groupByKind: "Type",
+    groupByShelf: "Shelf",
+    filterGroups: "Shelf",
+    filterKinds: "Type",
+    clearFilters: "Clear filters",
+    results: "{count} projects",
+    resultsOne: "{count} project",
+    empty: "No projects match these filters.",
+    groups: {
+      steam: {
+        title: "Steam",
+        description: "Store & Community userscripts — badges, region bypass, and more.",
+      },
+      backloggd: {
+        title: "Backloggd",
+        description: "Enrichment UI and library import for Backloggd.",
+      },
+      github: {
+        title: "GitHub",
+        description: "Profile and hovercard enhancements on GitHub.",
+      },
+      youtube: {
+        title: "YouTube",
+        description: "Comment spam filters and channel helpers.",
+      },
+      tools: {
+        title: "Tools",
+        description: "Desktop utilities and standalone apps.",
+      },
+    },
+    kindGroups: {
+      userscript: {
+        title: "Userscripts",
+        description: "Browser scripts that extend Steam, Backloggd, GitHub, YouTube, and more.",
+      },
+      desktop: {
+        title: "Programs",
+        description: "Desktop apps and utilities you can install and run locally.",
+      },
+      website: {
+        title: "Websites",
+        description: "Sites and web apps — landing pages, tools, and experiments.",
+      },
+    },
     status: {
       public: "Public",
     },
     kinds: {
       userscript: "Userscript",
-      desktop: "Desktop",
+      desktop: "Program",
+      website: "Website",
     },
     blurbs: {
       "steam-gamestatus":
         "Userscript for Steam Store & Community: protection, dates, scores, and hardware badges on game cards — without leaving the page. Powered by GameStatus.info with caching and a settings panel.",
       "backloggd-plus":
         "Userscript for Backloggd: Steam, Metacritic, OpenCritic, HLTB, Deck/Proton, and GameStatus rows on game pages, cover badges on lists, plus Backloggd buttons on Steam and SteamDB — no API keys required.",
+      "backloggd-data-transfer":
+        "Userscript for Backloggd: imports game logs from other platforms via a unified transfer JSON or CSV. Wizard for match & review, match cache, and multi-log cleanup — Backloggd has no native import.",
       "github-gitfut":
         "Userscript for GitHub: World Cup–style GitFut scout cards rated out of 99 on profiles and avatar hovercards — finish tiers, six football stats, playstyles, caching, and a settings panel.",
       "steam-region-block-bypass":
@@ -730,6 +781,11 @@ export default {
         "Enrichment rows on Backloggd game pages",
         "Price / owned / wishlist badges on covers",
         "Backloggd buttons on Steam & SteamDB",
+      ],
+      "backloggd-data-transfer": [
+        "Import wizard: JSON / CSV → match → write",
+        "Match cache, history, and parallel writes",
+        "Cleanup scan for games with multiple logs",
       ],
       "github-gitfut": [
         "Profile scout panel + avatar hovercards",

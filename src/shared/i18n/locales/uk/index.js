@@ -700,18 +700,69 @@ export default {
     featured: "У фокусі",
     notice:
       "Поки починаю з малого — userscripts і pet-проєкти. Більше і складніше — попереду.",
+    searchPlaceholder: "Пошук проєктів…",
+    filtersAll: "Усі",
+    filtersLabel: "Фільтри проєктів",
+    groupByLabel: "Групування",
+    groupByKind: "Тип",
+    groupByShelf: "Полиця",
+    filterGroups: "Полиця",
+    filterKinds: "Тип",
+    clearFilters: "Скинути",
+    results: "{count} проєктів",
+    resultsOne: "{count} проєкт",
+    empty: "Немає проєктів за цими фільтрами.",
+    groups: {
+      steam: {
+        title: "Steam",
+        description: "Userscripts для Store і Community — бейджі, обхід регіону та інше.",
+      },
+      backloggd: {
+        title: "Backloggd",
+        description: "Збагачення UI та імпорт бібліотеки для Backloggd.",
+      },
+      github: {
+        title: "GitHub",
+        description: "Покращення профілів і hovercard на GitHub.",
+      },
+      youtube: {
+        title: "YouTube",
+        description: "Фільтри спаму в коментарях і помічники для каналу.",
+      },
+      tools: {
+        title: "Інструменти",
+        description: "Десктоп-утиліти та окремі застосунки.",
+      },
+    },
+    kindGroups: {
+      userscript: {
+        title: "Юзерскрипти",
+        description: "Скрипти для браузера: Steam, Backloggd, GitHub, YouTube та інші.",
+      },
+      desktop: {
+        title: "Програми",
+        description: "Десктоп-застосунки й утиліти, які ставляться локально.",
+      },
+      website: {
+        title: "Сайти",
+        description: "Сайти й веб-застосунки — лендінги, інструменти, експерименти.",
+      },
+    },
     status: {
       public: "Public",
     },
     kinds: {
       userscript: "Userscript",
-      desktop: "Desktop",
+      desktop: "Програма",
+      website: "Сайт",
     },
     blurbs: {
       "steam-gamestatus":
         "Userscript для Steam Store і Community: бейджі захисту, дат, оцінок і заліза прямо на картках ігор — без виходу зі сторінки. Дані з GameStatus.info, з кешем і налаштуваннями.",
       "backloggd-plus":
         "Userscript для Backloggd: рядки Steam, Metacritic, OpenCritic, HLTB, Deck/Proton і GameStatus на сторінках ігор, бейджі на обкладинках у списках, плюс кнопки Backloggd на Steam і SteamDB — без API-ключів.",
+      "backloggd-data-transfer":
+        "Userscript для Backloggd: імпорт ігрових логів з інших платформ через єдиний transfer JSON або CSV. Майстер зіставлення й рев’ю, кеш матчів і cleanup дублів — у Backloggd немає нативного імпорту.",
       "github-gitfut":
         "Userscript для GitHub: скаут-картки GitFut у стилі World Cup з рейтингом до 99 на профілях і в hovercard аватарів — тіри оздоблення, шість футбольних статів, playstyles, кеш і панель налаштувань.",
       "steam-region-block-bypass":
@@ -731,6 +782,11 @@ export default {
         "Рядки збагачення на сторінках ігор Backloggd",
         "Бейджі ціни / owned / wishlist на обкладинках",
         "Кнопки Backloggd на Steam і SteamDB",
+      ],
+      "backloggd-data-transfer": [
+        "Майстер імпорту: JSON / CSV → матч → запис",
+        "Кеш матчів, історія й паралельні записи",
+        "Cleanup-скан ігор із кількома логами",
       ],
       "github-gitfut": [
         "Скаут-панель профілю + hovercard аватарів",
