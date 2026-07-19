@@ -695,6 +695,10 @@ export default {
         title: "YouTube",
         description: "评论垃圾过滤与频道辅助工具。",
       },
+      bluesky: {
+        title: "Bluesky",
+        description: "时间线内翻译与 Bluesky 网页客户端辅助工具。",
+      },
       tools: {
         title: "工具",
         description: "桌面工具与独立应用。",
@@ -703,7 +707,7 @@ export default {
     kindGroups: {
       userscript: {
         title: "Userscript",
-        description: "浏览器脚本：Steam、Backloggd、GitHub、YouTube 等。",
+        description: "浏览器脚本：Steam、Backloggd、GitHub、YouTube、Bluesky 等。",
       },
       desktop: {
         title: "程序",
@@ -737,6 +741,8 @@ export default {
         "基于 Electron + React 的桌面应用，用于检测 HTTP/SOCKS/MTProto 代理：批量、分组、地理信息、导出，以及通过 GitHub Gist / Google Drive 同步。",
       "youtube-bot-comments-filter":
         "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。hide/blur 切换就在评论区标题栏，无需单独设置页。",
+      "bluesky-translator":
+        "Bluesky Userscript：在时间线内原地翻译帖子，无需离开页面。多翻译引擎、缓存、账号/语言过滤，以及浅色/深色设置面板——默认 Google，无需 API 密钥。",
     },
     highlights: {
       "steam-gamestatus": [
@@ -773,6 +779,11 @@ export default {
         "基于权重的昵称规则引擎",
         "hide / blur 模式并记住选择",
         "适配 YouTube 浅色/深色主题",
+      ],
+      "bluesky-translator": [
+        "帖子与引用下的 Translate 按钮",
+        "多引擎、缓存与自动翻译模式",
+        "分页设置：账号与语言过滤",
       ],
     },
   },

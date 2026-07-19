@@ -10,6 +10,12 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.81.0] — 2026-07-19
+
+### Added
+
+- Project shelf for [bluesky-translator](https://github.com/NemoKing1210/bluesky-translator) (userscript) with Bluesky mark and copy in all locales
+
 ## [1.80.0] — 2026-07-19
 
 ### Added

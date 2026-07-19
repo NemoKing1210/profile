@@ -1,7 +1,13 @@
 /**
  * Brand marks for project capsules (simple-icons path + hex).
  */
-import { siElectron, siGithub, siSteam, siYoutube } from "simple-icons";
+import {
+  siBluesky,
+  siElectron,
+  siGithub,
+  siSteam,
+  siYoutube,
+} from "simple-icons";
 
 function mark(icon, fill) {
   const resolved = fill || `#${icon.hex}`;
@@ -20,6 +26,7 @@ const backloggdMark = {
 export const projectMarks = {
   steam: mark(siSteam),
   youtube: mark(siYoutube),
+  bluesky: mark(siBluesky),
   electron: mark(siElectron),
   backloggd: backloggdMark,
   /** Light fill so the mark reads on Steam-dark capsules (brand hex is near-black). */

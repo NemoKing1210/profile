@@ -730,6 +730,10 @@ export default {
         title: "YouTube",
         description: "Filtros de spam en comentarios y ayudas para el canal.",
       },
+      bluesky: {
+        title: "Bluesky",
+        description: "Traducción en el feed y ayudas para el cliente web de Bluesky.",
+      },
       tools: {
         title: "Herramientas",
         description: "Utilidades de escritorio y apps independientes.",
@@ -738,7 +742,8 @@ export default {
     kindGroups: {
       userscript: {
         title: "Userscripts",
-        description: "Scripts del navegador para Steam, Backloggd, GitHub, YouTube y más.",
+        description:
+          "Scripts del navegador para Steam, Backloggd, GitHub, YouTube, Bluesky y más.",
       },
       desktop: {
         title: "Programas",
@@ -772,6 +777,8 @@ export default {
         "App de escritorio Electron + React para comprobar proxies HTTP/SOCKS/MTProto: lotes, grupos, geo, exportación y sync vía GitHub Gist / Google Drive.",
       "youtube-bot-comments-filter":
         "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios. Interruptor hide/blur en la cabecera de comentarios, sin página de ajustes aparte.",
+      "bluesky-translator":
+        "Userscript para Bluesky: traduce publicaciones en el feed sin salir de la página. Varios proveedores, caché, filtros de cuentas e idiomas, y panel claro/oscuro — Google por defecto sin API key.",
     },
     highlights: {
       "steam-gamestatus": [
@@ -808,6 +815,11 @@ export default {
         "Motor de reglas ponderadas en el nick",
         "Modos hide / blur con preferencia guardada",
         "Estilo adaptado a YouTube light/dark",
+      ],
+      "bluesky-translator": [
+        "Botón Translate bajo posts y citas",
+        "Proveedores, caché y modo auto-traducir",
+        "Ajustes por pestañas con filtros de cuenta e idioma",
       ],
     },
   },

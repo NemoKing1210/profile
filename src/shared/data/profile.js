@@ -100,6 +100,7 @@ const profile = {
     { id: "backloggd", mark: "backloggd", tone: "backloggd" },
     { id: "github", mark: "github", tone: "github" },
     { id: "youtube", mark: "youtube", tone: "youtube" },
+    { id: "bluesky", mark: "bluesky", tone: "bluesky" },
     { id: "tools", mark: "electron", tone: "desktop" },
   ],
 
@@ -180,6 +181,17 @@ const profile = {
       tone: "youtube",
       tags: ["JavaScript", "Userscript", "YouTube"],
       url: "https://github.com/NemoKing1210/youtube-bot-comments-filter",
+      status: "public",
+    },
+    {
+      id: "bluesky-translator",
+      title: "bluesky-translator",
+      group: "bluesky",
+      kind: "userscript",
+      mark: "bluesky",
+      tone: "bluesky",
+      tags: ["JavaScript", "Userscript", "Bluesky", "i18n"],
+      url: "https://github.com/NemoKing1210/bluesky-translator",
       status: "public",
     },
     {

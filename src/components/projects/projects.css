@@ -270,6 +270,10 @@
   --group-glow: #ff4444;
 }
 
+.project-group--bluesky {
+  --group-glow: #1185fe;
+}
+
 .project-group--desktop,
 .project-group--tools {
   --group-glow: #47848f;
@@ -530,6 +534,10 @@
 
 .capsule--youtube {
   --capsule-glow: #ff4444;
+}
+
+.capsule--bluesky {
+  --capsule-glow: #1185fe;
 }
 
 .capsule--desktop {

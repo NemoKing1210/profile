@@ -729,6 +729,10 @@ export default {
         title: "YouTube",
         description: "Фильтры спама в комментариях и помощники для канала.",
       },
+      bluesky: {
+        title: "Bluesky",
+        description: "Перевод постов в ленте и хелперы для веб-клиента Bluesky.",
+      },
       tools: {
         title: "Инструменты",
         description: "Десктоп-утилиты и отдельные приложения.",
@@ -737,7 +741,8 @@ export default {
     kindGroups: {
       userscript: {
         title: "Юзерскрипты",
-        description: "Скрипты для браузера: Steam, Backloggd, GitHub, YouTube и другие.",
+        description:
+          "Скрипты для браузера: Steam, Backloggd, GitHub, YouTube, Bluesky и другие.",
       },
       desktop: {
         title: "Программы",
@@ -771,6 +776,8 @@ export default {
         "Десктоп-приложение на Electron + React для проверки HTTP/SOCKS/MTProto прокси: батчи, группы, гео, экспорт и синхронизация через GitHub Gist / Google Drive.",
       "youtube-bot-comments-filter":
         "Userscript для YouTube: ловит спам-ботов по паттерну ника и прячет или блюрит комментарии. Переключатель hide/blur прямо в шапке комментариев, без отдельной страницы настроек.",
+      "bluesky-translator":
+        "Userscript для Bluesky: перевод постов прямо в ленте, без ухода со страницы. Несколько провайдеров, кэш, фильтры аккаунтов и языков, светлая/тёмная панель настроек — Google по умолчанию без API-ключа.",
     },
     highlights: {
       "steam-gamestatus": [
@@ -807,6 +814,11 @@ export default {
         "Детекция по весам правил в нике",
         "Режимы hide и blur с сохранением выбора",
         "Стиль под YouTube light/dark",
+      ],
+      "bluesky-translator": [
+        "Кнопка Translate под постами и цитатами",
+        "Провайдеры, кэш и режим автоперевода",
+        "Вкладки настроек с фильтрами аккаунтов и языков",
       ],
     },
   },

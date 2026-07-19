@@ -729,6 +729,10 @@ export default {
         title: "YouTube",
         description: "コメントのスパムフィルタとチャンネル補助。",
       },
+      bluesky: {
+        title: "Bluesky",
+        description: "フィード内翻訳と Bluesky Web クライアント向けヘルパー。",
+      },
       tools: {
         title: "ツール",
         description: "デスクトップユーティリティと単体アプリ。",
@@ -737,7 +741,8 @@ export default {
     kindGroups: {
       userscript: {
         title: "Userscript",
-        description: "Steam / Backloggd / GitHub / YouTube 向けのブラウザスクリプト。",
+        description:
+          "Steam / Backloggd / GitHub / YouTube / Bluesky 向けのブラウザスクリプト。",
       },
       desktop: {
         title: "プログラム",
@@ -771,6 +776,8 @@ export default {
         "Electron + React のデスクトップアプリ。HTTP/SOCKS/MTProto プロキシの一括チェック、グループ、地理情報、エクスポート、GitHub Gist / Google Drive 同期に対応。",
       "youtube-bot-comments-filter":
         "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
+      "bluesky-translator":
+        "Bluesky 用 userscript：フィードを離れずに投稿をその場で翻訳。複数プロバイダ、キャッシュ、アカウント／言語フィルタ、明暗テーマの設定パネル — デフォルトは Google（API キー不要）。",
     },
     highlights: {
       "steam-gamestatus": [
@@ -807,6 +814,11 @@ export default {
         "重み付きニックネーム規則エンジン",
         "hide / blur モードと設定の保存",
         "YouTube の light/dark に合わせた見た目",
+      ],
+      "bluesky-translator": [
+        "投稿・引用下の Translate ボタン",
+        "プロバイダ、キャッシュ、自動翻訳モード",
+        "タブ設定とアカウント／言語フィルタ",
       ],
     },
   },
