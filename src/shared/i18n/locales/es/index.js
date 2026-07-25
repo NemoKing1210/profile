@@ -53,7 +53,7 @@ export default {
     spawnAvatar: "Añadir avatar al hero",
     hobbies: "Aficiones",
     gameGenres: "Géneros de juegos favoritos",
-    projectsSubtitle: "Biblioteca — userscripts y escritorio",
+    projectsSubtitle: "Biblioteca — escritorio y userscripts",
     infiniteMarks: [
       "¿Footer? Nunca oí hablar",
       "El pasillo se repite",
@@ -740,14 +740,14 @@ export default {
       },
     },
     kindGroups: {
+      desktop: {
+        title: "Programas",
+        description: "Apps de escritorio y utilidades que se instalan en local.",
+      },
       userscript: {
         title: "Userscripts",
         description:
           "Scripts del navegador para Steam, Backloggd, GitHub, YouTube, Bluesky y más.",
-      },
-      desktop: {
-        title: "Programas",
-        description: "Apps de escritorio y utilidades que se instalan en local.",
       },
       website: {
         title: "Sitios",
@@ -775,6 +775,8 @@ export default {
         "Userscript de Steam Store: cuando aparece “unavailable in your region”, restaura la ficha de invitado y, opcionalmente, la búsqueda guest. Panel al estilo Steam y gateway proxy para bloqueos por IP.",
       ProxyChecker:
         "App de escritorio Electron + React para comprobar proxies HTTP/SOCKS/MTProto: lotes, grupos, geo, exportación y sync vía GitHub Gist / Google Drive.",
+      Zapretyd:
+        "Gestor de escritorio Tauri para Flowseal/zapret-discord-youtube: descarga releases oficiales de GitHub, guarda versiones en paralelo y activa una estrategia como servicio Windows zapret — sin editar archivos .bat a mano.",
       "youtube-bot-comments-filter":
         "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios. Interruptor hide/blur en la cabecera de comentarios, sin página de ajustes aparte.",
       "bluesky-translator":
@@ -810,6 +812,11 @@ export default {
         "Protocolos HTTP, SOCKS4/5 y MTProto",
         "Grupos, favoritos, bandeja y auto-update",
         "Sync cifrado y copias locales",
+      ],
+      Zapretyd: [
+        "Descarga e instalación de releases upstream de GitHub",
+        "Biblioteca de versiones en carpetas aisladas",
+        "Crear, iniciar, detener o eliminar el servicio zapret",
       ],
       "youtube-bot-comments-filter": [
         "Motor de reglas ponderadas en el nick",

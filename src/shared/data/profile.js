@@ -96,12 +96,12 @@ const profile = {
    * Copy: locales `projects.groups.<id>`.
    */
   projectGroups: [
+    { id: "tools", mark: "electron", tone: "desktop" },
     { id: "steam", mark: "steam", tone: "steam" },
     { id: "backloggd", mark: "backloggd", tone: "backloggd" },
     { id: "github", mark: "github", tone: "github" },
     { id: "youtube", mark: "youtube", tone: "youtube" },
     { id: "bluesky", mark: "bluesky", tone: "bluesky" },
-    { id: "tools", mark: "electron", tone: "desktop" },
   ],
 
   /**
@@ -110,8 +110,8 @@ const profile = {
    * `icon` → heroicons key for section chrome.
    */
   projectKinds: [
-    { id: "userscript", tone: "userscript", icon: "codeBracket" },
     { id: "desktop", tone: "desktop", icon: "computerDesktop" },
+    { id: "userscript", tone: "userscript", icon: "codeBracket" },
     { id: "website", tone: "website", icon: "globeAlt" },
   ],
 
@@ -192,6 +192,17 @@ const profile = {
       tone: "bluesky",
       tags: ["JavaScript", "Userscript", "Bluesky", "i18n"],
       url: "https://github.com/NemoKing1210/bluesky-translator",
+      status: "public",
+    },
+    {
+      id: "Zapretyd",
+      title: "Zapretyd",
+      group: "tools",
+      kind: "desktop",
+      mark: "tauri",
+      tone: "desktop",
+      tags: ["TypeScript", "Tauri", "Rust", "Desktop"],
+      url: "https://github.com/NemoKing1210/Zapretyd",
       status: "public",
     },
     {

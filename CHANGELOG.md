@@ -10,6 +10,30 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.83.1] — 2026-07-25
+
+### Changed
+
+- Smoother expand/collapse for the project filters panel (height + fade, reduced-motion safe)
+
+## [1.83.0] — 2026-07-25
+
+### Added
+
+- Collapsible project filters panel (toggle with active-filter badge)
+
+## [1.82.1] — 2026-07-25
+
+### Changed
+
+- Projects library: Programs before Userscripts (kind sections, shelf Tools first, subtitle copy)
+
+## [1.82.0] — 2026-07-25
+
+### Added
+
+- [Zapretyd](https://github.com/NemoKing1210/Zapretyd) on the Projects shelf (desktop / Tools) with Tauri mark and copy in all locales
+
 ## [1.81.0] — 2026-07-19
 
 ### Added

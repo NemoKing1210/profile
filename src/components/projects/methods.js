@@ -12,6 +12,10 @@ export function projectsMethods() {
       this.projectGroupBy = mode === "shelf" ? "shelf" : "kind";
     },
 
+    toggleProjectFilters() {
+      this.projectFiltersOpen = !this.projectFiltersOpen;
+    },
+
     clearProjectFilters() {
       this.projectQuery = "";
       this.projectGroupFilter = "all";

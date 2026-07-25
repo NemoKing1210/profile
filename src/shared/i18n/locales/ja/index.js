@@ -52,7 +52,7 @@ export default {
     spawnAvatar: "ヒーローにアバターを追加",
     hobbies: "趣味",
     gameGenres: "好きなゲームジャンル",
-    projectsSubtitle: "ライブラリ — userscript とデスクトップ",
+    projectsSubtitle: "ライブラリ — デスクトップと userscript",
     infiniteMarks: [
       "フッター？知らないね",
       "廊下が繰り返す",
@@ -739,14 +739,14 @@ export default {
       },
     },
     kindGroups: {
+      desktop: {
+        title: "プログラム",
+        description: "ローカルにインストールして使うデスクトップアプリ。",
+      },
       userscript: {
         title: "Userscript",
         description:
           "Steam / Backloggd / GitHub / YouTube / Bluesky 向けのブラウザスクリプト。",
-      },
-      desktop: {
-        title: "プログラム",
-        description: "ローカルにインストールして使うデスクトップアプリ。",
       },
       website: {
         title: "サイト",
@@ -774,6 +774,8 @@ export default {
         "Steam Store 用 userscript：「unavailable in your region」表示時にゲスト商品ページを復元し、任意でゲスト検索も。Steam 風設定パネルと IP 制限向けプロキシゲートウェイ付き。",
       ProxyChecker:
         "Electron + React のデスクトップアプリ。HTTP/SOCKS/MTProto プロキシの一括チェック、グループ、地理情報、エクスポート、GitHub Gist / Google Drive 同期に対応。",
+      Zapretyd:
+        "Flowseal/zapret-discord-youtube 向け Tauri デスクトップマネージャ。公式 GitHub リリースをダウンロードし、バージョンを並べて保管し、戦略を Windows の zapret サービスとして有効化 — bat ファイルの手編集は不要。",
       "youtube-bot-comments-filter":
         "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
       "bluesky-translator":
@@ -809,6 +811,11 @@ export default {
         "HTTP・SOCKS4/5・MTProto 対応",
         "グループ、お気に入り、トレイ、自動更新",
         "暗号化同期とローカルバックアップ",
+      ],
+      Zapretyd: [
+        "upstream の GitHub リリースをダウンロード／インストール",
+        "隔離フォルダのバージョンライブラリ",
+        "zapret サービスの作成・開始・停止・削除",
       ],
       "youtube-bot-comments-filter": [
         "重み付きニックネーム規則エンジン",

@@ -6,6 +6,7 @@ import {
   siElectron,
   siGithub,
   siSteam,
+  siTauri,
   siYoutube,
 } from "simple-icons";
 
@@ -28,6 +29,7 @@ export const projectMarks = {
   youtube: mark(siYoutube),
   bluesky: mark(siBluesky),
   electron: mark(siElectron),
+  tauri: mark(siTauri),
   backloggd: backloggdMark,
   /** Light fill so the mark reads on Steam-dark capsules (brand hex is near-black). */
   github: mark(siGithub, "#e6edf3"),

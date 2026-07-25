@@ -5,5 +5,6 @@ export function projectsState() {
     projectKindFilter: "all",
     /** "shelf" = platform groups; "kind" = userscript / desktop / website */
     projectGroupBy: "kind",
+    projectFiltersOpen: false,
   };
 }

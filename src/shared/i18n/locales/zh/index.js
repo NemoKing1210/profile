@@ -49,7 +49,7 @@ export default {
     spawnAvatar: "将头像添加到 Hero",
     hobbies: "爱好",
     gameGenres: "喜欢的游戏类型",
-    projectsSubtitle: "资料库 — Userscript 与桌面应用",
+    projectsSubtitle: "资料库 — 桌面应用与 Userscript",
     infiniteMarks: [
       "页脚？没听说过",
       "走廊在重复",
@@ -705,13 +705,13 @@ export default {
       },
     },
     kindGroups: {
-      userscript: {
-        title: "Userscript",
-        description: "浏览器脚本：Steam、Backloggd、GitHub、YouTube、Bluesky 等。",
-      },
       desktop: {
         title: "程序",
         description: "可本地安装运行的桌面应用与工具。",
+      },
+      userscript: {
+        title: "Userscript",
+        description: "浏览器脚本：Steam、Backloggd、GitHub、YouTube、Bluesky 等。",
       },
       website: {
         title: "网站",
@@ -739,6 +739,8 @@ export default {
         "Steam 商店 Userscript：遇到「unavailable in your region」时恢复访客商品页，并可选访客搜索。Steam 风格设置面板，以及用于 IP 封锁的代理网关。",
       ProxyChecker:
         "基于 Electron + React 的桌面应用，用于检测 HTTP/SOCKS/MTProto 代理：批量、分组、地理信息、导出，以及通过 GitHub Gist / Google Drive 同步。",
+      Zapretyd:
+        "面向 Flowseal/zapret-discord-youtube 的 Tauri 桌面管理器：从 GitHub 下载官方发布包，并排保存多个版本，并将策略激活为 Windows zapret 服务——无需手动改 bat 文件。",
       "youtube-bot-comments-filter":
         "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。hide/blur 切换就在评论区标题栏，无需单独设置页。",
       "bluesky-translator":
@@ -774,6 +776,11 @@ export default {
         "支持 HTTP、SOCKS4/5 与 MTProto",
         "分组、收藏、托盘与自动更新",
         "加密同步与本地备份",
+      ],
+      Zapretyd: [
+        "下载并安装上游 GitHub 发布包",
+        "隔离文件夹中的版本库",
+        "创建、启动、停止或移除 zapret 服务",
       ],
       "youtube-bot-comments-filter": [
         "基于权重的昵称规则引擎",

@@ -53,7 +53,7 @@ export default {
     spawnAvatar: "Add avatar to hero",
     hobbies: "Hobbies",
     gameGenres: "Favorite game genres",
-    projectsSubtitle: "Library — userscripts & desktop",
+    projectsSubtitle: "Library — desktop & userscripts",
     infiniteMarks: [
       "Footer? Never heard of it",
       "The hallway repeats",
@@ -738,14 +738,14 @@ export default {
       },
     },
     kindGroups: {
+      desktop: {
+        title: "Programs",
+        description: "Desktop apps and utilities you can install and run locally.",
+      },
       userscript: {
         title: "Userscripts",
         description:
           "Browser scripts that extend Steam, Backloggd, GitHub, YouTube, Bluesky, and more.",
-      },
-      desktop: {
-        title: "Programs",
-        description: "Desktop apps and utilities you can install and run locally.",
       },
       website: {
         title: "Websites",
@@ -773,6 +773,8 @@ export default {
         "Steam Store userscript: when you hit “unavailable in your region”, it restores a guest product page and optional guest search. Steam-styled settings plus a proxy gateway for IP locks.",
       ProxyChecker:
         "Electron + React desktop app for checking HTTP/SOCKS/MTProto proxies: batches, groups, geo hints, export, and sync via GitHub Gist / Google Drive.",
+      Zapretyd:
+        "Tauri desktop manager for Flowseal/zapret-discord-youtube: downloads official GitHub releases, keeps versions side by side, and activates a strategy as the Windows zapret service — without hand-editing batch files.",
       "youtube-bot-comments-filter":
         "YouTube userscript: flags spam bots by nickname pattern and hides or blurs comments. Hide/blur toggle sits in the comments header — no separate settings page.",
       "bluesky-translator":
@@ -808,6 +810,11 @@ export default {
         "HTTP, SOCKS4/5, and MTProto protocols",
         "Groups, favorites, tray, and auto-update",
         "Encrypted sync and local backups",
+      ],
+      Zapretyd: [
+        "Download and install upstream GitHub releases",
+        "Version library with isolated folders",
+        "Create, start, stop, or remove the zapret service",
       ],
       "youtube-bot-comments-filter": [
         "Weighted nickname rule engine",

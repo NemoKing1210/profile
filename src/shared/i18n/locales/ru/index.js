@@ -53,7 +53,7 @@ export default {
     spawnAvatar: "Добавить аватар в hero",
     hobbies: "Хобби",
     gameGenres: "Любимые жанры игр",
-    projectsSubtitle: "Библиотека — userscripts и десктоп",
+    projectsSubtitle: "Библиотека — десктоп и userscripts",
     infiniteMarks: [
       "Футер? Не слышал",
       "Коридор повторяется",
@@ -739,14 +739,14 @@ export default {
       },
     },
     kindGroups: {
+      desktop: {
+        title: "Программы",
+        description: "Десктоп-приложения и утилиты, которые ставятся локально.",
+      },
       userscript: {
         title: "Юзерскрипты",
         description:
           "Скрипты для браузера: Steam, Backloggd, GitHub, YouTube, Bluesky и другие.",
-      },
-      desktop: {
-        title: "Программы",
-        description: "Десктоп-приложения и утилиты, которые ставятся локально.",
       },
       website: {
         title: "Сайты",
@@ -774,6 +774,8 @@ export default {
         "Userscript для Steam Store: когда висит «unavailable in your region», подтягивает гостевую карточку товара и опционально guest-поиск. Есть Steam-панель настроек и прокси-шлюз для IP-блокировок.",
       ProxyChecker:
         "Десктоп-приложение на Electron + React для проверки HTTP/SOCKS/MTProto прокси: батчи, группы, гео, экспорт и синхронизация через GitHub Gist / Google Drive.",
+      Zapretyd:
+        "Десктоп-менеджер на Tauri для Flowseal/zapret-discord-youtube: скачивает официальные релизы с GitHub, хранит версии рядом и активирует стратегию как Windows-службу zapret — без ручного правления bat-файлов.",
       "youtube-bot-comments-filter":
         "Userscript для YouTube: ловит спам-ботов по паттерну ника и прячет или блюрит комментарии. Переключатель hide/blur прямо в шапке комментариев, без отдельной страницы настроек.",
       "bluesky-translator":
@@ -809,6 +811,11 @@ export default {
         "Протоколы HTTP, SOCKS4/5 и MTProto",
         "Группы, избранное, трей и автообновления",
         "Шифрованный sync и локальные бэкапы",
+      ],
+      Zapretyd: [
+        "Скачивание и установка upstream-релизов с GitHub",
+        "Библиотека версий в изолированных папках",
+        "Создание, запуск, остановка и удаление службы zapret",
       ],
       "youtube-bot-comments-filter": [
         "Детекция по весам правил в нике",
