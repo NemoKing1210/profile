@@ -19,6 +19,7 @@ import cube from "heroicons/24/outline/cube.svg?raw";
 import faceSmile from "heroicons/24/outline/face-smile.svg?raw";
 import film from "heroicons/24/outline/film.svg?raw";
 import forward from "heroicons/24/outline/forward.svg?raw";
+import serverStack from "heroicons/24/outline/server-stack.svg?raw";
 import globeAlt from "heroicons/24/outline/globe-alt.svg?raw";
 import handThumbDown from "heroicons/24/outline/hand-thumb-down.svg?raw";
 import handThumbUp from "heroicons/24/outline/hand-thumb-up.svg?raw";
@@ -55,6 +56,7 @@ export const heroicons = {
   film,
   forward,
   globeAlt,
+  serverStack,
   handThumbDown,
   handThumbUp,
   language,

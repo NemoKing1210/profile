@@ -46,7 +46,7 @@ const CTA_SLAM_MS = 520;
 
 /** Prefer UI shells that look funny when scaled (mirrors minecraft preferred set). */
 const CASE_SIZE_TARGETS =
-  ".media-cover, .interest-chip, .interest-badge, .btn, .capsule, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .brand, .interest-intro, .case-open__item, .comment-card, .footer__link";
+  ".media-cover, .interest-chip, .interest-badge, .btn, .proj, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .brand, .interest-intro, .case-open__item, .comment-card, .footer__link";
 
 const CASE_SIZE_EXCLUDE =
   ".case-open, .case-lock, .case-rickroll, .bug-report, .scroll-top, .achievement-toast, .achievements-drawer, .infinite-echoes, .infinite-echo, .infinite-sentinel, .skip-link";

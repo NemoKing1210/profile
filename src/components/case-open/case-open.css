@@ -1151,7 +1151,7 @@ html.case-text-corrupt body {
 html.case-dizziness .topbar,
 html.case-dizziness .hero,
 html.case-dizziness .panel,
-html.case-dizziness .capsule,
+html.case-dizziness .proj,
 html.case-dizziness .media-shelf,
 html.case-dizziness .steam-invite,
 html.case-dizziness .case-open,
@@ -1194,17 +1194,17 @@ html.case-dizziness .panel:nth-of-type(even) {
   animation-delay: -0.8s;
 }
 
-html.case-dizziness .capsule:nth-child(3n) {
+html.case-dizziness .proj:nth-child(3n) {
   --case-dizzy-duration: 2.2s;
   animation-delay: -1.1s;
 }
 
-html.case-dizziness .capsule:nth-child(3n + 1) {
+html.case-dizziness .proj:nth-child(3n + 1) {
   --case-dizzy-duration: 2.7s;
   animation-delay: -0.15s;
 }
 
-html.case-dizziness .capsule:nth-child(3n + 2) {
+html.case-dizziness .proj:nth-child(3n + 2) {
   --case-dizzy-duration: 3s;
   animation-delay: -0.65s;
 }
@@ -1653,7 +1653,7 @@ html.case-rickroll-active {
   html.case-dizziness .topbar,
   html.case-dizziness .hero,
   html.case-dizziness .panel,
-  html.case-dizziness .capsule,
+  html.case-dizziness .proj,
   html.case-dizziness .media-shelf,
   html.case-dizziness .steam-invite,
   html.case-dizziness .case-open,

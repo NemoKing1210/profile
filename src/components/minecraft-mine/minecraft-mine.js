@@ -7,7 +7,7 @@ const BLOCKED =
   ".mc-pickaxe, .mc-mine-toast, .mc-crack, .skip-link, .scroll-top, [data-mc-immune], .infinite-echoes, .infinite-sentinel, script, style, noscript";
 
 const PREFERRED =
-  ".media-cover, .interest-chip, .interest-badge, .btn, .capsule, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .topbar, .footer, .brand, .interest-intro";
+  ".media-cover, .interest-chip, .interest-badge, .btn, .proj, .meta-chip, .lang-option, .nav-link, .game-card, .project-card, .link-card, .hub-platform, .steam-comment, .ai-tool, .stack-card, .stack-flip, .stack-grow, .stack-grow__tag, .about-activity, .media-shelf, .steam-invite, .panel, .hero__identity, .hero__banner, .topbar, .footer, .brand, .interest-intro";
 
 /** Major shells that must all fall for the `interfaceMine` achievement. */
 const ACHIEVEMENT_SHELLS =

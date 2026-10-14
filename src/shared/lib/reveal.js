@@ -1,5 +1,5 @@
 const REVEAL_SELECTOR =
-  ".panel, .capsule, .stack-card, .link-card, .stack-group, .hub-card, .media-note";
+  ".panel, .stack-card, .link-card, .stack-group, .hub-card, .media-note";
 
 export function initReveal(root, { immediate = false } = {}) {
   const targets = root.querySelectorAll(REVEAL_SELECTOR);

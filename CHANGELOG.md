@@ -10,6 +10,19 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.84.0] — 2026-10-15
+
+### Added
+
+- Public repos missing from the library: LocalMe, Ahabby, Sentinel (programs), letterboxd-plus, x-translator (userscripts), letterboxd-api, backloggd-api (new **APIs** type), ggrun (website); new shelves Letterboxd / X / Web
+- Brand marks for Letterboxd, X, Next.js and VirusTotal
+
+### Changed
+
+- Projects library redesigned to be minimal: compact two-column rows (mark, name, language) that expand in place with description, highlights, tags and the GitHub link; sections and shelf headers slimmed down
+- ProxyChecker renamed to ProxyHub (id, URL, copy in all locales)
+- Dropped the capsule card styles (and their light-theme / easter-egg selectors) in favour of the new rows
+
 ## [1.83.1] — 2026-07-25
 
 ### Changed

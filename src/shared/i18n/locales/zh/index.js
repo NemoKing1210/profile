@@ -664,6 +664,8 @@ export default {
   projects: {
     title: "项目",
     openCta: "在 GitHub 打开",
+    showDetails: "显示详情",
+    hideDetails: "隐藏详情",
     featured: "精选",
     notice: "先从小处开始——userscript 和 pet projects。更大的还在后面。",
     searchPlaceholder: "搜索项目…",
@@ -703,6 +705,18 @@ export default {
         title: "工具",
         description: "桌面工具与独立应用。",
       },
+      letterboxd: {
+        title: "Letterboxd",
+        description: "Letterboxd 的影评分数与 API。",
+      },
+      x: {
+        title: "X",
+        description: "X（Twitter）信息流内翻译。",
+      },
+      web: {
+        title: "网站",
+        description: "Web 应用与平台。",
+      },
     },
     kindGroups: {
       desktop: {
@@ -717,6 +731,10 @@ export default {
         title: "网站",
         description: "网站与 Web 应用——落地页、工具与实验。",
       },
+      api: {
+        title: "API",
+        description: "后端服务与 REST API。",
+      },
     },
     status: {
       public: "Public",
@@ -725,6 +743,7 @@ export default {
       userscript: "Userscript",
       desktop: "程序",
       website: "网站",
+      api: "API",
     },
     blurbs: {
       "steam-gamestatus":
@@ -737,7 +756,7 @@ export default {
         "面向 GitHub 的 Userscript：在个人主页与头像悬浮卡片上展示 World Cup 风格的 GitFut 球探卡（满分 99）——成色等级、六项足球属性、打法风格、缓存与设置面板。",
       "steam-region-block-bypass":
         "Steam 商店 Userscript：遇到「unavailable in your region」时恢复访客商品页，并可选访客搜索。Steam 风格设置面板，以及用于 IP 封锁的代理网关。",
-      ProxyChecker:
+      ProxyHub:
         "基于 Electron + React 的桌面应用，用于检测 HTTP/SOCKS/MTProto 代理：批量、分组、地理信息、导出，以及通过 GitHub Gist / Google Drive 同步。",
       Zapretyd:
         "面向 Flowseal/zapret-discord-youtube 的 Tauri 桌面管理器：从 GitHub 下载官方发布包，并排保存多个版本，并将策略激活为 Windows zapret 服务——无需手动改 bat 文件。",
@@ -745,6 +764,22 @@ export default {
         "YouTube Userscript：按昵称模式识别垃圾评论机器人，并隐藏或模糊评论。hide/blur 切换就在评论区标题栏，无需单独设置页。",
       "bluesky-translator":
         "Bluesky Userscript：在时间线内原地翻译帖子，无需离开页面。多翻译引擎、缓存、账号/语言过滤，以及浅色/深色设置面板——默认 Google，无需 API 密钥。",
+      LocalMe:
+        "基于 Tauri 2 + Vue 3 的局域网聊天工具：无需服务器和账号，同一网络内的两台电脑会自动互相发现。历史记录保存在本地 SQLite，对方离线时消息进入发件箱，文件传输可断点续传。",
+      Ahabby:
+        "基于 Tauri + React 的 AI 编程代理控制面板：在一处管理版本、配置、技能、MCP 服务器和子代理。",
+      Sentinel:
+        "基于 Tauri + React 的 VirusTotal API v3 桌面客户端：拖入文件或文件夹，查看队列，并在本地保存检测结果历史。",
+      ggrun:
+        "面向团队游戏活动的 Web 平台：赛季、格子棋盘、随机抽游戏、骰子、排行榜、活动动态和管理后台。Next.js 15 + PostgreSQL。",
+      "backloggd-api":
+        "Backloggd 的 REST API——letterboxd-api 的游戏版移植。将公开主页解析为带类型的 Game / UserGame 模型，并提供 OpenAPI 3.1 契约。",
+      "letterboxd-api":
+        "用于分析 Letterboxd 观影口味的 API：同步用户数据、筛选电影、统计分析；配置 OpenAI 后提供 AI 推荐。",
+      "letterboxd-plus":
+        "Letterboxd 用户脚本：在电影页显示 Rotten Tomatoes 与 Metacritic 评分、演员头像与角色，并提供原生风格设置面板——无需 API 密钥。",
+      "x-translator":
+        "X（Twitter）用户脚本：直接在信息流中翻译帖子和回复。多种翻译源、缓存、过滤，界面适配浅色、dim 和 lights-out 主题。",
     },
     highlights: {
       "steam-gamestatus": [
@@ -772,7 +807,7 @@ export default {
         "访客搜索建议与可选 /search",
         "Region Bypass 面板 + 本地代理网关",
       ],
-      ProxyChecker: [
+      ProxyHub: [
         "支持 HTTP、SOCKS4/5 与 MTProto",
         "分组、收藏、托盘与自动更新",
         "加密同步与本地备份",
@@ -791,6 +826,46 @@ export default {
         "帖子与引用下的 Translate 按钮",
         "多引擎、缓存与自动翻译模式",
         "分页设置：账号与语言过滤",
+      ],
+      LocalMe: [
+        "自动发现局域网内的联系人",
+        "对方上线后发件箱自动补发消息",
+        "中断的文件传输可从断点继续",
+      ],
+      Ahabby: [
+        "自动识别 30+ 种代理（Claude Code、Codex、Gemini CLI 等）",
+        "带 diff 与备份的配置编辑",
+        "用清单中的命令安装或更新代理",
+      ],
+      Sentinel: [
+        "拖放文件和文件夹（文件夹在本地压缩）",
+        "实时队列：上传 → 扫描 → 重试",
+        "API 密钥仅保存在系统钥匙串中",
+      ],
+      ggrun: [
+        "抽取游戏并标记通关 / 放弃 / 重抽",
+        "含奖励、惩罚和传送格子的棋盘",
+        "道具、挑战与裁判控制台",
+      ],
+      "backloggd-api": [
+        "Bun + Hono + Prisma，PostgreSQL 存储",
+        "Swagger UI 与 OpenAPI JSON",
+        "整洁架构，可直接部署到 Vercel",
+      ],
+      "letterboxd-api": [
+        "筛选、DSL 搜索与 JSON/CSV 导出",
+        "评分、收藏与统计接口",
+        "基于 embeddings 和 pgvector 的推荐",
+      ],
+      "letterboxd-plus": [
+        "电影页显示外部评分",
+        "演职员带头像与角色",
+        "与站点风格一致的设置面板",
+      ],
+      "x-translator": [
+        "就地翻译帖子和评论",
+        "翻译源、缓存与语言过滤",
+        "适配 X 的各种主题",
       ],
     },
   },

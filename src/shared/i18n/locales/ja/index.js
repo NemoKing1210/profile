@@ -697,6 +697,8 @@ export default {
   projects: {
     title: "プロジェクト",
     openCta: "GitHub で開く",
+    showDetails: "詳細を表示",
+    hideDetails: "詳細を隠す",
     featured: "注目",
     notice:
       "まずは小さく——userscript と pet projects から。もっと大きなものはこれから。",
@@ -737,6 +739,18 @@ export default {
         title: "ツール",
         description: "デスクトップユーティリティと単体アプリ。",
       },
+      letterboxd: {
+        title: "Letterboxd",
+        description: "Letterboxd 向けの映画評価と API。",
+      },
+      x: {
+        title: "X",
+        description: "X（Twitter）のフィード内翻訳。",
+      },
+      web: {
+        title: "Web",
+        description: "Web アプリとプラットフォーム。",
+      },
     },
     kindGroups: {
       desktop: {
@@ -752,6 +766,10 @@ export default {
         title: "サイト",
         description: "サイトと Web アプリ — ランディング、ツール、実験。",
       },
+      api: {
+        title: "API",
+        description: "バックエンドサービスと REST API。",
+      },
     },
     status: {
       public: "Public",
@@ -760,6 +778,7 @@ export default {
       userscript: "Userscript",
       desktop: "プログラム",
       website: "サイト",
+      api: "API",
     },
     blurbs: {
       "steam-gamestatus":
@@ -772,7 +791,7 @@ export default {
         "GitHub 用 userscript：プロフィールとアバター hovercard に World Cup 風の GitFut スカウトカード（99 点満点）を表示。フィニッシュ階層、6 つのサッカー能力値、プレイスタイル、キャッシュ、設定パネル付き。",
       "steam-region-block-bypass":
         "Steam Store 用 userscript：「unavailable in your region」表示時にゲスト商品ページを復元し、任意でゲスト検索も。Steam 風設定パネルと IP 制限向けプロキシゲートウェイ付き。",
-      ProxyChecker:
+      ProxyHub:
         "Electron + React のデスクトップアプリ。HTTP/SOCKS/MTProto プロキシの一括チェック、グループ、地理情報、エクスポート、GitHub Gist / Google Drive 同期に対応。",
       Zapretyd:
         "Flowseal/zapret-discord-youtube 向け Tauri デスクトップマネージャ。公式 GitHub リリースをダウンロードし、バージョンを並べて保管し、戦略を Windows の zapret サービスとして有効化 — bat ファイルの手編集は不要。",
@@ -780,6 +799,22 @@ export default {
         "YouTube 用 userscript：ニックネームのパターンでスパムボットを検出し、コメントを非表示またはぼかし。hide/blur 切替はコメント欄ヘッダーにあり、別設定ページは不要。",
       "bluesky-translator":
         "Bluesky 用 userscript：フィードを離れずに投稿をその場で翻訳。複数プロバイダ、キャッシュ、アカウント／言語フィルタ、明暗テーマの設定パネル — デフォルトは Google（API キー不要）。",
+      LocalMe:
+        "Tauri 2 + Vue 3 製のローカルネットワーク用メッセンジャー。サーバーもアカウントも不要で、同じネットワーク上の 2 台が自動で見つけ合います。履歴はローカル SQLite、相手がオフラインの間は送信トレイに保存、ファイル転送は再開可能。",
+      Ahabby:
+        "Tauri + React 製の AI コーディングエージェント管理パネル。バージョン、設定、スキル、MCP サーバー、サブエージェントを一か所に集約。",
+      Sentinel:
+        "Tauri + React 製の VirusTotal API v3 デスクトップクライアント。ファイルやフォルダをドロップして、キューを確認し、判定履歴をローカルに保存。",
+      ggrun:
+        "チーム対抗ゲームイベント向け Web プラットフォーム。シーズン、マス目のボード、ランダムなゲーム抽選、サイコロ、リーダーボード、イベントフィード、管理コンソール。Next.js 15 + PostgreSQL。",
+      "backloggd-api":
+        "Backloggd 向け REST API。letterboxd-api のゲーム版ポートで、公開プロフィールを型付きの Game / UserGame に変換し、OpenAPI 3.1 契約で提供。",
+      "letterboxd-api":
+        "Letterboxd の映画の好みを分析する API。プロフィール同期、映画フィルター、統計、OpenAI 設定時は AI おすすめも。",
+      "letterboxd-plus":
+        "Letterboxd 用ユーザースクリプト。作品ページに Rotten Tomatoes と Metacritic のスコア、俳優の写真と役名、サイトに馴染む設定パネルを追加。API キー不要。",
+      "x-translator":
+        "X（Twitter）用ユーザースクリプト。投稿や返信をフィード上でそのまま翻訳。複数プロバイダー、キャッシュ、フィルター、ライト／dim／lights-out テーマ対応。",
     },
     highlights: {
       "steam-gamestatus": [
@@ -807,7 +842,7 @@ export default {
         "ゲスト検索サジェストと任意の /search",
         "Region Bypass パネル＋ローカル gateway",
       ],
-      ProxyChecker: [
+      ProxyHub: [
         "HTTP・SOCKS4/5・MTProto 対応",
         "グループ、お気に入り、トレイ、自動更新",
         "暗号化同期とローカルバックアップ",
@@ -826,6 +861,46 @@ export default {
         "投稿・引用下の Translate ボタン",
         "プロバイダ、キャッシュ、自動翻訳モード",
         "タブ設定とアカウント／言語フィルタ",
+      ],
+      LocalMe: [
+        "LAN 内の相手を自動検出",
+        "相手が戻ると送信トレイから順に配信",
+        "中断したファイル転送は続きから再開",
+      ],
+      Ahabby: [
+        "30 以上のエージェントを自動検出（Claude Code、Codex、Gemini CLI など）",
+        "diff とバックアップ付きで設定を編集",
+        "マニフェストのコマンドでインストール・更新",
+      ],
+      Sentinel: [
+        "ファイル／フォルダのドラッグ＆ドロップ（フォルダはローカルで zip）",
+        "ライブキュー：アップロード → スキャン → 再試行",
+        "API キーは OS のキーチェーンにのみ保存",
+      ],
+      ggrun: [
+        "ゲームを抽選し、クリア／ドロップ／リロールを記録",
+        "ボーナス・ペナルティ・テレポートのマス",
+        "アイテム、チャレンジ、審判コンソール",
+      ],
+      "backloggd-api": [
+        "Bun + Hono + Prisma（PostgreSQL）",
+        "Swagger UI と OpenAPI JSON",
+        "クリーンアーキテクチャ、Vercel 対応",
+      ],
+      "letterboxd-api": [
+        "フィルター、DSL 検索、JSON/CSV エクスポート",
+        "評価・お気に入り・統計エンドポイント",
+        "embeddings と pgvector によるおすすめ",
+      ],
+      "letterboxd-plus": [
+        "作品ページに外部評価を表示",
+        "俳優の写真と役名付きキャスト",
+        "サイトに合わせた設定パネル",
+      ],
+      "x-translator": [
+        "投稿とコメントをその場で翻訳",
+        "プロバイダー、キャッシュ、言語フィルター",
+        "X のテーマに合わせて表示",
       ],
     },
   },

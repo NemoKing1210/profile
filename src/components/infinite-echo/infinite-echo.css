@@ -103,7 +103,7 @@
 
 /* Panels drift into damp yellow “Level 0” chrome */
 .infinite-echo .panel,
-.infinite-echo .capsule,
+.infinite-echo .proj,
 .infinite-echo .stack-card,
 .infinite-echo .link-card,
 .infinite-echo .hub-card,
@@ -150,7 +150,7 @@
 }
 
 .infinite-echo[data-echo-stage="deep"] .panel__title,
-.infinite-echo[data-echo-stage="deep"] .capsule__title {
+.infinite-echo[data-echo-stage="deep"] .proj__title {
   letter-spacing: calc(0.04em + var(--echo-depth) * 0.02em);
   color: color-mix(in srgb, var(--text-bright) 65%, #e6d28a 35%);
 }

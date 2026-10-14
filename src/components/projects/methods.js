@@ -16,6 +16,16 @@ export function projectsMethods() {
       this.projectFiltersOpen = !this.projectFiltersOpen;
     },
 
+    toggleProject(id) {
+      this.projectOpenIds = this.projectOpenIds.includes(id)
+        ? this.projectOpenIds.filter((openId) => openId !== id)
+        : [...this.projectOpenIds, id];
+    },
+
+    isProjectOpen(id) {
+      return this.projectOpenIds.includes(id);
+    },
+
     clearProjectFilters() {
       this.projectQuery = "";
       this.projectGroupFilter = "all";

@@ -698,6 +698,8 @@ export default {
   projects: {
     title: "Proyectos",
     openCta: "Abrir en GitHub",
+    showDetails: "Mostrar detalles",
+    hideDetails: "Ocultar detalles",
     featured: "Destacado",
     notice:
       "Por ahora empiezo con poco — userscripts y pet projects. Lo más grande viene después.",
@@ -738,6 +740,18 @@ export default {
         title: "Herramientas",
         description: "Utilidades de escritorio y apps independientes.",
       },
+      letterboxd: {
+        title: "Letterboxd",
+        description: "Valoraciones de películas y una API para Letterboxd.",
+      },
+      x: {
+        title: "X",
+        description: "Traducción en el feed de X (Twitter).",
+      },
+      web: {
+        title: "Web",
+        description: "Aplicaciones y plataformas web.",
+      },
     },
     kindGroups: {
       desktop: {
@@ -753,6 +767,10 @@ export default {
         title: "Sitios",
         description: "Sitios y web apps — landings, herramientas y experimentos.",
       },
+      api: {
+        title: "APIs",
+        description: "Servicios backend y APIs REST.",
+      },
     },
     status: {
       public: "Public",
@@ -761,6 +779,7 @@ export default {
       userscript: "Userscript",
       desktop: "Programa",
       website: "Sitio",
+      api: "API",
     },
     blurbs: {
       "steam-gamestatus":
@@ -773,7 +792,7 @@ export default {
         "Userscript para GitHub: cartas de scouting GitFut al estilo World Cup con rating hasta 99 en perfiles y hovercards de avatar — tiers de acabado, seis stats de fútbol, playstyles, caché y panel de ajustes.",
       "steam-region-block-bypass":
         "Userscript de Steam Store: cuando aparece “unavailable in your region”, restaura la ficha de invitado y, opcionalmente, la búsqueda guest. Panel al estilo Steam y gateway proxy para bloqueos por IP.",
-      ProxyChecker:
+      ProxyHub:
         "App de escritorio Electron + React para comprobar proxies HTTP/SOCKS/MTProto: lotes, grupos, geo, exportación y sync vía GitHub Gist / Google Drive.",
       Zapretyd:
         "Gestor de escritorio Tauri para Flowseal/zapret-discord-youtube: descarga releases oficiales de GitHub, guarda versiones en paralelo y activa una estrategia como servicio Windows zapret — sin editar archivos .bat a mano.",
@@ -781,6 +800,22 @@ export default {
         "Userscript de YouTube: detecta bots de spam por el patrón del nick y oculta o difumina comentarios. Interruptor hide/blur en la cabecera de comentarios, sin página de ajustes aparte.",
       "bluesky-translator":
         "Userscript para Bluesky: traduce publicaciones en el feed sin salir de la página. Varios proveedores, caché, filtros de cuentas e idiomas, y panel claro/oscuro — Google por defecto sin API key.",
+      LocalMe:
+        "Mensajero para red local con Tauri 2 + Vue 3: sin servidor ni cuenta, dos equipos en la misma red se encuentran solos. Historial en SQLite local, bandeja de salida para quien está offline y reanudación de archivos.",
+      Ahabby:
+        "Panel de control para agentes de IA de programación con Tauri + React: versiones, configuraciones, skills, servidores MCP y subagentes en un solo lugar.",
+      Sentinel:
+        "Cliente de escritorio para la API v3 de VirusTotal con Tauri + React: arrastra archivos o carpetas, sigue la cola y guarda un historial local de veredictos.",
+      ggrun:
+        "Plataforma web para un evento gaming por equipos: temporadas, tablero de casillas, juegos aleatorios, dados, clasificación, feed de eventos y consola de administración. Next.js 15 + PostgreSQL.",
+      "backloggd-api":
+        "API REST para Backloggd, un port de letterboxd-api para juegos. Convierte perfiles públicos en modelos tipados Game / UserGame con contrato OpenAPI 3.1.",
+      "letterboxd-api":
+        "API para analizar el gusto cinéfilo en Letterboxd: sincroniza perfiles, filtra películas, calcula estadísticas y recomienda con IA si hay OpenAI configurado.",
+      "letterboxd-plus":
+        "Userscript para Letterboxd: notas de Rotten Tomatoes y Metacritic en las fichas, retratos de actores con sus papeles y un panel de ajustes nativo, sin claves de API.",
+      "x-translator":
+        "Userscript para X (Twitter): traduce publicaciones y respuestas en el propio feed. Varios proveedores, caché, filtros y una interfaz acorde a los temas claro, dim y lights-out.",
     },
     highlights: {
       "steam-gamestatus": [
@@ -808,7 +843,7 @@ export default {
         "Sugerencias guest y /search opcional",
         "Panel Region Bypass + proxy gateway local",
       ],
-      ProxyChecker: [
+      ProxyHub: [
         "Protocolos HTTP, SOCKS4/5 y MTProto",
         "Grupos, favoritos, bandeja y auto-update",
         "Sync cifrado y copias locales",
@@ -827,6 +862,46 @@ export default {
         "Botón Translate bajo posts y citas",
         "Proveedores, caché y modo auto-traducir",
         "Ajustes por pestañas con filtros de cuenta e idioma",
+      ],
+      LocalMe: [
+        "Descubre a los contactos automáticamente en la LAN",
+        "La bandeja de salida entrega los mensajes al volver",
+        "Las transferencias interrumpidas continúan donde se quedaron",
+      ],
+      Ahabby: [
+        "Detecta más de 30 agentes (Claude Code, Codex, Gemini CLI…)",
+        "Edita configuraciones con diff y copia de seguridad",
+        "Instala o actualiza un agente con el comando de su manifiesto",
+      ],
+      Sentinel: [
+        "Arrastrar y soltar archivos y carpetas (se comprimen en local)",
+        "Cola en vivo: subida → análisis → reintento",
+        "La clave de API vive solo en el llavero del sistema",
+      ],
+      ggrun: [
+        "Sortea un juego y márcalo: pasado / abandonado / reroll",
+        "Tablero con casillas de bonus, penalización y teletransporte",
+        "Objetos, retos y consola de árbitro",
+      ],
+      "backloggd-api": [
+        "Bun + Hono + Prisma sobre PostgreSQL",
+        "Swagger UI y OpenAPI JSON",
+        "Arquitectura limpia, lista para Vercel",
+      ],
+      "letterboxd-api": [
+        "Filtros, búsqueda DSL y exportación JSON/CSV",
+        "Valoraciones, favoritas y estadísticas",
+        "Recomendaciones con embeddings y pgvector",
+      ],
+      "letterboxd-plus": [
+        "Valoraciones externas en las fichas de películas",
+        "Reparto con retratos y papeles",
+        "Panel de ajustes con el estilo del sitio",
+      ],
+      "x-translator": [
+        "Traduce publicaciones y comentarios en su sitio",
+        "Proveedores, caché y filtros de idioma",
+        "Se adapta a los temas de X",
       ],
     },
   },

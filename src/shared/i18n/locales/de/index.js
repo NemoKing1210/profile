@@ -698,6 +698,8 @@ export default {
   projects: {
     title: "Projekte",
     openCta: "Auf GitHub öffnen",
+    showDetails: "Details anzeigen",
+    hideDetails: "Details ausblenden",
     featured: "Highlight",
     notice:
       "Ich fange erstmal klein an — Userscripts und Pet-Projekte. Größeres kommt noch.",
@@ -738,6 +740,18 @@ export default {
         title: "Tools",
         description: "Desktop-Utilities und eigenständige Apps.",
       },
+      letterboxd: {
+        title: "Letterboxd",
+        description: "Filmbewertungen und eine API für Letterboxd.",
+      },
+      x: {
+        title: "X",
+        description: "Übersetzung im Feed von X (Twitter).",
+      },
+      web: {
+        title: "Web",
+        description: "Web-Apps und Plattformen.",
+      },
     },
     kindGroups: {
       desktop: {
@@ -753,6 +767,10 @@ export default {
         title: "Websites",
         description: "Sites und Web-Apps — Landings, Tools und Experimente.",
       },
+      api: {
+        title: "APIs",
+        description: "Backend-Dienste und REST-APIs.",
+      },
     },
     status: {
       public: "Public",
@@ -761,6 +779,7 @@ export default {
       userscript: "Userscript",
       desktop: "Programm",
       website: "Website",
+      api: "API",
     },
     blurbs: {
       "steam-gamestatus":
@@ -773,7 +792,7 @@ export default {
         "Userscript für GitHub: GitFut-Scout-Karten im World-Cup-Stil mit Rating bis 99 auf Profilen und in Avatar-Hovercards — Finish-Tiers, sechs Fußball-Stats, Playstyles, Cache und Einstellungspanel.",
       "steam-region-block-bypass":
         "Steam-Store-Userscript: bei „unavailable in your region“ wird die Gast-Produktseite wiederhergestellt, optional mit Guest-Suche. Steam-Panel plus Proxy-Gateway für IP-Sperren.",
-      ProxyChecker:
+      ProxyHub:
         "Desktop-App mit Electron + React zum Prüfen von HTTP/SOCKS/MTProto-Proxys: Batches, Gruppen, Geo, Export und Sync über GitHub Gist / Google Drive.",
       Zapretyd:
         "Tauri-Desktop-Manager für Flowseal/zapret-discord-youtube: lädt offizielle GitHub-Releases herunter, hält Versionen nebeneinander und aktiviert eine Strategie als Windows-Dienst zapret — ohne manuelles Bearbeiten von Batch-Dateien.",
@@ -781,6 +800,22 @@ export default {
         "YouTube-Userscript: erkennt Spam-Bots am Nick-Muster und blendet Kommentare aus oder unscharf. Hide/Blur-Umschalter direkt in der Kommentar-Kopfzeile — ohne extra Einstellungsseite.",
       "bluesky-translator":
         "Userscript für Bluesky: übersetzt Posts im Feed, ohne die Seite zu verlassen. Mehrere Provider, Cache, Account-/Sprachfilter und helles/dunkles Einstellungsfenster — Google standardmäßig ohne API-Key.",
+      LocalMe:
+        "Messenger fürs lokale Netz mit Tauri 2 + Vue 3: ohne Server und Konto finden sich zwei Rechner im selben Netz von selbst. Verlauf in lokalem SQLite, Postausgang für Offline-Kontakte und fortsetzbare Dateiübertragung.",
+      Ahabby:
+        "Kontrollzentrum für KI-Coding-Agenten mit Tauri + React: Versionen, Konfigurationen, Skills, MCP-Server und Sub-Agents an einem Ort.",
+      Sentinel:
+        "Desktop-Client für die VirusTotal-API v3 mit Tauri + React: Dateien oder Ordner ablegen, Warteschlange verfolgen und einen lokalen Verlauf der Urteile führen.",
+      ggrun:
+        "Web-Plattform für ein Team-Gaming-Event: Saisons, Spielfeld mit Zellen, zufällige Spiele, Würfel, Rangliste, Event-Feed und Admin-Konsole. Next.js 15 + PostgreSQL.",
+      "backloggd-api":
+        "REST-API für Backloggd — ein Port von letterboxd-api für Spiele. Wandelt öffentliche Profile in typisierte Game-/UserGame-Modelle mit OpenAPI-3.1-Vertrag um.",
+      "letterboxd-api":
+        "API zur Analyse des Filmgeschmacks auf Letterboxd: Profile synchronisieren, Filme filtern, Statistiken berechnen und KI-Empfehlungen, wenn OpenAI konfiguriert ist.",
+      "letterboxd-plus":
+        "Userscript für Letterboxd: Rotten-Tomatoes- und Metacritic-Wertungen auf Filmseiten, Darstellerporträts mit Rollen und ein nativ wirkendes Einstellungspanel — ohne API-Schlüssel.",
+      "x-translator":
+        "Userscript für X (Twitter): übersetzt Beiträge und Antworten direkt im Feed. Mehrere Anbieter, Cache, Filter und eine Oberfläche passend zu Hell, Dim und Lights-out.",
     },
     highlights: {
       "steam-gamestatus": [
@@ -808,7 +843,7 @@ export default {
         "Guest-Suchvorschläge + optionales /search",
         "Region-Bypass-Panel + lokales Proxy-Gateway",
       ],
-      ProxyChecker: [
+      ProxyHub: [
         "Protokolle HTTP, SOCKS4/5 und MTProto",
         "Gruppen, Favoriten, Tray und Auto-Update",
         "Verschlüsselter Sync und lokale Backups",
@@ -827,6 +862,46 @@ export default {
         "Translate-Button unter Posts und Zitaten",
         "Provider, Cache und Auto-Übersetzungsmodus",
         "Einstellungen mit Tabs, Account- und Sprachfiltern",
+      ],
+      LocalMe: [
+        "Kontakte im LAN automatisch finden",
+        "Postausgang liefert Nachrichten nach, sobald der Kontakt zurück ist",
+        "Unterbrochene Dateiübertragungen setzen sich fort",
+      ],
+      Ahabby: [
+        "Erkennt über 30 Agenten (Claude Code, Codex, Gemini CLI …)",
+        "Konfigs bearbeiten mit Diff und Backup",
+        "Agent per Manifest-Befehl installieren oder aktualisieren",
+      ],
+      Sentinel: [
+        "Drag & Drop für Dateien und Ordner (lokal gezippt)",
+        "Live-Queue: Upload → Scan → Wiederholung",
+        "API-Schlüssel nur im Schlüsselbund des Systems",
+      ],
+      ggrun: [
+        "Spiel würfeln, dann bestanden / abgebrochen / Reroll melden",
+        "Feld mit Bonus-, Strafe- und Teleport-Zellen",
+        "Items, Challenges und Schiedsrichter-Konsole",
+      ],
+      "backloggd-api": [
+        "Bun + Hono + Prisma auf PostgreSQL",
+        "Swagger UI und OpenAPI-JSON",
+        "Clean Architecture, bereit für Vercel",
+      ],
+      "letterboxd-api": [
+        "Filter, DSL-Suche und JSON/CSV-Export",
+        "Bewertungen, Favoriten und Statistiken",
+        "Empfehlungen per Embeddings und pgvector",
+      ],
+      "letterboxd-plus": [
+        "Externe Wertungen auf Filmseiten",
+        "Besetzung mit Porträts und Rollen",
+        "Einstellungspanel im Stil der Seite",
+      ],
+      "x-translator": [
+        "Beiträge und Kommentare direkt übersetzen",
+        "Anbieter, Cache und Sprachfilter",
+        "Passt sich den X-Designs an",
       ],
     },
   },

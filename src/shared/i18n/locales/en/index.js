@@ -696,6 +696,8 @@ export default {
   projects: {
     title: "Projects",
     openCta: "Open on GitHub",
+    showDetails: "Show details",
+    hideDetails: "Hide details",
     featured: "Featured",
     notice:
       "Starting small for now — userscripts and pet projects. Bigger things are ahead.",
@@ -736,6 +738,18 @@ export default {
         title: "Tools",
         description: "Desktop utilities and standalone apps.",
       },
+      letterboxd: {
+        title: "Letterboxd",
+        description: "Film ratings and an API for Letterboxd.",
+      },
+      x: {
+        title: "X",
+        description: "In-feed translation for X (Twitter).",
+      },
+      web: {
+        title: "Web",
+        description: "Web apps and platforms.",
+      },
     },
     kindGroups: {
       desktop: {
@@ -751,6 +765,10 @@ export default {
         title: "Websites",
         description: "Sites and web apps — landing pages, tools, and experiments.",
       },
+      api: {
+        title: "APIs",
+        description: "Backend services and REST APIs.",
+      },
     },
     status: {
       public: "Public",
@@ -759,6 +777,7 @@ export default {
       userscript: "Userscript",
       desktop: "Program",
       website: "Website",
+      api: "API",
     },
     blurbs: {
       "steam-gamestatus":
@@ -771,7 +790,7 @@ export default {
         "Userscript for GitHub: World Cup–style GitFut scout cards rated out of 99 on profiles and avatar hovercards — finish tiers, six football stats, playstyles, caching, and a settings panel.",
       "steam-region-block-bypass":
         "Steam Store userscript: when you hit “unavailable in your region”, it restores a guest product page and optional guest search. Steam-styled settings plus a proxy gateway for IP locks.",
-      ProxyChecker:
+      ProxyHub:
         "Electron + React desktop app for checking HTTP/SOCKS/MTProto proxies: batches, groups, geo hints, export, and sync via GitHub Gist / Google Drive.",
       Zapretyd:
         "Tauri desktop manager for Flowseal/zapret-discord-youtube: downloads official GitHub releases, keeps versions side by side, and activates a strategy as the Windows zapret service — without hand-editing batch files.",
@@ -779,6 +798,22 @@ export default {
         "YouTube userscript: flags spam bots by nickname pattern and hides or blurs comments. Hide/blur toggle sits in the comments header — no separate settings page.",
       "bluesky-translator":
         "Userscript for Bluesky: translate posts in place without leaving the feed. Multiple providers, cache, account/language filters, and a light/dark settings panel — Google by default with no API key.",
+      LocalMe:
+        "LAN messenger on Tauri 2 + Vue 3: no server and no account — two machines on one network find each other. Local SQLite history, an outbox for offline peers, and resumable file transfers.",
+      Ahabby:
+        "Tauri + React control panel for AI coding agents on your machine: versions, configs, skills, MCP servers, and sub-agents in one place.",
+      Sentinel:
+        "Tauri + React desktop client for the VirusTotal API v3: drop files or folders, watch the queue, and keep a local history of verdicts.",
+      ggrun:
+        "Web platform for a team gaming event: seasons, a board of cells, random game rolls, dice, a leaderboard, an event feed, and an admin console. Next.js 15 + PostgreSQL.",
+      "backloggd-api":
+        "REST API for Backloggd — a port of letterboxd-api for games. Scrapes public profiles into typed Game / UserGame models with an OpenAPI 3.1 contract.",
+      "letterboxd-api":
+        "API for analyzing Letterboxd film taste: syncs profiles, filters movies, computes statistics, and gives AI recommendations when OpenAI is configured.",
+      "letterboxd-plus":
+        "Userscript for Letterboxd: Rotten Tomatoes and Metacritic scores on film pages, cast portraits with roles, and a native-looking settings panel — no API key.",
+      "x-translator":
+        "Userscript for X (Twitter): translate posts and replies in place without leaving the feed. Multiple providers, cache, filters, and UI matching light / dim / lights-out.",
     },
     highlights: {
       "steam-gamestatus": [
@@ -806,7 +841,7 @@ export default {
         "Guest search suggestions + optional /search",
         "Region Bypass panel + local proxy gateway",
       ],
-      ProxyChecker: [
+      ProxyHub: [
         "HTTP, SOCKS4/5, and MTProto protocols",
         "Groups, favorites, tray, and auto-update",
         "Encrypted sync and local backups",
@@ -825,6 +860,46 @@ export default {
         "Translate button under posts and quotes",
         "Providers, cache, and auto-translate mode",
         "Tabbed settings with account & language filters",
+      ],
+      LocalMe: [
+        "Peers discovered automatically on the LAN",
+        "Outbox delivers messages when the peer returns",
+        "Interrupted file transfers resume where they stopped",
+      ],
+      Ahabby: [
+        "Auto-detects 30+ agents (Claude Code, Codex, Gemini CLI…)",
+        "Edit configs with a diff and a backup",
+        "Install or update an agent via its manifest command",
+      ],
+      Sentinel: [
+        "Drag-and-drop files and folders (zipped locally)",
+        "Live upload → scan → retry queue",
+        "API key stored in the OS keychain only",
+      ],
+      ggrun: [
+        "Roll a game, then mark passed / dropped / reroll",
+        "Board with bonus, penalty, and teleport cells",
+        "Items, challenges, and a referee console",
+      ],
+      "backloggd-api": [
+        "Bun + Hono + Prisma on PostgreSQL",
+        "Swagger UI and OpenAPI JSON",
+        "Clean architecture, Vercel-ready",
+      ],
+      "letterboxd-api": [
+        "Movie filters, search DSL, JSON/CSV export",
+        "Ratings, favorites, and stats endpoints",
+        "Recommendations via embeddings + pgvector",
+      ],
+      "letterboxd-plus": [
+        "External ratings on film pages",
+        "Cast with actor portraits and roles",
+        "Settings panel in the site’s style",
+      ],
+      "x-translator": [
+        "Translate posts and comments in place",
+        "Providers, cache, and language filters",
+        "Matches X light, dim, and lights-out themes",
       ],
     },
   },

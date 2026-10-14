@@ -5,8 +5,12 @@ import {
   siBluesky,
   siElectron,
   siGithub,
+  siLetterboxd,
+  siNextdotjs,
   siSteam,
   siTauri,
+  siVirustotal,
+  siX,
   siYoutube,
 } from "simple-icons";
 
@@ -33,4 +37,8 @@ export const projectMarks = {
   backloggd: backloggdMark,
   /** Light fill so the mark reads on Steam-dark capsules (brand hex is near-black). */
   github: mark(siGithub, "#e6edf3"),
+  letterboxd: mark(siLetterboxd),
+  nextjs: mark(siNextdotjs, "#e6edf3"),
+  virustotal: mark(siVirustotal),
+  x: mark(siX, "#e6edf3"),
 };
