@@ -10,6 +10,30 @@ Update **both** when cutting a release.
 
 ## [Unreleased]
 
+## [1.86.0] — 2026-10-15
+
+### Added
+
+- AI & agents: OpenCode, Gemini CLI, OMP, Pi, Command Code, Hermes (terminal agents) and Windsurf, Kiro, Antigravity, Copilot (editors & apps), split into two labelled groups; every tool also drops into the hero physics (OMP / Pi / Command Code use simple local glyphs — no official mark in the icon set)
+- Locale copy `stack.toolGroups` in all 7 languages
+
+### Changed
+
+- Stack visuals: pillar cards with tech counter, brand-glow mark and hover lift; tech chips tinted by brand colour; favorite-framework card with centred copy and ghost brand mark; AI chips theme-neutral (work in light theme)
+
+## [1.85.0] — 2026-10-15
+
+### Changed
+
+- About and Stack merged into one panel with a clear flow: intro + strengths → Stack (pillars, favorite framework + AI toolkit, what to learn, how I grow) → activity → availability
+- Intro is two-column (story | strengths); favorite-framework flip card and AI toolkit sit side by side on desktop
+- Stack heading is now a sub-section header; card titles demoted to `h4`
+- Topbar nav no longer has a separate Stack item (`#stack` anchor kept; `?from=steam` still hides the Stack block only)
+
+### Removed
+
+- Standalone Stack panel and `nav.stack` label from all locales
+
 ## [1.84.0] — 2026-10-15
 
 ### Added

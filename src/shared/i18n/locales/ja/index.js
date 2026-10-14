@@ -623,6 +623,10 @@ export default {
     toolkitLabel: "AI とエージェント",
     toolkitBlurb:
       "開発・レビュー・設計をニューラルネットと一緒に加速する、日常のスタック。",
+    toolGroups: {
+      cli: "ターミナルエージェント",
+      app: "エディタとアプリ",
+    },
     aiSpeech:
       "はい、AI は使います——でもほどほどに。思考の代わりではなく、スピードの助けとして。",
     flipSpeech:
@@ -1014,7 +1018,6 @@ export default {
   },
   nav: {
     about: "自己紹介",
-    stack: "スタック",
     projects: "プロジェクト",
     interests: "興味",
     links: "リンク",

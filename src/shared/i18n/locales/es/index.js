@@ -624,6 +624,10 @@ export default {
     toolkitLabel: "IA y agentes",
     toolkitBlurb:
       "Stack diario para acelerar desarrollo, revisión y diseño junto a redes neuronales.",
+    toolGroups: {
+      cli: "Agentes de terminal",
+      app: "Editores y apps",
+    },
     aiSpeech:
       "Sí, uso IA — pero con mesura: un impulso de velocidad, no un sustituto del pensamiento.",
     flipSpeech:
@@ -1015,7 +1019,6 @@ export default {
   },
   nav: {
     about: "Sobre mí",
-    stack: "Stack",
     projects: "Proyectos",
     interests: "Intereses",
     links: "Enlaces",

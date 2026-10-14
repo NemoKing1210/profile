@@ -1,6 +1,7 @@
 /**
  * Audience presets for `?from=<id>`.
- * Section ids match `profile.nav` / panel `id` attributes.
+ * Section ids match `profile.nav` / panel `id` attributes; `stack` is the
+ * Stack sub-block inside the About panel (`#stack`).
  *
  * Optional `primaryLinkIds` replaces the hero CTA row (default: first two of
  * `profile.links`). Ids may come from `profile.links` or known media hubs

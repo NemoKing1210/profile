@@ -83,12 +83,22 @@ const profile = {
     { id: "remote", tone: "green" },
   ],
 
-  /** AI / agent tooling highlighted in About. */
+  /** AI / agent tooling shown in Stack (group → locales `stack.toolGroups`). */
   aiTools: [
-    { id: "cursor", label: "Cursor" },
-    { id: "claude", label: "Claude" },
-    { id: "codex", label: "Codex" },
-    { id: "claudecode", label: "Claude Code" },
+    { id: "claudecode", label: "Claude Code", group: "cli" },
+    { id: "codex", label: "Codex", group: "cli" },
+    { id: "opencode", label: "OpenCode", group: "cli" },
+    { id: "geminicli", label: "Gemini CLI", group: "cli" },
+    { id: "omp", label: "OMP", group: "cli" },
+    { id: "pi", label: "Pi", group: "cli" },
+    { id: "commandcode", label: "Command Code", group: "cli" },
+    { id: "hermes", label: "Hermes", group: "cli" },
+    { id: "cursor", label: "Cursor", group: "app" },
+    { id: "claude", label: "Claude", group: "app" },
+    { id: "windsurf", label: "Windsurf", group: "app" },
+    { id: "kiro", label: "Kiro", group: "app" },
+    { id: "antigravity", label: "Antigravity", group: "app" },
+    { id: "copilot", label: "Copilot", group: "app" },
   ],
 
   /**
@@ -366,7 +376,6 @@ const profile = {
 
   nav: [
     { id: "about", href: "#about" },
-    { id: "stack", href: "#stack" },
     { id: "projects", href: "#projects" },
     { id: "interests", href: "#interests" },
     { id: "links", href: "#links" },

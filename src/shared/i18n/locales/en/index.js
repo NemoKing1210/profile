@@ -622,6 +622,10 @@ export default {
     toolkitLabel: "AI & agents",
     toolkitBlurb:
       "Everyday stack for speeding up development, review, and design with neural networks.",
+    toolGroups: {
+      cli: "Terminal agents",
+      app: "Editors & apps",
+    },
     aiSpeech:
       "Yes, I use AI — but in moderation: a boost for speed, not a substitute for thinking.",
     flipSpeech:
@@ -1013,7 +1017,6 @@ export default {
   },
   nav: {
     about: "About",
-    stack: "Stack",
     projects: "Projects",
     interests: "Interests",
     links: "Links",

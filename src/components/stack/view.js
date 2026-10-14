@@ -23,6 +23,13 @@ export function stackViewMethods() {
         spawnTool: copy.spawnTool,
         kitMark: aiKitMark,
         tools: this.aiTools,
+        toolGroups: ["cli", "app"]
+          .map((id) => ({
+            id,
+            label: copy.toolGroups?.[id] || id,
+            tools: this.aiTools.filter((tool) => tool.group === id),
+          }))
+          .filter((group) => group.tools.length),
         growLabel: copy.growLabel,
         growBlurb: copy.growBlurb,
         growTagsLabel: copy.growTagsLabel,

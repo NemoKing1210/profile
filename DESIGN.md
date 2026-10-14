@@ -61,8 +61,9 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 │ FULL-BLEED BANNER                   │
 │  avatar + name + tagline + CTAs     │  ← first viewport: brand-first
 ├─────────────────────────────────────┤
-│ panel: О себе                       │
-│ panel: Стек (focus + tech chips)    │
+│ panel: О себе — intro + strengths,  │
+│   Стек (pillars, favorite, AI, grow)│
+│   → activity → availability         │
 │ panel: Проекты (capsule shelf)      │
 │ panel: Интересы (Letterboxd + Backloggd + Steam)│
 │ panel: Ссылки (Linktree hub + grid)            │
@@ -76,7 +77,7 @@ Avoid Inter / Roboto / system-only stacks for primary UI.
 
 - First viewport = brand + one role line + tagline + CTA group + dominant banner. No stats strips, no card grid in the hero.
 - Panels may use subtle borders/backgrounds (Steam store chrome). Project capsules are interactive containers — that is intentional.
-- One job per section: About / Stack / Projects / Interests / Links / Comments (joke).
+- One job per section: About (who I am → stack → activity → availability) / Projects / Interests / Links / Comments (joke). Stack is a sub-section of About ( anchor kept; hidden on its own for audience presets).
 - Max content width ~`1100px`, aligned with Steam’s readable store column.
 
 ## Motion

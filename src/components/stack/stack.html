@@ -1,8 +1,15 @@
-<section class="panel" id="stack" aria-labelledby="stack-title">
-  <header class="panel__head panel__head--row">
-    <h2 class="panel__title" id="stack-title" x-text="stack.title">Stack</h2>
-    <p class="panel__sub" x-text="stack.eyebrow"></p>
+<div
+  class="about-stack"
+  id="stack"
+  role="group"
+  aria-labelledby="stack-title"
+>
+  <header class="about-subhead">
+    <h3 class="about-subhead__title" id="stack-title" x-text="stack.title">Stack</h3>
+    <span class="about-subhead__rule" aria-hidden="true"></span>
+    <p class="about-subhead__sub" x-text="stack.eyebrow"></p>
   </header>
+
   <ul class="stack-cards">
     <template x-for="item in stack.items" :key="item.id">
       <li class="stack-card" :class="`stack-card--${item.tone}`">
@@ -16,7 +23,8 @@
               <path :d="item.mark.path" fill="currentColor"></path>
             </svg>
           </span>
-          <h3 class="stack-card__label" x-text="item.label"></h3>
+          <h4 class="stack-card__label" x-text="item.label"></h4>
+          <span class="stack-card__count" x-text="item.techs.length" aria-hidden="true"></span>
         </div>
         <p class="stack-card__detail" x-text="item.detail"></p>
         <ul class="stack-card__techs ai-tools" :aria-label="stack.techsLabel">
@@ -25,6 +33,7 @@
               <button
                 type="button"
                 class="ai-tool"
+                :style="`--tech-fill: ${tech.fill}`"
                 :aria-label="spawnTechLabel(tech)"
                 @click="spawnTechBall(tech)"
               >
@@ -46,124 +55,154 @@
     </template>
   </ul>
 
-  <aside
-    class="stack-flip"
-    x-ref="stackFlip"
-    :aria-label="stack.favoriteFlip.ariaLabel"
-    @mouseenter="showSpeechI18n('stack.flipSpeech', { holdMs: null })"
-    @mouseleave="hideSpeech()"
-    @focusin="showSpeechI18n('stack.flipSpeech', { holdMs: null })"
-    @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
-  >
-    <div class="stack-flip__perspective">
-      <div
-        class="stack-flip__inner"
-        :style="`transform: rotateX(${stackFlipDeg}deg)`"
-      >
+  <div class="stack-duo">
+    <aside
+      class="stack-flip"
+      x-ref="stackFlip"
+      :aria-label="stack.favoriteFlip.ariaLabel"
+      @mouseenter="showSpeechI18n('stack.flipSpeech', { holdMs: null })"
+      @mouseleave="hideSpeech()"
+      @focusin="showSpeechI18n('stack.flipSpeech', { holdMs: null })"
+      @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
+    >
+      <div class="stack-flip__perspective">
         <div
-          class="stack-flip__face stack-flip__face--react"
-          :aria-hidden="stackFlipDeg > 90"
+          class="stack-flip__inner"
+          :style="`transform: rotateX(${stackFlipDeg}deg)`"
         >
-          <div class="stack-flip__top">
-            <span
-              class="stack-flip__mark"
-              :style="`--mark-fill: ${stack.favoriteFlip.front.mark.fill}; --mark-ink: ${stack.favoriteFlip.front.mark.ink || '#fff'}`"
-              aria-hidden="true"
-            >
-              <svg class="stack-flip__mark-icon" viewBox="0 0 24 24" focusable="false">
-                <path :d="stack.favoriteFlip.front.mark.path" fill="currentColor"></path>
-              </svg>
-            </span>
-            <div class="stack-flip__titles">
-              <p class="stack-flip__badge" x-text="stack.favoriteFlip.front.badge"></p>
-              <h3 class="stack-flip__label" x-text="stack.favoriteFlip.front.label"></h3>
-            </div>
-          </div>
-          <p class="stack-flip__detail" x-text="stack.favoriteFlip.front.detail"></p>
-        </div>
-        <div
-          class="stack-flip__face stack-flip__face--vue"
-          :aria-hidden="stackFlipDeg <= 90"
-        >
-          <div class="stack-flip__top">
-            <span
-              class="stack-flip__mark"
-              :style="`--mark-fill: ${stack.favoriteFlip.back.mark.fill}; --mark-ink: ${stack.favoriteFlip.back.mark.ink || '#fff'}`"
-              aria-hidden="true"
-            >
-              <svg class="stack-flip__mark-icon" viewBox="0 0 24 24" focusable="false">
-                <path :d="stack.favoriteFlip.back.mark.path" fill="currentColor"></path>
-              </svg>
-            </span>
-            <div class="stack-flip__titles">
-              <p class="stack-flip__badge" x-text="stack.favoriteFlip.back.badge"></p>
-              <h3 class="stack-flip__label" x-text="stack.favoriteFlip.back.label"></h3>
-            </div>
-          </div>
-          <p class="stack-flip__detail" x-text="stack.favoriteFlip.back.detail"></p>
-        </div>
-      </div>
-    </div>
-  </aside>
-
-  <aside
-    class="ai-kit"
-    :aria-label="stack.toolkitLabel"
-    @mouseenter="showSpeechI18n('stack.aiSpeech', { holdMs: null })"
-    @mouseleave="hideSpeech()"
-    @focusin="showSpeechI18n('stack.aiSpeech', { holdMs: null })"
-    @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
-  >
-    <div class="ai-kit__intro">
-      <span
-        class="ai-kit__mark"
-        :class="stack.kitMark.mono && 'ai-kit__mark--mono'"
-        aria-hidden="true"
-      >
-        <img
-          class="ai-kit__mark-img"
-          :src="stack.kitMark.src"
-          alt=""
-          width="18"
-          height="18"
-          decoding="async"
-        />
-      </span>
-      <div class="ai-kit__copy">
-        <p class="ai-kit__label" x-text="stack.toolkitLabel"></p>
-        <p class="ai-kit__blurb" x-text="stack.toolkitBlurb"></p>
-      </div>
-    </div>
-    <ul class="ai-tools">
-      <template x-for="tool in stack.tools" :key="tool.id">
-        <li>
-          <button
-            type="button"
-            class="ai-tool"
-            :data-tool="tool.id"
-            :aria-label="spawnToolLabel(tool)"
-            @click="spawnAiTool(tool)"
+          <div
+            class="stack-flip__face stack-flip__face--react"
+            :aria-hidden="stackFlipDeg > 90"
           >
-            <span
-              class="ai-tool__icon"
-              :class="tool.mono && 'ai-tool__icon--mono'"
+            <svg
+              class="stack-flip__ghost"
+              viewBox="0 0 24 24"
+              focusable="false"
               aria-hidden="true"
+              :style="`color: ${stack.favoriteFlip.front.mark.fill}`"
             >
-              <img
-                class="ai-tool__img"
-                :src="tool.icon"
-                alt=""
-                width="16"
-                height="16"
-                decoding="async"
-              />
-            </span>
-            <span class="ai-tool__name" x-text="tool.label"></span>
-          </button>
-        </li>
-      </template>
-    </ul>
-  </aside>
+              <path :d="stack.favoriteFlip.front.mark.path" fill="currentColor"></path>
+            </svg>
+            <div class="stack-flip__top">
+              <span
+                class="stack-flip__mark"
+                :style="`--mark-fill: ${stack.favoriteFlip.front.mark.fill}; --mark-ink: ${stack.favoriteFlip.front.mark.ink || '#fff'}`"
+                aria-hidden="true"
+              >
+                <svg class="stack-flip__mark-icon" viewBox="0 0 24 24" focusable="false">
+                  <path :d="stack.favoriteFlip.front.mark.path" fill="currentColor"></path>
+                </svg>
+              </span>
+              <div class="stack-flip__titles">
+                <p class="stack-flip__badge" x-text="stack.favoriteFlip.front.badge"></p>
+                <h4 class="stack-flip__label" x-text="stack.favoriteFlip.front.label"></h4>
+              </div>
+            </div>
+            <p class="stack-flip__detail" x-text="stack.favoriteFlip.front.detail"></p>
+          </div>
+          <div
+            class="stack-flip__face stack-flip__face--vue"
+            :aria-hidden="stackFlipDeg <= 90"
+          >
+            <svg
+              class="stack-flip__ghost"
+              viewBox="0 0 24 24"
+              focusable="false"
+              aria-hidden="true"
+              :style="`color: ${stack.favoriteFlip.back.mark.fill}`"
+            >
+              <path :d="stack.favoriteFlip.back.mark.path" fill="currentColor"></path>
+            </svg>
+            <div class="stack-flip__top">
+              <span
+                class="stack-flip__mark"
+                :style="`--mark-fill: ${stack.favoriteFlip.back.mark.fill}; --mark-ink: ${stack.favoriteFlip.back.mark.ink || '#fff'}`"
+                aria-hidden="true"
+              >
+                <svg class="stack-flip__mark-icon" viewBox="0 0 24 24" focusable="false">
+                  <path :d="stack.favoriteFlip.back.mark.path" fill="currentColor"></path>
+                </svg>
+              </span>
+              <div class="stack-flip__titles">
+                <p class="stack-flip__badge" x-text="stack.favoriteFlip.back.badge"></p>
+                <h4 class="stack-flip__label" x-text="stack.favoriteFlip.back.label"></h4>
+              </div>
+            </div>
+            <p class="stack-flip__detail" x-text="stack.favoriteFlip.back.detail"></p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <aside
+      class="ai-kit"
+      :aria-label="stack.toolkitLabel"
+      @mouseenter="showSpeechI18n('stack.aiSpeech', { holdMs: null })"
+      @mouseleave="hideSpeech()"
+      @focusin="showSpeechI18n('stack.aiSpeech', { holdMs: null })"
+      @focusout="!$event.currentTarget.contains($event.relatedTarget) && hideSpeech()"
+    >
+      <div class="ai-kit__intro">
+        <span
+          class="ai-kit__mark"
+          :class="stack.kitMark.mono && 'ai-kit__mark--mono'"
+          aria-hidden="true"
+        >
+          <img
+            class="ai-kit__mark-img"
+            :src="stack.kitMark.src"
+            alt=""
+            width="18"
+            height="18"
+            decoding="async"
+          />
+        </span>
+        <div class="ai-kit__copy">
+          <p class="ai-kit__label" x-text="stack.toolkitLabel"></p>
+          <p class="ai-kit__blurb" x-text="stack.toolkitBlurb"></p>
+        </div>
+      </div>
+      <div class="ai-kit__groups">
+        <template x-for="group in stack.toolGroups" :key="group.id">
+          <section class="ai-kit__group" :aria-label="group.label">
+            <h4 class="ai-kit__group-label">
+              <span x-text="group.label"></span>
+              <span class="ai-kit__group-count" x-text="group.tools.length" aria-hidden="true"></span>
+            </h4>
+            <ul class="ai-tools">
+              <template x-for="tool in group.tools" :key="tool.id">
+                <li>
+                  <button
+                    type="button"
+                    class="ai-tool"
+                    :data-tool="tool.id"
+                    :aria-label="spawnToolLabel(tool)"
+                    @click="spawnAiTool(tool)"
+                  >
+                    <span
+                      class="ai-tool__icon"
+                      :class="tool.mono && 'ai-tool__icon--mono'"
+                      aria-hidden="true"
+                    >
+                      <img
+                        class="ai-tool__img"
+                        :src="tool.icon"
+                        alt=""
+                        width="16"
+                        height="16"
+                        decoding="async"
+                      />
+                    </span>
+                    <span class="ai-tool__name" x-text="tool.label"></span>
+                  </button>
+                </li>
+              </template>
+            </ul>
+          </section>
+        </template>
+      </div>
+    </aside>
+  </div>
 
   <aside
     class="stack-explore"
@@ -201,7 +240,7 @@
             </button>
             <div class="stack-explore-card__titles">
               <p class="stack-explore-card__badge" x-text="item.badge"></p>
-              <h3 class="stack-explore-card__label" x-text="item.label"></h3>
+              <h4 class="stack-explore-card__label" x-text="item.label"></h4>
             </div>
           </div>
           <p class="stack-explore-card__detail" x-text="item.detail"></p>
@@ -235,4 +274,4 @@
       </template>
     </ul>
   </aside>
-</section>
+</div>

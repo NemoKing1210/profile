@@ -38,6 +38,7 @@ export function aboutViewMethods() {
         return {
           id: tool.id,
           label: tool.label,
+          group: tool.group || "app",
           icon: icon.src,
           mono: icon.mono,
           fill: icon.fill || "#1a2332",

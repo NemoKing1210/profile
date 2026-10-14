@@ -624,6 +624,10 @@ export default {
     toolkitLabel: "KI & Agenten",
     toolkitBlurb:
       "Alltags-Stack, um Entwicklung, Review und Design mit neuronalen Netzen zu beschleunigen.",
+    toolGroups: {
+      cli: "Terminal-Agenten",
+      app: "Editoren & Apps",
+    },
     aiSpeech:
       "Ja, ich nutze KI — aber mit Maß: als Tempo-Boost, nicht als Ersatz fürs Denken.",
     flipSpeech:
@@ -1015,7 +1019,6 @@ export default {
   },
   nav: {
     about: "Über mich",
-    stack: "Stack",
     projects: "Projekte",
     interests: "Interessen",
     links: "Links",
